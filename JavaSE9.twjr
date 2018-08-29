@@ -1,0 +1,628 @@
+\input texinfo   @c -*-texinfo-*-
+
+@c %**start of header (This is for running Texinfo on a region.)
+@setfilename JavaSE9.info
+@settitle About Java SE 9
+@c %**end of header (This is for running Texinfo on a region.)
+
+@c Change how xref titles are quoted.
+@dquotexrefs
+@c And let braces in index entries work.
+@allowindexbraces
+@ifclear FORPRINT
+@pdflinkcolor
+@urllinkcolor
+@hideurls
+@end ifclear
+
+
+@c The following information should be updated here only!
+@c This sets the edition of the document.
+
+@c These apply across the board.
+@set UPDATE-MONTH AUGUST, 2018
+@set EDITION 0.1
+
+@set TITLE Outline Covering Java SE 9
+@set SHORTTITLE Java SE 9 Outline
+
+@iftex
+@set DOCUMENT book
+@set CHAPTER chapter
+@set APPENDIX appendix
+@set SECTION section
+@set SUBSECTION subsection
+@end iftex
+@ifhtml
+@set DOCUMENT Web page
+@set CHAPTER chapter
+@set APPENDIX appendix
+@set SECTION section
+@set SUBSECTION subsection
+@end ifhtml
+@ifinfo
+@set DOCUMENT Info file
+@set CHAPTER major node
+@set APPENDIX major node
+@set SECTION minor node
+@set SUBSECTION node
+@end ifinfo
+@ifdocbook
+@set DOCUMENT book
+@set CHAPTER chapter
+@set APPENDIX appendix
+@set SECTION section
+@set SUBSECTION subsection
+@end ifdocbook
+
+@c some special symbols
+@ifnottex
+@macro ii{text}
+@i{\text\}
+@end macro
+@end ifnottex
+
+@c merge the function and variable indexes into the concept index
+@c do so without the code font, and in the index entries do the
+@c font management ourselves.  Also merge in the chunk definition
+@c and reference entries, which jrweave creates for us.
+@ifnothtml
+@synindex fn cp
+@synindex vr cp
+@synindex cd cp
+@synindex cr cp
+@end ifnothtml
+
+@c If "finalout" is commented out, the printed output will show
+@c black boxes that mark lines that are too long.  Thus, it is
+@c unwise to comment it out when running a master in case there are
+@c overfulls which are deemed okay.
+
+@iftex
+@c @finalout
+@end iftex
+
+@ignore
+@copying
+@docbook
+<para>Published by:</para>
+
+<literallayout class="normal">Full Name
+Address Line 1
+Address Line 2
+etc.
+Email: <email>user@@example.com</email>
+URL: <ulink url="http://www.example.com/">http://www.example.com/</ulink></literallayout>
+
+<literallayout class="normal">Copyright &copy; YYYY, YYYY
+Full name here
+All Rights Reserved.</literallayout>
+@end docbook
+
+@ifnotdocbook
+Copyright @copyright{} YYYY, YYYY @*
+Full name here @*
+All Rights Reserved.
+@end ifnotdocbook
+@sp 1
+The FOO program is copyright
+@copyright{} YYYY, YYYY by Full name here. It is published under
+the conditions of the GNU General Public License, version 3.
+@sp 2
+This is Edition @value{EDITION} of @cite{@value{TITLE}}.
+@end copying
+@end ignore
+
+@c Uncomment this for the release.  Leaving it off saves paper
+@c during editing and review.
+@c @setchapternewpage odd
+
+@c Uncomment this if it's ever printed as a real book(let).
+@c @shorttitlepage @value{SHORTTITLE}
+
+@titlepage
+@title @value{TITLE}
+@subtitle @value{UPDATE-MONTH}
+@author LOLH
+
+@ignore COPYRIGHT PAGES
+@ifnotdocbook
+@c Include the Distribution inside the titlepage environment so
+@c that headings are turned off.  Headings on and off do not work.
+
+@page
+@vskip 0pt plus 1filll
+Published by:
+@sp 1
+Full name here @*
+Address Line 1 @*
+Address Line 2 @*
+etc. @*
+Email: @EMAIL{user@@example.com,user AT example.com} @*
+URL: @url{http://www.example.com/} @*
+
+@insertcopying
+@end ifnotdocbook
+@end ignore
+@end titlepage
+
+@set DRAFT @i{DRAFT}
+
+@iftex
+@headings off
+@evenheading @thispage @| @value{DRAFT} @| @strong{@value{SHORTTITLE}}
+@oddheading  @strong{@thischapter} @| @value{DRAFT} @| @thispage
+@end iftex
+
+@ifnottex
+@ifnotdocbook
+@ifnotxml
+@node Top
+@top General Introduction
+@c Preface node should come right after the Top
+@c node, in `unnumbered' sections, then the introductory chapter.
+@c Licensing nodes are appendices, they're not central to TexiWebJr.
+
+This file documents @value{TITLE}.
+
+@c @insertcopying
+@end ifnotxml
+@end ifnotdocbook
+@end ifnottex
+
+@menu
+@detailmenu
+@end detailmenu
+@end menu
+
+@summarycontents
+@contents
+
+@c Add these to the menu if they ever get included.
+@c @node Foreword
+@c @unnumbered Foreword
+
+@ignore
+PREFATORY MATTER THRU ACKNOWLEDGEMENTS
+
+@node Preface
+@c @unnumbered Preface
+
+Text here.
+
+@node Audience
+@c @unnumberedsec Intended Audience
+
+Text here.
+
+@node Overview
+@c @unnumberedsec What Is Covered
+
+Text and chapter by chapter description here.
+
+@node Conventions
+@c @unnumberedsec Typographical Conventions
+
+@c Copied mostly verbatim from the gawk manual.
+
+@cindex Texinfo document formatting language
+This @value{DOCUMENT} is written in an enhanced version of
+@uref{http://www.gnu.org/software/texinfo/, Texinfo},
+the GNU documentation formatting language.
+A single Texinfo source file is used to produce both the printed and online
+versions of a program's documentation.
+@ifnotinfo
+Because of this, the typographical conventions
+are slightly different than in other books you may have read.
+@end ifnotinfo
+
+Examples you would type at the command-line are preceded by the common
+shell primary and secondary prompts, @samp{$} and @samp{>}.  Input that
+you type is shown @kbd{like this}.  Output from the command is preceded
+by the glyph ``@print{}''.  This typically represents the command's
+standard output.  Error messages, and other output on the command's
+standard error, are preceded by the glyph ``@error{}''.  For example:
+
+@example
+$ @kbd{echo hi on stdout}
+@print{} hi on stdout
+$ @kbd{echo hello on stderr 1>&2}
+@error{} hello on stderr
+@end example
+
+@ifnotinfo
+In the text, command names appear in @code{this font}, while code segments
+appear in the same font and quoted, @samp{like this}.  Options look
+like this: @option{-f}.  Some things are emphasized @emph{like this},
+and if a point needs to be made strongly, it is done @strong{like this}.
+The first occurrence of a new term is usually its @dfn{definition} and
+appears in the same font as the previous occurrence of ``definition''
+in this sentence.  Finally, file names are indicated like this:
+@file{/path/to/our/file}.
+@end ifnotinfo
+
+@node Acknowledgements
+@c @unnumberedsec Acknowledgements
+
+@end ignore
+
+@node Introduction
+@chapter Introduction
+
+@node Packages
+@chapter Main Chapter about Packages
+@cindex Packages (chapter start)
+
+@ii{Packages} are containers for classes.  They are used to keep the class
+namespace compartmentalized, i.e., to prevent collisions between file names.
+Packages are stored in a heirarchical manner and are explicitly imported into
+new class definitions.
+@cindex compartmentalized
+@cindex collisions, prevention
+@cindex packages, import
+@cindex import packages
+@cindex hierarchical structure, packages
+
+@node Packages Intro
+@section Introduction to Packages
+@cindex Introduction to Packages (section)
+
+Java provides a mechanism for partitioning the class name space into
+manageble chunks: the PACKAGE.  The package is both a naming and a visibility
+control mechanism.  In other words, you can use the package mechanism to
+define classes inside a package that are not accessible by code outside the
+package; and you can define class members that are exposed only to other
+members of the same package.
+@cindex partitioning mechanism
+@cindex naming mechanism
+@cindex visibility mechanism
+@cindex accessibility
+@cindex exposure of code
+
+@node Define Packages
+@section Defining Packages
+@cindex Packages, Defining (section)
+
+To create a package, include the @command{package} command as the first
+statement in a Java source file.  Thereafter, any classes declared within
+that file will belong to the specified package.  The @command{package}
+statement defines a name space in which classes are stored.  Without the
+@command{package} statement, classes are put into the default package (which
+has no name).
+
+@subheading General Form of @command{package} statement
+@cindex package statement, general form
+
+@display
+package @ii{pkg}
+@end display
+
+@ii{pkg} is the name of the package.  For example:
+@cindex package statement, example
+
+@example
+package mypackage;
+@end example
+
+@subheading File System Directories
+
+Java uses the file system directories to store packages.  Therefore, the
+@code{.class} files for any classes you declare to be part of
+@code{mypackage} must be stored in a directory called @code{mypackage}.  The
+directory name must match the package name exactly.
+
+More than one file can include the same @command{package} statement.  The
+@command{package} statement simply specifies to which package the classes
+defined in a file belong.  It does not exclude other classes in other files
+from being part of that same package.  Most real-world packages are spread
+across many files.
+
+@subheading Hierarchy of Packages
+@cindex packages hierarchy
+
+You can create a hierarch of packages.  To do so, separate each package name
+form the one above it by use of a period.  The general form of a multileveled
+package statement is:
+@cindex package statement, multilevel form
+
+@display
+package @ii{pkg1[.pkg2[.pkg3]]}
+@end display
+
+A package hierarchy must be reflected in the file system of your Java
+development system.  For example a package declared as:
+
+@example
+package a.b.c;
+@end example
+
+needs to be stored in directory @code{a/b/c}.
+
+Be sure to choose package names carefully; you cannot rename a package
+without renaming the directory in which the classes are stored.
+
+@node Classpath
+@section Finding Packages and CLASSPATH
+@cindex @env{CLASSPATH} @option{-classpath}
+@cindex finding packages
+@cindex run-time system
+@cindex modules
+@cindex module path
+
+Packages are mirrored by directories.  How does the Java run-time system know
+where to look for packages?
+
+@table @b
+@item @samp{cwd}
+By default, the Java run-time system uses the currect working directory as
+its starting point.  Thus, if your package is in a subdirectory of the
+current directory, it will be found.
+@item @env{CLASSPATH}
+You can specify a directory path or paths by setting the @env{CLASSPATH}
+environment variable.
+@item @option{-classpath}
+You can use the @option{-classpath} option with @command{java} and
+@command{javac} to specify the path to your classes.
+@item module path
+Beginning with JDK 9, a package can be part of a module, and thus found on
+the module path.
+@end table
+
+@subheading Example Finding a Package
+@cindex finding packages, example
+
+Consider the following package specification:
+
+@example
+package mypack;
+@end example
+
+In order for programs to find @code{mypack}, the program can be executed from
+a directory @strong{immediadely above} @code{mypack}, or the @env{CLASSPATH}
+must be set to include the path to @code{mypack} or the @option{-classpath}
+option must specify the path to @code{mypack} when the program is run via
+@command{java}.
+
+When the second of the above options are used, the class path @strong{must
+not include} @code{mypack} itself.  It must simply specify the @ii{path} to
+@code{mypack}.  For example, if the path to @code{mypack} is
+
+@example
+/MyPrograms/Java/mypack
+@end example
+
+then the class path to @code{mypack} is
+
+@example
+/MyPrograms/Java
+@end example
+
+@node Member Access
+@section Packages and Member Access
+@cindex access control, packages
+@cindex packages, access control
+@cindex member access
+@cindex access, member
+
+Packages add another dimension to access control.  Classes and packages are
+both means of encapsulating and containing the name space and scope of
+variables and methods.  @emph{Packages} act as containiners for classes and
+other subordinate packages.  @emph{Classes} act as containers for data and
+code.  The class is Java's smallest unit of abstraction.  As it relates to
+the interplay between classes and packages, Java addresses four categories of
+visibility for class members:
+
+@itemize
+@item
+Subclasses in the same package
+@item
+Non-subclasses in the same package
+@item
+Subclasses in different packages
+@item
+Classes that are neither in the same package nor subclasses
+@end itemize
+
+The three access modifiers
+
+@itemize
+@item
+private
+@item
+public
+@item
+protected
+@end itemize
+
+provide a variaty of ways to produce many levels of access required by these
+categories.
+@cindex access control table
+
+@float Table,PackageAccess
+@multitable @columnfractions .4 .15 .15 .15 .15
+@headitem Category @tab Private @tab None @tab Protected @tab public
+@item
+Same Class @tab Yes @tab Yes @tab Yes @tab Yes
+@item
+Same package subclass @tab No @tab Yes @tab Yes @tab Yes
+@item
+Same package non-subclass @tab No @tab Yes @tab Yes @tab Yes
+@item
+Different package subclass @tab No @tab No @tab Yes @tab Yes
+@item
+Different package noni-subclass @tab No @tab No @tab No @tab Yes
+@end multitable
+@caption {Package Access Table --- Shows all combinations of the access
+control modifiers}
+@shortcaption{Package Access Table}
+@end float
+
+@node Importing
+@section Importing Packages
+@cindex packages, importing
+@cindex importing packages
+
+Java includes the @command{import} statement to bring certain classes, or
+entire packages, into visibility.  Once imported, a class can be referred to
+directly, using only its name.  The @command{import} statement is a
+convenience to the programmer and is not technically needed to write a
+complete Java program.
+
+In a Java source file, @command{import} statements occur immediately
+following the @command{package} statement (if one exists) and before any
+class definitions.  This is the general form of the @command{import}
+statement:
+@cindex import statement, general form and example
+
+@display
+import @ii{pkg1}[.@ii{pkg2}].(@ii{classname} | *);
+@end display
+
+Here, @ii{pkg1} is the name of a top-level package, and @ii{pkg2} is the name
+of a subordinate package inside the outerpackage separated by a dot
+(@tt{.}).  There is no limit on the depth of a package hierarchy.  Finally,
+you can specify either an explicit @file{classname} or a star (@tt{*}), which
+indicates that the Java compile should import the entire package.
+
+@example
+import java.util.Date;
+imort java.io.*;
+@end example
+
+@cindex standard Java classes, imported implicitly
+@cindex @file{java.lang}
+All of the standard Java SE classes included with Java begin with the name
+@file{java}.  The basic language functions are stored in a package called
+@file{java.lang}.  Normally, you have to import every package or class that
+you want to use, but since Java is useless without much of the functionality
+in @file{java.lang}, it is implicitly imported by the compiler for all
+programs.  This is equivalent to the following line being at the top of all
+your programs:
+
+@example
+import java.lang.*;
+@end example
+
+@cindex import is optional
+@cindex fully qualified name
+The @command{import} statement is @emph{optional}.  Any place you use a class
+name, you can use its @emph{fully qualified name}, which includes its full
+package hierarchy.
+
+@cindex imported packages must be public
+When a package is imported, only those items within the package declared as
+@command{public} will be available to non-subclasses in the importing code.
+
+
+
+
+
+
+
+@c ****************************************************************************
+@node The Makefile
+@appendix The Makefile
+@cindex Makefile, The (appendix)
+
+@(Makefile@)=
+@<Makefile CONSTANTS@>
+@<Makefile DEFAULTS@>
+@<Makefile TANGLE WEAVE@>
+@<Makefile CLEAN@>
+@
+
+@node Makefile Constants
+@appendixsec Makefile Constants
+@cindex Constants
+
+@<Makefile CONSTANTS@>=
+FILENAME := JavaSE9
+
+@
+
+@node Makefile Defaults
+@appendixsec Makefile Default Targets
+@cindex Makefile defaults
+
+@<Makefile DEFAULTS@>=
+.PHONY: all
+all: tangle weave
+
+@
+
+@node Makefile Tangle Weave
+@appendixsec Makefile Tangle Weave Targets
+@cindex Makefile Tangle
+@cindex Makefiel Weave
+
+@<Makefile TANGLE WEAVE@>=
+.PHONY: tangle weave jrtangle jrweave
+tangle: jrtangle
+weave: jrweave
+
+jrtangle: $(FILENAME).twjr
+	jrtangle $(FILENAME).twjr
+
+jrweave: $(FILENAME).texi
+
+$(FILENAME).texi: $(FILENAME).twjr
+	jrweave $(FILENAME).twjr > $(FILENAME).texi
+@
+
+@node Makefile Clean
+@appendixsec Makefile Clean Targets
+@cindex Makefile Clean targets
+
+@<Makefile CLEAN@>=
+.PHONY: clean
+clean:
+	rm -f *~
+	rm -f $(FILENAME).???
+
+@
+
+@node Code Chunk Summaries
+@appendix Code Chunk Summaries
+
+This @value{APPENDIX} presents alphabetical lists of
+all the file definitions, the code chunk definitions,
+and the code chunk references.
+
+@menu
+* File Definitions::          Source files by definition.
+* Code Chunk Definitions::    Code chunks by definition.
+* Code Chunk References::     Code chunks by reference.
+@end menu
+
+@node File Definitions
+@appendixsec Source File Definitions
+
+@print_file_defs
+
+@node Code Chunk Definitions
+@appendixsec Code Chunk Definitions
+
+@print_code_defs
+
+@node Code Chunk References
+@appendixsec Code Chunk References
+
+@print_code_refs
+
+
+@node List of Tables
+@unnumbered List of Tables
+@listoffloats Table
+
+
+@node Bibliography
+@unnumbered Bibliography
+
+@node Concept Index
+@unnumbered Index
+
+@printindex cp
+
+@bye
+
+TODO:
