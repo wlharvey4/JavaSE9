@@ -937,6 +937,7 @@ T ob;	// declare an object of type T
 @
 
 @subsubheading The Constructor
+@anchor{generics-constructor}
 
 Here is the constructor for @code{Gen}.  Notice that its parameter, @code{o},
 is of type @samp{T}.  This means that the actual type of @code{o} is
@@ -1290,6 +1291,255 @@ instance creation:
 Class}
 @shortcaption{General Form Generic Class}
 @end float
+
+@node Bounded Types
+@section Bounded Types
+@cindex generics, bounded types
+@cindex bounded types
+@cindex upper bound
+@cindex @command{extends} clause
+
+Sometimes it can be useful to limit the types that can be passed to a type
+parameter.  Java provides @dfn{bounded types}.  When specifying a type
+parameter, you can create an upper bound that declares the superclass from
+which all type arguments must be derived.  This is accomplished through the
+use of an @command{extends} clause when specifying the type parameter:
+
+@display
+@:<@ii{T} extends @ii{superclass}>
+@end display
+
+This specifies that @ii{T} can only be replaced by @ii{superclass} or
+subclasses of @ii{superclass}.  Thus, @ii{superclass} defines an inclusive,
+upper limit.
+
+@subheading Interface Type as a Bound
+@cindex generics, interface as bound
+@cindex interface as bound, generics
+
+In addition to using a class type as a bound, you can also use an interface
+type.  In fact, youi can specify multiple interfaces as bounds.  Furthermore,
+a bound can include both a class type and one or more interfaces.  In this
+case, the class type must be specified first.  When a bound includes an
+interface type, only type arguments that implement that interface are legal.
+
+When specifying a bound that has a class and an interface, or multiple
+interfaces, use the @kbd{&} operator to connnect them.
+
+@example
+class Gen<T extends MyClass & MyInterface> @{ @dots{}
+@end example
+
+Any type argument passed to @samp{T} must be a subclass of @code{MyClass} and
+implement @code{MyInterface}.
+
+@node Wildcard Arguments
+@section Using Wildcard Arguments
+@cindex generics, wildcard arguments
+@cindex wildcard arguments, generics
+
+Sometimes type safety can get in the way of perfectly acceptable constructs.
+In such cases, there is a @dfn{wildcard} argument that can be used.  The
+wildcard argument is specified by the @kbd{?}, and it represents an unknown
+type.  It would be used in place of a type parameter, for example:
+
+@example
+boolean sameAvg(Stats<?> ob) @{
+  if(average() == ob.average())
+    return true;
+
+  return false;
+@}
+@end example
+
+Here, @samp{Stats<?>} matches any @code{Stats} object (@code{Integer},
+@code{Double}), allowing any two @code{Stats} objects to have their averages
+compared.  The wildcard does not affect what type of @code{Stats} object can
+be created.  That is governed by the @command{extends} clause in the
+@code{Stats} declaration.  The wildcard simply matches any @emph{valid}
+@code{Stats} object.
+
+@node Bounded Wildcards
+@subsection Bounded Wildcards
+@cindex wildcards, bounded
+@cindex bounded wildcards
+
+Wildcard arguments can be bounded in much the same way that a type parameter
+can be bounded (the @dfn{bounded wildcard argument}.  A bounded wildcard is
+especially important when you are creating a generic type that will operate
+on a class hierarchy.
+
+A bounded wildcard specifies either an upper bound or a lower bound for the
+type argument.  This enables you to restrict the types of objects upon which
+a method will operate.
+
+@subsubheading Upper Bounded Wildcard
+@cindex bounded wildcards, upper bound
+@cindex upper bounded wildcard
+
+The most common bounded wildcard is the upper bound, which is created using
+an @command{extends} clause.In general, to establish an upper bound for a
+wildcard, use the following type of wildcard expression:
+@cindex bounded wildcards, upper bound
+@cindex upper bound wildcard argument
+
+@float GeneralForm,UpperBoundedWildcard
+@display
+<? extends @ii{superclass}>
+@end display
+@caption{General Form of Upper Bounded Wildcard Syntax}
+@shortcaption{Upper Bounded Wildcard}
+@end float
+
+where @ii{superclass} is the name of the class that serves as the upper
+bound.  This is an inclusive clause.
+
+@subsubheading Lower Bounded Wildcard
+@cindex bounded wildcards, lower bound
+@cindex lower bounded wildcard
+
+You can also specify a lower bound for a wildcard by adding a @command{super}
+clause to a wildcard declaration.  Here is its general form:
+
+@float GeneralForm,LowerBoundedWildcard
+@display
+<? super @ii{subclass}>
+@end display
+@caption{General Form of Lower Bounded Wildcard Syntax}
+@shortcaption{Lower Bounded Wildcard}
+@end float
+
+Only classes that are superclasses of @ii{subclass} are acceptable arguments
+
+@node Generic Methods
+@section Creating a Generic Method
+@cindex generic method, creating
+@cindex creating generic method
+
+It is possible to declare a generic method that uses one or more type
+parameters of its own.  It is also possible to create a generic method that
+is enclosed within a non-generic class.
+
+@subheading Generalized Form
+
+@float GeneralForm,GenericMethod
+@display
+< @ii{type-param-list} > @ii{ret-type} @ii{meth-name} ( @ii{param-list} ) @{ @dots{}
+@end display
+@caption{General Form for Declaring a Generic Method}
+@shortcaption{Generic Method Declaration}
+@end float
+
+@node Example of Generic Method
+@subsection Example of Generic Method
+@cindex generic method, example
+@cindex example generic method
+
+The following program declares a non-generic class called @code{GenMethDemo}
+and a static @strong{generic method} within that class called @code{isIn()}.
+The @code{isIn()} method determines if an object is a member of an array.  It
+can be used with any type of object and array as long as the array contains
+objects that are compatible with the type of the object being sought.
+
+@(GenMethDemo.java@)=
+class GenMethDemo {
+  @<Static Method isIn@>
+  @<GenMethDemo Main@>
+}
+@
+
+@node Method isIn
+@subsubsection Method isIn()
+
+The @strong{type parameters} are declared @emph{before} the return type of
+the method.
+
+@<Static Method isIn@>=
+static <T extends Comparable<T>, V extends T> boolean isIn(T x, V[] y) {
+
+  for (int i = 0; i < y.length; i++)
+    if (x.equals(y[i]) return true;
+
+  return false;
+}
+
+@
+
+The type @ii{T} is @strong{upper-bounded} by the @code{Comparable} interface,
+which must be of the same type as @ii{T}.  Likewise, the second type, @ii{V},
+is also @strong{upper-bounded} by @ii{T}.  Thus, @ii{V} must be either the
+same type as @ii{T} or a subclass of @ii{T}.  This relationship enforces that
+@code{isIn()} can be called only with arguments that are compatible with each
+other.
+
+@cindex generic method, static
+@cindex static generic method
+While @code{isIn()} is static in this case, generic methods can be either
+static or non-static; there is no restriction in this regard.
+
+@subsubheading Explicitly Including Type Arguments
+@cindex generic methods, including type arguments
+
+There is generally no need to specify type arguments when calling this method
+from within the @code{main} routine.  This is because the type arguments are
+automatically discerned, and the types of @ii{T} and @ii{V} are adjusted
+accordingly.
+
+Although type inference will be sufficient for most generic method calls, you
+can explicitly specify the type argument if needed.  For example, here is how
+the first call to @code{isIn()} looks when the type argumetns are specified:
+
+@example
+GenMethDemo.<Integer, Integer>isIn(2, nums)
+@end example
+
+
+@node GenMethDemo Main
+@subsubsection GenMethDemo Main
+
+@<GenMethDemo Main@>=
+public static void main(String args[]) {
+
+  // call isIn() with Integer type
+  Integer nums[] = { 1, 2, 3, 4, 5 };
+
+  if ( isIn(2, nums) )
+    System.out.println("2 is in nums");
+
+  if ( @isIn(7, nums))
+    System.out.println("7 is not in nums");
+
+  System.out.println();
+
+  // call isIn() with String type
+  String strs[] = { "one", "two", "three", "four", "five" };
+
+  if ( isIn("two", strs))
+    System.out.println("two is in strs");
+
+  if ( !isIn("seven", strs))
+    System.out.println("seven is not in strs");
+
+  // call isIn() with mixed types
+  // WILL NOT COMPILE! TYPES MUST BE COMPATIBLE
+  // if ( isIn("two", nums))
+  //    System.out.println("two is in nums");
+}
+
+@
+
+@node Generic Constructors
+@section Generic Constructors
+@cindex generics, generic constructors
+@cindex generic constructors
+
+It is possible for constructors to be generic, even if their class is not
+(@pxref{generics-constructor}). The syntax is the same (type parameters come
+first).
+
+@display
+< @ii{type-param-list}> @ii{constructor-name} ( @ii{param-list} ) @{ @dots{}
+@end display
 
 
 @c ****************************************************************************
