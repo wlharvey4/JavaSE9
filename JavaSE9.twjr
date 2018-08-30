@@ -533,9 +533,6 @@ When a package is imported, only those items within the package declared as
 @node Interfaces
 @chapter Interfaces
 @cindex Interfaces (chapter)
-
-@node Introduction to Interfaces
-@section Interfaces Introduction
 @cindex interfaces, introduction
 @cindex keyword interface
 @cindex abstract class
@@ -810,6 +807,490 @@ private inteface method is not inherited by a subinterface.
 
 The key benefit of a private interface method is that it lets two or more
 default methods use a common piece of code, thus avoiding code duplication.
+
+
+@c ****************************************************************************
+@node Generics
+@chapter Generics
+@cindex Generics (chapter)
+@cindex generics, introduction
+
+Through the use of generics, it is possible to create classes, interfaces,
+and methods that will work in a type-safe manner with various kinds of data.
+Many algorithms are logically the same no matter what type of data they are
+being applied to.  For example, the mechanism that supports a stack is the
+same whether that stack is storing items of type @command{Integer},
+@command{String}, @command{Object}, or @command{Thread}.  With generics, you
+can define an algorithm once, independently of any specific type of data, and
+then apply that algorithm to a wide variety of data types without any
+additional effort.
+
+Perhaps the one feature of Java that has been most significantly affected by
+generics is the @cite{Collections Framework}.  A @dfn{collection} is a group
+of objects.  The Collections Framework defines several classes, such as lists
+and maps, that manage collections.  The collection classes have always been
+able to work with any type of object.  The benefit that generics addes is
+that the collection classes can now be used with complete type safety.
+
+This chapter describes the syntax, theory, and use of generics.  It also
+shows how generics provide type safety for some previously difficult cases.
+
+@node What are Generics
+@section What Are Generics
+@cindex generics, what they are
+@cindex parameterized types
+@cindex generic class, method
+@cindex @command{Object} type
+@cindex type safety, generics
+@cindex casts, generics, automatic, implicit
+@cindex generics, casts
+
+The term @dfn{generics} means @i{parameterized types}.  Parameterized types
+are important because they enable you to create classes, interfaces, and
+methods in whicht the type of data upon which they operate is specified as a
+parameter.  Using generics, it is possible to create a single class, for
+example, that automatically words with different types of data.  A class,
+interface, or method that operates on a parameterized type is called
+@dfn{generic}, as in @i{generic class} or @i{generic method}.
+
+Java has always given the ability to create generalized classes, interfaces,
+and methods by operating through references of type @command{Object}.
+Generics added the type safety that was lacking.  They also streamlined the
+process, because it is no longer necessary to explicitly employ casts to
+translate between @command{Object} and the type of data that is being operate
+upon.  Wtih generics, all casts are automatic and implicit.
+
+@node Simple Generics Example
+@section A Simple Generics Example
+@cindex generics example
+@cindex example, generics
+@cindex generic class
+
+The following program defines two classes.  The first is the generic class
+@command{Gen}, and the second is @command{GenDemo}, which uses @command{Gen}.
+
+@(SimpleGenerics.java@)=
+@<Class Gen@>
+@<Class GenDemo@>
+@
+
+@node Class Gen<T>
+@subsection Class Gen<T>
+@cindex generic class
+@cindex parameter, generic class
+@cindex type parameter, generic class
+@cindex parameterized type
+
+This is a simple generic class.  The class @code{Gen} is declared with a
+parameter of @samp{<T>}:
+
+@example
+class Gen<T> @{
+@end example
+
+@samp{T} is the name of a @dfn{type parameter}.  This name is used as a
+placeholder for the actual type that will be passed to @code{Gen} when an
+object is created.  Thus, @samp{T} is used within @code{Gen} whenever the
+type parameter is needed.
+
+Notice that @samp{T} is contained within @samp{< >}.  This syntax can be
+generalized.  Whenever a type parameter is being declared, it is specified
+within angle brackets.
+
+Because @code{Gen} uses a type parameter, @code{Gen} is a @emph{generic
+class}, which is also called a @emph{parameterized type}.
+
+@subsubheading Outline of Class Gen<T>
+
+Class @code{Gen} contains four parts:
+
+@itemize
+@item
+an instance variable declaration
+@item
+a constructor
+@item
+a method returning the instance variable
+@item
+a method describing the type of the instance variable
+@end itemize
+
+@<Class Gen@>=
+class Gen<T> {
+  @<Instance Variable ob of Type T@>
+  @<Constructor taking parameter of Type T@>
+  @<Method returning object of type T@>
+  @<Method showing type of T@>
+}
+@
+
+@subsubheading Implementation of Class Gen<T>
+
+@samp{T} is used to declare an object called @code{ob}.  @samp{T} is a
+placeholder for the actual type that will be specified when a @code{Gen}
+object is created.  Thus, @code{ob} will be an object of the type passed to
+@samp{T}.  
+
+@<Instance Variable ob of Type T@>=
+T ob;	// declare an object of type T
+
+@
+
+@subsubheading The Constructor
+
+Here is the constructor for @code{Gen}.  Notice that its parameter, @code{o},
+is of type @samp{T}.  This means that the actual type of @code{o} is
+determined by the type passed to @samp{T} when a @code{Gen} object is
+created.  Because both the parameter @code{o} and the member variable
+@code{ob} are of type @samp{T}, they will both be the same actual type when
+a @code{Gen} object is created.
+
+@<Constructor taking parameter of Type T@>=
+// Pass the constructor a reference to
+// an object of type T
+Gen (T o) {
+  ob = o;
+}
+
+@
+
+@subsubheading Instance Methods @code{getob()} and @code{showType()}
+
+The type parameter @samp{T} can also be used to specify the return type of a
+method, as here in @code{getob()}.  Because @code{ob} is also of type
+@samp{T}, its type is compatible wih the return type specified by
+@code{getob()}.  
+
+@<Method returning object of type T@>=
+// Return ob
+T getob() {
+  return ob;
+}
+
+@
+
+@cindex @command{Class}
+@cindex @command{Object}
+@cindex @code{getClass()}, defined in @command{Object}
+@cindex @command{Class} object, from @code{getClass()}
+@cindex @code{getName()}, defined in @command{Class}
+@cindex class name, from @code{getName()}
+
+The method @code{showType()} displays the type of @samp{T} by calling
+@code{getName()} on the @command{Class} object return by the call to
+@code{getClass()} on @code{ob}.   The @code{getClass()} method is defined
+by @code{Object} and is thus a member of @emph{all} class types.  It returns
+a @command{Class} object that corresponds to the type of the class of the
+object on which it is called.  @command{Class} defines the @code{getName()}
+method, which returns a string representation of the class name.
+
+@<Method showing type of T@>=
+// Show type of T
+void showType() {
+  System.out.println("Type of T is " + ob.getClass().getName();
+}
+
+@
+
+@node Class GenDemo
+@subsection Class GenDemo
+@cindex generic code, demonstrating an implementation
+@cindex erasure
+@cindex type erasure
+
+The @code{GenDemo} class demonstrates the generic @code{Gen} class.
+
+But first, take note: The Java compiler does not actually create different
+versions of @code{Gen}, or of any other generic class.  The compiler removes
+all generic type information, substituting the necessary casts, to make your
+code @strong{behave as if} a specific version of @code{Gen} were created.
+There is really only one version of @code{Gen} that actually exists.
+
+The process of removing generic type information is called @dfn{type
+erasure}.  
+
+@code{GenDemo} first creates a version of @code{Gen} for integers and calls
+the methods defined in @code{Gen} on it.  It then does the same for a String
+object.
+
+@<Class GenDemo@>=
+// Demonstrate the generic class
+class GenDemo {
+  public static void main(String args[]) {
+    @<Create a Gen object for Integers@>
+    @<Create a Gen object for Strings@>
+  }
+}
+
+@
+
+@node GenDemo as Integer
+@subsubsection Implementation of Class GenDemo with Type Integer
+@cindex generic reference, creating
+@cindex type argument, passed to type parameter
+
+@<Create a Gen object for Integers@>=
+@<Integer Type Parameter@>
+@<Reference to Integer Instance@>
+@<Show Type@>
+@<Get Value@>
+@
+
+@subsubheading Integer Type Declaration
+@cindex generic reference to Integer
+
+A reference to an Integer is declared in @code{iOb}.  Here, the type
+@samp{Integer} is specified within the angle brackets after @code{Gen}.
+@samp{Integer} is a @dfn{type argument} that is passed to @code{Gen}'s type
+parameter, @samp{T}.  This effectively creates a version of @code{Gen} in
+which all references to @samp{T} are translated into references to
+@samp{Integer}.  Thus, @code{ob} is of type @samp{Integer}, and the return
+type of @code{getob()} is of type @samp{Integer}.
+
+@<Integer Type Parameter@>=
+Gen<Integer> iOb;
+
+@
+
+@subsubheading Reference Assignment
+@cindex generic reference assignment to Integer
+@cindex generic type checking
+@cindex generics, compile-time error, mismatched types
+@cindex generics, type safety benefit
+@cindex autoboxing in generic reference
+
+The next line assigns to @code{iOb} a reference to an instance of an
+@samp{Integer} version of the @code{Gen} class.  When the @code{Gen}
+constructor is called, the type argument @samp{Integer} is also specified.
+This is because the type of the object (in this case @code{iOb} to which the
+reference is being assigned is of type @code{Gen<Integer>}.  Thus, the
+reference returned by @command{new} must also be of type
+@code{Gen<Integer>}.  If it isn't, a compile-time error will result.  This
+type checking is one of the main benefits of generics because it ensures type
+safety.  
+
+Notice the use of autoboxing to encapsulate the value 88 within an Integer
+object.
+
+@<Reference to Integer Instance@>=
+iOb = new Gen<Integer>(88);
+
+@
+
+The automatic autoboxing could have been written explicitly, like so:
+@example
+iOb = new Gen<Integer>(Integer.valueOf(88));
+@end example
+@noindent but there would be no value to doing it that way.
+
+@subsubheading Showing the Reference's Type
+
+The program then uses @code{Gen}'s instance method to show the type of
+@code{ob}, which is an @samp{Integer} in this case.
+
+@<Show Type@>=
+iOb.showType();
+
+@
+
+@subsubheading Showing the Reference's Value
+
+The program now obtains the value of @code{ob} by assiging @code{ob} to an
+@samp{int} variable.  The return type of @code{getob()} is @samp{Integer},
+which unboxes into @samp{int} when assigned to an @samp{int} variable
+(@code{v}).  There is no need to cast the return type of @code{getob()} to
+@samp{Integer}.  
+
+@<Get Value@>=
+int v = iOb.getob();
+System.out.println("value: " + v);
+System.out.println();
+
+@
+
+@node GenDemo as String
+@subsubsection Implementation of Class GenDemo with Type String
+
+@<Create a Gen object for Strings@>=
+// Create a Gen object for Strings.
+Gen<String> strOb = new Gen<String>("Generics Test");
+
+// Show the type of data used by strOb
+strOb.showType();
+
+// Get the value of strOb.  Again, notice
+// that no cast is needed.
+String str = strOb.getob();
+System.out.println("value: " + str);
+
+@
+
+@node Notes about Generics
+@section Notes About Generics
+
+@node Reference Types
+@subsection Generics Work Only with Reference Types
+@cindex generics, only reference types
+@cindex generic type argument, reference type
+@cindex type wrappers, generics
+@cindex auto-boxing, generics
+@cindex auto-unboxing, generics
+
+When declaring an instance of a generic type, the type argument passed to the
+type parameter must be a reference type.  It cannot be a primitive type, such
+as @samp{int} or @samp{char}.
+
+You can use the type wrappers to encapsulate a primitive type.  Java's
+autoboxing and auto-unboxing mechanism makes the use of the type wrapper
+transparent.  
+
+@node Type Arguments
+@subsection Generic Types Differ Based on their Type Arguments
+@cindex generic types differ, type arguments
+
+A reference of one specific version of a generic type is not type-compatible
+with another version of the same generic type.  In other words, the following
+line of code is an error and will not compile:
+
+@example
+iOb = strOb; // Gen<Integer> != Gen<String>
+@end example
+
+These are references to different types because their type arguments differ.
+
+@node Type Safety
+@subsection How Generics Improve Type Safety
+@cindex generics improve type safety
+@cindex generics ensure type safety
+@cindex generics eliminate casts
+@cindex casts, eliminated in generics
+
+Generics automatically ensure the type safety of all operations involving a
+generic class, such as @code{Gen}.  They eliminate the need for the coder to
+enter cases and to type-check code by hand.
+
+@node Two Type Parameters
+@section A Generic Class with Two Type Parameters
+@cindex generic class, two type parameters
+
+You can declare more than one type parameter in a generic type.  To specify
+two or more type parameters, use a comma-separated list.  When an object is
+created, the same number of type arguments must be passed as there are type
+parameters.  The type arguments can be the same or different.
+
+@node Two Types Example Code
+@subsection Example of Code with Two Type Parameters
+
+@(TwoTypeParameters.java@)=
+@<Class TwoGen@>
+@<Class SimpGen@>
+@
+
+@node Class TwoGen
+@subsubsection Class TwoGen
+
+@<Class TwoGen@>=
+@<Class Declaration@>
+  @<Two Instance Variables Declarations@>
+  @<Constructor of Two Parameters@>
+  @<Instance Methods Show and Get@>
+@
+
+@subsubheading Class Declaration
+@cindex generics, two type parameters, declaration
+@cindex generics, two type arguments
+
+Notice how @code{TwoGen} is declared.  It specifies two type parameters:
+@samp{T} and @samp{V}, separated by a comma.  Because it has two type
+parameters, two type arguments must be passed to @code{TwoGen} when an object
+is created.
+
+@<Class Declaration@>=
+class TwoGen<T, V> {
+@
+
+@subsubheading Instance Variables Declarations
+
+@<Two Instance Variables Declarations@>=
+T ob1;
+V ob2;
+
+@
+
+@subsubheading Constructor
+@<Constructor of Two Parameters@>=
+TwoGen(T o1, V 02) {
+  ob1 = o1;
+  ob2 = o2;
+}
+
+@
+
+@subsubheading Instance Methods Show and Get
+@<Instance Methods Show and Get@>=
+void showTypes() {
+  System.out.println("Type of T is " + ob1.getClass().getName());
+  System.out.println("Type of V is " + ob2.getClass().getName());
+}
+
+T getob1() {
+  return ob1;
+}
+
+V getob2() {
+  return ob2;
+}
+
+@
+
+@node Class SimpGen
+@subsubsection Class SimpGen
+
+Two type arguments must be supplied to the constructor.  In this case, the
+two type parameters are @samp{Integer} and @samp{String}.
+
+@<Class SimpGen@>=
+class SimpGen {
+  public static void main(String args[]) {
+    TwoGen<Integer, String> tgObj = new TwoGen<Integer, String>(88, "Generics");
+
+    // Show the types
+    tgObj.showTypes();
+
+    // Obtain and show values
+    int v = tgObj.getob1();
+    System.out.println("value: " + v);
+
+    String str = thObj.getob2();
+    System.out.println("value: " + str);
+  }
+}
+@
+
+@node Generic Class General Form
+@section The General Form of a Generic Class
+@cindex generic class, general form
+
+The generics syntax shown above can be generalized.  Here is the syntax for
+declaring a generic class:
+
+@float GeneralForm,GenericClass
+@display
+class @ii{class-name}<@ii{type-param-list}> @{ @dots{}
+@end display
+
+Here is the full syntax for declaring a reference to a generic class and
+instance creation:
+
+@display
+@ii{class-name}<@ii{type-arg-list}> @ii{var-name} =
+  new @ii{class-name}<@ii{type-arg-list}>(@ii{cons-arg-list});
+@end display
+@caption{General Form for Declaring and Creating a Reference to a Generic
+Class}
+@shortcaption{General Form Generic Class}
+@end float
+
 
 @c ****************************************************************************
 @node The Makefile
