@@ -1,0 +1,581 @@
+\input texinfo   @c -*-texinfo-*-
+
+@c %**start of header (This is for running Texinfo on a region.)
+@setfilename JavaSE9.info
+@settitle About Java SE 9
+@c %**end of header (This is for running Texinfo on a region.)
+
+@c Change how xref titles are quoted.
+@dquotexrefs
+@c And let braces in index entries work.
+@allowindexbraces
+@ifclear FORPRINT
+@pdflinkcolor
+@urllinkcolor
+@hideurls
+@end ifclear
+
+
+@c The following information should be updated here only!
+@c This sets the edition of the document.
+
+@c These apply across the board.
+@set UPDATE-MONTH AUGUST, 2018
+@set EDITION 0.1
+
+@set TITLE Outline Covering Java SE 9
+@set SHORTTITLE Java SE 9 Outline
+
+@iftex
+@set DOCUMENT book
+@set CHAPTER chapter
+@set APPENDIX appendix
+@set SECTION section
+@set SUBSECTION subsection
+@end iftex
+@ifhtml
+@set DOCUMENT Web page
+@set CHAPTER chapter
+@set APPENDIX appendix
+@set SECTION section
+@set SUBSECTION subsection
+@end ifhtml
+@ifinfo
+@set DOCUMENT Info file
+@set CHAPTER major node
+@set APPENDIX major node
+@set SECTION minor node
+@set SUBSECTION node
+@end ifinfo
+@ifdocbook
+@set DOCUMENT book
+@set CHAPTER chapter
+@set APPENDIX appendix
+@set SECTION section
+@set SUBSECTION subsection
+@end ifdocbook
+
+@c some special symbols
+@ifnottex
+@macro ii{text}
+@i{\text\}
+@end macro
+@end ifnottex
+
+@c merge the function and variable indexes into the concept index
+@c do so without the code font, and in the index entries do the
+@c font management ourselves.  Also merge in the chunk definition
+@c and reference entries, which jrweave creates for us.
+@ifnothtml
+@synindex fn cp
+@synindex vr cp
+@synindex cd cp
+@synindex cr cp
+@end ifnothtml
+
+@c If "finalout" is commented out, the printed output will show
+@c black boxes that mark lines that are too long.  Thus, it is
+@c unwise to comment it out when running a master in case there are
+@c overfulls which are deemed okay.
+
+@iftex
+@c @finalout
+@end iftex
+
+@ignore
+@copying
+@docbook
+<para>Published by:</para>
+
+<literallayout class="normal">Full Name
+Address Line 1
+Address Line 2
+etc.
+Email: <email>user@@example.com</email>
+URL: <ulink url="http://www.example.com/">http://www.example.com/</ulink></literallayout>
+
+<literallayout class="normal">Copyright &copy; YYYY, YYYY
+Full name here
+All Rights Reserved.</literallayout>
+@end docbook
+
+@ifnotdocbook
+Copyright @copyright{} YYYY, YYYY @*
+Full name here @*
+All Rights Reserved.
+@end ifnotdocbook
+@sp 1
+The FOO program is copyright
+@copyright{} YYYY, YYYY by Full name here. It is published under
+the conditions of the GNU General Public License, version 3.
+@sp 2
+This is Edition @value{EDITION} of @cite{@value{TITLE}}.
+@end copying
+@end ignore
+
+@c Uncomment this for the release.  Leaving it off saves paper
+@c during editing and review.
+@c @setchapternewpage odd
+
+@c Uncomment this if it's ever printed as a real book(let).
+@c @shorttitlepage @value{SHORTTITLE}
+
+@titlepage
+@title @value{TITLE}
+@subtitle @value{UPDATE-MONTH}
+@author LOLH
+
+@ignore COPYRIGHT PAGES
+@ifnotdocbook
+@c Include the Distribution inside the titlepage environment so
+@c that headings are turned off.  Headings on and off do not work.
+
+@page
+@vskip 0pt plus 1filll
+Published by:
+@sp 1
+Full name here @*
+Address Line 1 @*
+Address Line 2 @*
+etc. @*
+Email: @EMAIL{user@@example.com,user AT example.com} @*
+URL: @url{http://www.example.com/} @*
+
+@insertcopying
+@end ifnotdocbook
+@end ignore
+@end titlepage
+
+@set DRAFT @i{DRAFT}
+
+@iftex
+@headings off
+@evenheading @thispage @| @value{DRAFT} @| @strong{@value{SHORTTITLE}}
+@oddheading  @strong{@thischapter} @| @value{DRAFT} @| @thispage
+@end iftex
+
+@ifnottex
+@ifnotdocbook
+@ifnotxml
+@node Top
+@top General Introduction
+@c Preface node should come right after the Top
+@c node, in `unnumbered' sections, then the introductory chapter.
+@c Licensing nodes are appendices, they're not central to TexiWebJr.
+
+This file documents @value{TITLE}.
+
+@c @insertcopying
+@end ifnotxml
+@end ifnotdocbook
+@end ifnottex
+
+@menu
+@detailmenu
+@end detailmenu
+@end menu
+
+@summarycontents
+@contents
+
+@c Add these to the menu if they ever get included.
+@c @node Foreword
+@c @unnumbered Foreword
+
+@ignore
+PREFATORY MATTER THRU ACKNOWLEDGEMENTS
+
+@node Preface
+@c @unnumbered Preface
+
+Text here.
+
+@node Audience
+@c @unnumberedsec Intended Audience
+
+Text here.
+
+@node Overview
+@c @unnumberedsec What Is Covered
+
+Text and chapter by chapter description here.
+
+@node Conventions
+@c @unnumberedsec Typographical Conventions
+
+@c Copied mostly verbatim from the gawk manual.
+
+@cindex Texinfo document formatting language
+This @value{DOCUMENT} is written in an enhanced version of
+@uref{http://www.gnu.org/software/texinfo/, Texinfo},
+the GNU documentation formatting language.
+A single Texinfo source file is used to produce both the printed and online
+versions of a program's documentation.
+@ifnotinfo
+Because of this, the typographical conventions
+are slightly different than in other books you may have read.
+@end ifnotinfo
+
+Examples you would type at the command-line are preceded by the common
+shell primary and secondary prompts, @samp{$} and @samp{>}.  Input that
+you type is shown @kbd{like this}.  Output from the command is preceded
+by the glyph ``@print{}''.  This typically represents the command's
+standard output.  Error messages, and other output on the command's
+standard error, are preceded by the glyph ``@error{}''.  For example:
+
+@example
+$ @kbd{echo hi on stdout}
+@print{} hi on stdout
+$ @kbd{echo hello on stderr 1>&2}
+@error{} hello on stderr
+@end example
+
+@ifnotinfo
+In the text, command names appear in @code{this font}, while code segments
+appear in the same font and quoted, @samp{like this}.  Options look
+like this: @option{-f}.  Some things are emphasized @emph{like this},
+and if a point needs to be made strongly, it is done @strong{like this}.
+The first occurrence of a new term is usually its @dfn{definition} and
+appears in the same font as the previous occurrence of ``definition''
+in this sentence.  Finally, file names are indicated like this:
+@file{/path/to/our/file}.
+@end ifnotinfo
+
+@node Acknowledgements
+@c @unnumberedsec Acknowledgements
+
+@end ignore
+
+@node Introduction
+@chapter Introduction
+
+@node Packages
+@chapter Main Chapter about Packages
+@cindex Packages (chapter start)
+
+@ii{Packages} are containers for classes.  They are used to keep the class
+namespace compartmentalized, i.e., to prevent collisions between file names.
+Packages are stored in a heirarchical manner and are explicitly imported into
+new class definitions.
+@cindex compartmentalized
+@cindex collisions, prevention
+@cindex packages, import
+@cindex import packages
+@cindex hierarchical structure, packages
+
+@node Packages Intro
+@section Introduction to Packages
+@cindex Introduction to Packages (section)
+
+Java provides a mechanism for partitioning the class name space into
+manageble chunks: the PACKAGE.  The package is both a naming and a visibility
+control mechanism.  In other words, you can use the package mechanism to
+define classes inside a package that are not accessible by code outside the
+package; and you can define class members that are exposed only to other
+members of the same package.
+@cindex partitioning mechanism
+@cindex naming mechanism
+@cindex visibility mechanism
+@cindex accessibility
+@cindex exposure of code
+
+@node Define Packages
+@section Defining Packages
+@cindex Packages, Defining (section)
+
+To create a package, include the @command{package} command as the first
+statement in a Java source file.  Thereafter, any classes declared within
+that file will belong to the specified package.  The @command{package}
+statement defines a name space in which classes are stored.  Without the
+@command{package} statement, classes are put into the default package (which
+has no name).
+
+@part Java Standard Library
+
+@node Strings
+@chapter String Handling
+@cindex Strings
+@cindex String Handling
+
+@node Java Lang
+@chapter Java.lang
+@cindex Java.long
+
+Classes and interfaces defined by @file{java.lang}, which is automatically
+imported into all programs.  Contains classes and interfaces that are
+fundamental to all of Java programming.  Beginning with JDK 9, all of
+@file{java.lang} is part of the @file{java.base} module.
+
+@subheading @file{java.lang} includes the following classes
+@cindex classed in @file{java.lang}
+
+@itemize
+@item Boolean
+@item Byte
+@item Character
+@itemize
+@item Character.Subset
+@item Character.UnicodeBlock
+@end itemize
+@item Class
+@item ClassLoader
+@item ClassValue
+@item Compiler
+@item Double
+@item Enum
+@item Float
+@item InheritableThreadLocal
+@item Integer
+@item Long
+@item Math
+@item Module
+@itemize
+@item ModuleLayer
+@item ModuleLayer.Controller
+@end itemize
+@item Number
+@item Object
+@item Package
+@item Process
+@itemize
+@item ProcessBuilder
+@item ProcessBuilder.Redirect
+@end itemize
+@item Runtime
+@itemize
+@item RuntimePermission
+@item Runtime.Version
+@end itemize
+@item SecurityManager
+@item Short
+@item StackFramePermission
+@item StackTraceElement
+@item StackWalker
+@item StrictMath
+@item String
+@itemize
+@item StringBuffer
+@item StringBuilder
+@end itemize
+@item System
+@itemize
+@item System.LoggerFinder
+@end itemize
+@item Thread
+@itemize
+@item ThreadGroup
+@item ThreadLocal
+@end itemize
+@item Throwable
+@item Void
+@end itemize
+
+@subheading @file{java.lang} includes the following interfaces
+@cindex interfaces in @file{java.lang}
+
+@itemize
+@item Appendable
+@item AutoClosable
+@item CharSequence
+@item Clonable
+@item Comparable
+@item Iterable
+@item ProcessHandle
+@itemize
+@item ProcessHandle.Info
+@end itemize
+@item Readable
+@item Runnable
+@item StackWalker.StackFrame
+@item System.Logger
+@item Thread.UncaughtExceptionHandler
+@end itemize
+
+@node Primitive Wrappers
+@section Primitive Type Wrappers
+@cindex Primitive Wrappers
+@cindex Wrappers, Primitives
+@cindex type wrappers
+
+Java uses primitive types for @samp{int}, @samp{char}, etc. for performance
+reasons.  These primitives are not part of the object hierarchy; they are
+passed by-value, not by reference.  Sometimes you may need to create an
+object representation for a primitive type.  To store a primitive in a
+class, you need to wrap the primitive type in a class.
+
+Java provides classes that correspond to each of the primitive types.
+These classes encapsulate or @dfn{wrap} the primitive types within a
+class.  They are commonly referred to as @dfn{type wrappers}.
+
+@node Number
+@subsection Number
+
+@node Double and Float
+@subsection Double and Float
+
+@node isInfiinite() and isNaN()
+@subsection isInfinite() and isNaN()
+
+@node Byte Short Integer Long
+@subsection Byte, Short, Integer, Long
+
+@node Numbers to from String
+@subsection Converting Numbers to and from String
+
+@node Java Util Collections
+@chapter Java.util Part 1: The Collections Framework
+@cindex Java.util Collections Framework
+
+@node Java Util Utility Classes
+@chapter Java.util Part 2: Utility Classes
+@cindex Java.util Utility Classes
+
+@node Input Output Java IO
+@chapter Input/Output: java.io
+@cindex java.io
+
+@node NIO
+@chapter NIO
+@cindex NIO
+
+@node Networking
+@chapter Networking
+@cindex Networking
+
+@node Event Handling
+@chapter Event Handling
+@cindex Event Handling
+
+@node AWT
+@chapter AWT: Working with Windows, Graphics, and Text
+@cindex AWT
+@cindex Windows
+@cindex Graphics
+@cindex Text
+
+@node AWT Controls
+@chapter Using AWT Controls, Layout Managers, and Menus
+@cindex AWT Controls
+@cindex AWT Layout Managers, Menus
+
+@node Images
+@chapter Images
+@cindex Images
+
+@node Concurrency
+@chapter The Concurrency Utilities
+@cindex Concurrency Utilities
+
+@node Streams
+@chapter The Stream API
+@cindex Stream API
+@cindex API, Stream
+
+@node Regular Expressions
+@chapter Regular Expressions and Other Packages
+@cindex Regular Expressions
+
+@node Swing
+@chapter Introducinvg Swing
+@cindex Swing
+
+@node The Makefile
+@appendix The Makefile
+@cindex Makefile, The (appendix)
+
+@(Makefile@)=
+@<Makefile CONSTANTS@>
+@<Makefile DEFAULTS@>
+@<Makefile TANGLE WEAVE@>
+@<Makefile CLEAN@>
+@
+
+@node Makefile Constants
+@appendixsec Makefile Constants
+@cindex Constants
+
+@<Makefile CONSTANTS@>=
+FILENAME := JavaSE9
+
+@
+
+@node Makefile Defaults
+@appendixsec Makefile Default Targets
+@cindex Makefile defaults
+
+@<Makefile DEFAULTS@>=
+.PHONY: all
+all: tangle weave
+
+@
+
+@node Makefile Tangle Weave
+@appendixsec Makefile Tangle Weave Targets
+@cindex Makefile Tangle
+@cindex Makefiel Weave
+
+@<Makefile TANGLE WEAVE@>=
+.PHONY: tangle weave jrtangle jrweave
+tangle: jrtangle
+weave: jrweave
+
+jrtangle: $(FILENAME).twjr
+	jrtangle $(FILENAME).twjr
+
+jrweave: $(FILENAME).texi
+
+$(FILENAME).texi: $(FILENAME).twjr
+	jrweave $(FILENAME).twjr > $(FILENAME).texi
+@
+
+@node Makefile Clean
+@appendixsec Makefile Clean Targets
+@cindex Makefile Clean targets
+
+@<Makefile CLEAN@>=
+.PHONY: clean
+clean:
+	rm -f *~
+	rm -f $(FILENAME).???
+
+@
+
+@node Code Chunk Summaries
+@appendix Code Chunk Summaries
+
+This @value{APPENDIX} presents alphabetical lists of
+all the file definitions, the code chunk definitions,
+and the code chunk references.
+
+@menu
+* File Definitions::          Source files by definition.
+* Code Chunk Definitions::    Code chunks by definition.
+* Code Chunk References::     Code chunks by reference.
+@end menu
+
+@node File Definitions
+@appendixsec Source File Definitions
+
+@print_file_defs
+
+@node Code Chunk Definitions
+@appendixsec Code Chunk Definitions
+
+@print_code_defs
+
+@node Code Chunk References
+@appendixsec Code Chunk References
+
+@print_code_refs
+
+@node Bibliography
+@unnumbered Bibliography
+
+@node Concept Index
+@unnumbered Index
+
+@printindex cp
+
+@bye
+
+TODO:
