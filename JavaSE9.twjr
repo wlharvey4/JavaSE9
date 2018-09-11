@@ -249,6 +249,85 @@ in this sentence.  Finally, file names are indicated like this:
 @node Introduction
 @chapter Introduction
 
+@node Enumerations
+@chapter Enumerations
+@cindex Enumerations
+@cindex JDK 5
+@cindex enumeration object
+@cindex data type, enumeration
+@cindex enumeration capabilities
+
+Enumerations were added by JDK 5.  In earlier versions of Java, enumerations
+were implemented using @code{final} variables.
+
+An @dfn{enumeration} is a list of named constants that define a new data type
+and its legal values.  In other words, an enumeration defines a class type.
+An @dfn{enumeration object} can only hold values that were declared in the
+list.  Other values are not allowed.  An enumeration allows the programmer to
+define a set of values that a data type can legally have.
+
+By making enumerations classes, the capabilities of the enumeration are
+greatly expanded.  An enumeration can have:
+
+@itemize
+@item
+constructors
+@item
+methods
+@item
+instance variables
+@end itemize
+
+@node Enumeration Basics
+@section Enumeration Basics
+@cindex Enumeration, basics
+@cindex keyword, @code{enum}
+
+An enumeration is created using the @code{enum} keyword.
+
+@example
+enum Apple @{
+     Jonathon, GoldenDel, RedDel, Winesap, Cortland
+@}
+@end example
+
+@subheading enumeration constants
+
+@cindex enumeration constants
+@cindex self-typed constants
+The enum constants @samp{Jonathon}, @samp{GoldenDel}, etc. are called
+@dfn{enumeration constants}.  The enumeration constants are declared as
+@samp{public static final} members of the enum.  Their type is the type of
+the enumeration in which they are declared.  These constants are called
+@dfn{self-typed}, in which ``self'' refers to the enclosing enumeration.  
+
+@subheading enumeration objects
+
+You can create a variable of an enumeration type.  You do not instantiate an
+@code{enum} using @code{new}.  Rather, you declare an @code{enum} variable
+like you do for primitive types: @samp{Apple ap}.  Now, the variable
+@code{ap} can only hold values of type Apple.
+
+@example
+Apple ap;
+ap = Apple.RedDel;
+@end example
+
+The enum type must be part of the expression.  Enumeration constants can be
+compared using the @samp{==} relational operator.  Furthermore, an
+enumneration value can be used to control a @code{swith} statement.  The
+@code{enum} prefix is not required for switch.
+
+@example
+switch(ap) @{
+  case Jonathon: ...
+  case Winesap: ...
+@}
+@end example
+
+When an enumeration object is printed, its name is output (without the enum
+type): @samp{System.out.println(ap)} would produce @samp{RedDel}.
+
 @node Packages
 @chapter Main Chapter about Packages
 @cindex Packages (chapter start)
