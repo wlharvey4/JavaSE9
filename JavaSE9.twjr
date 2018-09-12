@@ -21,10 +21,10 @@
 
 @c These apply across the board.
 @set UPDATE-MONTH AUGUST, 2018
-@set EDITION 0.1
-
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
+@set EDITION 0.1
+@set VERSION 0.1.5
 
 @iftex
 @set DOCUMENT book
@@ -151,7 +151,7 @@ URL: @url{http://www.example.com/} @*
 @iftex
 @headings off
 @evenheading @thispage @| @value{DRAFT} @| @strong{@value{SHORTTITLE}}
-@oddheading  @strong{@thischapter} @| @value{DRAFT} @| @thispage
+@oddheading  @strong{@thischapter} @| Version @value{VERSION} @| @thispage
 @end iftex
 
 @ifnottex
@@ -814,6 +814,16 @@ default methods use a common piece of code, thus avoiding code duplication.
 @chapter Generics
 @cindex Generics (chapter)
 @cindex generics, introduction
+@cindex J2SE 5.0
+@cindex Collections Framework
+@cindex collections, generics
+@cindex type abstraction, generics
+@cindex abstract over types
+
+@dfn{Generics}, introduced in J2SE 5.0, allows a type or method to operate on
+objects of various types while providing compile-time type safety.  It adds
+compile-time type safety to the Collections Framework and eliminates the need
+of casting.  In other words, generics allow you to abstract over types.
 
 Through the use of generics, it is possible to create classes, interfaces,
 and methods that will work in a type-safe manner with various kinds of data.
@@ -829,11 +839,65 @@ Perhaps the one feature of Java that has been most significantly affected by
 generics is the @cite{Collections Framework}.  A @dfn{collection} is a group
 of objects.  The Collections Framework defines several classes, such as lists
 and maps, that manage collections.  The collection classes have always been
-able to work with any type of object.  The benefit that generics addes is
-that the collection classes can now be used with complete type safety.
+able to work with any type of object.  The benefit that generics adds is that
+the collection classes can now be used with complete type safety.
 
 This chapter describes the syntax, theory, and use of generics.  It also
 shows how generics provide type safety for some previously difficult cases.
+
+@node Motivation
+@section Motivation for Generics
+@cindex generics, motivation
+
+@subheading Code Fragment Without Generics
+
+Here is a typical code fragment abstracting over types by using @code{Object}
+and type casting.
+
+@example
+List myIntList = new LinkedList(); // 1
+myIntList.add(new Integer(0)); // 2
+Integer x = (Integer) myIntList.iterator().next(); // 3
+@end example
+
+The cast on line 3 is annoying, although essential.  The compiler can
+guarantee only that an @code{Object} will be returned by the iterator.  This
+therefore adds both clutter and the possibility of a run-time error.
+
+@subheading Code Fragment with Generics
+
+Generics allow a programmer to mark their intent to restrict a list to a
+particular data type.  Here is a version of the same code that uses generics.
+
+@example
+List<Integer> myIntList = new LinkedList<Integer>(); // 1'
+myIntList.add(new Integer(0)); // 2'
+Integer x = myIntList.iterator().next(); // 3'
+@end example
+@cindex generic interface
+@cindex type parameter
+@cindex type correctness
+@cindex compile-time type check
+@cindex generics, motivation, readability and robustness
+
+In line 1, the type declaration for the variable @code{myIntList} specifies
+that it is to hold a @code{List} of @code{Integer}s: @samp{List<Integer>}.
+@code{List} is a @dfn{generic interface} that takes a @dfn{type parameter}
+(@code{Integer}).  The type parameter is also specified when creating the
+@code{List} object (@samp{new LinkedList<Integer>()}).  Also, the cast on
+line 3 is gone.
+
+So has this just moved the clutter around, from a type cast to a type
+parameter?  No, because this has given the compiler the ability to check the
+type correctness of the program @emph{at compile-time}.  When we say that
+@code{myIntList} is declared with type @code{List<Integer>}, this tells us
+something about the variable @code{myIntList}, which holds true wherever and
+whenever it is used, and the compiler will guarantee it.  In contrast, the
+cast tells us something the programmer thinks is true at a single point in
+the code.
+
+The net effect, especially in large programs, is improved readability and
+robustness.
 
 @node What are Generics
 @section What Are Generics
@@ -849,15 +913,15 @@ The term @dfn{generics} means @i{parameterized types}.  Parameterized types
 are important because they enable you to create classes, interfaces, and
 methods in whicht the type of data upon which they operate is specified as a
 parameter.  Using generics, it is possible to create a single class, for
-example, that automatically words with different types of data.  A class,
+example, that automatically works with different types of data.  A class,
 interface, or method that operates on a parameterized type is called
 @dfn{generic}, as in @i{generic class} or @i{generic method}.
 
 Java has always given the ability to create generalized classes, interfaces,
-and methods by operating through references of type @command{Object}.
+and methods by operating through references of type @code{Object}.
 Generics added the type safety that was lacking.  They also streamlined the
 process, because it is no longer necessary to explicitly employ casts to
-translate between @command{Object} and the type of data that is being operate
+translate between @code{Object} and the type of data that is being operate
 upon.  Wtih generics, all casts are automatic and implicit.
 
 @node Simple Generics Example
@@ -867,7 +931,7 @@ upon.  Wtih generics, all casts are automatic and implicit.
 @cindex generic class
 
 The following program defines two classes.  The first is the generic class
-@command{Gen}, and the second is @command{GenDemo}, which uses @command{Gen}.
+@code{Gen}, and the second is @code{GenDemo}, which uses @code{Gen}.
 
 @(SimpleGenerics.java@)=
 @<Class Gen@>
@@ -970,19 +1034,19 @@ T getob() {
 
 @
 
-@cindex @command{Class}
-@cindex @command{Object}
-@cindex @code{getClass()}, defined in @command{Object}
-@cindex @command{Class} object, from @code{getClass()}
-@cindex @code{getName()}, defined in @command{Class}
+@cindex @code{Class}
+@cindex @code{Object}
+@cindex @code{getClass()}, defined in @code{Object}
+@cindex @code{Class} object, from @code{getClass()}
+@cindex @code{getName()}, defined in @code{Class}
 @cindex class name, from @code{getName()}
 
 The method @code{showType()} displays the type of @samp{T} by calling
-@code{getName()} on the @command{Class} object return by the call to
+@code{getName()} on the @code{Class} object return by the call to
 @code{getClass()} on @code{ob}.   The @code{getClass()} method is defined
 by @code{Object} and is thus a member of @emph{all} class types.  It returns
-a @command{Class} object that corresponds to the type of the class of the
-object on which it is called.  @command{Class} defines the @code{getName()}
+a @code{Class} object that corresponds to the type of the class of the
+object on which it is called.  @code{Class} defines the @code{getName()}
 method, which returns a string representation of the class name.
 
 @<Method showing type of T@>=
@@ -1158,6 +1222,40 @@ iOb = strOb; // Gen<Integer> != Gen<String>
 @end example
 
 These are references to different types because their type arguments differ.
+
+@node Subtyping
+@subsection Generics and Subtyping
+@cindex generics, subtyping
+
+Is the following legal?
+
+@example
+List<String> ls = new ArrayList<String>(); // 1
+List<Object> lo = ls; // 2
+@end example
+
+Line 1 is legal.  What about line 2?  This boils down to the question: ``is a
+List of String a List of Object.''  Most people instinctively answer,
+``Sure!''
+
+Now look at these lines:
+
+@example
+lo.add(new Object()); // 3
+String s = ls.get(0); // 4: Attempts to assign an Object to a String!
+@end example
+
+Here we've aliased @code{ls} and @code{lo}. Accessing @code{ls}, a list of
+@code{String}, through the alias @code{lo}, we can insert arbitrary objects
+into it. As a result @code{ls} does not hold just @code{Strings} anymore, and
+when we try and get something out of it, we get a rude surprise.
+
+The Java compiler will prevent this from happening of course. Line 2 will
+cause a compile time error.
+
+The take-away is that, if @code{Foo} is a subtype (subclass or subinterface)
+of @code{Bar}, and @code{G} is some generic type declaration, it is not the
+case that @code{G<Foo>} is a subtype of @code{G<Bar>}.
 
 @node Type Safety
 @subsection How Generics Improve Type Safety
@@ -1337,6 +1435,80 @@ implement @code{MyInterface}.
 @section Using Wildcard Arguments
 @cindex generics, wildcard arguments
 @cindex wildcard arguments, generics
+
+@node Wildcard Motivation
+@subsection Wildcard Motivation
+@cindex wildcards, motivation
+
+Consider the problem of writing a routine that prints out all the elements in
+a collection. Here's how you might write it in an older version of the
+language (i.e., a pre-5.0 release):
+
+@example
+void printCollection(Collection c) @{
+    Iterator i = c.iterator();
+    for (k = 0; k < c.size(); k++) @{
+        System.out.println(i.next());
+    @}
+@}
+@end example
+
+And here is a naive attempt at writing it using generics (and the new
+@kbd{for loop} syntax):
+
+@example
+    for (Object e : c) @{
+        System.out.println(e);
+    @}
+@}
+@end example
+
+The problem is that this new version is much less useful than the old
+one. Whereas the old code could be called with any kind of collection as a
+parameter, the new code only takes @code{Collection<Object>}, which, as we've
+just demonstrated, is @emph{not} a supertype of all kinds of collections!
+
+So what is the supertype of all kinds of collections? It's written
+@kbd{Collection<?>} (pronounced @dfn{collection of unknown}), that is, a
+collection whose element type matches anything. It's called a @dfn{wildcard
+type}.  We can write:
+
+@example
+void printCollection(Collection<?> c) @{
+    for (Object e : c) @{
+        System.out.println(e);
+    @}
+@}
+@end example
+
+and now, we can call it with any type of collection.  Notice that inside
+@code{printCollection()}, we can still read elements from @code{c} and give
+them type @code{Object}. This is always safe, since whatever the actual type
+of the collection, it does contain objects. It isn't safe to add arbitrary
+objects to it however:
+
+@example
+Collection<?> c = new ArrayList<String>();
+c.add(new Object()); // Compile time error
+@end example
+
+Since we don't know what the element type of @code{c} stands for, we cannot
+add objects to it. The @code{add()} method takes arguments of type @code{E},
+the element type of the collection. When the actual type parameter is
+@code{?}, it stands for some unknown type. Any parameter we pass to
+@code{add} would have to be a subtype of this unknown type. Since we don't
+know what type that is, we cannot pass anything in. The sole exception is
+@code{null}, which is a member of every type.
+
+On the other hand, given a @code{List<?>}, we can call @code{get()} and make
+use of the result. The result type is an unknown type, but we always know
+that it is an object. It is therefore safe to assign the result of
+@code{get()} to a variable of type @code{Object} or pass it as a parameter
+where the type @code{Object} is expected.
+
+@node Wildcard Syntax
+@subsection Wildcard Syntax
+@cindex wildcard syntax
 
 Sometimes type safety can get in the way of perfectly acceptable constructs.
 In such cases, there is a @dfn{wildcard} argument that can be used.  The
