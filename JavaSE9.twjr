@@ -1715,6 +1715,275 @@ first).
 
 
 @c ****************************************************************************
+
+@node Enumerations
+@chapter Enumerations
+@cindex Enumerations
+@cindex JDK 5
+@cindex enumeration object
+@cindex data type, enumeration
+@cindex enumeration capabilities
+
+Enumerations were added by JDK 5.  In earlier versions of Java, enumerations
+were implemented using @code{final} variables.
+
+An @dfn{enumeration} is a list of named constants that define a new data type
+and its legal values.  In other words, an enumeration defines a class type.
+An @dfn{enumeration object} can only hold values that were declared in the
+list.  Other values are not allowed.  An enumeration allows the programmer to
+define a set of values that a data type can legally have.
+
+By making enumerations classes, the capabilities of the enumeration are
+greatly expanded.  An enumeration can have:
+
+@itemize
+@item
+constructors
+@item
+methods
+@item
+instance variables
+@end itemize
+
+@node Enumeration Basics
+@section Enumeration Basics
+@cindex Enumeration, basics
+@cindex keyword, @code{enum}
+
+An enumeration is created using the @code{enum} keyword.
+
+@example
+enum Apple @{
+     Jonathon, GoldenDel, RedDel, Winesap, Cortland
+@}
+@end example
+
+@subheading enumeration constants
+
+@cindex enumeration constants
+@cindex self-typed constants
+The enum constants @samp{Jonathon}, @samp{GoldenDel}, etc. are called
+@dfn{enumeration constants}.  The enumeration constants are declared as
+@samp{public static final} members of the enum.  Their type is the type of
+the enumeration in which they are declared.  These constants are called
+@dfn{self-typed}, in which ``self'' refers to the enclosing enumeration.  
+
+@subheading enumeration objects
+
+You can create a variable of an enumeration type.  You do not instantiate an
+@code{enum} using @code{new}.  Rather, you declare an @code{enum} variable
+like you do for primitive types: @samp{Apple ap}.  Now, the variable
+@code{ap} can only hold values of type Apple.
+
+@example
+Apple ap;
+ap = Apple.RedDel;
+@end example
+
+The enum type must be part of the expression.  Enumeration constants can be
+compared using the @samp{==} relational operator.  Furthermore, an
+enumneration value can be used to control a @code{swith} statement.  The
+@code{enum} prefix is not required for switch.
+
+@example
+switch(ap) @{
+  case Jonathon: ...
+  case Winesap: ...
+@}
+@end example
+
+When an enumeration object is printed, its name is output (without the enum
+type): @samp{System.out.println(ap)} would produce @samp{RedDel}.
+
+@part Java Standard Library
+
+@node Strings
+@chapter String Handling
+@cindex Strings
+@cindex String Handling
+
+@node Java Lang
+@chapter Java.lang
+@cindex Java.long
+
+Classes and interfaces defined by @file{java.lang}, which is automatically
+imported into all programs.  Contains classes and interfaces that are
+fundamental to all of Java programming.  Beginning with JDK 9, all of
+@file{java.lang} is part of the @file{java.base} module.
+
+@subheading @file{java.lang} includes the following classes
+@cindex classed in @file{java.lang}
+
+@itemize
+@item Boolean
+@item Byte
+@item Character
+@itemize
+@item Character.Subset
+@item Character.UnicodeBlock
+@end itemize
+@item Class
+@item ClassLoader
+@item ClassValue
+@item Compiler
+@item Double
+@item Enum
+@item Float
+@item InheritableThreadLocal
+@item Integer
+@item Long
+@item Math
+@item Module
+@itemize
+@item ModuleLayer
+@item ModuleLayer.Controller
+@end itemize
+@item Number
+@item Object
+@item Package
+@item Process
+@itemize
+@item ProcessBuilder
+@item ProcessBuilder.Redirect
+@end itemize
+@item Runtime
+@itemize
+@item RuntimePermission
+@item Runtime.Version
+@end itemize
+@item SecurityManager
+@item Short
+@item StackFramePermission
+@item StackTraceElement
+@item StackWalker
+@item StrictMath
+@item String
+@itemize
+@item StringBuffer
+@item StringBuilder
+@end itemize
+@item System
+@itemize
+@item System.LoggerFinder
+@end itemize
+@item Thread
+@itemize
+@item ThreadGroup
+@item ThreadLocal
+@end itemize
+@item Throwable
+@item Void
+@end itemize
+
+@subheading @file{java.lang} includes the following interfaces
+@cindex interfaces in @file{java.lang}
+
+@itemize
+@item Appendable
+@item AutoClosable
+@item CharSequence
+@item Clonable
+@item Comparable
+@item Iterable
+@item ProcessHandle
+@itemize
+@item ProcessHandle.Info
+@end itemize
+@item Readable
+@item Runnable
+@item StackWalker.StackFrame
+@item System.Logger
+@item Thread.UncaughtExceptionHandler
+@end itemize
+
+@node Primitive Wrappers
+@section Primitive Type Wrappers
+@cindex Primitive Wrappers
+@cindex Wrappers, Primitives
+@cindex type wrappers
+
+Java uses primitive types for @samp{int}, @samp{char}, etc. for performance
+reasons.  These primitives are not part of the object hierarchy; they are
+passed by-value, not by reference.  Sometimes you may need to create an
+object representation for a primitive type.  To store a primitive in a
+class, you need to wrap the primitive type in a class.
+
+Java provides classes that correspond to each of the primitive types.
+These classes encapsulate or @dfn{wrap} the primitive types within a
+class.  They are commonly referred to as @dfn{type wrappers}.
+
+@node Number
+@subsection Number
+
+@node Double and Float
+@subsection Double and Float
+
+@node isInfiinite() and isNaN()
+@subsection isInfinite() and isNaN()
+
+@node Byte Short Integer Long
+@subsection Byte, Short, Integer, Long
+
+@node Numbers to from String
+@subsection Converting Numbers to and from String
+
+@node Java Util Collections
+@chapter Java.util Part 1: The Collections Framework
+@cindex Java.util Collections Framework
+
+@node Java Util Utility Classes
+@chapter Java.util Part 2: Utility Classes
+@cindex Java.util Utility Classes
+
+@node Input Output Java IO
+@chapter Input/Output: java.io
+@cindex java.io
+
+@node NIO
+@chapter NIO
+@cindex NIO
+
+@node Networking
+@chapter Networking
+@cindex Networking
+
+@node Event Handling
+@chapter Event Handling
+@cindex Event Handling
+
+@node AWT
+@chapter AWT: Working with Windows, Graphics, and Text
+@cindex AWT
+@cindex Windows
+@cindex Graphics
+@cindex Text
+
+@node AWT Controls
+@chapter Using AWT Controls, Layout Managers, and Menus
+@cindex AWT Controls
+@cindex AWT Layout Managers, Menus
+
+@node Images
+@chapter Images
+@cindex Images
+
+@node Concurrency
+@chapter The Concurrency Utilities
+@cindex Concurrency Utilities
+
+@node Streams
+@chapter The Stream API
+@cindex Stream API
+@cindex API, Stream
+
+@node Regular Expressions
+@chapter Regular Expressions and Other Packages
+@cindex Regular Expressions
+
+@node Swing
+@chapter Introducinvg Swing
+@cindex Swing
+
 @node The Makefile
 @appendix The Makefile
 @cindex Makefile, The (appendix)
@@ -1803,7 +2072,6 @@ and the code chunk references.
 @appendixsec Code Chunk References
 
 @print_code_refs
-
 
 @node List of Tables
 @unnumbered List of Tables
