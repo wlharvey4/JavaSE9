@@ -37,6 +37,7 @@ This file documents Outline Covering Java SE 9.
 * List of General Forms::
 * Bibliography::
 * Concept Index::
+* Function Index::
 
  -- The Detailed Node Listing --
 
@@ -119,6 +120,7 @@ Example of Generic Method
 Enumerations
 
 * Enumeration Basics::
+* Enum Methods::
 
 'java.lang' includes the following interfaces
 
@@ -1706,9 +1708,10 @@ are greatly expanded.  An enumeration can have:
 * Menu:
 
 * Enumeration Basics::
+* Enum Methods::
 
 
-File: JavaSE9.info,  Node: Enumeration Basics,  Up: Enumerations
+File: JavaSE9.info,  Node: Enumeration Basics,  Next: Enum Methods,  Up: Enumerations
 
 5.1 Enumeration Basics
 ======================
@@ -1735,23 +1738,51 @@ enumeration objects
 You can create a variable of an enumeration type.  You do not
 instantiate an 'enum' using 'new'.  Rather, you declare an 'enum'
 variable like you do for primitive types: 'Apple ap'.  Now, the
-variable 'ap' can only hold values of type Apple.
+variable 'ap' can only hold values of type 'Apple'.
 
      Apple ap;
      ap = Apple.RedDel;
 
-   The enum type must be part of the expression.  Enumeration
-constants can be compared using the '==' relational operator.
-Furthermore, an enumneration value can be used to control a 'swith'
-statement.  The 'enum' prefix is not required for switch.
+   The 'enum' type (i.e., 'Apple') must be part of the expression.
+
+Comparing for Equality; Switch
+------------------------------
+
+Two enumeration constants can be compared for equality using the '=='
+relational operator.  Furthermore, an enumneration value can be used
+to control a 'switch' statement.  The 'enum' prefix (type) is not
+required for 'switch'.
 
      switch(ap) {
        case Jonathon: ...
        case Winesap: ...
      }
 
-   When an enumeration object is printed, its name is output (without
-the enum type): 'System.out.println(ap)' would produce 'RedDel'.
+Printing Enum Types
+-------------------
+
+When an enumeration object is printed, its name is output (without the
+'enum' type): 'System.out.println(ap)' would produce 'RedDel'.
+
+
+File: JavaSE9.info,  Node: Enum Methods,  Prev: Enumeration Basics,  Up: Enumerations
+
+5.2 Enum Methods 'values()' and 'valueOf()'
+===========================================
+
+All enumerations inherit two methods:
+
+ -- Method on Enum:
+          public static enum-type[]
+          values ()
+     The 'values()' method returns an array that contains a list of
+     the enumeration constants.
+
+ -- Method on Enum:
+          public static enum-type
+          valueOf (String STR)
+     The 'valueOf()' method returns the enumeration constant whose
+     value corresponds to the string passed in STR.
 
 
 File: JavaSE9.info,  Node: Strings,  Next: java Lang,  Prev: Enumerations,  Up: Top
@@ -2293,7 +2324,7 @@ Bibliography
 ************
 
 
-File: JavaSE9.info,  Node: Concept Index,  Prev: Bibliography,  Up: Top
+File: JavaSE9.info,  Node: Concept Index,  Next: Function Index,  Prev: Bibliography,  Up: Top
 
 Index
 *****
@@ -2374,6 +2405,8 @@ Index
 * <Two Instance Variables Declarations>, definition: Class TwoGen.
                                                             (line  43)
 * <Two Instance Variables Declarations>, use: Class TwoGen. (line   6)
+* ==:                                    Enumeration Basics.
+                                                            (line  38)
 * {GenMethDemo.java}, definition:        Example of Generic Method.
                                                             (line  13)
 * {Makefile}, definition:                The Makefile.      (line   6)
@@ -2436,13 +2469,26 @@ Index
 * dynamic dispatch, interface method look-ups: Interface References.
                                                             (line   6)
 * dynamic method resolution:             Interfaces.        (line  19)
+* enum valueOf():                        Enum Methods.      (line   6)
+* enum values():                         Enum Methods.      (line   6)
+* enum variable, declare:                Enumeration Basics.
+                                                            (line  25)
 * enumeration capabilities:              Enumerations.      (line   6)
+* enumeration comparison:                Enumeration Basics.
+                                                            (line  38)
 * enumeration constants:                 Enumeration Basics.
                                                             (line  15)
+* enumeration methods:                   Enum Methods.      (line   6)
 * enumeration object:                    Enumerations.      (line   6)
+* enumeration variable:                  Enumeration Basics.
+                                                            (line  25)
 * Enumeration, basics:                   Enumeration Basics.
                                                             (line   6)
 * Enumerations:                          Enumerations.      (line   6)
+* enums, printing:                       Enumeration Basics.
+                                                            (line  51)
+* equality, enum types:                  Enumeration Basics.
+                                                            (line  38)
 * erasure:                               Class GenDemo.     (line   6)
 * Event Handling:                        Event Handling.    (line   5)
 * example generic method:                Example of Generic Method.
@@ -2455,6 +2501,7 @@ Index
 * extends clause:                        Bounded Types.     (line   6)
 * extents, with interfaces:              Extending Interfaces.
                                                             (line   6)
+* final, traditional enums:              Enumerations.      (line   6)
 * finding packages:                      Classpath.         (line   6)
 * fully qualified name:                  Importing.         (line  39)
 * generic class:                         Simple Generics Example.
@@ -2612,6 +2659,7 @@ Index
 * method signatures compatible:          Interfaces.        (line  19)
 * method, static, interface:             Interface Static Methods.
                                                             (line   6)
+* methods, enumeration:                  Enum Methods.      (line   6)
 * module path:                           Classpath.         (line   6)
 * modules, packages:                     Classpath.         (line   6)
 * naming mechanism:                      Packages Intro.    (line   6)
@@ -2663,6 +2711,8 @@ Index
 * String Handling:                       Strings.           (line   5)
 * Strings:                               Strings.           (line   6)
 * Swing:                                 Swing.             (line   5)
+* switch statement, enum types:          Enumeration Basics.
+                                                            (line  38)
 * Text:                                  AWT.               (line   5)
 * type abstraction, generics:            Generics.          (line   6)
 * type argument, passed to type parameter: GenDemo as Integer.
@@ -2678,6 +2728,8 @@ Index
 * upper bound:                           Bounded Types.     (line   6)
 * upper bound wildcard argument:         Bounded Wildcards. (line  20)
 * upper bounded wildcard:                Bounded Wildcards. (line  18)
+* variable, enum type:                   Enumeration Basics.
+                                                            (line  25)
 * visibility mechanism:                  Packages Intro.    (line   6)
 * wildcard arguments, generics:          Wildcard Arguments.
                                                             (line   6)
@@ -2689,132 +2741,146 @@ Index
 * Wrappers, Primitives:                  Primitive Wrappers.
                                                             (line   6)
 
+
+File: JavaSE9.info,  Node: Function Index,  Prev: Concept Index,  Up: Top
+
+Function Index
+**************
+
+ [index ]
+* Menu:
+
+* valueOf on Enum:                       Enum Methods.       (line 14)
+* values on Enum:                        Enum Methods.       (line  8)
+
 
 
 Tag Table:
 Node: Top75
-Node: Java SE 9 Introduction2517
-Node: Packages2660
-Node: Packages Intro3129
-Node: Defining Packages3673
-Ref: PackageStatement4275
-Ref: PackageStatementMulti5245
-Node: Classpath5668
-Node: Member Access7208
-Ref: PackageAccess8183
-Node: Importing8784
-Ref: Import9408
-Node: Interfaces10683
-Node: Defining Interfaces12791
-Ref: InterfaceSimple13046
-Node: Implementing Interfaces14376
-Ref: ClassImplementsInterface14870
-Node: Interface References15355
-Node: Partial Implementations16346
-Node: Nested Interfaces16780
-Node: Applying Interfaces17554
-Node: Variables in Interfaces17754
-Node: Extending Interfaces18484
-Node: Default Interface Methods18963
-Node: Interface Static Methods21067
-Ref: InterfaceStaticMethod21799
-Node: Private Interface Methods22081
-Node: Generics22837
-Node: Motivation24677
-Node: What are Generics26653
-Node: Simple Generics Example27720
-Ref: SimpleGenerics-java28035
-Node: Class Gen<T>28430
-Ref: Class-Gen29425
-Ref: Instance-Variable-ob-of-Type-T30537
-Ref: generics-constructor30737
-Ref: Constructor-taking-parameter-of-Type-T31083
-Ref: Method-returning-object-of-type-T31619
-Ref: Method-showing-type-of-T32244
-Node: Class GenDemo32483
-Ref: Class-GenDemo33262
-Node: GenDemo as Integer34019
-Ref: Create-a-Gen-object-for-Integers34231
-Ref: Integer-Type-Parameter35361
-Ref: Reference-to-Integer-Instance36208
-Ref: Show-Type36751
-Ref: Get-Value37243
-Node: GenDemo as String37484
-Ref: Create-a-Gen-object-for-Strings37694
-Node: Notes about Generics38149
-Node: Reference Types38405
-Node: Type Arguments38931
-Node: Subtyping39494
-Node: Type Safety40628
-Node: Two Type Parameters40987
-Node: Two Types Example Code41535
-Ref: TwoTypeParameters-java41709
-Node: Class TwoGen42113
-Ref: Class-TwoGen42250
-Ref: Class-Declaration43280
-Ref: Two-Instance-Variables-Declarations43486
-Ref: Constructor-of-Two-Parameters43669
-Ref: Instance-Methods-Show-and-Get43925
-Node: Class SimpGen44316
-Ref: Class-SimpGen44579
-Node: Generic Class General Form45137
-Ref: GenericClass45444
-Node: Bounded Types45768
-Node: Wildcard Arguments47166
-Node: Wildcard Motivation47411
-Node: Wildcard Syntax49958
-Node: Bounded Wildcards50876
-Ref: UpperBoundedWildcard51697
-Ref: LowerBoundedWildcard52077
-Node: Generic Methods52242
-Ref: GenericMethod52642
-Node: Example of Generic Method52810
-Ref: GenMethDemo-java53311
-Node: Method isIn53765
-Ref: Static-Method-isIn53985
-Node: GenMethDemo Main55356
-Ref: GenMethDemo-Main55506
-Node: Generic Constructors56401
-Node: Enumerations56768
-Node: Enumeration Basics57576
-Node: Strings58999
-Node: java Lang59123
-Node: Primitive Wrappers60766
-Node: Number61553
-Node: Double and Float61667
-Node: isInfiinite() and isNaN()61835
-Node: Byte Short Integer Long62036
-Node: Numbers to from String62247
-Node: java util Collections62446
-Node: java util Utility Classes62663
-Node: java io Input Output62871
-Node: NIO63037
-Node: Networking63144
-Node: Event Handling63259
-Node: AWT63382
-Node: AWT Controls63569
-Node: Images63750
-Node: Concurrency63859
-Node: Streams64001
-Node: Regular Expressions64134
-Node: Swing64309
-Node: The Makefile64449
-Ref: Makefile64594
-Node: Makefile Constants65225
-Ref: Makefile-CONSTANTS65366
-Node: Makefile Defaults65502
-Ref: Makefile-DEFAULTS65685
-Node: Makefile Tangle Weave65835
-Ref: Makefile-TANGLE-WEAVE66024
-Node: Makefile Clean66416
-Ref: Makefile-CLEAN66565
-Node: Code Chunk Summaries66752
-Node: File Definitions67242
-Node: Code Chunk Definitions67715
-Node: Code Chunk References69994
-Node: List of Tables73384
-Node: List of General Forms73601
-Node: Bibliography74471
-Node: Concept Index74603
+Node: Java SE 9 Introduction2553
+Node: Packages2696
+Node: Packages Intro3165
+Node: Defining Packages3709
+Ref: PackageStatement4311
+Ref: PackageStatementMulti5281
+Node: Classpath5704
+Node: Member Access7244
+Ref: PackageAccess8219
+Node: Importing8820
+Ref: Import9444
+Node: Interfaces10719
+Node: Defining Interfaces12827
+Ref: InterfaceSimple13082
+Node: Implementing Interfaces14412
+Ref: ClassImplementsInterface14906
+Node: Interface References15391
+Node: Partial Implementations16382
+Node: Nested Interfaces16816
+Node: Applying Interfaces17590
+Node: Variables in Interfaces17790
+Node: Extending Interfaces18520
+Node: Default Interface Methods18999
+Node: Interface Static Methods21103
+Ref: InterfaceStaticMethod21835
+Node: Private Interface Methods22117
+Node: Generics22873
+Node: Motivation24713
+Node: What are Generics26689
+Node: Simple Generics Example27756
+Ref: SimpleGenerics-java28071
+Node: Class Gen<T>28466
+Ref: Class-Gen29461
+Ref: Instance-Variable-ob-of-Type-T30573
+Ref: generics-constructor30773
+Ref: Constructor-taking-parameter-of-Type-T31119
+Ref: Method-returning-object-of-type-T31655
+Ref: Method-showing-type-of-T32280
+Node: Class GenDemo32519
+Ref: Class-GenDemo33298
+Node: GenDemo as Integer34055
+Ref: Create-a-Gen-object-for-Integers34267
+Ref: Integer-Type-Parameter35397
+Ref: Reference-to-Integer-Instance36244
+Ref: Show-Type36787
+Ref: Get-Value37279
+Node: GenDemo as String37520
+Ref: Create-a-Gen-object-for-Strings37730
+Node: Notes about Generics38185
+Node: Reference Types38441
+Node: Type Arguments38967
+Node: Subtyping39530
+Node: Type Safety40664
+Node: Two Type Parameters41023
+Node: Two Types Example Code41571
+Ref: TwoTypeParameters-java41745
+Node: Class TwoGen42149
+Ref: Class-TwoGen42286
+Ref: Class-Declaration43316
+Ref: Two-Instance-Variables-Declarations43522
+Ref: Constructor-of-Two-Parameters43705
+Ref: Instance-Methods-Show-and-Get43961
+Node: Class SimpGen44352
+Ref: Class-SimpGen44615
+Node: Generic Class General Form45173
+Ref: GenericClass45480
+Node: Bounded Types45804
+Node: Wildcard Arguments47202
+Node: Wildcard Motivation47447
+Node: Wildcard Syntax49994
+Node: Bounded Wildcards50912
+Ref: UpperBoundedWildcard51733
+Ref: LowerBoundedWildcard52113
+Node: Generic Methods52278
+Ref: GenericMethod52678
+Node: Example of Generic Method52846
+Ref: GenMethDemo-java53347
+Node: Method isIn53801
+Ref: Static-Method-isIn54021
+Node: GenMethDemo Main55392
+Ref: GenMethDemo-Main55542
+Node: Generic Constructors56437
+Node: Enumerations56804
+Node: Enumeration Basics57629
+Node: Enum Methods59224
+Node: Strings59823
+Node: java Lang59947
+Node: Primitive Wrappers61590
+Node: Number62377
+Node: Double and Float62491
+Node: isInfiinite() and isNaN()62659
+Node: Byte Short Integer Long62860
+Node: Numbers to from String63071
+Node: java util Collections63270
+Node: java util Utility Classes63487
+Node: java io Input Output63695
+Node: NIO63861
+Node: Networking63968
+Node: Event Handling64083
+Node: AWT64206
+Node: AWT Controls64393
+Node: Images64574
+Node: Concurrency64683
+Node: Streams64825
+Node: Regular Expressions64958
+Node: Swing65133
+Node: The Makefile65273
+Ref: Makefile65418
+Node: Makefile Constants66049
+Ref: Makefile-CONSTANTS66190
+Node: Makefile Defaults66326
+Ref: Makefile-DEFAULTS66509
+Node: Makefile Tangle Weave66659
+Ref: Makefile-TANGLE-WEAVE66848
+Node: Makefile Clean67240
+Ref: Makefile-CLEAN67389
+Node: Code Chunk Summaries67576
+Node: File Definitions68066
+Node: Code Chunk Definitions68539
+Node: Code Chunk References70818
+Node: List of Tables74208
+Node: List of General Forms74425
+Node: Bibliography75295
+Node: Concept Index75427
+Node: Function Index103784
 
 End Tag Table

@@ -3,6 +3,7 @@
 @c %**start of header (This is for running Texinfo on a region.)
 @setfilename JavaSE9.info
 @settitle About Java SE 9
+@deftypefnnewline on
 @c %**end of header (This is for running Texinfo on a region.)
 
 @c Change how xref titles are quoted.
@@ -24,7 +25,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.1.7
+@set VERSION 0.1.8
 
 @iftex
 @set DOCUMENT book
@@ -67,7 +68,7 @@
 @c font management ourselves.  Also merge in the chunk definition
 @c and reference entries, which jrweave creates for us.
 @ifnothtml
-@synindex fn cp
+@c @synindex fn cp
 @synindex vr cp
 @synindex cd cp
 @synindex cr cp
@@ -1732,12 +1733,13 @@ first).
 @chapter Enumerations
 @cindex Enumerations
 @cindex JDK 5
+@cindex @command{final}, traditional enums
 @cindex enumeration object
 @cindex data type, enumeration
 @cindex enumeration capabilities
 
 Enumerations were added by JDK 5.  In earlier versions of Java, enumerations
-were implemented using @code{final} variables.
+were implemented using @command{final} variables.
 
 An @dfn{enumeration} is a list of named constants that define a new data type
 and its legal values.  In other words, an enumeration defines a class type.
@@ -1781,31 +1783,67 @@ the enumeration in which they are declared.  These constants are called
 @dfn{self-typed}, in which ``self'' refers to the enclosing enumeration.  
 
 @subheading enumeration objects
+@cindex enumeration variable
+@cindex variable, enum type
+@cindex enum variable, declare
 
-You can create a variable of an enumeration type.  You do not instantiate an
-@code{enum} using @code{new}.  Rather, you declare an @code{enum} variable
-like you do for primitive types: @samp{Apple ap}.  Now, the variable
-@code{ap} can only hold values of type Apple.
+You can create a variable of an enumeration type.  You do not
+instantiate an @code{enum} using @command{new}.  Rather, you declare
+an @code{enum} variable like you do for primitive types: @samp{Apple
+ap}.  Now, the variable @code{ap} can only hold values of type
+@samp{Apple}.
 
 @example
 Apple ap;
 ap = Apple.RedDel;
 @end example
 
-The enum type must be part of the expression.  Enumeration constants can be
-compared using the @samp{==} relational operator.  Furthermore, an
-enumneration value can be used to control a @code{swith} statement.  The
-@code{enum} prefix is not required for switch.
+The @code{enum} type (i.e., @code{Apple}) must be part of the expression.
+
+@subheading Comparing for Equality; Switch
+@cindex enumeration comparison
+@cindex equality, enum types
+@cindex @code{==}
+@cindex @command{switch} statement, enum types
+
+Two enumeration constants can be compared for equality using the @code{==}
+relational operator.  Furthermore, an enumneration value can be used to
+control a @command{switch} statement.  The @code{enum} prefix (type) is not
+required for @command{switch}.
 
 @example
 switch(ap) @{
-  case Jonathon: ...
-  case Winesap: ...
+  case Jonathon: @dots{}
+  case Winesap: @dots{}
 @}
 @end example
 
-When an enumeration object is printed, its name is output (without the enum
-type): @samp{System.out.println(ap)} would produce @samp{RedDel}.
+@subheading Printing Enum Types
+@cindex enums, printing
+
+When an enumeration object is printed, its name is output (without the
+@code{enum} type): @samp{System.out.println(ap)} would produce
+@samp{RedDel}.
+
+@node Enum Methods
+@section Enum Methods @command{values()} and @command{valueOf()}
+@cindex enumeration methods
+@cindex methods, enumeration
+@cindex enum @command{values()}
+@cindex enum @command{valueOf()}
+
+All enumerations inherit two methods:
+
+@deftypemethod Enum {public static @ii{enum-type}[]} values ()
+The @command{values()} method returns an array that contains a list of the
+enumeration constants.
+@end deftypemethod
+
+@deftypemethod Enum {public static @ii{enum-type}} valueOf (String @var{str})
+The @command{valueOf()} method returns the enumeration constant whose value
+corresponds to the string passed in @var{str}.
+@end deftypemethod
+
 
 @part The Java Standard Library
 
@@ -2101,6 +2139,10 @@ and the code chunk references.
 
 @printindex cp
 
+@node Function Index
+@unnumbered Function Index
+
+@printindex fn
 @bye
 
 TODO:
