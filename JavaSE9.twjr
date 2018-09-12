@@ -20,11 +20,11 @@
 @c This sets the edition of the document.
 
 @c These apply across the board.
-@set UPDATE-MONTH AUGUST, 2018
+@set UPDATE-MONTH SEPTEMBER, 2018
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.1.6
+@set VERSION 0.1.7
 
 @iftex
 @set DOCUMENT book
@@ -245,6 +245,8 @@ in this sentence.  Finally, file names are indicated like this:
 @c @unnumberedsec Acknowledgements
 
 @end ignore
+
+@part The Java Language
 
 @node Java SE 9 Introduction
 @chapter Java SE 9 Introduction
@@ -1414,7 +1416,7 @@ which all type arguments must be derived.  This is accomplished through the
 use of an @command{extends} clause when specifying the type parameter:
 
 @display
-@:<@ii{T} extends @ii{superclass}>
+ <@ii{T} extends @ii{superclass}>
 @end display
 
 This specifies that @ii{T} can only be replaced by @ii{superclass} or
@@ -1805,16 +1807,16 @@ switch(ap) @{
 When an enumeration object is printed, its name is output (without the enum
 type): @samp{System.out.println(ap)} would produce @samp{RedDel}.
 
-@part Java Standard Library
+@part The Java Standard Library
 
 @node Strings
 @chapter String Handling
 @cindex Strings
 @cindex String Handling
 
-@node Java Lang
-@chapter Java.lang
-@cindex Java.long
+@node java Lang
+@chapter @file{java.lang}
+@cindex @file{java.lang}
 
 Classes and interfaces defined by @file{java.lang}, which is automatically
 imported into all programs.  Contains classes and interfaces that are
@@ -1937,17 +1939,17 @@ class.  They are commonly referred to as @dfn{type wrappers}.
 @node Numbers to from String
 @subsection Converting Numbers to and from String
 
-@node Java Util Collections
-@chapter Java.util Part 1: The Collections Framework
-@cindex Java.util Collections Framework
+@node java util Collections
+@chapter @file{java.util} --- Part 1: The Collections Framework
+@cindex @file{java.util} Collections Framework
 
-@node Java Util Utility Classes
-@chapter Java.util Part 2: Utility Classes
-@cindex Java.util Utility Classes
+@node java util Utility Classes
+@chapter @file{java.util} --- Part 2: Utility Classes
+@cindex @file{java.util} Utility Classes
 
-@node Input Output Java IO
-@chapter Input/Output: java.io
-@cindex java.io
+@node  java io Input Output
+@chapter @file{java.io} --- Input/Output
+@cindex @file{java.io}
 
 @node NIO
 @chapter NIO
