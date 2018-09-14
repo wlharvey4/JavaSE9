@@ -14,6 +14,7 @@ This file documents Outline Covering Java SE 9.
 * Java SE 9 Introduction::
 * Classes::
 * Methods and Classes::
+* Inheritance::
 * Packages::
 * Interfaces::
 * Generics::
@@ -91,7 +92,7 @@ Overloading Methods
 
 * Overloading Constructors::
 
-Access Modifier Syntax
+Access Control and Inheritance
 
 * Improved Stack Class::
 
@@ -607,7 +608,7 @@ This chunk is called by {'TestStack.java'}; see its first definition
 at *note TestStack-java::.
 
 
-File: JavaSE9.info,  Node: Methods and Classes,  Next: Packages,  Prev: Classes,  Up: Top
+File: JavaSE9.info,  Node: Methods and Classes,  Next: Inheritance,  Prev: Classes,  Up: Top
 
 3 Methods and Classes
 *********************
@@ -860,6 +861,12 @@ example:
        ...
      }
 
+Access Control and Inheritance
+------------------------------
+
+Consult the chapter on *note Inheritance:: for more on the topic of
+access control in relation to inheritance.
+
 * Menu:
 
 * Improved Stack Class::
@@ -932,17 +939,98 @@ File: JavaSE9.info,  Node: static Keyword,  Next: final Keyword,  Prev: Access C
 3.7 'static' Keyword
 ====================
 
+There will be times when you want to define a class member that will
+be used independently of any object of that class.  Normally, a class
+member must be accessed in conjunction with an object of its class.
+However, it is possible to create a member that can be used by itself
+without reference to a specific instance.  To create such a member,
+precede its declaration with the keyword 'static'.  When a member is
+declared 'static', it can be accessed before any objects of its class
+are created, and without reference to any object.
+
+   You can declare both methods and variables to be 'static'.
+Instance variables declared as 'static' are essentially global
+variables.  When objects of its class are declared, no copy of a
+'static' variable is made.  Instead, all instances of the class share
+the same 'static' variable.
+
+Restrictions on 'static' Methods
+--------------------------------
+
+Methods declared as 'static' have several restrictions:
+
+   * they can only directly call other 'static' methods of their
+     class;
+   * they can only directly access 'static' variables of their class;
+   * they cannot refer to 'this' or 'super' in any way;
+
+'static' Block
+--------------
+
+If you need to do computation in order to initialize your 'static'
+variables, you can declare a 'static' block that gets executed exactly
+once, when the class is first loaded ("static initialization block").
+
+     class UseStatic {
+       static int a = 3;
+       static int b;
+
+       static {
+         b = a * 4;
+       }
+     }
+
+   As soon as the 'UseStatic' class is loaded, all of the 'static'
+statements are run.  First, 'a' is set to '3', then the 'static' block
+executes and initializes 'b' to 'a * 4' or '12'.  Then 'main()' is
+called (not shown).
+
+Use of 'static' Members Outside Their Class
+-------------------------------------------
+
+Outside of the class in which they are defined, 'static' methods and
+variables can be used independently of any object.  To do so, you need
+only specify the name of their class followed by the dot operator:
+classname.method().  classname is the name of the class in which the
+'static' method is declared.  A 'static' variable can be accessed in
+the same way.  This is how Java implements a controlled version of
+global methods and global variables.
+
 
 File: JavaSE9.info,  Node: final Keyword,  Next: Arrays 2,  Prev: static Keyword,  Up: Methods and Classes
 
 3.8 'final' Keyword
 ===================
 
+A field can be declared as 'final'.  Doing so prevents its contents
+from being modified, making it, esentially, a constant.  This means
+that you must initialize a 'final' field when it is declared.  You can
+do this in one of two ways: when it is declared, or within a
+constructor.
+
+   In addition to fields, both method parameters and local variables
+can be declared as 'final'.  Declaring a parameter as 'final' prevents
+it from being changed within the method.  Declaring a local variable
+'final' prevents it from being assigned a value more than once.
+
+   The keyword 'final' can also be applied to methods, but its meaning
+is different than when applied to variables.  This usage of 'final' is
+described in the next chapter (*note Inheritance::).
+
 
 File: JavaSE9.info,  Node: Arrays 2,  Next: Nested and Inner Classes,  Prev: final Keyword,  Up: Methods and Classes
 
 3.9 Arrays Revisited
 ====================
+
+Arrays are implemented as objects.  Because of this, there is a
+special array attribute that you will want to take advantage of.
+Specifically, the size of an array--that is, the number of elements
+that an array can hold--is found in its 'length' instance variable.
+All arrays have this variable, and it will always hold the size of the
+array.  Keep in mind that the value of 'length' has nothing to do with
+the number of elements that are actually in use.  It only reflects the
+number of elements taht the array is designed to hold.
 
 
 File: JavaSE9.info,  Node: Nested and Inner Classes,  Next: The String Class,  Prev: Arrays 2,  Up: Methods and Classes
@@ -969,9 +1057,27 @@ File: JavaSE9.info,  Node: Varargs,  Prev: Command-Line Arguments,  Up: Methods 
 =======================================
 
 
-File: JavaSE9.info,  Node: Packages,  Next: Interfaces,  Prev: Methods and Classes,  Up: Top
+File: JavaSE9.info,  Node: Inheritance,  Next: Packages,  Prev: Methods and Classes,  Up: Top
 
-4 Packages
+4 Inheritance
+*************
+
+Inheritance is a cornerstone of object-oriented programming because it
+allows the creation of hierarchical classifications.  Using
+inheritance, you can create a general class taht defines traits common
+to a set of related items.  This class can then be inherited by other,
+more specific classes, each adding those things that are unique to
+them.
+
+   A class that is inherited is called a "superclass".  The class that
+does the inheriting is called a "subclass".  A subclass is a
+specialized version of a subclass.  It inherits all of the members
+defined by the superclass and adds its own, unique elements.
+
+
+File: JavaSE9.info,  Node: Packages,  Next: Interfaces,  Prev: Inheritance,  Up: Top
+
+5 Packages
 **********
 
 Packages are containers for classes.  They are used to keep the class
@@ -990,7 +1096,7 @@ explicitly imported into new class definitions.
 
 File: JavaSE9.info,  Node: Packages Intro,  Next: Defining Packages,  Up: Packages
 
-4.1 Introduction to Packages
+5.1 Introduction to Packages
 ============================
 
 Java provides a mechanism for partitioning the class namespace into
@@ -1003,7 +1109,7 @@ exposed only to other members of the same package.
 
 File: JavaSE9.info,  Node: Defining Packages,  Next: Classpath,  Prev: Packages Intro,  Up: Packages
 
-4.2 Defining Packages
+5.2 Defining Packages
 =====================
 
 To create a package ("define" a package), include the 'package'
@@ -1018,7 +1124,7 @@ General Form of 'package' statement
 
      package pkg
 
-GeneralForm 4.1: Package Statement -- General Form
+GeneralForm 5.1: Package Statement -- General Form
 
 pkg is the name of the package.  For example:
 
@@ -1047,7 +1153,7 @@ form of a multileveled package statement is:
 
      package pkg1[.pkg2[.pkg3]]
 
-GeneralForm 4.2: Package Statement -- Multilevel Form
+GeneralForm 5.2: Package Statement -- Multilevel Form
 
    A package hierarchy must be reflected in the file system of your
 Java development system.  For example a package declared as:
@@ -1063,7 +1169,7 @@ stored.
 
 File: JavaSE9.info,  Node: Classpath,  Next: Member Access,  Prev: Defining Packages,  Up: Packages
 
-4.3 Finding Packages and CLASSPATH
+5.3 Finding Packages and CLASSPATH
 ==================================
 
 Packages are mirrored by directories.  How does the Java run-time
@@ -1109,7 +1215,7 @@ is
 
 File: JavaSE9.info,  Node: Member Access,  Next: Importing,  Prev: Classpath,  Up: Packages
 
-4.4 Packages and Member Access
+5.4 Packages and Member Access
 ==============================
 
 Packages add another dimension to access control.  Classes and
@@ -1144,13 +1250,13 @@ Different package subclass   No          No          Yes         Yes
 Different package            No          No          No          Yes
 noni-subclass
 
-Table 4.1: Package Access Table -- Shows all combinations of the
+Table 5.1: Package Access Table -- Shows all combinations of the
 access control modifiers
 
 
 File: JavaSE9.info,  Node: Importing,  Prev: Member Access,  Up: Packages
 
-4.5 Importing Packages
+5.5 Importing Packages
 ======================
 
 Java includes the 'import' statement to bring certain classes, or
@@ -1165,7 +1271,7 @@ definitions.  This is the general form of the 'import' statement:
 
      import pkg1[.pkg2].(classname | *);
 
-GeneralForm 4.3: Import Statement -- General Form
+GeneralForm 5.3: Import Statement -- General Form
 
    Here, pkg1 is the name of a top-level package, and pkg2 is the name
 of a subordinate package inside the outerpackage separated by a dot
@@ -1197,7 +1303,7 @@ importing code.
 
 File: JavaSE9.info,  Node: Interfaces,  Next: Generics,  Prev: Packages,  Up: Top
 
-5 Interfaces
+6 Interfaces
 ************
 
 Using the keyword 'interface', you can fully abstract a class'
@@ -1245,7 +1351,7 @@ real power of interfaces is realized.
 
 File: JavaSE9.info,  Node: Defining Interfaces,  Next: Implementing Interfaces,  Up: Interfaces
 
-5.1 Defining Interfaces
+6.1 Defining Interfaces
 =======================
 
 An interface is defined much like a class.  Here is a simplified
@@ -1262,7 +1368,7 @@ general form of an interface definition:
        type final-varnameN = value
      }
 
-GeneralForm 5.1: Interface Definition -- Simplified General Form
+GeneralForm 6.1: Interface Definition -- Simplified General Form
 
    When no access modifier is included, then default access results,
 and the interface is only available to other members of the package in
@@ -1285,7 +1391,7 @@ initialized.  All methods and variables are implicitly 'public'.
 
 File: JavaSE9.info,  Node: Implementing Interfaces,  Next: Interface References,  Prev: Defining Interfaces,  Up: Interfaces
 
-5.2 Implementing Interfaces
+6.2 Implementing Interfaces
 ===========================
 
 Once an interface has been defined, one or more classes can implement
@@ -1298,7 +1404,7 @@ the interface.  The general form of a class that includes the
        class-body
      }
 
-GeneralForm 5.2: Class Implementing Interface -- General Form
+GeneralForm 6.2: Class Implementing Interface -- General Form
 
    The methods that implement an interface must be declared 'public'.
 The type signature of the implementing method must match exactly the
@@ -1310,7 +1416,7 @@ interfaces to define additional members of their own.
 
 File: JavaSE9.info,  Node: Interface References,  Next: Partial Implementations,  Prev: Implementing Interfaces,  Up: Interfaces
 
-5.3 Accessing Implementations Through Interface References
+6.3 Accessing Implementations Through Interface References
 ==========================================================
 
 You can declare variables as object references that use an interface
@@ -1328,7 +1434,7 @@ superclass reference to access a subclass object.
 
 File: JavaSE9.info,  Node: Partial Implementations,  Next: Nested Interfaces,  Prev: Interface References,  Up: Interfaces
 
-5.4 Partial Implementations
+6.4 Partial Implementations
 ===========================
 
 If a class includes an interface but does not implement the methds
@@ -1339,7 +1445,7 @@ the interface or be declared 'abstract' itself.
 
 File: JavaSE9.info,  Node: Nested Interfaces,  Next: Applying Interfaces,  Prev: Partial Implementations,  Up: Interfaces
 
-5.5 Nested Interfaces
+6.5 Nested Interfaces
 =====================
 
 An interface can be declared a member of a class or another interface.
@@ -1356,7 +1462,7 @@ qualified.
 
 File: JavaSE9.info,  Node: Applying Interfaces,  Next: Variables in Interfaces,  Prev: Nested Interfaces,  Up: Interfaces
 
-5.6 Applying Interfaces
+6.6 Applying Interfaces
 =======================
 
 See detailed example ...
@@ -1364,7 +1470,7 @@ See detailed example ...
 
 File: JavaSE9.info,  Node: Variables in Interfaces,  Next: Extending Interfaces,  Prev: Applying Interfaces,  Up: Interfaces
 
-5.7 Variables in Interfaces
+6.7 Variables in Interfaces
 ===========================
 
 You can use interfaces to import shared constants into multiple
@@ -1380,7 +1486,7 @@ variables.
 
 File: JavaSE9.info,  Node: Extending Interfaces,  Next: Default Interface Methods,  Prev: Variables in Interfaces,  Up: Interfaces
 
-5.8 Interfaces Can Be Extended
+6.8 Interfaces Can Be Extended
 ==============================
 
 One interface can inherit another by use of the keyword 'extends'.
@@ -1392,7 +1498,7 @@ inheritance chain.
 
 File: JavaSE9.info,  Node: Default Interface Methods,  Next: Interface Static Methods,  Prev: Extending Interfaces,  Up: Interfaces
 
-5.9 Default Interface Methods
+6.9 Default Interface Methods
 =============================
 
 Prior to JDK 8, an interface could not define any implementation
@@ -1433,7 +1539,7 @@ class.
 
 File: JavaSE9.info,  Node: Interface Static Methods,  Next: Private Interface Methods,  Prev: Default Interface Methods,  Up: Interfaces
 
-5.10 Use Static Methods in an Interface
+6.10 Use Static Methods in an Interface
 =======================================
 
 Another capability added to interface by JDK 8 is the ability to
@@ -1447,7 +1553,7 @@ method name.  Here is the general form:
 
      InterfaceName.staticMethodName
 
-GeneralForm 5.3: Interface Static Method, Calling
+GeneralForm 6.3: Interface Static Method, Calling
 
    Notice that this is similar to the way that a 'static' method in a
 class is called.  However, 'static' interface methods are not
@@ -1456,7 +1562,7 @@ inherited by either an implementing class or a subinterface.
 
 File: JavaSE9.info,  Node: Private Interface Methods,  Prev: Interface Static Methods,  Up: Interfaces
 
-5.11 Private Interface Methods
+6.11 Private Interface Methods
 ==============================
 
 Beginning with JDK 9, an interface can include a private method.  A
@@ -1474,7 +1580,7 @@ duplication.
 
 File: JavaSE9.info,  Node: Generics,  Next: Enumerations,  Prev: Interfaces,  Up: Top
 
-6 Generics
+7 Generics
 **********
 
 "Generics", introduced in J2SE 5.0, allows a type or method to operate
@@ -1521,7 +1627,7 @@ difficult cases.
 
 File: JavaSE9.info,  Node: Motivation,  Next: What are Generics,  Up: Generics
 
-6.1 Motivation for Generics
+7.1 Motivation for Generics
 ===========================
 
 Code Fragment Without Generics
@@ -1572,7 +1678,7 @@ readability and robustness.
 
 File: JavaSE9.info,  Node: What are Generics,  Next: Simple Generics Example,  Prev: Motivation,  Up: Generics
 
-6.2 What Are Generics
+7.2 What Are Generics
 =====================
 
 The term "generics" means parameterized types.  Parameterized types
@@ -1595,7 +1701,7 @@ automatic and implicit.
 
 File: JavaSE9.info,  Node: Simple Generics Example,  Next: Notes about Generics,  Prev: What are Generics,  Up: Generics
 
-6.3 A Simple Generics Example
+7.3 A Simple Generics Example
 =============================
 
 The following program defines two classes.  The first is the generic
@@ -1619,7 +1725,7 @@ Chunk name                First definition point
 
 File: JavaSE9.info,  Node: Class Gen<T>,  Next: Class GenDemo,  Up: Simple Generics Example
 
-6.3.1 Class Gen<T>
+7.3.1 Class Gen<T>
 ------------------
 
 This is a simple generic class.  The class 'Gen' is declared with a
@@ -1744,7 +1850,7 @@ Class-Gen::.
 
 File: JavaSE9.info,  Node: Class GenDemo,  Prev: Class Gen<T>,  Up: Simple Generics Example
 
-6.3.2 Class GenDemo
+7.3.2 Class GenDemo
 -------------------
 
 The 'GenDemo' class demonstrates the generic 'Gen' class.
@@ -1792,7 +1898,7 @@ for Strings>
 
 File: JavaSE9.info,  Node: GenDemo as Integer,  Next: GenDemo as String,  Up: Class GenDemo
 
-6.3.2.1 Implementation of Class GenDemo with Type Integer
+7.3.2.1 Implementation of Class GenDemo with Type Integer
 .........................................................
 
 <Create a Gen object for Integers> ==
@@ -1892,7 +1998,7 @@ first definition at *note Create-a-Gen-object-for-Integers::.
 
 File: JavaSE9.info,  Node: GenDemo as String,  Prev: GenDemo as Integer,  Up: Class GenDemo
 
-6.3.2.2 Implementation of Class GenDemo with Type String
+7.3.2.2 Implementation of Class GenDemo with Type String
 ........................................................
 
 <Create a Gen object for Strings> ==
@@ -1914,7 +2020,7 @@ This chunk is called by <Class GenDemo>; see its first definition at
 
 File: JavaSE9.info,  Node: Notes about Generics,  Next: Two Type Parameters,  Prev: Simple Generics Example,  Up: Generics
 
-6.4 Notes About Generics
+7.4 Notes About Generics
 ========================
 
 * Menu:
@@ -1927,7 +2033,7 @@ File: JavaSE9.info,  Node: Notes about Generics,  Next: Two Type Parameters,  Pr
 
 File: JavaSE9.info,  Node: Reference Types,  Next: Type Arguments,  Up: Notes about Generics
 
-6.4.1 Generics Work Only with Reference Types
+7.4.1 Generics Work Only with Reference Types
 ---------------------------------------------
 
 When declaring an instance of a generic type, the type argument passed
@@ -1941,7 +2047,7 @@ type wrapper transparent.
 
 File: JavaSE9.info,  Node: Type Arguments,  Next: Subtyping,  Prev: Reference Types,  Up: Notes about Generics
 
-6.4.2 Generic Types Differ Based on their Type Arguments
+7.4.2 Generic Types Differ Based on their Type Arguments
 --------------------------------------------------------
 
 A reference of one specific version of a generic type is not
@@ -1957,7 +2063,7 @@ arguments differ.
 
 File: JavaSE9.info,  Node: Subtyping,  Next: Type Safety,  Prev: Type Arguments,  Up: Notes about Generics
 
-6.4.3 Generics and Subtyping
+7.4.3 Generics and Subtyping
 ----------------------------
 
 Is the following legal?
@@ -1989,7 +2095,7 @@ is not the case that 'G<Foo>' is a subtype of 'G<Bar>'.
 
 File: JavaSE9.info,  Node: Type Safety,  Prev: Subtyping,  Up: Notes about Generics
 
-6.4.4 How Generics Improve Type Safety
+7.4.4 How Generics Improve Type Safety
 --------------------------------------
 
 Generics automatically ensure the type safety of all operations
@@ -1999,7 +2105,7 @@ the coder to enter cases and to type-check code by hand.
 
 File: JavaSE9.info,  Node: Two Type Parameters,  Next: Generic Class General Form,  Prev: Notes about Generics,  Up: Generics
 
-6.5 A Generic Class with Two Type Parameters
+7.5 A Generic Class with Two Type Parameters
 ============================================
 
 You can declare more than one type parameter in a generic type.  To
@@ -2015,7 +2121,7 @@ different.
 
 File: JavaSE9.info,  Node: Two Types Example Code,  Up: Two Type Parameters
 
-6.5.1 Example of Code with Two Type Parameters
+7.5.1 Example of Code with Two Type Parameters
 ----------------------------------------------
 
 {'TwoTypeParameters.java'} ==
@@ -2036,7 +2142,7 @@ Chunk name                First definition point
 
 File: JavaSE9.info,  Node: Class TwoGen,  Next: Class SimpGen,  Up: Two Types Example Code
 
-6.5.1.1 Class TwoGen
+7.5.1.1 Class TwoGen
 ....................
 
 <Class TwoGen> ==
@@ -2121,7 +2227,7 @@ This chunk is called by <Class TwoGen>; see its first definition at
 
 File: JavaSE9.info,  Node: Class SimpGen,  Prev: Class TwoGen,  Up: Two Types Example Code
 
-6.5.1.2 Class SimpGen
+7.5.1.2 Class SimpGen
 .....................
 
 Two type arguments must be supplied to the constructor.  In this case,
@@ -2151,7 +2257,7 @@ definition at *note TwoTypeParameters-java::.
 
 File: JavaSE9.info,  Node: Generic Class General Form,  Next: Bounded Types,  Prev: Two Type Parameters,  Up: Generics
 
-6.6 The General Form of a Generic Class
+7.6 The General Form of a Generic Class
 =======================================
 
 The generics syntax shown above can be generalized.  Here is the
@@ -2165,13 +2271,13 @@ and instance creation:
      class-name<type-arg-list> var-name =
        new class-name<type-arg-list>(cons-arg-list);
 
-GeneralForm 6.1: General Form for Declaring and Creating a Reference
+GeneralForm 7.1: General Form for Declaring and Creating a Reference
 to a Generic Class
 
 
 File: JavaSE9.info,  Node: Bounded Types,  Next: Wildcard Arguments,  Prev: Generic Class General Form,  Up: Generics
 
-6.7 Bounded Types
+7.7 Bounded Types
 =================
 
 Sometimes it can be useful to limit the types that can be passed to a
@@ -2208,7 +2314,7 @@ implement 'MyInterface'.
 
 File: JavaSE9.info,  Node: Wildcard Arguments,  Next: Generic Methods,  Prev: Bounded Types,  Up: Generics
 
-6.8 Using Wildcard Arguments
+7.8 Using Wildcard Arguments
 ============================
 
 * Menu:
@@ -2220,7 +2326,7 @@ File: JavaSE9.info,  Node: Wildcard Arguments,  Next: Generic Methods,  Prev: Bo
 
 File: JavaSE9.info,  Node: Wildcard Motivation,  Next: Wildcard Syntax,  Up: Wildcard Arguments
 
-6.8.1 Wildcard Motivation
+7.8.1 Wildcard Motivation
 -------------------------
 
 Consider the problem of writing a routine that prints out all the
@@ -2285,7 +2391,7 @@ where the type 'Object' is expected.
 
 File: JavaSE9.info,  Node: Wildcard Syntax,  Next: Bounded Wildcards,  Prev: Wildcard Motivation,  Up: Wildcard Arguments
 
-6.8.2 Wildcard Syntax
+7.8.2 Wildcard Syntax
 ---------------------
 
 Sometimes type safety can get in the way of perfectly acceptable
@@ -2310,7 +2416,7 @@ The wildcard simply matches any _valid_ 'Stats' object.
 
 File: JavaSE9.info,  Node: Bounded Wildcards,  Prev: Wildcard Syntax,  Up: Wildcard Arguments
 
-6.8.3 Bounded Wildcards
+7.8.3 Bounded Wildcards
 -----------------------
 
 Wildcard arguments can be bounded in much the same way that a type
@@ -2331,7 +2437,7 @@ a wildcard, use the following type of wildcard expression:
 
      <? extends superclass>
 
-GeneralForm 6.2: General Form of Upper Bounded Wildcard Syntax
+GeneralForm 7.2: General Form of Upper Bounded Wildcard Syntax
 
    where superclass is the name of the class that serves as the upper
 bound.  This is an inclusive clause.
@@ -2344,7 +2450,7 @@ clause to a wildcard declaration.  Here is its general form:
 
      <? super subclass>
 
-GeneralForm 6.3: General Form of Lower Bounded Wildcard Syntax
+GeneralForm 7.3: General Form of Lower Bounded Wildcard Syntax
 
    Only classes that are superclasses of subclass are acceptable
 arguments
@@ -2352,7 +2458,7 @@ arguments
 
 File: JavaSE9.info,  Node: Generic Methods,  Next: Generic Constructors,  Prev: Wildcard Arguments,  Up: Generics
 
-6.9 Creating a Generic Method
+7.9 Creating a Generic Method
 =============================
 
 It is possible to declare a generic method that uses one or more type
@@ -2364,7 +2470,7 @@ Generalized Form
 
      < type-param-list > ret-type meth-name ( param-list ) { ...
 
-GeneralForm 6.4: General Form for Declaring a Generic Method
+GeneralForm 7.4: General Form for Declaring a Generic Method
 
 * Menu:
 
@@ -2373,7 +2479,7 @@ GeneralForm 6.4: General Form for Declaring a Generic Method
 
 File: JavaSE9.info,  Node: Example of Generic Method,  Up: Generic Methods
 
-6.9.1 Example of Generic Method
+7.9.1 Example of Generic Method
 -------------------------------
 
 The following program declares a non-generic class called
@@ -2403,7 +2509,7 @@ Chunk name                First definition point
 
 File: JavaSE9.info,  Node: Method isIn,  Next: GenMethDemo Main,  Up: Example of Generic Method
 
-6.9.1.1 Method isIn()
+7.9.1.1 Method isIn()
 .....................
 
 The *type parameters* are declared _before_ the return type of the
@@ -2449,7 +2555,7 @@ argumetns are specified:
 
 File: JavaSE9.info,  Node: GenMethDemo Main,  Prev: Method isIn,  Up: Example of Generic Method
 
-6.9.1.2 GenMethDemo Main
+7.9.1.2 GenMethDemo Main
 ........................
 
 <GenMethDemo Main> ==
@@ -2488,7 +2594,7 @@ at *note GenMethDemo-java::.
 
 File: JavaSE9.info,  Node: Generic Constructors,  Prev: Generic Methods,  Up: Generics
 
-6.10 Generic Constructors
+7.10 Generic Constructors
 =========================
 
 It is possible for constructors to be generic, even if their class is
@@ -2500,7 +2606,7 @@ parameters come first).
 
 File: JavaSE9.info,  Node: Enumerations,  Next: Strings,  Prev: Generics,  Up: Top
 
-7 Enumerations
+8 Enumerations
 **************
 
 Enumerations were added by JDK 5.  In earlier versions of Java,
@@ -2530,7 +2636,7 @@ are greatly expanded.  An enumeration can have:
 
 File: JavaSE9.info,  Node: Enumeration Basics,  Next: Enum Methods,  Up: Enumerations
 
-7.1 Enumeration Basics
+8.1 Enumeration Basics
 ======================
 
 An enumeration is created using the 'enum' keyword.
@@ -2584,7 +2690,7 @@ When an enumeration object is printed, its name is output (without the
 
 File: JavaSE9.info,  Node: Enum Methods,  Next: Enumerations as Class Types,  Prev: Enumeration Basics,  Up: Enumerations
 
-7.2 Enum Methods 'values()' and 'valueOf()'
+8.2 Enum Methods 'values()' and 'valueOf()'
 ===========================================
 
 All enumerations inherit two methods:
@@ -2623,7 +2729,7 @@ enumeration constant corresponding to the value of a string.
 
 File: JavaSE9.info,  Node: Enumerations as Class Types,  Next: Inherit Enum,  Prev: Enum Methods,  Up: Enumerations
 
-7.3 Java Enumerations are Class Types
+8.3 Java Enumerations are Class Types
 =====================================
 
 A Java enumeration is a class type.  That is, 'enum' defines a class,
@@ -2670,7 +2776,7 @@ of the class in which it is defined.
 
 File: JavaSE9.info,  Node: Inherit Enum,  Prev: Enumerations as Class Types,  Up: Enumerations
 
-7.4 Enumerations Inherit 'Enum'
+8.4 Enumerations Inherit 'Enum'
 ===============================
 
 All enumerations automatically inherit from one superclass:
@@ -2720,14 +2826,14 @@ ordinal values in general.)
 
 File: JavaSE9.info,  Node: Strings,  Next: java Lang,  Prev: Enumerations,  Up: Top
 
-8 String Handling
+9 String Handling
 *****************
 
 
 File: JavaSE9.info,  Node: java Lang,  Next: java util Collections,  Prev: Strings,  Up: Top
 
-9 'java.lang'
-*************
+10 'java.lang'
+**************
 
 Classes and interfaces defined by 'java.lang', which is automatically
 imported into all programs.  Contains classes and interfaces that are
@@ -2806,8 +2912,8 @@ fundamental to all of Java programming.  Beginning with JDK 9, all of
 
 File: JavaSE9.info,  Node: Primitive Wrappers,  Up: java Lang
 
-9.1 Primitive Type Wrappers
-===========================
+10.1 Primitive Type Wrappers
+============================
 
 Java uses primitive types for 'int', 'char', etc.  for performance
 reasons.  These primitives are not part of the object hierarchy; they
@@ -2830,109 +2936,109 @@ a class.  They are commonly referred to as "type wrappers".
 
 File: JavaSE9.info,  Node: Number,  Next: Double and Float,  Up: Primitive Wrappers
 
-9.1.1 Number
-------------
+10.1.1 Number
+-------------
 
 
 File: JavaSE9.info,  Node: Double and Float,  Next: isInfiinite() and isNaN(),  Prev: Number,  Up: Primitive Wrappers
 
-9.1.2 Double and Float
-----------------------
+10.1.2 Double and Float
+-----------------------
 
 
 File: JavaSE9.info,  Node: isInfiinite() and isNaN(),  Next: Byte Short Integer Long,  Prev: Double and Float,  Up: Primitive Wrappers
 
-9.1.3 isInfinite() and isNaN()
-------------------------------
+10.1.3 isInfinite() and isNaN()
+-------------------------------
 
 
 File: JavaSE9.info,  Node: Byte Short Integer Long,  Next: Numbers to from String,  Prev: isInfiinite() and isNaN(),  Up: Primitive Wrappers
 
-9.1.4 Byte, Short, Integer, Long
---------------------------------
+10.1.4 Byte, Short, Integer, Long
+---------------------------------
 
 
 File: JavaSE9.info,  Node: Numbers to from String,  Prev: Byte Short Integer Long,  Up: Primitive Wrappers
 
-9.1.5 Converting Numbers to and from String
--------------------------------------------
+10.1.5 Converting Numbers to and from String
+--------------------------------------------
 
 
 File: JavaSE9.info,  Node: java util Collections,  Next: java util Utility Classes,  Prev: java Lang,  Up: Top
 
-10 'java.util' -- Part 1: The Collections Framework
+11 'java.util' -- Part 1: The Collections Framework
 ***************************************************
 
 
 File: JavaSE9.info,  Node: java util Utility Classes,  Next: java io Input Output,  Prev: java util Collections,  Up: Top
 
-11 'java.util' -- Part 2: Utility Classes
+12 'java.util' -- Part 2: Utility Classes
 *****************************************
 
 
 File: JavaSE9.info,  Node: java io Input Output,  Next: NIO,  Prev: java util Utility Classes,  Up: Top
 
-12 'java.io' -- Input/Output
+13 'java.io' -- Input/Output
 ****************************
 
 
 File: JavaSE9.info,  Node: NIO,  Next: Networking,  Prev: java io Input Output,  Up: Top
 
-13 NIO
+14 NIO
 ******
 
 
 File: JavaSE9.info,  Node: Networking,  Next: Event Handling,  Prev: NIO,  Up: Top
 
-14 Networking
+15 Networking
 *************
 
 
 File: JavaSE9.info,  Node: Event Handling,  Next: AWT,  Prev: Networking,  Up: Top
 
-15 Event Handling
+16 Event Handling
 *****************
 
 
 File: JavaSE9.info,  Node: AWT,  Next: AWT Controls,  Prev: Event Handling,  Up: Top
 
-16 AWT: Working with Windows, Graphics, and Text
+17 AWT: Working with Windows, Graphics, and Text
 ************************************************
 
 
 File: JavaSE9.info,  Node: AWT Controls,  Next: Images,  Prev: AWT,  Up: Top
 
-17 Using AWT Controls, Layout Managers, and Menus
+18 Using AWT Controls, Layout Managers, and Menus
 *************************************************
 
 
 File: JavaSE9.info,  Node: Images,  Next: Concurrency,  Prev: AWT Controls,  Up: Top
 
-18 Images
+19 Images
 *********
 
 
 File: JavaSE9.info,  Node: Concurrency,  Next: Streams,  Prev: Images,  Up: Top
 
-19 The Concurrency Utilities
+20 The Concurrency Utilities
 ****************************
 
 
 File: JavaSE9.info,  Node: Streams,  Next: Regular Expressions,  Prev: Concurrency,  Up: Top
 
-20 The Stream API
+21 The Stream API
 *****************
 
 
 File: JavaSE9.info,  Node: Regular Expressions,  Next: Swing,  Prev: Streams,  Up: Top
 
-21 Regular Expressions and Other Packages
+22 Regular Expressions and Other Packages
 *****************************************
 
 
 File: JavaSE9.info,  Node: Swing,  Next: The Makefile,  Prev: Regular Expressions,  Up: Top
 
-22 Introducinvg Swing
+23 Introducinvg Swing
 *********************
 
 
@@ -3285,7 +3391,7 @@ List of Tables
 
 * Menu:
 
-* Table 4.1: PackageAccess.              Package Access Table
+* Table 5.1: PackageAccess.              Package Access Table
 
 
 File: JavaSE9.info,  Node: List of General Forms,  Next: Bibliography,  Prev: List of Tables,  Up: Top
@@ -3297,17 +3403,17 @@ List of General Forms
 
 * GeneralForm 2.1: ClassDeclaration.     Class Declaration -- ...
 * GeneralForm 2.2: MethodDeclaration.    Method Declaration -- ...
-* GeneralForm 4.1: PackageStatement.     Package Statement -- ...
-* GeneralForm 4.2: PackageStatementMulti.Package Statement -- ...
-* GeneralForm 4.3: Import.               Import Statement -- ...
-* GeneralForm 5.1: InterfaceSimple.      Interface Definition -- ...
-* GeneralForm 5.2: ClassImplementsInterface.
+* GeneralForm 5.1: PackageStatement.     Package Statement -- ...
+* GeneralForm 5.2: PackageStatementMulti.Package Statement -- ...
+* GeneralForm 5.3: Import.               Import Statement -- ...
+* GeneralForm 6.1: InterfaceSimple.      Interface Definition -- ...
+* GeneralForm 6.2: ClassImplementsInterface.
                                          Class Implementing ...
-* GeneralForm 5.3: InterfaceStaticMethod.Interface Static Method, ...
-* GeneralForm 6.1: GenericClass.         General Form Generic Class
-* GeneralForm 6.2: UpperBoundedWildcard. Upper Bounded Wildcard
-* GeneralForm 6.3: LowerBoundedWildcard. Lower Bounded Wildcard
-* GeneralForm 6.4: GenericMethod.        Generic Method Declaration
+* GeneralForm 6.3: InterfaceStaticMethod.Interface Static Method, ...
+* GeneralForm 7.1: GenericClass.         General Form Generic Class
+* GeneralForm 7.2: UpperBoundedWildcard. Upper Bounded Wildcard
+* GeneralForm 7.3: LowerBoundedWildcard. Lower Bounded Wildcard
+* GeneralForm 7.4: GenericMethod.        Generic Method Declaration
 
 
 File: JavaSE9.info,  Node: Bibliography,  Next: Concept Index,  Prev: List of General Forms,  Up: Top
@@ -3455,7 +3561,8 @@ Index
 * arguments, command-line:               Command-Line Arguments.
                                                             (line   5)
 * arguments, varargs:                    Varargs.           (line   5)
-* Arrays:                                Arrays 2.          (line   5)
+* Arrays:                                Arrays 2.          (line   6)
+* arrays as objects:                     Arrays 2.          (line   6)
 * auto-boxing, generics:                 Reference Types.   (line   6)
 * auto-unboxing, generics:               Reference Types.   (line   6)
 * autoboxing in generic reference:       GenDemo as Integer.
@@ -3494,6 +3601,7 @@ Index
 * compile time:                          Interfaces.        (line  19)
 * compile-time type check:               Motivation.        (line  31)
 * Concurrency Utilities:                 Concurrency.       (line   5)
+* constant, final variable:              final Keyword.     (line   6)
 * Constants:                             Makefile Constants.
                                                             (line   6)
 * constructor:                           Declaring Objects. (line   6)
@@ -3624,6 +3732,7 @@ Index
                                                             (line   6)
 * getClass(), defined in Object:         Class Gen<T>.      (line 107)
 * getName(), defined in Class:           Class Gen<T>.      (line 107)
+* global members:                        static Keyword.    (line  55)
 * Graphics:                              AWT.               (line   6)
 * hiding, instance variables:            Instance Variable Hiding.
                                                             (line   6)
@@ -3639,6 +3748,7 @@ Index
 * importing packages:                    Importing.         (line   6)
 * index interface, default methods:      Default Interface Methods.
                                                             (line   6)
+* Inheritance:                           Inheritance.       (line   6)
 * inheriting interfaces:                 Extending Interfaces.
                                                             (line   6)
 * inner classes:                         Nested and Inner Classes.
@@ -3715,11 +3825,12 @@ Index
 * JDK 9, package part of module:         Classpath.         (line   6)
 * JDK 9, private interface method:       Private Interface Methods.
                                                             (line   6)
-* keyword final:                         final Keyword.     (line   5)
+* keyword final:                         final Keyword.     (line   6)
 * keyword interface:                     Interfaces.        (line   6)
-* keyword static:                        static Keyword.    (line   5)
+* keyword static:                        static Keyword.    (line   6)
 * keyword, enum:                         Enumeration Basics.
                                                             (line   6)
+* length instance variable:              Arrays 2.          (line   6)
 * lower bounded wildcard:                Bounded Wildcards. (line  32)
 * main() method, class:                  General Form.      (line  45)
 * Makefiel Weave:                        Makefile Tangle Weave.
@@ -3824,13 +3935,18 @@ Index
 * standard Java classes, imported implicitly: Importing.    (line  29)
 * static environment:                    Interfaces.        (line  19)
 * static generic method:                 Method isIn.       (line  28)
+* static initialization block:           static Keyword.    (line  34)
 * static Keyword:                        static Keyword.    (line   6)
+* static members:                        static Keyword.    (line   6)
 * static method, interface:              Interface Static Methods.
                                                             (line   6)
+* static restrictions on methods:        static Keyword.    (line  24)
 * Stream API:                            Streams.           (line   6)
 * String Class:                          The String Class.  (line   6)
 * String Handling:                       Strings.           (line   5)
 * Strings:                               Strings.           (line   6)
+* subclass:                              Inheritance.       (line   6)
+* superclass:                            Inheritance.       (line   6)
 * Swing:                                 Swing.             (line   5)
 * switch statement, enum types:          Enumeration Basics.
                                                             (line  38)
@@ -3888,175 +4004,176 @@ Function Index
 
 Tag Table:
 Node: Top75
-Node: Java SE 9 Introduction3425
-Node: Classes3567
-Node: Class Fundamentals4011
-Node: General Form4427
-Ref: ClassDeclaration4767
-Node: Declaring Objects6282
-Node: Methods7676
-Ref: MethodDeclaration7875
-Node: Constructors8718
-Node: this Keyword9482
-Node: Instance Variable Hiding10035
-Node: Stack Class10839
-Ref: Stack-java11663
-Ref: TestStack-java12218
-Node: Stack Instance Variables12519
-Ref: Stack-Instance-Variables12686
-Node: Stack Constructor Node12852
-Ref: Stack-Constructor13063
-Node: Stack Instance Methods Node13442
-Ref: Stack-Instance-Methods13659
-Node: Stack Push and Pop Node14321
-Ref: Stack-Push14492
-Ref: Stack-Pop14800
-Node: Stack TestStack Node15129
-Ref: TestStack-Main-Method15301
-Node: Methods and Classes16029
-Node: Overloading Methods16736
-Node: Overloading Constructors19046
-Node: Objects as Parameters19234
-Node: Argument Passing19910
-Node: Returning Objects21252
-Node: Recursion21879
-Node: Access Control23391
-Node: Improved Stack Class26161
-Ref: StackImproved-java26395
-Ref: Stack-Private-Instance-Variables27033
-Ref: Improved Stack Class-Footnote-128057
-Node: static Keyword28176
-Node: final Keyword28335
-Node: Arrays 228486
-Node: Nested and Inner Classes28649
-Node: The String Class28833
-Node: Command-Line Arguments29019
-Node: Varargs29208
-Node: Packages29384
-Node: Packages Intro29850
-Node: Defining Packages30394
-Ref: PackageStatement30996
-Ref: PackageStatementMulti31966
-Node: Classpath32389
-Node: Member Access33929
-Ref: PackageAccess34904
-Node: Importing35505
-Ref: Import36129
-Node: Interfaces37404
-Node: Defining Interfaces39512
-Ref: InterfaceSimple39767
-Node: Implementing Interfaces41097
-Ref: ClassImplementsInterface41591
-Node: Interface References42076
-Node: Partial Implementations43067
-Node: Nested Interfaces43501
-Node: Applying Interfaces44275
-Node: Variables in Interfaces44475
-Node: Extending Interfaces45205
-Node: Default Interface Methods45684
-Node: Interface Static Methods47788
-Ref: InterfaceStaticMethod48520
-Node: Private Interface Methods48802
-Node: Generics49558
-Node: Motivation51398
-Node: What are Generics53374
-Node: Simple Generics Example54441
-Ref: SimpleGenerics-java54756
-Node: Class Gen<T>55151
-Ref: Class-Gen56146
-Ref: Instance-Variable-ob-of-Type-T57258
-Ref: generics-constructor57458
-Ref: Constructor-taking-parameter-of-Type-T57804
-Ref: Method-returning-object-of-type-T58340
-Ref: Method-showing-type-of-T58965
-Node: Class GenDemo59204
-Ref: Class-GenDemo59983
-Node: GenDemo as Integer60740
-Ref: Create-a-Gen-object-for-Integers60952
-Ref: Integer-Type-Parameter62082
-Ref: Reference-to-Integer-Instance62929
-Ref: Show-Type63472
-Ref: Get-Value63964
-Node: GenDemo as String64205
-Ref: Create-a-Gen-object-for-Strings64415
-Node: Notes about Generics64870
-Node: Reference Types65126
-Node: Type Arguments65652
-Node: Subtyping66215
-Node: Type Safety67349
-Node: Two Type Parameters67708
-Node: Two Types Example Code68256
-Ref: TwoTypeParameters-java68430
-Node: Class TwoGen68834
-Ref: Class-TwoGen68971
-Ref: Class-Declaration70001
-Ref: Two-Instance-Variables-Declarations70207
-Ref: Constructor-of-Two-Parameters70390
-Ref: Instance-Methods-Show-and-Get70646
-Node: Class SimpGen71037
-Ref: Class-SimpGen71300
-Node: Generic Class General Form71869
-Ref: GenericClass72176
-Node: Bounded Types72500
-Node: Wildcard Arguments73898
-Node: Wildcard Motivation74143
-Node: Wildcard Syntax76690
-Node: Bounded Wildcards77608
-Ref: UpperBoundedWildcard78429
-Ref: LowerBoundedWildcard78809
-Node: Generic Methods78974
-Ref: GenericMethod79374
-Node: Example of Generic Method79542
-Ref: GenMethDemo-java80043
-Node: Method isIn80497
-Ref: Static-Method-isIn80717
-Node: GenMethDemo Main82088
-Ref: GenMethDemo-Main82238
-Node: Generic Constructors83133
-Node: Enumerations83500
-Node: Enumeration Basics84374
-Node: Enum Methods85969
-Node: Enumerations as Class Types87196
-Node: Inherit Enum89070
-Node: Strings90906
-Node: java Lang91030
-Node: Primitive Wrappers92673
-Node: Number93460
-Node: Double and Float93574
-Node: isInfiinite() and isNaN()93742
-Node: Byte Short Integer Long93943
-Node: Numbers to from String94154
-Node: java util Collections94353
-Node: java util Utility Classes94572
-Node: java io Input Output94782
-Node: NIO94948
-Node: Networking95055
-Node: Event Handling95170
-Node: AWT95293
-Node: AWT Controls95480
-Node: Images95661
-Node: Concurrency95770
-Node: Streams95912
-Node: Regular Expressions96045
-Node: Swing96220
-Node: The Makefile96360
-Ref: Makefile96505
-Node: Makefile Constants97136
-Ref: Makefile-CONSTANTS97277
-Node: Makefile Defaults97413
-Ref: Makefile-DEFAULTS97596
-Node: Makefile Tangle Weave97746
-Ref: Makefile-TANGLE-WEAVE97935
-Node: Makefile Clean98327
-Ref: Makefile-CLEAN98476
-Node: Code Chunk Summaries98663
-Node: File Definitions99153
-Node: Code Chunk Definitions99845
-Node: Code Chunk References102700
-Node: List of Tables107417
-Node: List of General Forms107634
-Node: Bibliography108637
-Node: Concept Index108769
-Node: Function Index146476
+Node: Java SE 9 Introduction3449
+Node: Classes3591
+Node: Class Fundamentals4035
+Node: General Form4451
+Ref: ClassDeclaration4791
+Node: Declaring Objects6306
+Node: Methods7700
+Ref: MethodDeclaration7899
+Node: Constructors8742
+Node: this Keyword9506
+Node: Instance Variable Hiding10059
+Node: Stack Class10863
+Ref: Stack-java11687
+Ref: TestStack-java12242
+Node: Stack Instance Variables12543
+Ref: Stack-Instance-Variables12710
+Node: Stack Constructor Node12876
+Ref: Stack-Constructor13087
+Node: Stack Instance Methods Node13466
+Ref: Stack-Instance-Methods13683
+Node: Stack Push and Pop Node14345
+Ref: Stack-Push14516
+Ref: Stack-Pop14824
+Node: Stack TestStack Node15153
+Ref: TestStack-Main-Method15325
+Node: Methods and Classes16053
+Node: Overloading Methods16763
+Node: Overloading Constructors19073
+Node: Objects as Parameters19261
+Node: Argument Passing19937
+Node: Returning Objects21279
+Node: Recursion21906
+Node: Access Control23418
+Node: Improved Stack Class26363
+Ref: StackImproved-java26597
+Ref: Stack-Private-Instance-Variables27235
+Ref: Improved Stack Class-Footnote-128259
+Node: static Keyword28378
+Node: final Keyword30817
+Node: Arrays 231720
+Node: Nested and Inner Classes32417
+Node: The String Class32601
+Node: Command-Line Arguments32787
+Node: Varargs32976
+Node: Inheritance33152
+Node: Packages33886
+Node: Packages Intro34344
+Node: Defining Packages34888
+Ref: PackageStatement35490
+Ref: PackageStatementMulti36460
+Node: Classpath36883
+Node: Member Access38423
+Ref: PackageAccess39398
+Node: Importing39999
+Ref: Import40623
+Node: Interfaces41898
+Node: Defining Interfaces44006
+Ref: InterfaceSimple44261
+Node: Implementing Interfaces45591
+Ref: ClassImplementsInterface46085
+Node: Interface References46570
+Node: Partial Implementations47561
+Node: Nested Interfaces47995
+Node: Applying Interfaces48769
+Node: Variables in Interfaces48969
+Node: Extending Interfaces49699
+Node: Default Interface Methods50178
+Node: Interface Static Methods52282
+Ref: InterfaceStaticMethod53014
+Node: Private Interface Methods53296
+Node: Generics54052
+Node: Motivation55892
+Node: What are Generics57868
+Node: Simple Generics Example58935
+Ref: SimpleGenerics-java59250
+Node: Class Gen<T>59645
+Ref: Class-Gen60640
+Ref: Instance-Variable-ob-of-Type-T61752
+Ref: generics-constructor61952
+Ref: Constructor-taking-parameter-of-Type-T62298
+Ref: Method-returning-object-of-type-T62834
+Ref: Method-showing-type-of-T63459
+Node: Class GenDemo63698
+Ref: Class-GenDemo64477
+Node: GenDemo as Integer65234
+Ref: Create-a-Gen-object-for-Integers65446
+Ref: Integer-Type-Parameter66576
+Ref: Reference-to-Integer-Instance67423
+Ref: Show-Type67966
+Ref: Get-Value68458
+Node: GenDemo as String68699
+Ref: Create-a-Gen-object-for-Strings68909
+Node: Notes about Generics69364
+Node: Reference Types69620
+Node: Type Arguments70146
+Node: Subtyping70709
+Node: Type Safety71843
+Node: Two Type Parameters72202
+Node: Two Types Example Code72750
+Ref: TwoTypeParameters-java72924
+Node: Class TwoGen73328
+Ref: Class-TwoGen73465
+Ref: Class-Declaration74495
+Ref: Two-Instance-Variables-Declarations74701
+Ref: Constructor-of-Two-Parameters74884
+Ref: Instance-Methods-Show-and-Get75140
+Node: Class SimpGen75531
+Ref: Class-SimpGen75794
+Node: Generic Class General Form76363
+Ref: GenericClass76670
+Node: Bounded Types76994
+Node: Wildcard Arguments78392
+Node: Wildcard Motivation78637
+Node: Wildcard Syntax81184
+Node: Bounded Wildcards82102
+Ref: UpperBoundedWildcard82923
+Ref: LowerBoundedWildcard83303
+Node: Generic Methods83468
+Ref: GenericMethod83868
+Node: Example of Generic Method84036
+Ref: GenMethDemo-java84537
+Node: Method isIn84991
+Ref: Static-Method-isIn85211
+Node: GenMethDemo Main86582
+Ref: GenMethDemo-Main86732
+Node: Generic Constructors87627
+Node: Enumerations87994
+Node: Enumeration Basics88868
+Node: Enum Methods90463
+Node: Enumerations as Class Types91690
+Node: Inherit Enum93564
+Node: Strings95400
+Node: java Lang95524
+Node: Primitive Wrappers97169
+Node: Number97958
+Node: Double and Float98074
+Node: isInfiinite() and isNaN()98244
+Node: Byte Short Integer Long98447
+Node: Numbers to from String98660
+Node: java util Collections98861
+Node: java util Utility Classes99080
+Node: java io Input Output99290
+Node: NIO99456
+Node: Networking99563
+Node: Event Handling99678
+Node: AWT99801
+Node: AWT Controls99988
+Node: Images100169
+Node: Concurrency100278
+Node: Streams100420
+Node: Regular Expressions100553
+Node: Swing100728
+Node: The Makefile100868
+Ref: Makefile101013
+Node: Makefile Constants101644
+Ref: Makefile-CONSTANTS101785
+Node: Makefile Defaults101921
+Ref: Makefile-DEFAULTS102104
+Node: Makefile Tangle Weave102254
+Ref: Makefile-TANGLE-WEAVE102443
+Node: Makefile Clean102835
+Ref: Makefile-CLEAN102984
+Node: Code Chunk Summaries103171
+Node: File Definitions103661
+Node: Code Chunk Definitions104353
+Node: Code Chunk References107208
+Node: List of Tables111925
+Node: List of General Forms112142
+Node: Bibliography113145
+Node: Concept Index113277
+Node: Function Index151694
 
 End Tag Table

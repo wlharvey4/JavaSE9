@@ -870,6 +870,11 @@ private int myMethod(int a, char b) @{
 @}
 @end example
 
+@subheading Access Control and Inheritance
+
+Consult the chapter on @ref{Inheritance} for more on the topic of access
+control in relation to inheritance.
+
 @c ........................................
 
 @node Improved Stack Class
@@ -919,13 +924,77 @@ mystack2.stck[3] = 100;
 @end example
 
 
-
 @c -----------------------------------------------------------------------------
 
 @node static Keyword
 @section @code{static} Keyword
 @cindex @code{static} Keyword
 @cindex keyword @code{static}
+@cindex @code{static} members
+
+There will be times when you want to define a class member that will be used
+independently of any object of that class.  Normally, a class member must be
+accessed in conjunction with an object of its class.  However, it is possible
+to create a member that can be used by itself without reference to a specific
+instance.  To create such a member, precede its declaration with the keyword
+@code{static}.  When a member is declared @code{static}, it can be accessed
+before any objects of its class are created, and without reference to any
+object.
+
+You can declare both methods and variables to be @code{static}.  Instance
+variables declared as @code{static} are essentially global variables.  When
+objects of its class are declared, no copy of a @code{static} variable is
+made.  Instead, all instances of the class share the same @code{static}
+variable.
+
+@subheading Restrictions on @code{static} Methods
+@cindex static restrictions on methods
+
+Methods declared as @code{static} have several restrictions:
+
+@itemize
+@item
+they can only directly call other @code{static} methods of their class;
+@item
+they can only directly access @code{static} variables of their class;
+@item
+they cannot refer to @code{this} or @code{super} in any way;
+@end itemize
+
+@subheading @code{static} Block
+@cindex @code{static} initialization block
+
+If you need to do computation in order to initialize your @code{static}
+variables, you can declare a @code{static} block that gets executed exactly
+once, when the class is first loaded (@dfn{static initialization block}).
+
+@example
+class UseStatic @{
+  static int a = 3;
+  static int b;
+
+  static @{
+    b = a * 4;
+  @}
+@}
+@end example
+
+As soon as the @code{UseStatic} class is loaded, all of the @code{static}
+statements are run.  First, @code{a} is set to @samp{3}, then the
+@code{static} block executes and initializes @code{b} to @samp{a * 4} or
+@samp{12}.  Then @code{main()} is called (not shown).
+
+@subheading Use of @code{static} Members Outside Their Class
+@cindex global members
+
+Outside of the class in which they are defined, @code{static} methods and
+variables can be used independently of any object.  To do so, you need only
+specify the name of their class followed by the dot operator:
+@slanted{classname.method()}.  @slanted{classname} is the name of the class
+in which the @code{static} method is declared.  A @code{static} variable can
+be accessed in the same way.  This is how Java implements a controlled
+version of global methods and global variables.
+
 
 @c -----------------------------------------------------------------------------
 
@@ -933,12 +1002,39 @@ mystack2.stck[3] = 100;
 @section @code{final} Keyword
 @cindex @code{final} Keyword
 @cindex keyword @code{final}
+@cindex constant, @code{final} variable
+
+A field can be declared as @code{final}.  Doing so prevents its contents from
+being modified, making it, esentially, a constant.  This means that you must
+initialize a @code{final} field when it is declared.  You can do this in one
+of two ways: when it is declared, or within a constructor.
+
+In addition to fields, both method parameters and local variables can be
+declared as @code{final}.  Declaring a parameter as @code{final} prevents it
+from being changed within the method.  Declaring a local variable
+@code{final} prevents it from being assigned a value more than once.
+
+The keyword @code{final} can also be applied to methods, but its meaning is
+different than when applied to variables.  This usage of @code{final} is
+described in the next chapter (@pxref{Inheritance}).
+
 
 @c -----------------------------------------------------------------------------
 
 @node Arrays 2
 @section Arrays Revisited
 @cindex Arrays
+@cindex arrays as objects
+@cindex @code{length} instance variable
+
+Arrays are implemented as objects.  Because of this, there is a special array
+attribute that you will want to take advantage of.  Specifically, the size of
+an array---that is, the number of elements that an array can hold---is found
+in its @code{length} instance variable.  All arrays have this variable, and
+it will always hold the size of the array.  Keep in mind that the value of
+@code{length} has nothing to do with the number of elements that are actually
+in use.  It only reflects the number of elements taht the array is designed
+to hold.
 
 @c -----------------------------------------------------------------------------
 
@@ -972,6 +1068,26 @@ mystack2.stck[3] = 100;
 
 
 
+
+
+@c *****************************************************************************
+
+@node Inheritance
+@chapter Inheritance
+@cindex Inheritance
+@cindex superclass
+@cindex subclass
+
+Inheritance is a cornerstone of object-oriented programming because it allows
+the creation of hierarchical classifications.  Using inheritance, you can
+create a general class taht defines traits common to a set of related items.
+This class can then be inherited by other, more specific classes, each adding
+those things that are unique to them.
+
+A class that is inherited is called a @dfn{superclass}.  The class that does
+the inheriting is called a @dfn{subclass}.  A subclass is a specialized
+version of a subclass.  It inherits all of the members defined by the
+superclass and adds its own, unique elements.
 
 
 
