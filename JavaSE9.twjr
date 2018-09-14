@@ -25,7 +25,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.1.10
+@set VERSION 0.1.11
 
 @iftex
 @set DOCUMENT book
@@ -286,7 +286,7 @@ When you define a class, you declare its exact form and nature.  You do this
 by specifying the data that it contains and the code that operates on that
 data.  A class is declared by use of the @code{class} keyword.
 
-@float GeneralForm,Class Declaration
+@float GeneralForm,ClassDeclaration
 @display
 class @ii{classname} @{
   @ii{type instance-variable1};
@@ -363,8 +363,8 @@ dynamically allocated.
 @heading Example Declaration, Allocation, and Assignment
 
 @example
-Box mybox; // 1. declare a variable to hold a reference to an object
-mybox = new Box(); // 2. allocate a Box object and assign it to the variable
+Box mybox; // 1. declare a variable
+mybox = new Box(); // 2. allocate a Box object
 @end example
 
 These two declarations can be combined into a single declaration, and
@@ -393,9 +393,9 @@ The @code{mybox} variable simply holds the memory address of the actual
 @caption{Method Declaration --- General Form}
 @end float
 
-@cindex @ii{type}, method
-@cindex @ii{name}, method
-@cindex @ii{parameter list}, method
+@cindex type, method
+@cindex name, method
+@cindex parameter list, method
 
 @ii{type} specifies the type of data returned by the method.  This can be
 any valid type, including class types that you create.  If the method does
@@ -417,6 +417,164 @@ return @ii{value}
 
 where @ii{value} is the value returned.
 
+@node Constructors
+@section Constructors
+@cindex Constructors
+
+Java allows objects to initialize themselves when they are created.  This
+automatic initialization is performed through the use of a constructor.
+
+A @dfn{constructor} initializes an object immediately upon creation.  It has
+the same name as the class in which it resides and is syntactically similar
+to a method.  Once defined, the constructor is automatically called when the
+object is created, before the @command{new} operator completes.
+Constructors have no return type.  It is the constructor's job to initialize
+the internal state of an object so that the code creating an instance will
+have fully initialized, usable object immediately.
+
+@node this Keyword
+@section The @code{this} Keyword
+@cindex @code{this} Keyword
+
+Sometimes a method will need to refer to the object that invoked it.  To
+allow this, Java defines the @code{this} keyword.  @code{this} can be used
+inside any method to refer to the @emph{current} object.  That is,
+@code{this} is always a refernce to the object on which the method was
+invoked.  You can use @code{this} anywhere a reference to an object of the
+current class' type is permitted.
+
+@node Instance Variable Hiding
+@subsection Instance Variable Hiding
+@cindex hiding, instance variables
+
+It is illegal to declare two local variables with the same name inside the
+same or enclosing scope.  However, you can have local variables, including
+formal parameters to methods, which overlap with the names of the class'
+instance variables.  For these cases, the local variables @emph{hide} the
+instance variables of the same name.
+
+Because @code{this} lets you refer directly to the object, you can use it to
+resolve any namespace collisions that might occur between instance variables
+and local variables.  So, @kbd{this.width = width} is an example of a local
+variable (@kbd{width}) hiding an instance variable (also @kbd{width}), with
+@code{this} allowing an assignment between them.
+
+@node Stack Class
+@section A Stack Class
+@cindex Stack Class
+
+To see a practical application of object-oriented programming, here is one
+of the archetypal examples of encapsulation: the stack.  A @dfn{stack}
+stores data using @emph{first-in, last-out} ordering.  That is, a stack is
+like a stack of plates on a table --- the first plate put down on the table
+is the last plate to be used.  Stacks are controlled through two operations
+traditionally called @dfn{push} and @dfn{pop}.  To put an item on top of the
+stack, you will use @command{push}.  To take an item off the stack, you will
+use @command{pop}.  It is easy to encapsulate the entire stack mechanism.
+
+Here is a class called @code{Stack} that implements a stack for up to ten
+integers, plus test class called @code{TestStack}:
+
+@heading Stack.java
+
+@(Stack.java@)=
+class Stack {
+  @<Stack Instance Variables@>
+  @<Stack Constructor@>
+  @<Stack Instance Methods@>
+}
+
+@
+
+@heading TestStack.java
+
+@(TestStack.java@)=
+class TestStack {
+  @<TestStack Main Method@>
+}
+
+@
+
+@node Stack Instance Variables
+@subsection Stack Instance Variables
+
+@<Stack Instance Variables@>=
+int[] stck = new int[10];
+int tos;
+
+@
+
+@node Stack Constructor Node
+@subsection Stack Constructor Subsection
+
+@<Stack Constructor@>=
+// initialize top-of-stack tos
+Stack() {
+  tos = -1;
+}
+
+@
+
+@node Stack Instance Methods Node
+@subsection Stack Instance Methods Subsection
+
+@<Stack Instance Methods@>=
+@<Stack Push@>
+@<Stack Pop@>
+@
+
+@node Stack Push and Pop Node
+@subsubsection Stack Push and Pop Subsubsection
+
+@<Stack Push@>=
+// Push an item onto the stack
+void push(int item) {
+  if (tos == 9)
+    System.out.println("Stack is full.");
+  else
+    stck[++tos] = item;
+}
+
+@
+
+@<Stack Pop@>=
+// Pop an item from the stack
+int pop() {
+  if (tos < 0) {
+    System.out.println("Stack underflow.");
+    return 0;
+  } else
+    return stck[tos--];
+  }
+}
+
+@
+
+@node Stack TestStack Node
+@subsection Stack TestStack Subsection
+
+@<TestStack Main Method@>=
+public static void main(String[] args) {
+  Stack mystack1 = new Stack();
+  Stack mystack2 = new Stack();
+
+  // push some numbers onto the stack
+  for (int i = 0; i < 10; i++)
+    mystack1.push(i);
+  for (int i = 10; i < 20; i++)
+    mystack2.push(i);
+
+  // pop those numbers off the stack
+  System.out.println("Stack in mystack1:");
+  for (int i = 0; i < 10; i++)
+    System.out.println(mystack1.pop());
+
+  System.out.println("Stack in mystack2:");
+  for (int i + 0; i < 10; i++)
+    System.out.println(mystack2.pop());
+}
+
+@
 
 
 
@@ -708,6 +866,9 @@ package hierarchy.
 @cindex imported packages must be public
 When a package is imported, only those items within the package declared as
 @command{public} will be available to non-subclasses in the importing code.
+
+
+
 
 @c *****************************************************************************
 @node Interfaces
@@ -1531,7 +1692,8 @@ two type parameters are @samp{Integer} and @samp{String}.
 @<Class SimpGen@>=
 class SimpGen {
   public static void main(String args[]) {
-    TwoGen<Integer, String> tgObj = new TwoGen<Integer, String>(88, "Generics");
+    TwoGen<Integer, String> tgObj =
+      new TwoGen<Integer, String>(88, "Generics");
 
     // Show the types
     tgObj.showTypes();
@@ -2436,6 +2598,7 @@ and the code chunk references.
 @unnumbered Function Index
 
 @printindex fn
+
 @bye
 
 TODO:
