@@ -87,6 +87,14 @@ Methods and Classes
 * Command-Line Arguments::
 * Varargs::
 
+Overloading Methods
+
+* Overloading Constructors::
+
+Access Modifier Syntax
+
+* Improved Stack Class::
+
 Packages
 
 * Packages Intro::
@@ -499,8 +507,12 @@ File: JavaSE9.info,  Node: Stack Constructor Node,  Next: Stack Instance Methods
      }
 
 
-This chunk is called by {'Stack.java'}; see its first definition at
-*note Stack-java::.
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'Stack.java'}            See *note Stack-java::.
+{'StackImproved.java'}    See *note StackImproved-java::.
 
 
 File: JavaSE9.info,  Node: Stack Instance Methods Node,  Next: Stack TestStack Node,  Prev: Stack Constructor Node,  Up: Stack Class
@@ -512,8 +524,12 @@ File: JavaSE9.info,  Node: Stack Instance Methods Node,  Next: Stack TestStack N
      <Stack Push>
      <Stack Pop>
 
-This chunk is called by {'Stack.java'}; see its first definition at
-*note Stack-java::.
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'Stack.java'}            See *note Stack-java::.
+{'StackImproved.java'}    See *note StackImproved-java::.
 
 The following table lists called chunk definition points.
 Chunk name                First definition point
@@ -631,11 +647,68 @@ File: JavaSE9.info,  Node: Overloading Methods,  Next: Objects as Parameters,  U
 3.1 Overloading Methods
 =======================
 
+It is possible to define two or more methods within the same class
+that share the same name as long as their parameter declarations are
+different.  When this is the case, the methods are said to be
+"overloaded", and the process is referred to as "method overloading".
+Method overloading is one of the ways that Java supports polymorphism.
+
+   When an overloaded method is invoked, Java uses the type and number
+of arguments as its guid to determine which version of the overloaded
+method to actually call.  Thus, overloaded methods must differ in the
+type or number of their parameters.  While overloaded methods may have
+different return types, thei return type alone is inusfficient to
+distinguish two versions of a method.  When Java encounters a call to
+an overloaded method, it simply executes the version of the method
+whose parameters match the arguments used in the call.
+
+   The match between arguments and parameters need not always be
+exact.  In some cases,Java's automatic type conversions can play a
+role in overload resolution.  For example, if there is a method with
+one 'double' parameter, and that method is invoked with a single 'int'
+argument, then, when no exact match is found, Java will automatically
+convert the integer into a 'double', and this conversion will be used
+to resolve the call.  Java will employ automatic type conversion only
+if no exact match is found.
+
+   Method overloading supports polymorphism because it is one way that
+Java implements the _one interface, multiple methods_ paradigm.  That
+is, Java does not need to rename each similar method just because it
+has a slightly different parameter requirements.  The value of
+overloading is that it allows related methods to be accessed by use of
+a common name, representing the _general action_ that is being
+performed, and leaves to the compiler the choice of the right
+_specific_ version for a particular circumstance.  The programmer need
+only remember the general operation being performed.  Through the
+application of polymorphism, several names have been reduced to one.
+Overloading can help manage greater complexity.
+
+* Menu:
+
+* Overloading Constructors::
+
+
+File: JavaSE9.info,  Node: Overloading Constructors,  Up: Overloading Methods
+
+3.1.1 Overloading Constructors
+------------------------------
+
+You can also overload constructor methods.
+
 
 File: JavaSE9.info,  Node: Objects as Parameters,  Next: Argument Passing,  Prev: Overloading Methods,  Up: Methods and Classes
 
 3.2 Objects as Parameters
 =========================
+
+It is both correct and common to pass objects to methods as well as
+primitive types.  One of the most common uses of object parameters
+involves constructors.  Frequently you will want to construct a new
+object so that it is initially the same as some existing object.  To
+do this, you must define a constructor that takes an object of its
+class as a parameter.  Providng many forms of constructors is usually
+required to allow objects to be constructed in a convenient and
+efficient manner.
 
 
 File: JavaSE9.info,  Node: Argument Passing,  Next: Returning Objects,  Prev: Objects as Parameters,  Up: Methods and Classes
@@ -643,11 +716,46 @@ File: JavaSE9.info,  Node: Argument Passing,  Next: Returning Objects,  Prev: Ob
 3.3 Argument Passing
 ====================
 
+In general, there are two ways that a computer language can pass an
+argument to a subroutine:
+
+  1. call-by-value
+  2. call-by-reference
+
+   Java uses call-by-value to pass all arguments, although the precise
+effect differs between whether a primitive type or a reference type is
+passed.
+
+   When you pass a primitive type to a method, it is passed by value.
+Thus, a copy of the argument is made, and what occurs to the parameter
+that receives the argument has no effect outside the method.
+
+   When you pass an object to a method, the situation changes; objects
+are passed by what is effectively call-by-reference.  When you pass a
+variable of a class type, you pass a reference to the method and the
+parameter receiving it will refer to the same object.  This
+effectively means that objects act as if they are passed to methods by
+use of call-by-reference.  Changes to the object inside the method
+_do_ affect the object used as an argument.  However, when an object
+reference is passed to a method, the reference itself is passed by use
+of call-by-value; therefore, that reference will continue to refer to
+the object, even though the object itself may be modified.
+
 
 File: JavaSE9.info,  Node: Returning Objects,  Next: Recursion,  Prev: Argument Passing,  Up: Methods and Classes
 
 3.4 Returning Objects
 =====================
+
+A method can return any type of data, including class types that you
+create.
+
+   Since all objects are dynamically allocated using 'new', you don't
+need to worry about an object going out-of-scope because the method in
+which it was created terminates.  The object will continue to exist as
+long as there is a reference to it somewhere in your program.  When
+there are no references to it, the object will be reclaimed the next
+time garbage collection takes place.
 
 
 File: JavaSE9.info,  Node: Recursion,  Next: Access Control,  Prev: Returning Objects,  Up: Methods and Classes
@@ -655,11 +763,168 @@ File: JavaSE9.info,  Node: Recursion,  Next: Access Control,  Prev: Returning Ob
 3.5 Recursion
 =============
 
+"Recursion" is the process of defining something in terms of itself.
+In programming, it is also what allows a method to call itself.  A
+method that calls itself is said to be "recursive".
+
+   When a method calls itself, new local variables and parameters are
+allocated storage on the stack, and the method code is executed with
+these new variables from the start.  As each recursive call returns,
+the old local variables and parameters are removed from the stack, and
+execution resumes at the point of the call inside the method.
+
+   Recursive versions of many routines may execute a bit slower than
+the iterative equivalent because of the added overhead of the
+additional method calls.  A large number of recursive calls to a
+method could cause a stack overrun.  Because storage for parameters
+and local varibles is on the stack and each new call creates a new
+copy of these variables, it is possible that the stack could be
+exhausted.  If this occurs, the Java run-time system will cause an
+exception.
+
+   The main advantage to recursive methods is that they can be used to
+create clearer and simpler versions of several algorithms than can
+their iterative relatives.  For example, the QuickSort sorting
+algorithm is quite difficult to implement in an iterative way.  Also,
+some types of AI-related algorithms are most easily implemented using
+recursive solutions.
+
 
 File: JavaSE9.info,  Node: Access Control,  Next: static Keyword,  Prev: Recursion,  Up: Methods and Classes
 
 3.6 Access Control
 ==================
+
+Encapsulation provides another important attribute besides linking
+data with code: "access control".  Through encapsulation, you can
+control what parts of a program can access the members of a class.  By
+controlling access, you can prevent misuse.  Thus, when correctly
+implemented, a class creates a _black box_ which may be used, but the
+inner workings of which are not open to tampering.  The classes
+introduced earlier do not completely meet this goal.  For example, the
+'Stack' class provides the methods 'push()' and 'pop()' as a
+controlled interface to the stack, this interface is not enforced --
+it is possible for another part of the program to bypass these methods
+and access the stack directly.  This could lead to trouble.
+
+   How a member can be accessed is determined by the "access modifier"
+attached to its declaration.  Java supplies a rich set of access
+modifiers.  Some aspects of access control are related mostly to
+inheritance or packages (and now modules).  Those ideas will be
+discussed later.  Here, let's examine access control as it relates to
+a single class.
+
+Access Modifiers
+----------------
+
+Java's access modifiers are:
+
+   * public
+   * private
+   * protected (applies only to inheritance)
+   * default access level
+
+'public' vs 'private' Access
+............................
+
+When a member of a class is modified by 'public', then that member can
+be accessed by any other code.  When a member of a class is specified
+as 'private', then that member can only be accessed by other members
+of its class.  Thus, the method 'main()' is always preceded by the
+'public' modifier.  It must be called by code that is outside the
+program -- the Java run-time system.
+
+Default Access -- No Access Modifier
+------------------------------------
+
+When no access modifier is used, then by default the member of a class
+is public within its own package, but cannot be accessed outside of
+its package.  In the classes developed so far, all members of a class
+have used the 'default' access mode.  However, this is typically not
+what you will want to be the case.  Usually, you will want to restrict
+access to the data members of a class -- allowing access only through
+methods.  There will also be times when you will want to define
+methods that are private to a class.
+
+Access Modifier Syntax
+----------------------
+
+An access modifier precedes the rest of a member's type specification.
+That is, it must begin a member's declaration statement.  As an
+example:
+
+     public int i;
+     private double j;
+
+     private int myMethod(int a, char b) {
+       ...
+     }
+
+* Menu:
+
+* Improved Stack Class::
+
+
+File: JavaSE9.info,  Node: Improved Stack Class,  Up: Access Control
+
+3.6.1 An Improved 'Stack' Class
+-------------------------------
+
+StackImproved.java
+------------------
+
+Compare this code with that of *note Stack Class::.  (1)
+
+{'StackImproved.java'} ==
+     class StackImproved {
+       <Stack Private Instance Variables>
+       <Stack Constructor>
+       <Stack Instance Methods>
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Stack Constructor>       See *note Stack-Constructor::.
+<Stack Instance           See *note Stack-Instance-Methods::.
+Methods>
+<Stack Private Instance   See
+Variables>                *note Stack-Private-Instance-Variables::.
+
+Stack Private Instance Variables
+--------------------------------
+
+<Stack Private Instance Variables> ==
+     /* Now, both stck and tos are private.  This means
+        that they cannot be accidentally or maliciously
+        altered in a way that would be harmful to the stack.
+      */
+
+     private int[] stck = new int[10];
+     private int tos;
+
+
+This chunk is called by {'StackImproved.java'}; see its first
+definition at *note StackImproved-java::.
+
+   Now both 'stck', which holds the stack, and 'tos', which is the
+index of the top of the stack, are specified as 'private'.  This means
+that they cannot be accessed or altered except through 'push()' and
+'pop()'.  Making 'tos' private, for example, prevents other parts of
+your program from inadvertently setting it to a value that is beyond
+the end of the 'stck' array.  In other words, the following code,
+added to the end of the 'TestStack.java' program (*note
+TestStack-Main-Method::), would be illegal and the program would not
+compile:
+
+     mystack1.tos = -2;
+     mystack2.stck[3] = 100;
+
+   ---------- Footnotes ----------
+
+   (1) Notice how all of the prior code except what is changed can
+easily be reused using TexiWebJr's modular system.
 
 
 File: JavaSE9.info,  Node: static Keyword,  Next: final Keyword,  Prev: Access Control,  Up: Methods and Classes
@@ -2792,6 +3057,8 @@ B.1 Source File Definitions
      This chunk is defined in *note SimpleGenerics-java::.
 {'Stack.java'}
      This chunk is defined in *note Stack-java::.
+{'StackImproved.java'}
+     This chunk is defined in *note StackImproved-java::.
 {'TestStack.java'}
      This chunk is defined in *note TestStack-java::.
 {'TwoTypeParameters.java'}
@@ -2858,6 +3125,9 @@ B.2 Code Chunk Definitions
      This chunk is defined in *note Stack-Instance-Variables::.
 <Stack Pop>
      This chunk is defined in *note Stack-Pop::.
+<Stack Private Instance Variables>
+     This chunk is defined in *note
+     Stack-Private-Instance-Variables::.
 <Stack Push>
      This chunk is defined in *note Stack-Push::.
 <Static Method isIn>
@@ -2964,12 +3234,20 @@ B.3 Code Chunk References
      its first definition at *note Create-a-Gen-object-for-Integers::.
 <Stack Constructor>
 
-     This chunk is called by {'Stack.java'}; see its first definition
-     at *note Stack-java::.
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'Stack.java'}            See *note Stack-java::.
+     {'StackImproved.java'}    See *note StackImproved-java::.
 <Stack Instance Methods>
 
-     This chunk is called by {'Stack.java'}; see its first definition
-     at *note Stack-java::.
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'Stack.java'}            See *note Stack-java::.
+     {'StackImproved.java'}    See *note StackImproved-java::.
 <Stack Instance Variables>
 
      This chunk is called by {'Stack.java'}; see its first definition
@@ -2978,6 +3256,10 @@ B.3 Code Chunk References
 
      This chunk is called by <Stack Instance Methods>; see its first
      definition at *note Stack-Instance-Methods::.
+<Stack Private Instance Variables>
+
+     This chunk is called by {'StackImproved.java'}; see its first
+     definition at *note StackImproved-java::.
 <Stack Push>
 
      This chunk is called by <Stack Instance Methods>; see its first
@@ -3112,9 +3394,13 @@ Index
 * <Stack Constructor>, definition:       Stack Constructor Node.
                                                             (line   6)
 * <Stack Constructor>, use:              Stack Class.       (line  22)
+* <Stack Constructor>, use <1>:          Improved Stack Class.
+                                                            (line  11)
 * <Stack Instance Methods>, definition:  Stack Instance Methods Node.
                                                             (line   6)
 * <Stack Instance Methods>, use:         Stack Class.       (line  22)
+* <Stack Instance Methods>, use <1>:     Improved Stack Class.
+                                                            (line  11)
 * <Stack Instance Variables>, definition: Stack Instance Variables.
                                                             (line   6)
 * <Stack Instance Variables>, use:       Stack Class.       (line  22)
@@ -3122,6 +3408,10 @@ Index
                                                             (line  19)
 * <Stack Pop>, use:                      Stack Instance Methods Node.
                                                             (line   6)
+* <Stack Private Instance Variables>, definition: Improved Stack Class.
+                                                            (line  31)
+* <Stack Private Instance Variables>, use: Improved Stack Class.
+                                                            (line  11)
 * <Stack Push>, definition:              Stack Push and Pop Node.
                                                             (line   6)
 * <Stack Push>, use:                     Stack Instance Methods Node.
@@ -3143,6 +3433,8 @@ Index
 * {SimpleGenerics.java}, definition:     Simple Generics Example.
                                                             (line   9)
 * {Stack.java}, definition:              Stack Class.       (line  22)
+* {StackImproved.java}, definition:      Improved Stack Class.
+                                                            (line  11)
 * {TestStack.java}, definition:          Stack Class.       (line  42)
 * {TwoTypeParameters.java}, definition:  Two Types Example Code.
                                                             (line   6)
@@ -3152,13 +3444,14 @@ Index
 * abstract methods, interface <1>:       Default Interface Methods.
                                                             (line   6)
 * abstract over types:                   Generics.          (line   6)
-* access control:                        Access Control.    (line   5)
 * access control table:                  Member Access.     (line  27)
 * access control, packages:              Member Access.     (line   6)
+* access control, single class:          Access Control.    (line   6)
+* access modifiers:                      Access Control.    (line   6)
 * access, member:                        Member Access.     (line   6)
 * accessibility:                         Packages Intro.    (line   6)
 * API, Stream:                           Streams.           (line   5)
-* argument passing:                      Argument Passing.  (line   5)
+* argument passing:                      Argument Passing.  (line   6)
 * arguments, command-line:               Command-Line Arguments.
                                                             (line   5)
 * arguments, varargs:                    Varargs.           (line   5)
@@ -3205,9 +3498,12 @@ Index
                                                             (line   6)
 * constructor:                           Declaring Objects. (line   6)
 * Constructors:                          Constructors.      (line   6)
+* constructors, overloading:             Overloading Constructors.
+                                                            (line   6)
 * containers, packages as:               Packages.          (line   6)
 * creating generic method:               Generic Methods.   (line   6)
 * data type, enumeration:                Enumerations.      (line   6)
+* default access level:                  Access Control.    (line  28)
 * default method, interface, motivation: Default Interface Methods.
                                                             (line  15)
 * default methods, interface:            Default Interface Methods.
@@ -3222,6 +3518,7 @@ Index
 * dynamic dispatch, interface method look-ups: Interface References.
                                                             (line   6)
 * dynamic method resolution:             Interfaces.        (line  19)
+* encapsulation, access control:         Access Control.    (line   6)
 * enum valueOf():                        Enum Methods.      (line   6)
 * enum values():                         Enum Methods.      (line   6)
 * enum variable, declare:                Enumeration Basics.
@@ -3398,6 +3695,7 @@ Index
 * introduction to Java SE 9:             Java SE 9 Introduction.
                                                             (line   5)
 * Introduction to Packages (section):    Packages Intro.    (line   6)
+* iteration, iterative:                  Recursion.         (line   6)
 * J2SE 5.0:                              Generics.          (line   6)
 * Java SE 9 introduction:                Java SE 9 Introduction.
                                                             (line   6)
@@ -3443,7 +3741,7 @@ Index
                                                             (line   6)
 * methods, enumeration:                  Enum Methods.      (line   6)
 * methods, overloading:                  Overloading Methods.
-                                                            (line   5)
+                                                            (line   6)
 * module path:                           Classpath.         (line   6)
 * modules, packages:                     Classpath.         (line   6)
 * name, method:                          Methods.           (line  15)
@@ -3463,8 +3761,18 @@ Index
 * objects as parameters:                 Objects as Parameters.
                                                             (line   6)
 * objects, declaring:                    Declaring Objects. (line   6)
-* objects, returning from methods:       Returning Objects. (line   5)
+* objects, dynamical allocation:         Returning Objects. (line   6)
+* objects, references to:                Returning Objects. (line   6)
+* objects, returning from methods:       Returning Objects. (line   6)
+* _one interface, multiple methods_:     Overloading Methods.
+                                                            (line   6)
+* overload, overloaded:                  Overloading Methods.
+                                                            (line   6)
+* overloading constructors:              Overloading Constructors.
+                                                            (line   6)
 * overloading methods:                   Overloading Methods.
+                                                            (line   6)
+* overloading, automatic type conversion: Overloading Methods.
                                                             (line   6)
 * package command:                       Defining Packages. (line   6)
 * package namespace:                     Defining Packages. (line   6)
@@ -3488,14 +3796,19 @@ Index
 * parameterized type:                    Class Gen<T>.      (line   6)
 * parameterized types:                   What are Generics. (line   6)
 * parameters, as objects:                Objects as Parameters.
-                                                            (line   5)
+                                                            (line   6)
 * partitioning mechanism:                Packages Intro.    (line   6)
 * polymorphism, one interface multiple methods: Interfaces. (line   6)
+* polymorphism, overloading of methods:  Overloading Methods.
+                                                            (line   6)
 * preexisting code, default method, interface: Default Interface Methods.
                                                             (line  15)
 * Primitive Wrappers:                    Primitive Wrappers.
                                                             (line   6)
-* recursion:                             Recursion.         (line   5)
+* private access modifier:               Access Control.    (line  28)
+* protected access modifier:             Access Control.    (line  28)
+* public access modifier:                Access Control.    (line  28)
+* recursion, recursive:                  Recursion.         (line   6)
 * Regular Expressions:                   Regular Expressions.
                                                             (line   5)
 * run time, dynamic allocation:          Declaring Objects. (line   6)
@@ -3504,6 +3817,10 @@ Index
 * self-typed constants:                  Enumeration Basics.
                                                             (line  15)
 * Stack Class:                           Stack Class.       (line   6)
+* Stack class, improved:                 Improved Stack Class.
+                                                            (line   6)
+* stack exhaustion, recursion:           Recursion.         (line   6)
+* stack overun, recursion:               Recursion.         (line   6)
 * standard Java classes, imported implicitly: Importing.    (line  29)
 * static environment:                    Interfaces.        (line  19)
 * static generic method:                 Method isIn.       (line  28)
@@ -3571,170 +3888,175 @@ Function Index
 
 Tag Table:
 Node: Top75
-Node: Java SE 9 Introduction3324
-Node: Classes3466
-Node: Class Fundamentals3910
-Node: General Form4326
-Ref: ClassDeclaration4666
-Node: Declaring Objects6181
-Node: Methods7575
-Ref: MethodDeclaration7774
-Node: Constructors8617
-Node: this Keyword9381
-Node: Instance Variable Hiding9934
-Node: Stack Class10738
-Ref: Stack-java11562
-Ref: TestStack-java12117
-Node: Stack Instance Variables12418
-Ref: Stack-Instance-Variables12585
-Node: Stack Constructor Node12751
-Ref: Stack-Constructor12962
-Node: Stack Instance Methods Node13151
-Ref: Stack-Instance-Methods13368
-Node: Stack Push and Pop Node13840
-Ref: Stack-Push14011
-Ref: Stack-Pop14319
-Node: Stack TestStack Node14648
-Ref: TestStack-Main-Method14820
-Node: Methods and Classes15548
-Node: Overloading Methods16255
-Node: Objects as Parameters16410
-Node: Argument Passing16594
-Node: Returning Objects16766
-Node: Recursion16928
-Node: Access Control17072
-Node: static Keyword17223
-Node: final Keyword17382
-Node: Arrays 217533
-Node: Nested and Inner Classes17696
-Node: The String Class17880
-Node: Command-Line Arguments18066
-Node: Varargs18255
-Node: Packages18431
-Node: Packages Intro18897
-Node: Defining Packages19441
-Ref: PackageStatement20043
-Ref: PackageStatementMulti21013
-Node: Classpath21436
-Node: Member Access22976
-Ref: PackageAccess23951
-Node: Importing24552
-Ref: Import25176
-Node: Interfaces26451
-Node: Defining Interfaces28559
-Ref: InterfaceSimple28814
-Node: Implementing Interfaces30144
-Ref: ClassImplementsInterface30638
-Node: Interface References31123
-Node: Partial Implementations32114
-Node: Nested Interfaces32548
-Node: Applying Interfaces33322
-Node: Variables in Interfaces33522
-Node: Extending Interfaces34252
-Node: Default Interface Methods34731
-Node: Interface Static Methods36835
-Ref: InterfaceStaticMethod37567
-Node: Private Interface Methods37849
-Node: Generics38605
-Node: Motivation40445
-Node: What are Generics42421
-Node: Simple Generics Example43488
-Ref: SimpleGenerics-java43803
-Node: Class Gen<T>44198
-Ref: Class-Gen45193
-Ref: Instance-Variable-ob-of-Type-T46305
-Ref: generics-constructor46505
-Ref: Constructor-taking-parameter-of-Type-T46851
-Ref: Method-returning-object-of-type-T47387
-Ref: Method-showing-type-of-T48012
-Node: Class GenDemo48251
-Ref: Class-GenDemo49030
-Node: GenDemo as Integer49787
-Ref: Create-a-Gen-object-for-Integers49999
-Ref: Integer-Type-Parameter51129
-Ref: Reference-to-Integer-Instance51976
-Ref: Show-Type52519
-Ref: Get-Value53011
-Node: GenDemo as String53252
-Ref: Create-a-Gen-object-for-Strings53462
-Node: Notes about Generics53917
-Node: Reference Types54173
-Node: Type Arguments54699
-Node: Subtyping55262
-Node: Type Safety56396
-Node: Two Type Parameters56755
-Node: Two Types Example Code57303
-Ref: TwoTypeParameters-java57477
-Node: Class TwoGen57881
-Ref: Class-TwoGen58018
-Ref: Class-Declaration59048
-Ref: Two-Instance-Variables-Declarations59254
-Ref: Constructor-of-Two-Parameters59437
-Ref: Instance-Methods-Show-and-Get59693
-Node: Class SimpGen60084
-Ref: Class-SimpGen60347
-Node: Generic Class General Form60916
-Ref: GenericClass61223
-Node: Bounded Types61547
-Node: Wildcard Arguments62945
-Node: Wildcard Motivation63190
-Node: Wildcard Syntax65737
-Node: Bounded Wildcards66655
-Ref: UpperBoundedWildcard67476
-Ref: LowerBoundedWildcard67856
-Node: Generic Methods68021
-Ref: GenericMethod68421
-Node: Example of Generic Method68589
-Ref: GenMethDemo-java69090
-Node: Method isIn69544
-Ref: Static-Method-isIn69764
-Node: GenMethDemo Main71135
-Ref: GenMethDemo-Main71285
-Node: Generic Constructors72180
-Node: Enumerations72547
-Node: Enumeration Basics73421
-Node: Enum Methods75016
-Node: Enumerations as Class Types76243
-Node: Inherit Enum78117
-Node: Strings79953
-Node: java Lang80077
-Node: Primitive Wrappers81720
-Node: Number82507
-Node: Double and Float82621
-Node: isInfiinite() and isNaN()82789
-Node: Byte Short Integer Long82990
-Node: Numbers to from String83201
-Node: java util Collections83400
-Node: java util Utility Classes83619
-Node: java io Input Output83829
-Node: NIO83995
-Node: Networking84102
-Node: Event Handling84217
-Node: AWT84340
-Node: AWT Controls84527
-Node: Images84708
-Node: Concurrency84817
-Node: Streams84959
-Node: Regular Expressions85092
-Node: Swing85267
-Node: The Makefile85407
-Ref: Makefile85552
-Node: Makefile Constants86183
-Ref: Makefile-CONSTANTS86324
-Node: Makefile Defaults86460
-Ref: Makefile-DEFAULTS86643
-Node: Makefile Tangle Weave86793
-Ref: Makefile-TANGLE-WEAVE86982
-Node: Makefile Clean87374
-Ref: Makefile-CLEAN87523
-Node: Code Chunk Summaries87710
-Node: File Definitions88200
-Node: Code Chunk Definitions88811
-Node: Code Chunk References91554
-Node: List of Tables95711
-Node: List of General Forms95928
-Node: Bibliography96931
-Node: Concept Index97063
-Node: Function Index132365
+Node: Java SE 9 Introduction3425
+Node: Classes3567
+Node: Class Fundamentals4011
+Node: General Form4427
+Ref: ClassDeclaration4767
+Node: Declaring Objects6282
+Node: Methods7676
+Ref: MethodDeclaration7875
+Node: Constructors8718
+Node: this Keyword9482
+Node: Instance Variable Hiding10035
+Node: Stack Class10839
+Ref: Stack-java11663
+Ref: TestStack-java12218
+Node: Stack Instance Variables12519
+Ref: Stack-Instance-Variables12686
+Node: Stack Constructor Node12852
+Ref: Stack-Constructor13063
+Node: Stack Instance Methods Node13442
+Ref: Stack-Instance-Methods13659
+Node: Stack Push and Pop Node14321
+Ref: Stack-Push14492
+Ref: Stack-Pop14800
+Node: Stack TestStack Node15129
+Ref: TestStack-Main-Method15301
+Node: Methods and Classes16029
+Node: Overloading Methods16736
+Node: Overloading Constructors19046
+Node: Objects as Parameters19234
+Node: Argument Passing19910
+Node: Returning Objects21252
+Node: Recursion21879
+Node: Access Control23391
+Node: Improved Stack Class26161
+Ref: StackImproved-java26395
+Ref: Stack-Private-Instance-Variables27033
+Ref: Improved Stack Class-Footnote-128057
+Node: static Keyword28176
+Node: final Keyword28335
+Node: Arrays 228486
+Node: Nested and Inner Classes28649
+Node: The String Class28833
+Node: Command-Line Arguments29019
+Node: Varargs29208
+Node: Packages29384
+Node: Packages Intro29850
+Node: Defining Packages30394
+Ref: PackageStatement30996
+Ref: PackageStatementMulti31966
+Node: Classpath32389
+Node: Member Access33929
+Ref: PackageAccess34904
+Node: Importing35505
+Ref: Import36129
+Node: Interfaces37404
+Node: Defining Interfaces39512
+Ref: InterfaceSimple39767
+Node: Implementing Interfaces41097
+Ref: ClassImplementsInterface41591
+Node: Interface References42076
+Node: Partial Implementations43067
+Node: Nested Interfaces43501
+Node: Applying Interfaces44275
+Node: Variables in Interfaces44475
+Node: Extending Interfaces45205
+Node: Default Interface Methods45684
+Node: Interface Static Methods47788
+Ref: InterfaceStaticMethod48520
+Node: Private Interface Methods48802
+Node: Generics49558
+Node: Motivation51398
+Node: What are Generics53374
+Node: Simple Generics Example54441
+Ref: SimpleGenerics-java54756
+Node: Class Gen<T>55151
+Ref: Class-Gen56146
+Ref: Instance-Variable-ob-of-Type-T57258
+Ref: generics-constructor57458
+Ref: Constructor-taking-parameter-of-Type-T57804
+Ref: Method-returning-object-of-type-T58340
+Ref: Method-showing-type-of-T58965
+Node: Class GenDemo59204
+Ref: Class-GenDemo59983
+Node: GenDemo as Integer60740
+Ref: Create-a-Gen-object-for-Integers60952
+Ref: Integer-Type-Parameter62082
+Ref: Reference-to-Integer-Instance62929
+Ref: Show-Type63472
+Ref: Get-Value63964
+Node: GenDemo as String64205
+Ref: Create-a-Gen-object-for-Strings64415
+Node: Notes about Generics64870
+Node: Reference Types65126
+Node: Type Arguments65652
+Node: Subtyping66215
+Node: Type Safety67349
+Node: Two Type Parameters67708
+Node: Two Types Example Code68256
+Ref: TwoTypeParameters-java68430
+Node: Class TwoGen68834
+Ref: Class-TwoGen68971
+Ref: Class-Declaration70001
+Ref: Two-Instance-Variables-Declarations70207
+Ref: Constructor-of-Two-Parameters70390
+Ref: Instance-Methods-Show-and-Get70646
+Node: Class SimpGen71037
+Ref: Class-SimpGen71300
+Node: Generic Class General Form71869
+Ref: GenericClass72176
+Node: Bounded Types72500
+Node: Wildcard Arguments73898
+Node: Wildcard Motivation74143
+Node: Wildcard Syntax76690
+Node: Bounded Wildcards77608
+Ref: UpperBoundedWildcard78429
+Ref: LowerBoundedWildcard78809
+Node: Generic Methods78974
+Ref: GenericMethod79374
+Node: Example of Generic Method79542
+Ref: GenMethDemo-java80043
+Node: Method isIn80497
+Ref: Static-Method-isIn80717
+Node: GenMethDemo Main82088
+Ref: GenMethDemo-Main82238
+Node: Generic Constructors83133
+Node: Enumerations83500
+Node: Enumeration Basics84374
+Node: Enum Methods85969
+Node: Enumerations as Class Types87196
+Node: Inherit Enum89070
+Node: Strings90906
+Node: java Lang91030
+Node: Primitive Wrappers92673
+Node: Number93460
+Node: Double and Float93574
+Node: isInfiinite() and isNaN()93742
+Node: Byte Short Integer Long93943
+Node: Numbers to from String94154
+Node: java util Collections94353
+Node: java util Utility Classes94572
+Node: java io Input Output94782
+Node: NIO94948
+Node: Networking95055
+Node: Event Handling95170
+Node: AWT95293
+Node: AWT Controls95480
+Node: Images95661
+Node: Concurrency95770
+Node: Streams95912
+Node: Regular Expressions96045
+Node: Swing96220
+Node: The Makefile96360
+Ref: Makefile96505
+Node: Makefile Constants97136
+Ref: Makefile-CONSTANTS97277
+Node: Makefile Defaults97413
+Ref: Makefile-DEFAULTS97596
+Node: Makefile Tangle Weave97746
+Ref: Makefile-TANGLE-WEAVE97935
+Node: Makefile Clean98327
+Ref: Makefile-CLEAN98476
+Node: Code Chunk Summaries98663
+Node: File Definitions99153
+Node: Code Chunk Definitions99845
+Node: Code Chunk References102700
+Node: List of Tables107417
+Node: List of General Forms107634
+Node: Bibliography108637
+Node: Concept Index108769
+Node: Function Index146476
 
 End Tag Table
