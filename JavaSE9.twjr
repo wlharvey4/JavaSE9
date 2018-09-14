@@ -25,7 +25,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.1.11
+@set VERSION 0.1.12
 
 @iftex
 @set DOCUMENT book
@@ -155,6 +155,11 @@ URL: @url{http://www.example.com/} @*
 @oddheading  @strong{@thischapter} @| Version @value{VERSION} @| @thispage
 @end iftex
 
+
+
+
+@c *****************************************************************************
+
 @ifnottex
 @ifnotdocbook
 @ifnotxml
@@ -247,6 +252,11 @@ in this sentence.  Finally, file names are indicated like this:
 
 @end ignore
 
+
+
+
+@c *****************************************************************************
+
 @part The Java Language
 
 @node Java SE 9 Introduction
@@ -256,7 +266,9 @@ in this sentence.  Finally, file names are indicated like this:
 
 
 
+
 @c *****************************************************************************
+
 @node Classes
 @chapter Classes
 @cindex Classes
@@ -265,6 +277,7 @@ The class is the logical construct upon which the Java language is built
 because it defines the shape and nature of an object, and therefore forms
 the basis for object-oriented programming in Java.
 
+@c -----------------------------------------------------------------------------
 @node Class Fundamentals
 @section Class Fundamentals
 @cindex Class fundamentals
@@ -335,6 +348,8 @@ variables and the methods within an object.  Although commonly referred to
 as the dot @emph{operator}, the formal specification for Java categorizes
 the @t{.} as a @emph{separator}.
 
+@c -----------------------------------------------------------------------------
+
 @node Declaring Objects
 @section Declaring Objects
 @cindex objects, declaring
@@ -378,6 +393,8 @@ The @code{mybox} variable simply holds the memory address of the actual
 @code{Box} object.  The class name followed by parenthese specifies the
 @dfn{constructor} for the class.
 
+@c -----------------------------------------------------------------------------
+
 @node Methods
 @section Methods
 @cindex Methods
@@ -416,6 +433,8 @@ return @ii{value}
 @end display
 
 where @ii{value} is the value returned.
+
+@c -----------------------------------------------------------------------------
 
 @node Constructors
 @section Constructors
@@ -458,6 +477,8 @@ resolve any namespace collisions that might occur between instance variables
 and local variables.  So, @kbd{this.width = width} is an example of a local
 variable (@kbd{width}) hiding an instance variable (also @kbd{width}), with
 @code{this} allowing an assignment between them.
+
+@c -----------------------------------------------------------------------------
 
 @node Stack Class
 @section A Stack Class
@@ -575,6 +596,133 @@ public static void main(String[] args) {
 }
 
 @
+
+
+
+
+
+@c *****************************************************************************
+
+@node Methods and Classes
+@chapter Methods and Classes
+@cindex Methods and Classes
+
+This chapter examines several topics relating to methods and classes,
+including
+
+@itemize
+@item
+overloading
+@item
+parameter passing
+@item
+recursion
+@item
+access control
+@item
+keywords @code{static} and @code{final}
+@item
+@code{String} class
+@item
+Arrays
+@item
+nested and inner classes
+@item
+command-line arguments and varargs
+@end itemize
+
+@c -----------------------------------------------------------------------------
+
+@node Overloading Methods
+@section Overloading Methods
+@cindex overloading methods
+@cindex methods, overloading
+
+
+
+@c -----------------------------------------------------------------------------
+
+@node Objects as Parameters
+@section Objects as Parameters
+@cindex objects as parameters
+@cindex parameters, as objects
+
+@c -----------------------------------------------------------------------------
+
+@node Argument Passing
+@section Argument Passing
+@cindex argument passing
+
+@c -----------------------------------------------------------------------------
+
+@node Returning Objects
+@section Returning Objects
+@cindex objects, returning from methods
+
+@c -----------------------------------------------------------------------------
+
+@node Recursion
+@section Recursion
+@cindex recursion
+
+@c -----------------------------------------------------------------------------
+
+@node Access Control
+@section Access Control
+@cindex access control
+
+@c -----------------------------------------------------------------------------
+
+@node static Keyword
+@section @code{static} Keyword
+@cindex @code{static} Keyword
+@cindex keyword @code{static}
+
+@c -----------------------------------------------------------------------------
+
+@node final Keyword
+@section @code{final} Keyword
+@cindex @code{final} Keyword
+@cindex keyword @code{final}
+
+@c -----------------------------------------------------------------------------
+
+@node Arrays 2
+@section Arrays Revisited
+@cindex Arrays
+
+@c -----------------------------------------------------------------------------
+
+@node Nested and Inner Classes
+@section Nested and Inner Classes
+@cindex nested classes
+@cindex inner classes
+@cindex classes, nested and inner
+
+@c -----------------------------------------------------------------------------
+
+@node The String Class
+@section The @code{String} Class
+@cindex @code{String} Class
+@cindex class @code{String}
+
+@c -----------------------------------------------------------------------------
+
+@node Command-Line Arguments
+@section Using Command-Line Arguments
+@cindex command-line arguments
+@cindex arguments, command-line
+
+@c -----------------------------------------------------------------------------
+
+@node Varargs
+@section Varargs: Variable-Length Arguments
+@cindex varargs
+@cindex variable-length arguments
+@cindex arguments, varargs
+
+
+
 
 
 
