@@ -322,10 +322,101 @@ determine how a class' data can be used.
 
 Each instance of the class (that is, each object of the class) contains its
 own copy of the instance variables.  The data for one object is separate and
-unique from the data for another.
+unique from the data for another.  Changes to the instance variables of one
+object have no effect on the instance variables of another.
 
+@cindex @samp{main()} method, class
 Java classes do not need to have a @samp{main()} method; you only need to
 specify one if that class is the starting point for the program.
+
+@cindex dot operator
+In general, you use the @dfn{dot operator} to access both the instance
+variables and the methods within an object.  Although commonly referred to
+as the dot @emph{operator}, the formal specification for Java categorizes
+the @t{.} as a @emph{separator}.
+
+@node Declaring Objects
+@section Declaring Objects
+@cindex objects, declaring
+@cindex @command{new} operator
+@cindex run time, dynamic allocation
+@cindex dynamic allocation, run time
+@cindex constructor
+
+Because a class creates a new data type, you can use this type to declare
+objects of that type.  Obtaining objects of a class is a two-step process.
+
+@enumerate
+@item
+Declare a variable of the class type; this variable does not define an
+object.  Instead, it is simply a variable that can @emph{refer} to an object.
+@item
+Acquire an actual, physical copy of the object and assign it to the
+variable; you can do this using the @command{new} operator.  The
+@command{new} operator dynamically allocates (at run time) memory for an
+object, and returns a reference to to.  This reference is (essentially) the
+address in memory of the object allocated by @command{new}.  This reference
+is then stored in the variable.  In Java, all class objects must be
+dynamically allocated.
+@end enumerate
+
+@heading Example Declaration, Allocation, and Assignment
+
+@example
+Box mybox; // 1. declare a variable to hold a reference to an object
+mybox = new Box(); // 2. allocate a Box object and assign it to the variable
+@end example
+
+These two declarations can be combined into a single declaration, and
+usually are:
+
+@example
+Box mybox = new Box();
+@end example
+
+The @code{mybox} variable simply holds the memory address of the actual
+@code{Box} object.  The class name followed by parenthese specifies the
+@dfn{constructor} for the class.
+
+@node Methods
+@section Methods
+@cindex Methods
+
+@heading General Form of a Method Declaration
+
+@float GeneralForm,MethodDeclaration
+@display
+@ii{type name} (@ii{parameter-list}) @{
+  @ii{body of method}
+@}
+@end display
+@caption{Method Declaration --- General Form}
+@end float
+
+@cindex @ii{type}, method
+@cindex @ii{name}, method
+@cindex @ii{parameter list}, method
+
+@ii{type} specifies the type of data returned by the method.  This can be
+any valid type, including class types that you create.  If the method does
+not return a value, its return type must be @code{void}.
+
+@dfn{name} is the name of the method.  This can be any legal identifier.
+
+@dfn{parameter-list} is a sequence of type and identifier pairs separated by
+commas.  @dfn{Parameters} are essentially variables that receive the value
+of the arguments passed to the method when it is called.  If the method has
+no parameters, then the parameter list will be empty.
+
+Methods that have a return type other than @code{void} return a value to the
+calling routine using a @dfn{return statement}:
+
+@display
+return @ii{value}
+@end display
+
+where @ii{value} is the value returned.
+
 
 
 
