@@ -25,7 +25,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.1.8
+@set VERSION 0.1.10
 
 @iftex
 @set DOCUMENT book
@@ -253,6 +253,82 @@ in this sentence.  Finally, file names are indicated like this:
 @chapter Java SE 9 Introduction
 @cindex Java SE 9 introduction
 @cindex introduction to Java SE 9
+
+
+
+@c *****************************************************************************
+@node Classes
+@chapter Classes
+@cindex Classes
+
+The class is the logical construct upon which the Java language is built
+because it defines the shape and nature of an object, and therefore forms
+the basis for object-oriented programming in Java.
+
+@node Class Fundamentals
+@section Class Fundamentals
+@cindex Class fundamentals
+@cindex class, new data type
+@cindex template, class
+@cindex object, class
+@cindex instance, class
+
+A @dfn{class} defines a new data type.  Once defined, this new type can be
+used to create objects of that type.  A class is therefore a @i{template}
+for an object, and an @dfn{object} is an @i{instance} of a class.
+@i{Object} and @i{instance} are often used interchangeably.
+
+@node General Form
+@subsection General Form of a Class
+@cindex class, general form
+
+When you define a class, you declare its exact form and nature.  You do this
+by specifying the data that it contains and the code that operates on that
+data.  A class is declared by use of the @code{class} keyword.
+
+@float GeneralForm,Class Declaration
+@display
+class @ii{classname} @{
+  @ii{type instance-variable1};
+  @ii{type instance-variable2};
+  @dots{}
+  @ii{type instance-variableN};
+
+  @ii{type method-name1} (@ii{parameter-list} @{
+    @ii{body of method}
+  @}
+
+  @ii{type method-name2} (@ii{parameter-list} @{
+    @ii{body of method}
+  @}
+  @dots{}
+  @ii{type method-nameN} (@ii{parameter-list} @{
+    @ii{body of method}
+  @}
+@}
+@end display
+@caption{Class Declaration --- General Form}
+@end float
+
+@cindex instance variables
+@cindex methods
+@cindex members
+The data, or variables, defined within a class are called @dfn{instance variables}.
+The code is contained within @dfn{methods}.  Collectively, the methods and
+variables defined within a class are called @dfn{members} of the class.
+In most cases, the instance variables are acted upon and accessed by the
+methods defined for that class.  As a general rule, it is the methods that
+determine how a class' data can be used.
+
+Each instance of the class (that is, each object of the class) contains its
+own copy of the instance variables.  The data for one object is separate and
+unique from the data for another.
+
+Java classes do not need to have a @samp{main()} method; you only need to
+specify one if that class is the starting point for the program.
+
+
+
 
 @c *****************************************************************************
 @node Packages
@@ -1844,6 +1920,132 @@ The @command{valueOf()} method returns the enumeration constant whose value
 corresponds to the string passed in @var{str}.
 @end deftypemethod
 
+@subheading Examples using @command{values()} and @command{valueOf()} Methods
+
+@noindent
+@samp{Apple allapples[] = Apple.values();} is an example of using the
+@command{values()} method to populate an array with enumeration constants.
+
+@example
+for(Apple a : Apple.values()) @{
+  System.out.println(a);
+@}
+@end example
+
+@noindent
+is an example of iterating directly on the @command{values()} method.
+
+@example
+Apple ap;
+ap = Apple.valueOf("Winesap");
+System.out.println("ap contains " + ap);
+@end example
+
+@noindent
+is an example of using the @command{valueOf()} method to obtain the
+enumeration constant corresponding to the value of a string.
+
+@node Enumerations as Class Types
+@section Java Enumerations are Class Types
+@cindex enumerations as class types
+@cindex enumeration constructor
+@cindex enumeration instance variables
+@cindex enumeration methods
+@cindex enumeration constants
+
+A Java enumeration is a class type.  That is, @code{enum} defines a class,
+which has much the same capabilities as other classes.  An enumeration can be
+given constructors, instance variables, and methods.  It can even implement
+interfaces.  Each enumeration constant is an object of its enumeration type.
+When an enumeration is given a constructor, the constructor is called when
+each enumeration constant is created.  Also, each enumeration constant has
+its own copy of any instance variables defined by the enumeration.
+
+@example
+enum Apple @{
+  Jonathon(10), GoldenDel(9), RedDel(12), Winesap(15), Cortland(8);
+  private int price;
+  Apple(int p) @{ price = p; @}
+  int getPrice() @{ return price; @}
+@}
+
+class EnumDemo @{
+  public static void main (String[] args) @{
+    Apple ap;
+  @}
+@}
+@end example
+
+In this example, the enumeration @samp{Apple} is given an instance variable
+@code{price}, a constructor, and an instance method @samp{getPrice()}.  When
+the variable @samp{ap} is declared in @samp{main()}, the constructor for
+@samp{Apple} is called once for each constant that is specified.  The
+arguments to the constructor are placed in parentheses after the name of each
+constant.  Thereafter, each enumeration constant has its own copy of
+@samp{price}, which can be obtained by calling the instance method
+@samp{getPrice()}.  In addition, there can be multiple overloaded
+constructors just as for any other class.
+
+@subheading Restrictions on Enums
+@cindex enumeration restrictions
+
+@itemize
+@item
+An enumeration cannot inherit another class.
+@item
+An @code{enum} cannot be a superclass (@code{enum} cannot be extended).
+@end itemize
+
+The key is to remember that each enumeration constant is an object of the
+class in which it is defined.
+
+@node Inherit Enum
+@section Enumerations Inherit @code{Enum}
+@cindex enumerations inherit @code{Enum}
+
+All enumerations automatically inherit from one superclass:
+@code{java.lang.Enum}.  This class defines several methods  that are
+available for use by all enumerations.
+
+@subheading @code{ordinal()} and @code{compareTo()}
+
+@deftypemethod Enum {final int} ordinal ()
+The @code{ordinal()} method returns a value that indicates an enumeration
+constant's position in the list of constants, called its @dfn{ordinal
+value}.  In other words, calling @code{ordinal()} returns the ordinal value
+of the invoking constant (zero indexed).
+@end deftypemethod
+
+@deftypemethod Enum {final int} compareTo (@ii{enum-type} @var{e})
+The ordinal values of two constants can be compared using the
+@code{compareTo()} method.  Both the invoking constant and @var{e} must be of
+the same enumeration @ii{enum-type}.  This method returns a negative value, a
+zero, or a positive value depending on whether the invoking constant's
+ordinal value is less than, equal to, or greater than the passed-in
+enumeration constant's ordinal value.
+@end deftypemethod
+
+@subheading @code{equals()} and @code{==}
+
+@deftypemethod Enum boolean equals (@ii{enum-type} @var{e})
+@deftypemethodx Enum boolean == (@ii{enum-type} @var{e})
+Compare for equality an invoking enum constant with a referenced enum
+constant. 
+@end deftypemethod
+
+
+An invoking enum constant can compare for equality itself with any
+other object by using @code{equals()} or, equivalently, @code{==}, which
+overrides the @code{equals()} method defined in @code{Object}.
+@code{equals()} will return true only if both objects refer to the same
+constant within the same enumeration.  (In other words, @code{equals} does
+not just compare ordinal values in general.)
+
+
+
+
+
+@c *****************************************************************************
 
 @part The Java Standard Library
 
