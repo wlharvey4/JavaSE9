@@ -84,7 +84,7 @@ Methods and Classes
 * final Keyword::
 * Arrays 2::
 * Nested and Inner Classes::
-* The String Class::
+* String Class::
 * Command-Line Arguments::
 * Varargs::
 
@@ -638,7 +638,7 @@ including
 * final Keyword::
 * Arrays 2::
 * Nested and Inner Classes::
-* The String Class::
+* String Class::
 * Command-Line Arguments::
 * Varargs::
 
@@ -1033,28 +1033,155 @@ the number of elements that are actually in use.  It only reflects the
 number of elements taht the array is designed to hold.
 
 
-File: JavaSE9.info,  Node: Nested and Inner Classes,  Next: The String Class,  Prev: Arrays 2,  Up: Methods and Classes
+File: JavaSE9.info,  Node: Nested and Inner Classes,  Next: String Class,  Prev: Arrays 2,  Up: Methods and Classes
 
 3.10 Nested and Inner Classes
 =============================
 
+It is possible to define a class within another class; such classes
+are known as "nested classes".  The scope of a nested class is bounded
+by the scope of its enclosing class.  A nested class does not exist
+independently of its enclosing class.  A nested class has access to
+the members, including private members, of the enclosing class.
+However,the enclosing class does not have access to the members of the
+nested class.  A nested class that is declared directly within its
+enclosing class scope is a member of its enclosing class.  It is also
+possible to declare a nested class that is local to a block.
+
+Static Nested Class
+===================
+
+There are two types of nested class: "static" and "inner".  A static
+nested class is one that has the 'static' modifer applied.  Because it
+is static, it must access the non-static members of its enclosing
+class through an object.  That is, it cannot refer to non-static
+members of its enclosing class directly.  Static nested classes are
+seldom used.
+
+Inner Class
+===========
+
+The most important type of nested class is the "inner" class.  An
+inner class is a non-static nested class.  It has access to all of the
+variables and methods of its outer class and may refer to them
+directly in the same way that other non-static members of the outer
+class do.
+
+   An instance of an inner class can be created only in the context of
+its enclosing class.  The Java compiler will report an error
+otherwise.  In general, an inner class instance is often creaed by
+code wihtin its enclosing scope.
+
+   It is possible to define inner classes within any block scope,
+including within the block defined by a method or even within the body
+of a 'for' loop.
+
+Handling Events
+===============
+
+While nested classes are not applicable to all situations, they are
+particularly helpful when handling events.  *Note Event Handling::.
+There are also "anonymous inner classes", inner classes that don't
+have a name.
+
 
-File: JavaSE9.info,  Node: The String Class,  Next: Command-Line Arguments,  Prev: Nested and Inner Classes,  Up: Methods and Classes
+File: JavaSE9.info,  Node: String Class,  Next: Command-Line Arguments,  Prev: Nested and Inner Classes,  Up: Methods and Classes
 
 3.11 The 'String' Class
 =======================
 
+Every string you create is an object of type 'String'.  Even string
+constants are 'String' objects.  For example, in the statement
+'System.out.println("This is a String, too");', the quote is a
+'String' object.
+
+   Objects of type 'String' are immutable; once a 'String' object is
+created, its contents cannot be altered.  Java defines peer classes of
+'String', called 'StringBuffer' and 'StringBuilder', which allow
+strings to be altered, so all of the normal string manipulations are
+still available.
+
+Constructing 'String' Objects and Concatenating 'Strings'
+=========================================================
+
+Strings can be constructed in a variable of ways.  The easiest is to
+use a statement:
+
+     String myString = "this is a test";
+
+   Java defines one operator for 'String' objects: '+'.  It is used to
+concatenate two strings.
+
+     String myString = "I" + " like " + "Java.";
+
+'String' Methods
+================
+
+The 'String' class contains several methods that you can use.
+
+   * boolean 'equals(secondStr)'
+   * int 'length()'
+   * char 'charAt(index)'
+
 
-File: JavaSE9.info,  Node: Command-Line Arguments,  Next: Varargs,  Prev: The String Class,  Up: Methods and Classes
+File: JavaSE9.info,  Node: Command-Line Arguments,  Next: Varargs,  Prev: String Class,  Up: Methods and Classes
 
 3.12 Using Command-Line Arguments
 =================================
+
+Sometimes you will want to pass information into a program when you
+run it.  This is accomplished by passing "command-line arguments" to
+'main()'.  A command-line argument is the informatino that directly
+follows the program's name on the command line when it is executed.
+To access the command-line arguments inside a Java program, access the
+'String' arguments passed to the 'args' parameter of 'main()'.  The
+first command-line argument is stored at 'args[0]', the second at
+'args[1]', and so on.  All command-line arguments are passed as
+strings.  You must convert numeric values to their internal forms
+manually.  *Note java Lang::.
 
 
 File: JavaSE9.info,  Node: Varargs,  Prev: Command-Line Arguments,  Up: Methods and Classes
 
 3.13 Varargs: Variable-Length Arguments
 =======================================
+
+Beginning with JDK 5, Java has included a feature that simplifies the
+creation of methods that need to take a variable number of arguments.
+This feature is called "varargs" and it is short for "variable-length
+arguments".  A method that takes a variable number of arguments is
+called a "variable-arity method", or simply "varargs method".
+
+   A variable-length argument is specified by three period (...).  For
+example: 'static void vaTest (int ... v) {'.  This syntax tells the
+compiler that 'vaTest()' can be called with zero or more arguments.
+As a result, 'v' is implicitly declared as an array of type 'int[]'.
+Thus, inside 'vaTest()', 'v' is accessed using the normal array
+syntax.
+
+   A method can have _normal_ parameters along with a variable-length
+parameter, but the variable-length parameter must be the final
+parameter declared by the method.  Further, there can be only one
+varargs parameter.
+
+     int doIt(int a, int b, double c, int ... vals) {
+
+   After the first three arguments, any remaining arguments are passed
+to 'vals'.
+
+Overloading Vararg Methods
+==========================
+
+You can overload a method that takes a variable-length argument (i.e.,
+it can be given a different type, or additional parameters can be
+included, or a non varargs parameter).
+
+   Note that unexpected errors can result when overloading a method
+that takes a variable-length argument.  These errors involve ambiguity
+because it is possible to create an ambiguous call to an overloaded
+varargs method.  In such a case, the program will not compile.  While
+each individual method declaration might be valid, the call might yet
+be ambiguous.
 
 
 File: JavaSE9.info,  Node: Inheritance,  Next: Packages,  Prev: Methods and Classes,  Up: Top
@@ -3556,11 +3683,13 @@ Index
 * access modifiers:                      Access Control.    (line   6)
 * access, member:                        Member Access.     (line   6)
 * accessibility:                         Packages Intro.    (line   6)
+* anonymous inner classes:               Nested and Inner Classes.
+                                                            (line   6)
 * API, Stream:                           Streams.           (line   5)
 * argument passing:                      Argument Passing.  (line   6)
 * arguments, command-line:               Command-Line Arguments.
-                                                            (line   5)
-* arguments, varargs:                    Varargs.           (line   5)
+                                                            (line   6)
+* arguments, varargs:                    Varargs.           (line   6)
 * Arrays:                                Arrays 2.          (line   6)
 * arrays as objects:                     Arrays 2.          (line   6)
 * auto-boxing, generics:                 Reference Types.   (line   6)
@@ -3577,20 +3706,21 @@ Index
 * bounded wildcards, upper bound <1>:    Bounded Wildcards. (line  20)
 * casts, eliminated in generics:         Type Safety.       (line   6)
 * casts, generics, automatic, implicit:  What are Generics. (line   6)
+* charAT():                              String Class.      (line  33)
 * Class:                                 Class Gen<T>.      (line 107)
 * Class fundamentals:                    Class Fundamentals.
                                                             (line   6)
 * class name, from getName():            Class Gen<T>.      (line 107)
 * class namespace, compartmentalize:     Packages.          (line   6)
 * Class object, from getClass():         Class Gen<T>.      (line 107)
-* class String:                          The String Class.  (line   5)
+* class String:                          String Class.      (line   6)
 * class, general form:                   General Form.      (line   6)
 * class, new data type:                  Class Fundamentals.
                                                             (line   6)
 * classed in java.lang:                  java Lang.         (line  14)
 * Classes:                               Classes.           (line   6)
 * classes, nested and inner:             Nested and Inner Classes.
-                                                            (line   5)
+                                                            (line   6)
 * CLASSPATH -classpath:                  Classpath.         (line   6)
 * Collections Framework:                 Generics.          (line   6)
 * collections, generics:                 Generics.          (line   6)
@@ -3660,6 +3790,7 @@ Index
                                                             (line  51)
 * equality, enum types:                  Enumeration Basics.
                                                             (line  38)
+* equals():                              String Class.      (line  33)
 * erasure:                               Class GenDemo.     (line   6)
 * Event Handling:                        Event Handling.    (line   5)
 * example generic method:                Example of Generic Method.
@@ -3753,6 +3884,10 @@ Index
                                                             (line   6)
 * inner classes:                         Nested and Inner Classes.
                                                             (line   6)
+* inner classes, anonymous:              Nested and Inner Classes.
+                                                            (line   6)
+* inner classes, event handling:         Nested and Inner Classes.
+                                                            (line   6)
 * instance variables:                    General Form.      (line  32)
 * instance, class:                       Class Fundamentals.
                                                             (line   6)
@@ -3831,6 +3966,7 @@ Index
 * keyword, enum:                         Enumeration Basics.
                                                             (line   6)
 * length instance variable:              Arrays 2.          (line   6)
+* length():                              String Class.      (line  33)
 * lower bounded wildcard:                Bounded Wildcards. (line  32)
 * main() method, class:                  General Form.      (line  45)
 * Makefiel Weave:                        Makefile Tangle Weave.
@@ -3846,6 +3982,7 @@ Index
 * method signatures compatible:          Interfaces.        (line  19)
 * method, static, interface:             Interface Static Methods.
                                                             (line   6)
+* method, varargs:                       Varargs.           (line   6)
 * methods:                               General Form.      (line  32)
 * Methods:                               Methods.           (line   6)
 * Methods and Classes:                   Methods and Classes.
@@ -3933,6 +4070,8 @@ Index
 * stack exhaustion, recursion:           Recursion.         (line   6)
 * stack overun, recursion:               Recursion.         (line   6)
 * standard Java classes, imported implicitly: Importing.    (line  29)
+* static and non-static nested classes:  Nested and Inner Classes.
+                                                            (line   6)
 * static environment:                    Interfaces.        (line  19)
 * static generic method:                 Method isIn.       (line  28)
 * static initialization block:           static Keyword.    (line  34)
@@ -3942,8 +4081,12 @@ Index
                                                             (line   6)
 * static restrictions on methods:        static Keyword.    (line  24)
 * Stream API:                            Streams.           (line   6)
-* String Class:                          The String Class.  (line   6)
+* String Class:                          String Class.      (line   6)
+* String concatenation:                  String Class.      (line  20)
+* String construction:                   String Class.      (line  20)
 * String Handling:                       Strings.           (line   5)
+* String methods:                        String Class.      (line  33)
+* String operator +:                     String Class.      (line  20)
 * Strings:                               Strings.           (line   6)
 * subclass:                              Inheritance.       (line   6)
 * superclass:                            Inheritance.       (line   6)
@@ -3969,9 +4112,13 @@ Index
 * upper bound:                           Bounded Types.     (line   6)
 * upper bound wildcard argument:         Bounded Wildcards. (line  20)
 * upper bounded wildcard:                Bounded Wildcards. (line  18)
+* vararg ambiguity:                      Varargs.           (line  32)
+* vararg overloading:                    Varargs.           (line  32)
 * varargs:                               Varargs.           (line   6)
+* varargs method:                        Varargs.           (line   6)
 * variable, enum type:                   Enumeration Basics.
                                                             (line  25)
+* variable-arity method:                 Varargs.           (line   6)
 * variable-length arguments:             Varargs.           (line   6)
 * visibility mechanism:                  Packages Intro.    (line   6)
 * wildcard arguments, generics:          Wildcard Arguments.
@@ -4004,176 +4151,176 @@ Function Index
 
 Tag Table:
 Node: Top75
-Node: Java SE 9 Introduction3449
-Node: Classes3591
-Node: Class Fundamentals4035
-Node: General Form4451
-Ref: ClassDeclaration4791
-Node: Declaring Objects6306
-Node: Methods7700
-Ref: MethodDeclaration7899
-Node: Constructors8742
-Node: this Keyword9506
-Node: Instance Variable Hiding10059
-Node: Stack Class10863
-Ref: Stack-java11687
-Ref: TestStack-java12242
-Node: Stack Instance Variables12543
-Ref: Stack-Instance-Variables12710
-Node: Stack Constructor Node12876
-Ref: Stack-Constructor13087
-Node: Stack Instance Methods Node13466
-Ref: Stack-Instance-Methods13683
-Node: Stack Push and Pop Node14345
-Ref: Stack-Push14516
-Ref: Stack-Pop14824
-Node: Stack TestStack Node15153
-Ref: TestStack-Main-Method15325
-Node: Methods and Classes16053
-Node: Overloading Methods16763
-Node: Overloading Constructors19073
-Node: Objects as Parameters19261
-Node: Argument Passing19937
-Node: Returning Objects21279
-Node: Recursion21906
-Node: Access Control23418
-Node: Improved Stack Class26363
-Ref: StackImproved-java26597
-Ref: Stack-Private-Instance-Variables27235
-Ref: Improved Stack Class-Footnote-128259
-Node: static Keyword28378
-Node: final Keyword30817
-Node: Arrays 231720
-Node: Nested and Inner Classes32417
-Node: The String Class32601
-Node: Command-Line Arguments32787
-Node: Varargs32976
-Node: Inheritance33152
-Node: Packages33886
-Node: Packages Intro34344
-Node: Defining Packages34888
-Ref: PackageStatement35490
-Ref: PackageStatementMulti36460
-Node: Classpath36883
-Node: Member Access38423
-Ref: PackageAccess39398
-Node: Importing39999
-Ref: Import40623
-Node: Interfaces41898
-Node: Defining Interfaces44006
-Ref: InterfaceSimple44261
-Node: Implementing Interfaces45591
-Ref: ClassImplementsInterface46085
-Node: Interface References46570
-Node: Partial Implementations47561
-Node: Nested Interfaces47995
-Node: Applying Interfaces48769
-Node: Variables in Interfaces48969
-Node: Extending Interfaces49699
-Node: Default Interface Methods50178
-Node: Interface Static Methods52282
-Ref: InterfaceStaticMethod53014
-Node: Private Interface Methods53296
-Node: Generics54052
-Node: Motivation55892
-Node: What are Generics57868
-Node: Simple Generics Example58935
-Ref: SimpleGenerics-java59250
-Node: Class Gen<T>59645
-Ref: Class-Gen60640
-Ref: Instance-Variable-ob-of-Type-T61752
-Ref: generics-constructor61952
-Ref: Constructor-taking-parameter-of-Type-T62298
-Ref: Method-returning-object-of-type-T62834
-Ref: Method-showing-type-of-T63459
-Node: Class GenDemo63698
-Ref: Class-GenDemo64477
-Node: GenDemo as Integer65234
-Ref: Create-a-Gen-object-for-Integers65446
-Ref: Integer-Type-Parameter66576
-Ref: Reference-to-Integer-Instance67423
-Ref: Show-Type67966
-Ref: Get-Value68458
-Node: GenDemo as String68699
-Ref: Create-a-Gen-object-for-Strings68909
-Node: Notes about Generics69364
-Node: Reference Types69620
-Node: Type Arguments70146
-Node: Subtyping70709
-Node: Type Safety71843
-Node: Two Type Parameters72202
-Node: Two Types Example Code72750
-Ref: TwoTypeParameters-java72924
-Node: Class TwoGen73328
-Ref: Class-TwoGen73465
-Ref: Class-Declaration74495
-Ref: Two-Instance-Variables-Declarations74701
-Ref: Constructor-of-Two-Parameters74884
-Ref: Instance-Methods-Show-and-Get75140
-Node: Class SimpGen75531
-Ref: Class-SimpGen75794
-Node: Generic Class General Form76363
-Ref: GenericClass76670
-Node: Bounded Types76994
-Node: Wildcard Arguments78392
-Node: Wildcard Motivation78637
-Node: Wildcard Syntax81184
-Node: Bounded Wildcards82102
-Ref: UpperBoundedWildcard82923
-Ref: LowerBoundedWildcard83303
-Node: Generic Methods83468
-Ref: GenericMethod83868
-Node: Example of Generic Method84036
-Ref: GenMethDemo-java84537
-Node: Method isIn84991
-Ref: Static-Method-isIn85211
-Node: GenMethDemo Main86582
-Ref: GenMethDemo-Main86732
-Node: Generic Constructors87627
-Node: Enumerations87994
-Node: Enumeration Basics88868
-Node: Enum Methods90463
-Node: Enumerations as Class Types91690
-Node: Inherit Enum93564
-Node: Strings95400
-Node: java Lang95524
-Node: Primitive Wrappers97169
-Node: Number97958
-Node: Double and Float98074
-Node: isInfiinite() and isNaN()98244
-Node: Byte Short Integer Long98447
-Node: Numbers to from String98660
-Node: java util Collections98861
-Node: java util Utility Classes99080
-Node: java io Input Output99290
-Node: NIO99456
-Node: Networking99563
-Node: Event Handling99678
-Node: AWT99801
-Node: AWT Controls99988
-Node: Images100169
-Node: Concurrency100278
-Node: Streams100420
-Node: Regular Expressions100553
-Node: Swing100728
-Node: The Makefile100868
-Ref: Makefile101013
-Node: Makefile Constants101644
-Ref: Makefile-CONSTANTS101785
-Node: Makefile Defaults101921
-Ref: Makefile-DEFAULTS102104
-Node: Makefile Tangle Weave102254
-Ref: Makefile-TANGLE-WEAVE102443
-Node: Makefile Clean102835
-Ref: Makefile-CLEAN102984
-Node: Code Chunk Summaries103171
-Node: File Definitions103661
-Node: Code Chunk Definitions104353
-Node: Code Chunk References107208
-Node: List of Tables111925
-Node: List of General Forms112142
-Node: Bibliography113145
-Node: Concept Index113277
-Node: Function Index151694
+Node: Java SE 9 Introduction3445
+Node: Classes3587
+Node: Class Fundamentals4031
+Node: General Form4447
+Ref: ClassDeclaration4787
+Node: Declaring Objects6302
+Node: Methods7696
+Ref: MethodDeclaration7895
+Node: Constructors8738
+Node: this Keyword9502
+Node: Instance Variable Hiding10055
+Node: Stack Class10859
+Ref: Stack-java11683
+Ref: TestStack-java12238
+Node: Stack Instance Variables12539
+Ref: Stack-Instance-Variables12706
+Node: Stack Constructor Node12872
+Ref: Stack-Constructor13083
+Node: Stack Instance Methods Node13462
+Ref: Stack-Instance-Methods13679
+Node: Stack Push and Pop Node14341
+Ref: Stack-Push14512
+Ref: Stack-Pop14820
+Node: Stack TestStack Node15149
+Ref: TestStack-Main-Method15321
+Node: Methods and Classes16049
+Node: Overloading Methods16755
+Node: Overloading Constructors19065
+Node: Objects as Parameters19253
+Node: Argument Passing19929
+Node: Returning Objects21271
+Node: Recursion21898
+Node: Access Control23410
+Node: Improved Stack Class26355
+Ref: StackImproved-java26589
+Ref: Stack-Private-Instance-Variables27227
+Ref: Improved Stack Class-Footnote-128251
+Node: static Keyword28370
+Node: final Keyword30809
+Node: Arrays 231712
+Node: Nested and Inner Classes32409
+Node: String Class34534
+Node: Command-Line Arguments35791
+Node: Varargs36615
+Node: Inheritance38431
+Node: Packages39165
+Node: Packages Intro39623
+Node: Defining Packages40167
+Ref: PackageStatement40769
+Ref: PackageStatementMulti41739
+Node: Classpath42162
+Node: Member Access43702
+Ref: PackageAccess44677
+Node: Importing45278
+Ref: Import45902
+Node: Interfaces47177
+Node: Defining Interfaces49285
+Ref: InterfaceSimple49540
+Node: Implementing Interfaces50870
+Ref: ClassImplementsInterface51364
+Node: Interface References51849
+Node: Partial Implementations52840
+Node: Nested Interfaces53274
+Node: Applying Interfaces54048
+Node: Variables in Interfaces54248
+Node: Extending Interfaces54978
+Node: Default Interface Methods55457
+Node: Interface Static Methods57561
+Ref: InterfaceStaticMethod58293
+Node: Private Interface Methods58575
+Node: Generics59331
+Node: Motivation61171
+Node: What are Generics63147
+Node: Simple Generics Example64214
+Ref: SimpleGenerics-java64529
+Node: Class Gen<T>64924
+Ref: Class-Gen65919
+Ref: Instance-Variable-ob-of-Type-T67031
+Ref: generics-constructor67231
+Ref: Constructor-taking-parameter-of-Type-T67577
+Ref: Method-returning-object-of-type-T68113
+Ref: Method-showing-type-of-T68738
+Node: Class GenDemo68977
+Ref: Class-GenDemo69756
+Node: GenDemo as Integer70513
+Ref: Create-a-Gen-object-for-Integers70725
+Ref: Integer-Type-Parameter71855
+Ref: Reference-to-Integer-Instance72702
+Ref: Show-Type73245
+Ref: Get-Value73737
+Node: GenDemo as String73978
+Ref: Create-a-Gen-object-for-Strings74188
+Node: Notes about Generics74643
+Node: Reference Types74899
+Node: Type Arguments75425
+Node: Subtyping75988
+Node: Type Safety77122
+Node: Two Type Parameters77481
+Node: Two Types Example Code78029
+Ref: TwoTypeParameters-java78203
+Node: Class TwoGen78607
+Ref: Class-TwoGen78744
+Ref: Class-Declaration79774
+Ref: Two-Instance-Variables-Declarations79980
+Ref: Constructor-of-Two-Parameters80163
+Ref: Instance-Methods-Show-and-Get80419
+Node: Class SimpGen80810
+Ref: Class-SimpGen81073
+Node: Generic Class General Form81642
+Ref: GenericClass81949
+Node: Bounded Types82273
+Node: Wildcard Arguments83671
+Node: Wildcard Motivation83916
+Node: Wildcard Syntax86463
+Node: Bounded Wildcards87381
+Ref: UpperBoundedWildcard88202
+Ref: LowerBoundedWildcard88582
+Node: Generic Methods88747
+Ref: GenericMethod89147
+Node: Example of Generic Method89315
+Ref: GenMethDemo-java89816
+Node: Method isIn90270
+Ref: Static-Method-isIn90490
+Node: GenMethDemo Main91861
+Ref: GenMethDemo-Main92011
+Node: Generic Constructors92906
+Node: Enumerations93273
+Node: Enumeration Basics94147
+Node: Enum Methods95742
+Node: Enumerations as Class Types96969
+Node: Inherit Enum98843
+Node: Strings100679
+Node: java Lang100803
+Node: Primitive Wrappers102448
+Node: Number103237
+Node: Double and Float103353
+Node: isInfiinite() and isNaN()103523
+Node: Byte Short Integer Long103726
+Node: Numbers to from String103939
+Node: java util Collections104140
+Node: java util Utility Classes104359
+Node: java io Input Output104569
+Node: NIO104735
+Node: Networking104842
+Node: Event Handling104957
+Node: AWT105080
+Node: AWT Controls105267
+Node: Images105448
+Node: Concurrency105557
+Node: Streams105699
+Node: Regular Expressions105832
+Node: Swing106007
+Node: The Makefile106147
+Ref: Makefile106292
+Node: Makefile Constants106923
+Ref: Makefile-CONSTANTS107064
+Node: Makefile Defaults107200
+Ref: Makefile-DEFAULTS107383
+Node: Makefile Tangle Weave107533
+Ref: Makefile-TANGLE-WEAVE107722
+Node: Makefile Clean108114
+Ref: Makefile-CLEAN108263
+Node: Code Chunk Summaries108450
+Node: File Definitions108940
+Node: Code Chunk Definitions109632
+Node: Code Chunk References112487
+Node: List of Tables117204
+Node: List of General Forms117421
+Node: Bibliography118424
+Node: Concept Index118556
+Node: Function Index158377
 
 End Tag Table

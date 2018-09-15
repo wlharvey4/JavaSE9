@@ -1041,15 +1041,107 @@ to hold.
 @node Nested and Inner Classes
 @section Nested and Inner Classes
 @cindex nested classes
+@cindex static and non-static nested classes
 @cindex inner classes
 @cindex classes, nested and inner
+@cindex inner classes, event handling
+@cindex anonymous inner classes
+@cindex inner classes, anonymous
+
+It is possible to define a class within another class; such classes are known
+as @dfn{nested classes}.  The scope of a nested class is bounded by the scope
+of its enclosing class.  A nested class does not exist independently of its
+enclosing class.  A nested class has access to the members, including private
+members, of the enclosing class.  However,the enclosing class does not have
+access to the members of the nested class.  A nested class that is declared
+directly within its enclosing class scope is a member of its enclosing
+class.  It is also possible to declare a nested class that is local to a
+block.
+
+@heading Static Nested Class
+
+There are two types of nested class: @dfn{static} and @dfn{inner}.  A
+static nested class is one that has the @code{static} modifer applied.
+Because it is static, it must access the non-static members of its enclosing
+class through an object.  That is, it cannot refer to non-static members of
+its enclosing class directly.  Static nested classes are seldom used.
+
+@heading Inner Class
+
+The most important type of nested class is the @dfn{inner} class.  An inner
+class is a non-static nested class.  It has access to all of the variables
+and methods of its outer class and may refer to them directly in the same way
+that other non-static members of the outer class do.
+
+An instance of an inner class can be created only in the context of its
+enclosing class.  The Java compiler will report an error otherwise.  In
+general, an inner class instance is often creaed by code wihtin its enclosing
+scope.
+
+It is possible to define inner classes within any block scope, including
+within the block defined by a method or even within the body of a @code{for}
+loop.
+
+@heading Handling Events
+
+While nested classes are not applicable to all situations, they are
+particularly helpful when handling events.  @xref{Event Handling}.  There are
+also @dfn{anonymous inner classes}, inner classes that don't have a name.
 
 @c -----------------------------------------------------------------------------
 
-@node The String Class
+@node String Class
 @section The @code{String} Class
 @cindex @code{String} Class
 @cindex class @code{String}
+
+Every string you create is an object of type @code{String}.  Even string
+constants are @code{String} objects.  For example, in the statement
+@kbd{System.out.println("This is a String, too");}, the quote is a
+@code{String} object.  
+
+Objects of type @code{String} are immutable; once a @code{String} object is
+created, its contents cannot be altered.  Java defines peer classes of
+@code{String}, called @code{StringBuffer} and @code{StringBuilder}, which
+allow strings to be altered, so all of the normal string manipulations are
+still available.
+
+@heading Constructing @code{String} Objects and Concatenating @code{Strings}
+@cindex @code{String} construction
+@cindex @code{String} concatenation
+@cindex @code{String} operator @kbd{+}
+
+Strings can be constructed in a variable of ways.  The easiest is to use a
+statement:
+
+@example
+String myString = "this is a test";
+@end example
+
+Java defines one operator for @code{String} objects: @kbd{+}.  It is used to
+concatenate two strings.
+
+@example
+String myString = "I" + " like " + "Java.";
+@end example
+
+@heading @code{String} Methods
+@cindex @code{String} methods
+@cindex @code{equals()}
+@cindex @code{length()}
+@cindex @code{charAT()}
+
+The @code{String} class contains several methods that you can use.
+
+@itemize
+@item
+boolean @code{equals(@slanted{secondStr})}
+@item
+int @code{length()}
+@item
+char @code{charAt(@slanted{index})}
+@end itemize
+
 
 @c -----------------------------------------------------------------------------
 
@@ -1058,6 +1150,17 @@ to hold.
 @cindex command-line arguments
 @cindex arguments, command-line
 
+Sometimes you will want to pass information into a program when you run it.
+This is accomplished by passing @dfn{command-line arguments} to
+@code{main()}.  A command-line argument is the informatino that directly
+follows the program's name on the command line when it is executed.  To
+access the command-line arguments inside a Java program, access the
+@code{String} arguments passed to the @code{args} parameter of
+@code{main()}.  The first command-line argument is stored at @code{args[0]},
+the second at @code{args[1]}, and so on.  All command-line arguments are
+passed as strings.  You must convert numeric values to their internal forms
+manually.  @xref{java Lang}.
+
 @c -----------------------------------------------------------------------------
 
 @node Varargs
@@ -1065,6 +1168,47 @@ to hold.
 @cindex varargs
 @cindex variable-length arguments
 @cindex arguments, varargs
+@cindex variable-arity method
+@cindex varargs method
+@cindex method, varargs
+
+Beginning with JDK 5, Java has included a feature that simplifies the
+creation of methods that need to take a variable number of arguments.  This
+feature is called @dfn{varargs} and it is short for @dfn{variable-length
+arguments}.  A method that takes a variable number of arguments is called a
+@dfn{variable-arity method}, or simply @dfn{varargs method}.
+
+A variable-length argument is specified by three period (@dots{}).  For
+example: @kbd{static void vaTest (int @dots{} v) @{}.  This syntax tells the
+compiler that @code{vaTest()} can be called with zero or more arguments.  As
+a result, @code{v} is implicitly declared as an array of type @code{int[]}.
+Thus, inside @code{vaTest()}, @code{v} is accessed using the normal array
+syntax. 
+
+A method can have @emph{normal} parameters along with a variable-length
+parameter, but the variable-length parameter must be the final parameter
+declared by the method.  Further, there can be only one varargs parameter.
+
+@example
+int doIt(int a, int b, double c, int @dots{} vals) @{
+@end example
+
+After the first three arguments, any remaining arguments are passed to
+@code{vals}.  
+
+@heading Overloading Vararg Methods
+@cindex vararg overloading
+@cindex vararg ambiguity
+
+You can overload a method that takes a variable-length argument (i.e., it can
+be given a different type, or additional parameters can be included, or a non
+varargs parameter).
+
+Note that unexpected errors can result when overloading a method that takes a
+variable-length argument.  These errors involve ambiguity because it is
+possible to create an ambiguous call to an overloaded varargs method.  In
+such a case, the program will not compile.  While each individual method
+declaration might be valid, the call might yet be ambiguous.
 
 
 
