@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Motivation (About Java SE 9)</title>
+
+<meta name="description" content="Motivation (About Java SE 9)">
+<meta name="keywords" content="Motivation (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Generics.html#Generics" rel="up" title="Generics">
+<link href="What-are-Generics.html#What-are-Generics" rel="next" title="What are Generics">
+<link href="Generics.html#Generics" rel="prev" title="Generics">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Motivation"></a>
+<div class="header">
+<p>
+Next: <a href="What-are-Generics.html#What-are-Generics" accesskey="n" rel="next">What are Generics</a>, Up: <a href="Generics.html#Generics" accesskey="u" rel="up">Generics</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Motivation-for-Generics"></a>
+<h3 class="section">7.1 Motivation for Generics</h3>
+<a name="index-generics_002c-motivation"></a>
+
+<a name="Code-Fragment-Without-Generics"></a>
+<h4 class="subheading">Code Fragment Without Generics</h4>
+
+<p>Here is a typical code fragment abstracting over types by using <code>Object</code>
+and type casting.
+</p>
+<div class="example">
+<pre class="example">List myIntList = new LinkedList(); // 1
+myIntList.add(new Integer(0)); // 2
+Integer x = (Integer) myIntList.iterator().next(); // 3
+</pre></div>
+
+<p>The cast on line 3 is annoying, although essential.  The compiler can
+guarantee only that an <code>Object</code> will be returned by the iterator.  This
+therefore adds both clutter and the possibility of a run-time error.
+</p>
+<a name="Code-Fragment-with-Generics"></a>
+<h4 class="subheading">Code Fragment with Generics</h4>
+
+<p>Generics allow a programmer to mark their intent to restrict a list to a
+particular data type.  Here is a version of the same code that uses generics.
+</p>
+<div class="example">
+<pre class="example">List&lt;Integer&gt; myIntList = new LinkedList&lt;Integer&gt;(); // 1'
+myIntList.add(new Integer(0)); // 2'
+Integer x = myIntList.iterator().next(); // 3'
+</pre></div>
+<a name="index-generic-interface"></a>
+<a name="index-type-parameter"></a>
+<a name="index-type-correctness"></a>
+<a name="index-compile_002dtime-type-check"></a>
+<a name="index-generics_002c-motivation_002c-readability-and-robustness"></a>
+
+<p>In line 1, the type declaration for the variable <code>myIntList</code> specifies
+that it is to hold a <code>List</code> of <code>Integer</code>s: &lsquo;<samp>List&lt;Integer&gt;</samp>&rsquo;.
+<code>List</code> is a <em>generic interface</em> that takes a <em>type parameter</em>
+(<code>Integer</code>).  The type parameter is also specified when creating the
+<code>List</code> object (&lsquo;<samp>new LinkedList&lt;Integer&gt;()</samp>&rsquo;).  Also, the cast on
+line 3 is gone.
+</p>
+<p>So has this just moved the clutter around, from a type cast to a type
+parameter?  No, because this has given the compiler the ability to check the
+type correctness of the program <em>at compile-time</em>.  When we say that
+<code>myIntList</code> is declared with type <code>List&lt;Integer&gt;</code>, this tells us
+something about the variable <code>myIntList</code>, which holds true wherever and
+whenever it is used, and the compiler will guarantee it.  In contrast, the
+cast tells us something the programmer thinks is true at a single point in
+the code.
+</p>
+<p>The net effect, especially in large programs, is improved readability and
+robustness.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="What-are-Generics.html#What-are-Generics" accesskey="n" rel="next">What are Generics</a>, Up: <a href="Generics.html#Generics" accesskey="u" rel="up">Generics</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

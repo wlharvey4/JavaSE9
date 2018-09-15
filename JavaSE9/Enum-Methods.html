@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Enum Methods (About Java SE 9)</title>
+
+<meta name="description" content="Enum Methods (About Java SE 9)">
+<meta name="keywords" content="Enum Methods (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Enumerations.html#Enumerations" rel="up" title="Enumerations">
+<link href="Enumerations-as-Class-Types.html#Enumerations-as-Class-Types" rel="next" title="Enumerations as Class Types">
+<link href="Enumeration-Basics.html#Enumeration-Basics" rel="prev" title="Enumeration Basics">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Enum-Methods"></a>
+<div class="header">
+<p>
+Next: <a href="Enumerations-as-Class-Types.html#Enumerations-as-Class-Types" accesskey="n" rel="next">Enumerations as Class Types</a>, Previous: <a href="Enumeration-Basics.html#Enumeration-Basics" accesskey="p" rel="prev">Enumeration Basics</a>, Up: <a href="Enumerations.html#Enumerations" accesskey="u" rel="up">Enumerations</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Enum-Methods-values_0028_0029-and-valueOf_0028_0029"></a>
+<h3 class="section">8.2 Enum Methods <code>values()</code> and <code>valueOf()</code></h3>
+<a name="index-enumeration-methods"></a>
+<a name="index-methods_002c-enumeration"></a>
+<a name="index-enum-values_0028_0029"></a>
+<a name="index-enum-valueOf_0028_0029"></a>
+
+<p>All enumerations inherit two methods:
+</p>
+<dl>
+<dt><a name="index-values-on-Enum"></a>Method on Enum:<br> <em>public static <i>enum-type</i>[]</em><br> <strong>values</strong> <em>()</em></dt>
+<dd><p>The <code>values()</code> method returns an array that contains a list of the
+enumeration constants.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-valueOf-on-Enum"></a>Method on Enum:<br> <em>public static <i>enum-type</i></em><br> <strong>valueOf</strong> <em>(String <var>str</var>)</em></dt>
+<dd><p>The <code>valueOf()</code> method returns the enumeration constant whose value
+corresponds to the string passed in <var>str</var>.
+</p></dd></dl>
+
+<a name="Examples-using-values_0028_0029-and-valueOf_0028_0029-Methods"></a>
+<h4 class="subheading">Examples using <code>values()</code> and <code>valueOf()</code> Methods</h4>
+
+<p>&lsquo;<samp>Apple allapples[] = Apple.values();</samp>&rsquo; is an example of using the
+<code>values()</code> method to populate an array with enumeration constants.
+</p>
+<div class="example">
+<pre class="example">for(Apple a : Apple.values()) {
+  System.out.println(a);
+}
+</pre></div>
+
+<p>is an example of iterating directly on the <code>values()</code> method.
+</p>
+<div class="example">
+<pre class="example">Apple ap;
+ap = Apple.valueOf(&quot;Winesap&quot;);
+System.out.println(&quot;ap contains &quot; + ap);
+</pre></div>
+
+<p>is an example of using the <code>valueOf()</code> method to obtain the
+enumeration constant corresponding to the value of a string.
+</p>
+
+
+
+</body>
+</html>

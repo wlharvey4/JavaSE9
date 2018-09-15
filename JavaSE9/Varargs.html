@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Varargs (About Java SE 9)</title>
+
+<meta name="description" content="Varargs (About Java SE 9)">
+<meta name="keywords" content="Varargs (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Methods-and-Classes.html#Methods-and-Classes" rel="up" title="Methods and Classes">
+<link href="Inheritance.html#Inheritance" rel="next" title="Inheritance">
+<link href="Command_002dLine-Arguments.html#Command_002dLine-Arguments" rel="prev" title="Command-Line Arguments">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Varargs"></a>
+<div class="header">
+<p>
+Previous: <a href="Command_002dLine-Arguments.html#Command_002dLine-Arguments" accesskey="p" rel="prev">Command-Line Arguments</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Varargs_003a-Variable_002dLength-Arguments"></a>
+<h3 class="section">3.13 Varargs: Variable-Length Arguments</h3>
+<a name="index-varargs"></a>
+<a name="index-variable_002dlength-arguments"></a>
+<a name="index-arguments_002c-varargs"></a>
+<a name="index-variable_002darity-method"></a>
+<a name="index-varargs-method"></a>
+<a name="index-method_002c-varargs"></a>
+
+<p>Beginning with JDK 5, Java has included a feature that simplifies the
+creation of methods that need to take a variable number of arguments.  This
+feature is called <em>varargs</em> and it is short for <em>variable-length
+arguments</em>.  A method that takes a variable number of arguments is called a
+<em>variable-arity method</em>, or simply <em>varargs method</em>.
+</p>
+<p>A variable-length argument is specified by three period (&hellip;).  For
+example: <kbd>static void vaTest (int &hellip; v) {</kbd>.  This syntax tells the
+compiler that <code>vaTest()</code> can be called with zero or more arguments.  As
+a result, <code>v</code> is implicitly declared as an array of type <code>int[]</code>.
+Thus, inside <code>vaTest()</code>, <code>v</code> is accessed using the normal array
+syntax. 
+</p>
+<p>A method can have <em>normal</em> parameters along with a variable-length
+parameter, but the variable-length parameter must be the final parameter
+declared by the method.  Further, there can be only one varargs parameter.
+</p>
+<div class="example">
+<pre class="example">int doIt(int a, int b, double c, int &hellip; vals) {
+</pre></div>
+
+<p>After the first three arguments, any remaining arguments are passed to
+<code>vals</code>.  
+</p>
+<a name="Overloading-Vararg-Methods"></a>
+<h3 class="heading">Overloading Vararg Methods</h3>
+<a name="index-vararg-overloading"></a>
+<a name="index-vararg-ambiguity"></a>
+
+<p>You can overload a method that takes a variable-length argument (i.e., it can
+be given a different type, or additional parameters can be included, or a non
+varargs parameter).
+</p>
+<p>Note that unexpected errors can result when overloading a method that takes a
+variable-length argument.  These errors involve ambiguity because it is
+possible to create an ambiguous call to an overloaded varargs method.  In
+such a case, the program will not compile.  While each individual method
+declaration might be valid, the call might yet be ambiguous.
+</p>
+
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Command_002dLine-Arguments.html#Command_002dLine-Arguments" accesskey="p" rel="prev">Command-Line Arguments</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

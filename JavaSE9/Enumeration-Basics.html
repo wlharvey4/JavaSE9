@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Enumeration Basics (About Java SE 9)</title>
+
+<meta name="description" content="Enumeration Basics (About Java SE 9)">
+<meta name="keywords" content="Enumeration Basics (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Enumerations.html#Enumerations" rel="up" title="Enumerations">
+<link href="Enum-Methods.html#Enum-Methods" rel="next" title="Enum Methods">
+<link href="Enumerations.html#Enumerations" rel="prev" title="Enumerations">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Enumeration-Basics"></a>
+<div class="header">
+<p>
+Next: <a href="Enum-Methods.html#Enum-Methods" accesskey="n" rel="next">Enum Methods</a>, Up: <a href="Enumerations.html#Enumerations" accesskey="u" rel="up">Enumerations</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Enumeration-Basics-1"></a>
+<h3 class="section">8.1 Enumeration Basics</h3>
+<a name="index-Enumeration_002c-basics"></a>
+<a name="index-keyword_002c-enum"></a>
+
+<p>An enumeration is created using the <code>enum</code> keyword.
+</p>
+<div class="example">
+<pre class="example">enum Apple {
+     Jonathon, GoldenDel, RedDel, Winesap, Cortland
+}
+</pre></div>
+
+<a name="enumeration-constants"></a>
+<h4 class="subheading">enumeration constants</h4>
+
+<a name="index-enumeration-constants"></a>
+<a name="index-self_002dtyped-constants"></a>
+<p>The enum constants &lsquo;<samp>Jonathon</samp>&rsquo;, &lsquo;<samp>GoldenDel</samp>&rsquo;, etc. are called
+<em>enumeration constants</em>.  The enumeration constants are declared as
+&lsquo;<samp>public static final</samp>&rsquo; members of the enum.  Their type is the type of
+the enumeration in which they are declared.  These constants are called
+<em>self-typed</em>, in which &ldquo;self&rdquo; refers to the enclosing enumeration.  
+</p>
+<a name="enumeration-objects"></a>
+<h4 class="subheading">enumeration objects</h4>
+<a name="index-enumeration-variable"></a>
+<a name="index-variable_002c-enum-type"></a>
+<a name="index-enum-variable_002c-declare"></a>
+
+<p>You can create a variable of an enumeration type.  You do not
+instantiate an <code>enum</code> using <code>new</code>.  Rather, you declare
+an <code>enum</code> variable like you do for primitive types: &lsquo;<samp>Apple
+ap</samp>&rsquo;.  Now, the variable <code>ap</code> can only hold values of type
+&lsquo;<samp>Apple</samp>&rsquo;.
+</p>
+<div class="example">
+<pre class="example">Apple ap;
+ap = Apple.RedDel;
+</pre></div>
+
+<p>The <code>enum</code> type (i.e., <code>Apple</code>) must be part of the expression.
+</p>
+<a name="Comparing-for-Equality_003b-Switch"></a>
+<h4 class="subheading">Comparing for Equality; Switch</h4>
+<a name="index-enumeration-comparison"></a>
+<a name="index-equality_002c-enum-types"></a>
+<a name="index-_003d_003d"></a>
+<a name="index-switch-statement_002c-enum-types"></a>
+
+<p>Two enumeration constants can be compared for equality using the <code>==</code>
+relational operator.  Furthermore, an enumneration value can be used to
+control a <code>switch</code> statement.  The <code>enum</code> prefix (type) is not
+required for <code>switch</code>.
+</p>
+<div class="example">
+<pre class="example">switch(ap) {
+  case Jonathon: &hellip;
+  case Winesap: &hellip;
+}
+</pre></div>
+
+<a name="Printing-Enum-Types"></a>
+<h4 class="subheading">Printing Enum Types</h4>
+<a name="index-enums_002c-printing"></a>
+
+<p>When an enumeration object is printed, its name is output (without the
+<code>enum</code> type): &lsquo;<samp>System.out.println(ap)</samp>&rsquo; would produce
+&lsquo;<samp>RedDel</samp>&rsquo;.
+</p>
+
+
+
+</body>
+</html>

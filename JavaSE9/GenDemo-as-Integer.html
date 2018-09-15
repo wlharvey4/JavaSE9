@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>GenDemo as Integer (About Java SE 9)</title>
+
+<meta name="description" content="GenDemo as Integer (About Java SE 9)">
+<meta name="keywords" content="GenDemo as Integer (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Class-GenDemo.html#Class-GenDemo" rel="up" title="Class GenDemo">
+<link href="GenDemo-as-String.html#GenDemo-as-String" rel="next" title="GenDemo as String">
+<link href="Class-GenDemo.html#Class-GenDemo" rel="prev" title="Class GenDemo">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="GenDemo-as-Integer"></a>
+<div class="header">
+<p>
+Next: <a href="GenDemo-as-String.html#GenDemo-as-String" accesskey="n" rel="next">GenDemo as String</a>, Up: <a href="Class-GenDemo.html#Class-GenDemo" accesskey="u" rel="up">Class GenDemo</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Implementation-of-Class-GenDemo-with-Type-Integer"></a>
+<h4 class="subsubsection">7.3.2.1 Implementation of Class GenDemo with Type Integer</h4>
+<a name="index-generic-reference_002c-creating"></a>
+<a name="index-type-argument_002c-passed-to-type-parameter"></a>
+
+<a name="Create_002da_002dGen_002dobject_002dfor_002dIntegers"></a><a name="index-_003cInteger-Type-Parameter_003e_002c-use"></a>
+<a name="index-_003cReference-to-Integer-Instance_003e_002c-use"></a>
+<a name="index-_003cShow-Type_003e_002c-use"></a>
+<a name="index-_003cGet-Value_003e_002c-use"></a>
+<a name="index-_003cCreate-a-Gen-object-for-Integers_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Create a Gen object for Integers</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example"><span class="roman">&lt;<i>Integer Type Parameter</i>&gt;</span>
+<span class="roman">&lt;<i>Reference to Integer Instance</i>&gt;</span>
+<span class="roman">&lt;<i>Show Type</i>&gt;</span>
+<span class="roman">&lt;<i>Get Value</i>&gt;</span>
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Class GenDemo</i>&gt;</span>; see its first definition at <a href="Class-GenDemo.html#Class_002dGenDemo">Class-GenDemo</a>.
+</p>
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>Get Value</i>&gt;</span></td><td width="65%">See <a href="#Get_002dValue">Get-Value</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Integer Type Parameter</i>&gt;</span></td><td width="65%">See <a href="#Integer_002dType_002dParameter">Integer-Type-Parameter</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Reference to Integer Instance</i>&gt;</span></td><td width="65%">See <a href="#Reference_002dto_002dInteger_002dInstance">Reference-to-Integer-Instance</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Show Type</i>&gt;</span></td><td width="65%">See <a href="#Show_002dType">Show-Type</a>.</td></tr>
+</table>
+
+<a name="Integer-Type-Declaration"></a>
+<h4 class="subsubheading">Integer Type Declaration</h4>
+<a name="index-generic-reference-to-Integer"></a>
+
+<p>A reference to an Integer is declared in <code>iOb</code>.  Here, the type
+&lsquo;<samp>Integer</samp>&rsquo; is specified within the angle brackets after <code>Gen</code>.
+&lsquo;<samp>Integer</samp>&rsquo; is a <em>type argument</em> that is passed to <code>Gen</code>&rsquo;s type
+parameter, &lsquo;<samp>T</samp>&rsquo;.  This effectively creates a version of <code>Gen</code> in
+which all references to &lsquo;<samp>T</samp>&rsquo; are translated into references to
+&lsquo;<samp>Integer</samp>&rsquo;.  Thus, <code>ob</code> is of type &lsquo;<samp>Integer</samp>&rsquo;, and the return
+type of <code>getob()</code> is of type &lsquo;<samp>Integer</samp>&rsquo;.
+</p>
+<a name="Integer_002dType_002dParameter"></a><a name="index-_003cInteger-Type-Parameter_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Integer Type Parameter</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">Gen&lt;Integer&gt; iOb;
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Create a Gen object for Integers</i>&gt;</span>; see its first definition at <a href="#Create_002da_002dGen_002dobject_002dfor_002dIntegers">Create-a-Gen-object-for-Integers</a>.
+</p>
+<a name="Reference-Assignment"></a>
+<h4 class="subsubheading">Reference Assignment</h4>
+<a name="index-generic-reference-assignment-to-Integer"></a>
+<a name="index-generic-type-checking"></a>
+<a name="index-generics_002c-compile_002dtime-error_002c-mismatched-types"></a>
+<a name="index-generics_002c-type-safety-benefit"></a>
+<a name="index-autoboxing-in-generic-reference"></a>
+
+<p>The next line assigns to <code>iOb</code> a reference to an instance of an
+&lsquo;<samp>Integer</samp>&rsquo; version of the <code>Gen</code> class.  When the <code>Gen</code>
+constructor is called, the type argument &lsquo;<samp>Integer</samp>&rsquo; is also specified.
+This is because the type of the object (in this case <code>iOb</code> to which the
+reference is being assigned is of type <code>Gen&lt;Integer&gt;</code>.  Thus, the
+reference returned by <code>new</code> must also be of type
+<code>Gen&lt;Integer&gt;</code>.  If it isn&rsquo;t, a compile-time error will result.  This
+type checking is one of the main benefits of generics because it ensures type
+safety.  
+</p>
+<p>Notice the use of autoboxing to encapsulate the value 88 within an Integer
+object.
+</p>
+<a name="Reference_002dto_002dInteger_002dInstance"></a><a name="index-_003cReference-to-Integer-Instance_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Reference to Integer Instance</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">iOb = new Gen&lt;Integer&gt;(88);
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Create a Gen object for Integers</i>&gt;</span>; see its first definition at <a href="#Create_002da_002dGen_002dobject_002dfor_002dIntegers">Create-a-Gen-object-for-Integers</a>.
+</p>
+<p>The automatic autoboxing could have been written explicitly, like so:
+</p><div class="example">
+<pre class="example">iOb = new Gen&lt;Integer&gt;(Integer.valueOf(88));
+</pre></div>
+<p>but there would be no value to doing it that way.
+</p>
+<a name="Showing-the-Reference_0027s-Type"></a>
+<h4 class="subsubheading">Showing the Reference&rsquo;s Type</h4>
+
+<p>The program then uses <code>Gen</code>&rsquo;s instance method to show the type of
+<code>ob</code>, which is an &lsquo;<samp>Integer</samp>&rsquo; in this case.
+</p>
+<a name="Show_002dType"></a><a name="index-_003cShow-Type_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Show Type</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">iOb.showType();
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Create a Gen object for Integers</i>&gt;</span>; see its first definition at <a href="#Create_002da_002dGen_002dobject_002dfor_002dIntegers">Create-a-Gen-object-for-Integers</a>.
+</p>
+<a name="Showing-the-Reference_0027s-Value"></a>
+<h4 class="subsubheading">Showing the Reference&rsquo;s Value</h4>
+
+<p>The program now obtains the value of <code>ob</code> by assiging <code>ob</code> to an
+&lsquo;<samp>int</samp>&rsquo; variable.  The return type of <code>getob()</code> is &lsquo;<samp>Integer</samp>&rsquo;,
+which unboxes into &lsquo;<samp>int</samp>&rsquo; when assigned to an &lsquo;<samp>int</samp>&rsquo; variable
+(<code>v</code>).  There is no need to cast the return type of <code>getob()</code> to
+&lsquo;<samp>Integer</samp>&rsquo;.  
+</p>
+<a name="Get_002dValue"></a><a name="index-_003cGet-Value_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Get Value</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">int v = iOb.getob();
+System.out.println(&quot;value: &quot; + v);
+System.out.println();
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Create a Gen object for Integers</i>&gt;</span>; see its first definition at <a href="#Create_002da_002dGen_002dobject_002dfor_002dIntegers">Create-a-Gen-object-for-Integers</a>.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="GenDemo-as-String.html#GenDemo-as-String" accesskey="n" rel="next">GenDemo as String</a>, Up: <a href="Class-GenDemo.html#Class-GenDemo" accesskey="u" rel="up">Class GenDemo</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

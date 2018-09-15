@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>GenMethDemo Main (About Java SE 9)</title>
+
+<meta name="description" content="GenMethDemo Main (About Java SE 9)">
+<meta name="keywords" content="GenMethDemo Main (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Example-of-Generic-Method.html#Example-of-Generic-Method" rel="up" title="Example of Generic Method">
+<link href="Generic-Constructors.html#Generic-Constructors" rel="next" title="Generic Constructors">
+<link href="Method-isIn.html#Method-isIn" rel="prev" title="Method isIn">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="GenMethDemo-Main"></a>
+<div class="header">
+<p>
+Previous: <a href="Method-isIn.html#Method-isIn" accesskey="p" rel="prev">Method isIn</a>, Up: <a href="Example-of-Generic-Method.html#Example-of-Generic-Method" accesskey="u" rel="up">Example of Generic Method</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="GenMethDemo-Main-1"></a>
+<h4 class="subsubsection">7.9.1.2 GenMethDemo Main</h4>
+
+<a name="GenMethDemo_002dMain"></a><a name="index-_003cGenMethDemo-Main_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>GenMethDemo Main</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">public static void main(String args[]) {
+
+  // call isIn() with Integer type
+  Integer nums[] = { 1, 2, 3, 4, 5 };
+
+  if ( isIn(2, nums) )
+    System.out.println(&quot;2 is in nums&quot;);
+
+  if ( @isIn(7, nums))
+    System.out.println(&quot;7 is not in nums&quot;);
+
+  System.out.println();
+
+  // call isIn() with String type
+  String strs[] = { &quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot; };
+
+  if ( isIn(&quot;two&quot;, strs))
+    System.out.println(&quot;two is in strs&quot;);
+
+  if ( !isIn(&quot;seven&quot;, strs))
+    System.out.println(&quot;seven is not in strs&quot;);
+
+  // call isIn() with mixed types
+  // WILL NOT COMPILE! TYPES MUST BE COMPATIBLE
+  // if ( isIn(&quot;two&quot;, nums))
+  //    System.out.println(&quot;two is in nums&quot;);
+}
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">{<samp>GenMethDemo.java</samp>}</span>; see its first definition at <a href="Example-of-Generic-Method.html#GenMethDemo_002djava">GenMethDemo-java</a>.
+</p>
+
+
+
+</body>
+</html>

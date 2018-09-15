@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Generics (About Java SE 9)</title>
+
+<meta name="description" content="Generics (About Java SE 9)">
+<meta name="keywords" content="Generics (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Motivation.html#Motivation" rel="next" title="Motivation">
+<link href="Private-Interface-Methods.html#Private-Interface-Methods" rel="prev" title="Private Interface Methods">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Generics"></a>
+<div class="header">
+<p>
+Next: <a href="Enumerations.html#Enumerations" accesskey="n" rel="next">Enumerations</a>, Previous: <a href="Interfaces.html#Interfaces" accesskey="p" rel="prev">Interfaces</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Generics-1"></a>
+<h2 class="chapter">7 Generics</h2>
+<a name="index-Generics-_0028chapter_0029"></a>
+<a name="index-generics_002c-introduction"></a>
+<a name="index-J2SE-5_002e0"></a>
+<a name="index-Collections-Framework"></a>
+<a name="index-collections_002c-generics"></a>
+<a name="index-type-abstraction_002c-generics"></a>
+<a name="index-abstract-over-types"></a>
+
+<p><em>Generics</em>, introduced in J2SE 5.0, allows a type or method to operate on
+objects of various types while providing compile-time type safety.  It adds
+compile-time type safety to the Collections Framework and eliminates the need
+of casting.  In other words, generics allow you to abstract over types.
+</p>
+<p>Through the use of generics, it is possible to create classes, interfaces,
+and methods that will work in a type-safe manner with various kinds of data.
+Many algorithms are logically the same no matter what type of data they are
+being applied to.  For example, the mechanism that supports a stack is the
+same whether that stack is storing items of type <code>Integer</code>,
+<code>String</code>, <code>Object</code>, or <code>Thread</code>.  With generics, you
+can define an algorithm once, independently of any specific type of data, and
+then apply that algorithm to a wide variety of data types without any
+additional effort.
+</p>
+<p>Perhaps the one feature of Java that has been most significantly affected by
+generics is the <cite>Collections Framework</cite>.  A <em>collection</em> is a group
+of objects.  The Collections Framework defines several classes, such as lists
+and maps, that manage collections.  The collection classes have always been
+able to work with any type of object.  The benefit that generics adds is that
+the collection classes can now be used with complete type safety.
+</p>
+<p>This chapter describes the syntax, theory, and use of generics.  It also
+shows how generics provide type safety for some previously difficult cases.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Motivation.html#Motivation" accesskey="1">Motivation</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="What-are-Generics.html#What-are-Generics" accesskey="2">What are Generics</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Simple-Generics-Example.html#Simple-Generics-Example" accesskey="3">Simple Generics Example</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Notes-about-Generics.html#Notes-about-Generics" accesskey="4">Notes about Generics</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Two-Type-Parameters.html#Two-Type-Parameters" accesskey="5">Two Type Parameters</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Generic-Class-General-Form.html#Generic-Class-General-Form" accesskey="6">Generic Class General Form</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Bounded-Types.html#Bounded-Types" accesskey="7">Bounded Types</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Wildcard-Arguments.html#Wildcard-Arguments" accesskey="8">Wildcard Arguments</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Generic-Methods.html#Generic-Methods" accesskey="9">Generic Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Generic-Constructors.html#Generic-Constructors">Generic Constructors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Enumerations.html#Enumerations" accesskey="n" rel="next">Enumerations</a>, Previous: <a href="Interfaces.html#Interfaces" accesskey="p" rel="prev">Interfaces</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

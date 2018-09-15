@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Implementing Interfaces (About Java SE 9)</title>
+
+<meta name="description" content="Implementing Interfaces (About Java SE 9)">
+<meta name="keywords" content="Implementing Interfaces (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Interfaces.html#Interfaces" rel="up" title="Interfaces">
+<link href="Interface-References.html#Interface-References" rel="next" title="Interface References">
+<link href="Defining-Interfaces.html#Defining-Interfaces" rel="prev" title="Defining Interfaces">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Implementing-Interfaces"></a>
+<div class="header">
+<p>
+Next: <a href="Interface-References.html#Interface-References" accesskey="n" rel="next">Interface References</a>, Previous: <a href="Defining-Interfaces.html#Defining-Interfaces" accesskey="p" rel="prev">Defining Interfaces</a>, Up: <a href="Interfaces.html#Interfaces" accesskey="u" rel="up">Interfaces</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Implementing-Interfaces-1"></a>
+<h3 class="section">6.2 Implementing Interfaces</h3>
+<a name="index-interfaces_002c-implementing"></a>
+<a name="index-implements-clause"></a>
+
+<p>Once an interface has been defined, one or more classes can implement that
+interface.  To implement an interface, include the <code>implements</code>
+clause in a class definition, and then create the methods required by the
+interface.  The general form of a class that includes the
+<code>implements</code> clause looks like this:
+</p>
+<div class="float"><a name="ClassImplementsInterface"></a>
+<div class="display">
+<pre class="display">class <i>clasname</i> [extends <i>superclass</i>] [implements <i>interface</i> [,<i>interface</i>&hellip;] {
+  <i>class-body</i>
+}
+</pre></div>
+
+<div class="float-caption"><p><strong>GeneralForm 6.2: </strong>Class Implementing Interface &mdash; General Form</p></div></div>
+<a name="index-interface-method-defintion_002c-declared-public"></a>
+<p>The methods that implement an interface must be declared <code>public</code>.
+The type signature of the implementing method must match exactly the type
+signature specified in the <code>interface</code> definition.
+</p>
+<p>It is both permissible and common for classes that implement interfaces to
+define additional members of their own.
+</p>
+
+
+
+</body>
+</html>

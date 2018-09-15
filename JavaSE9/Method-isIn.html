@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Method isIn (About Java SE 9)</title>
+
+<meta name="description" content="Method isIn (About Java SE 9)">
+<meta name="keywords" content="Method isIn (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Example-of-Generic-Method.html#Example-of-Generic-Method" rel="up" title="Example of Generic Method">
+<link href="GenMethDemo-Main.html#GenMethDemo-Main" rel="next" title="GenMethDemo Main">
+<link href="Example-of-Generic-Method.html#Example-of-Generic-Method" rel="prev" title="Example of Generic Method">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Method-isIn"></a>
+<div class="header">
+<p>
+Next: <a href="GenMethDemo-Main.html#GenMethDemo-Main" accesskey="n" rel="next">GenMethDemo Main</a>, Up: <a href="Example-of-Generic-Method.html#Example-of-Generic-Method" accesskey="u" rel="up">Example of Generic Method</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Method-isIn_0028_0029"></a>
+<h4 class="subsubsection">7.9.1.1 Method isIn()</h4>
+
+<p>The <strong>type parameters</strong> are declared <em>before</em> the return type of
+the method.
+</p>
+<a name="Static_002dMethod_002disIn"></a><a name="index-_003cStatic-Method-isIn_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Static Method isIn</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">static &lt;T extends Comparable&lt;T&gt;, V extends T&gt; boolean isIn(T x, V[] y) {
+
+  for (int i = 0; i &lt; y.length; i++)
+    if (x.equals(y[i]) return true;
+
+  return false;
+}
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">{<samp>GenMethDemo.java</samp>}</span>; see its first definition at <a href="Example-of-Generic-Method.html#GenMethDemo_002djava">GenMethDemo-java</a>.
+</p>
+<p>The type <i>T</i> is <strong>upper-bounded</strong> by the <code>Comparable</code> interface,
+which must be of the same type as <i>T</i>.  Likewise, the second type, <i>V</i>,
+is also <strong>upper-bounded</strong> by <i>T</i>.  Thus, <i>V</i> must be either the
+same type as <i>T</i> or a subclass of <i>T</i>.  This relationship enforces that
+<code>isIn()</code> can be called only with arguments that are compatible with each
+other.
+</p>
+<a name="index-generic-method_002c-static"></a>
+<a name="index-static-generic-method"></a>
+<p>While <code>isIn()</code> is static in this case, generic methods can be either
+static or non-static; there is no restriction in this regard.
+</p>
+<a name="Explicitly-Including-Type-Arguments"></a>
+<h4 class="subsubheading">Explicitly Including Type Arguments</h4>
+<a name="index-generic-methods_002c-including-type-arguments"></a>
+
+<p>There is generally no need to specify type arguments when calling this method
+from within the <code>main</code> routine.  This is because the type arguments are
+automatically discerned, and the types of <i>T</i> and <i>V</i> are adjusted
+accordingly.
+</p>
+<p>Although type inference will be sufficient for most generic method calls, you
+can explicitly specify the type argument if needed.  For example, here is how
+the first call to <code>isIn()</code> looks when the type argumetns are specified:
+</p>
+<div class="example">
+<pre class="example">GenMethDemo.&lt;Integer, Integer&gt;isIn(2, nums)
+</pre></div>
+
+
+
+
+
+</body>
+</html>

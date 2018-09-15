@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Inherit Enum (About Java SE 9)</title>
+
+<meta name="description" content="Inherit Enum (About Java SE 9)">
+<meta name="keywords" content="Inherit Enum (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Enumerations.html#Enumerations" rel="up" title="Enumerations">
+<link href="Strings.html#Strings" rel="next" title="Strings">
+<link href="Enumerations-as-Class-Types.html#Enumerations-as-Class-Types" rel="prev" title="Enumerations as Class Types">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Inherit-Enum"></a>
+<div class="header">
+<p>
+Previous: <a href="Enumerations-as-Class-Types.html#Enumerations-as-Class-Types" accesskey="p" rel="prev">Enumerations as Class Types</a>, Up: <a href="Enumerations.html#Enumerations" accesskey="u" rel="up">Enumerations</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Enumerations-Inherit-Enum"></a>
+<h3 class="section">8.4 Enumerations Inherit <code>Enum</code></h3>
+<a name="index-enumerations-inherit-Enum"></a>
+
+<p>All enumerations automatically inherit from one superclass:
+<code>java.lang.Enum</code>.  This class defines several methods  that are
+available for use by all enumerations.
+</p>
+<a name="ordinal_0028_0029-and-compareTo_0028_0029"></a>
+<h4 class="subheading"><code>ordinal()</code> and <code>compareTo()</code></h4>
+
+<dl>
+<dt><a name="index-ordinal-on-Enum"></a>Method on Enum:<br> <em>final int</em><br> <strong>ordinal</strong> <em>()</em></dt>
+<dd><p>The <code>ordinal()</code> method returns a value that indicates an enumeration
+constant&rsquo;s position in the list of constants, called its <em>ordinal
+value</em>.  In other words, calling <code>ordinal()</code> returns the ordinal value
+of the invoking constant (zero indexed).
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-compareTo-on-Enum"></a>Method on Enum:<br> <em>final int</em><br> <strong>compareTo</strong> <em>(<i>enum-type</i> <var>e</var>)</em></dt>
+<dd><p>The ordinal values of two constants can be compared using the
+<code>compareTo()</code> method.  Both the invoking constant and <var>e</var> must be of
+the same enumeration <i>enum-type</i>.  This method returns a negative value, a
+zero, or a positive value depending on whether the invoking constant&rsquo;s
+ordinal value is less than, equal to, or greater than the passed-in
+enumeration constant&rsquo;s ordinal value.
+</p></dd></dl>
+
+<a name="equals_0028_0029-and-_003d_003d"></a>
+<h4 class="subheading"><code>equals()</code> and <code>==</code></h4>
+
+<dl>
+<dt><a name="index-equals-on-Enum"></a>Method on Enum:<br> <em>boolean</em><br> <strong>equals</strong> <em>(<i>enum-type</i> <var>e</var>)</em></dt>
+<dt><a name="index-_003d_003d-on-Enum"></a>Method on Enum:<br> <em>boolean</em><br> <strong>==</strong> <em>(<i>enum-type</i> <var>e</var>)</em></dt>
+<dd><p>Compare for equality an invoking enum constant with a referenced enum
+constant. 
+</p></dd></dl>
+
+
+<p>An invoking enum constant can compare for equality itself with any
+other object by using <code>equals()</code> or, equivalently, <code>==</code>, which
+overrides the <code>equals()</code> method defined in <code>Object</code>.
+<code>equals()</code> will return true only if both objects refer to the same
+constant within the same enumeration.  (In other words, <code>equals</code> does
+not just compare ordinal values in general.)
+</p>
+
+
+
+
+
+
+
+
+</body>
+</html>

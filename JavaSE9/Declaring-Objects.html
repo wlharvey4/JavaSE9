@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Declaring Objects (About Java SE 9)</title>
+
+<meta name="description" content="Declaring Objects (About Java SE 9)">
+<meta name="keywords" content="Declaring Objects (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Classes.html#Classes" rel="up" title="Classes">
+<link href="Methods.html#Methods" rel="next" title="Methods">
+<link href="General-Form.html#General-Form" rel="prev" title="General Form">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Declaring-Objects"></a>
+<div class="header">
+<p>
+Next: <a href="Methods.html#Methods" accesskey="n" rel="next">Methods</a>, Previous: <a href="Class-Fundamentals.html#Class-Fundamentals" accesskey="p" rel="prev">Class Fundamentals</a>, Up: <a href="Classes.html#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Declaring-Objects-1"></a>
+<h3 class="section">2.2 Declaring Objects</h3>
+<a name="index-objects_002c-declaring"></a>
+<a name="index-new-operator"></a>
+<a name="index-run-time_002c-dynamic-allocation"></a>
+<a name="index-dynamic-allocation_002c-run-time"></a>
+<a name="index-constructor"></a>
+
+<p>Because a class creates a new data type, you can use this type to declare
+objects of that type.  Obtaining objects of a class is a two-step process.
+</p>
+<ol>
+<li> Declare a variable of the class type; this variable does not define an
+object.  Instead, it is simply a variable that can <em>refer</em> to an object.
+</li><li> Acquire an actual, physical copy of the object and assign it to the
+variable; you can do this using the <code>new</code> operator.  The
+<code>new</code> operator dynamically allocates (at run time) memory for an
+object, and returns a reference to to.  This reference is (essentially) the
+address in memory of the object allocated by <code>new</code>.  This reference
+is then stored in the variable.  In Java, all class objects must be
+dynamically allocated.
+</li></ol>
+
+<a name="Example-Declaration_002c-Allocation_002c-and-Assignment"></a>
+<h3 class="heading">Example Declaration, Allocation, and Assignment</h3>
+
+<div class="example">
+<pre class="example">Box mybox; // 1. declare a variable
+mybox = new Box(); // 2. allocate a Box object
+</pre></div>
+
+<p>These two declarations can be combined into a single declaration, and
+usually are:
+</p>
+<div class="example">
+<pre class="example">Box mybox = new Box();
+</pre></div>
+
+<p>The <code>mybox</code> variable simply holds the memory address of the actual
+<code>Box</code> object.  The class name followed by parenthese specifies the
+<em>constructor</em> for the class.
+</p>
+
+
+
+
+</body>
+</html>

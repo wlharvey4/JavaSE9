@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Bounded Types (About Java SE 9)</title>
+
+<meta name="description" content="Bounded Types (About Java SE 9)">
+<meta name="keywords" content="Bounded Types (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Generics.html#Generics" rel="up" title="Generics">
+<link href="Wildcard-Arguments.html#Wildcard-Arguments" rel="next" title="Wildcard Arguments">
+<link href="Generic-Class-General-Form.html#Generic-Class-General-Form" rel="prev" title="Generic Class General Form">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Bounded-Types"></a>
+<div class="header">
+<p>
+Next: <a href="Wildcard-Arguments.html#Wildcard-Arguments" accesskey="n" rel="next">Wildcard Arguments</a>, Previous: <a href="Generic-Class-General-Form.html#Generic-Class-General-Form" accesskey="p" rel="prev">Generic Class General Form</a>, Up: <a href="Generics.html#Generics" accesskey="u" rel="up">Generics</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Bounded-Types-1"></a>
+<h3 class="section">7.7 Bounded Types</h3>
+<a name="index-generics_002c-bounded-types"></a>
+<a name="index-bounded-types"></a>
+<a name="index-upper-bound"></a>
+<a name="index-extends-clause"></a>
+
+<p>Sometimes it can be useful to limit the types that can be passed to a type
+parameter.  Java provides <em>bounded types</em>.  When specifying a type
+parameter, you can create an upper bound that declares the superclass from
+which all type arguments must be derived.  This is accomplished through the
+use of an <code>extends</code> clause when specifying the type parameter:
+</p>
+<div class="display">
+<pre class="display"> &lt;<i>T</i> extends <i>superclass</i>&gt;
+</pre></div>
+
+<p>This specifies that <i>T</i> can only be replaced by <i>superclass</i> or
+subclasses of <i>superclass</i>.  Thus, <i>superclass</i> defines an inclusive,
+upper limit.
+</p>
+<a name="Interface-Type-as-a-Bound"></a>
+<h4 class="subheading">Interface Type as a Bound</h4>
+<a name="index-generics_002c-interface-as-bound"></a>
+<a name="index-interface-as-bound_002c-generics"></a>
+
+<p>In addition to using a class type as a bound, you can also use an interface
+type.  In fact, youi can specify multiple interfaces as bounds.  Furthermore,
+a bound can include both a class type and one or more interfaces.  In this
+case, the class type must be specified first.  When a bound includes an
+interface type, only type arguments that implement that interface are legal.
+</p>
+<p>When specifying a bound that has a class and an interface, or multiple
+interfaces, use the <kbd>&amp;</kbd> operator to connnect them.
+</p>
+<div class="example">
+<pre class="example">class Gen&lt;T extends MyClass &amp; MyInterface&gt; { &hellip;
+</pre></div>
+
+<p>Any type argument passed to &lsquo;<samp>T</samp>&rsquo; must be a subclass of <code>MyClass</code> and
+implement <code>MyInterface</code>.
+</p>
+
+
+
+</body>
+</html>

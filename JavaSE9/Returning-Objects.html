@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Returning Objects (About Java SE 9)</title>
+
+<meta name="description" content="Returning Objects (About Java SE 9)">
+<meta name="keywords" content="Returning Objects (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Methods-and-Classes.html#Methods-and-Classes" rel="up" title="Methods and Classes">
+<link href="Recursion.html#Recursion" rel="next" title="Recursion">
+<link href="Argument-Passing.html#Argument-Passing" rel="prev" title="Argument Passing">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Returning-Objects"></a>
+<div class="header">
+<p>
+Next: <a href="Recursion.html#Recursion" accesskey="n" rel="next">Recursion</a>, Previous: <a href="Argument-Passing.html#Argument-Passing" accesskey="p" rel="prev">Argument Passing</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Returning-Objects-1"></a>
+<h3 class="section">3.4 Returning Objects</h3>
+<a name="index-objects_002c-returning-from-methods"></a>
+<a name="index-objects_002c-dynamical-allocation"></a>
+<a name="index-objects_002c-references-to"></a>
+
+<p>A method can return any type of data, including class types that you create.
+</p>
+<p>Since all objects are dynamically allocated using <code>new</code>, you don&rsquo;t
+need to worry about an object going out-of-scope because the method in which
+it was created terminates.  The object will continue to exist as long as
+there is a reference to it somewhere in your program.  When there are no
+references to it, the object will be reclaimed the next time garbage
+collection takes place.
+</p>
+
+
+
+
+
+</body>
+</html>

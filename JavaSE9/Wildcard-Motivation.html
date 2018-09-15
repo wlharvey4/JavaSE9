@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Wildcard Motivation (About Java SE 9)</title>
+
+<meta name="description" content="Wildcard Motivation (About Java SE 9)">
+<meta name="keywords" content="Wildcard Motivation (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Wildcard-Arguments.html#Wildcard-Arguments" rel="up" title="Wildcard Arguments">
+<link href="Wildcard-Syntax.html#Wildcard-Syntax" rel="next" title="Wildcard Syntax">
+<link href="Wildcard-Arguments.html#Wildcard-Arguments" rel="prev" title="Wildcard Arguments">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Wildcard-Motivation"></a>
+<div class="header">
+<p>
+Next: <a href="Wildcard-Syntax.html#Wildcard-Syntax" accesskey="n" rel="next">Wildcard Syntax</a>, Up: <a href="Wildcard-Arguments.html#Wildcard-Arguments" accesskey="u" rel="up">Wildcard Arguments</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Wildcard-Motivation-1"></a>
+<h4 class="subsection">7.8.1 Wildcard Motivation</h4>
+<a name="index-wildcards_002c-motivation"></a>
+
+<p>Consider the problem of writing a routine that prints out all the elements in
+a collection. Here&rsquo;s how you might write it in an older version of the
+language (i.e., a pre-5.0 release):
+</p>
+<div class="example">
+<pre class="example">void printCollection(Collection c) {
+    Iterator i = c.iterator();
+    for (k = 0; k &lt; c.size(); k++) {
+        System.out.println(i.next());
+    }
+}
+</pre></div>
+
+<p>And here is a naive attempt at writing it using generics (and the new
+<kbd>for loop</kbd> syntax):
+</p>
+<div class="example">
+<pre class="example">    for (Object e : c) {
+        System.out.println(e);
+    }
+}
+</pre></div>
+
+<p>The problem is that this new version is much less useful than the old
+one. Whereas the old code could be called with any kind of collection as a
+parameter, the new code only takes <code>Collection&lt;Object&gt;</code>, which, as we&rsquo;ve
+just demonstrated, is <em>not</em> a supertype of all kinds of collections!
+</p>
+<p>So what is the supertype of all kinds of collections? It&rsquo;s written
+<kbd>Collection&lt;?&gt;</kbd> (pronounced <em>collection of unknown</em>), that is, a
+collection whose element type matches anything. It&rsquo;s called a <em>wildcard
+type</em>.  We can write:
+</p>
+<div class="example">
+<pre class="example">void printCollection(Collection&lt;?&gt; c) {
+    for (Object e : c) {
+        System.out.println(e);
+    }
+}
+</pre></div>
+
+<p>and now, we can call it with any type of collection.  Notice that inside
+<code>printCollection()</code>, we can still read elements from <code>c</code> and give
+them type <code>Object</code>. This is always safe, since whatever the actual type
+of the collection, it does contain objects. It isn&rsquo;t safe to add arbitrary
+objects to it however:
+</p>
+<div class="example">
+<pre class="example">Collection&lt;?&gt; c = new ArrayList&lt;String&gt;();
+c.add(new Object()); // Compile time error
+</pre></div>
+
+<p>Since we don&rsquo;t know what the element type of <code>c</code> stands for, we cannot
+add objects to it. The <code>add()</code> method takes arguments of type <code>E</code>,
+the element type of the collection. When the actual type parameter is
+<code>?</code>, it stands for some unknown type. Any parameter we pass to
+<code>add</code> would have to be a subtype of this unknown type. Since we don&rsquo;t
+know what type that is, we cannot pass anything in. The sole exception is
+<code>null</code>, which is a member of every type.
+</p>
+<p>On the other hand, given a <code>List&lt;?&gt;</code>, we can call <code>get()</code> and make
+use of the result. The result type is an unknown type, but we always know
+that it is an object. It is therefore safe to assign the result of
+<code>get()</code> to a variable of type <code>Object</code> or pass it as a parameter
+where the type <code>Object</code> is expected.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Wildcard-Syntax.html#Wildcard-Syntax" accesskey="n" rel="next">Wildcard Syntax</a>, Up: <a href="Wildcard-Arguments.html#Wildcard-Arguments" accesskey="u" rel="up">Wildcard Arguments</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

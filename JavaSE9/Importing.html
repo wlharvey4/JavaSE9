@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Importing (About Java SE 9)</title>
+
+<meta name="description" content="Importing (About Java SE 9)">
+<meta name="keywords" content="Importing (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Packages.html#Packages" rel="up" title="Packages">
+<link href="Interfaces.html#Interfaces" rel="next" title="Interfaces">
+<link href="Member-Access.html#Member-Access" rel="prev" title="Member Access">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Importing"></a>
+<div class="header">
+<p>
+Previous: <a href="Member-Access.html#Member-Access" accesskey="p" rel="prev">Member Access</a>, Up: <a href="Packages.html#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Importing-Packages"></a>
+<h3 class="section">5.5 Importing Packages</h3>
+<a name="index-packages_002c-importing"></a>
+<a name="index-importing-packages"></a>
+
+<p>Java includes the <code>import</code> statement to bring certain classes, or
+entire packages, into visibility.  Once imported, a class can be referred to
+directly, using only its name.  The <code>import</code> statement is a
+convenience to the programmer and is not technically needed to write a
+complete Java program.
+</p>
+<p>In a Java source file, <code>import</code> statements occur immediately
+following the <code>package</code> statement (if one exists) and before any
+class definitions.  This is the general form of the <code>import</code>
+statement:
+<a name="index-import-statement_002c-general-form-and-example"></a>
+</p>
+<div class="float"><a name="Import"></a>
+<div class="display">
+<pre class="display">import <i>pkg1</i>[.<i>pkg2</i>].(<i>classname</i> | *);
+</pre></div>
+
+<div class="float-caption"><p><strong>GeneralForm 5.3: </strong>Import Statement &mdash; General Form</p></div></div>
+<p>Here, <i>pkg1</i> is the name of a top-level package, and <i>pkg2</i> is the name
+of a subordinate package inside the outerpackage separated by a dot
+(<tt>.</tt>).  There is no limit on the depth of a package hierarchy.  Finally,
+you can specify either an explicit <samp>classname</samp> or a star (<tt>*</tt>), which
+indicates that the Java compiler should import the entire package.
+</p>
+<div class="example">
+<pre class="example">import java.util.Date;
+imort java.io.*;
+</pre></div>
+
+<a name="index-standard-Java-classes_002c-imported-implicitly"></a>
+<a name="index-java_002elang"></a>
+<p>All of the standard Java SE classes included with Java begin with the name
+<samp>java</samp>.  The basic language functions are stored in a package called
+<samp>java.lang</samp>.  Normally, you have to import every package or class that
+you want to use, but since Java is useless without much of the functionality
+in <samp>java.lang</samp>, it is implicitly imported by the compiler for all
+programs.  This is equivalent to the following line being at the top of all
+your programs:
+</p>
+<div class="example">
+<pre class="example">import java.lang.*;
+</pre></div>
+
+<a name="index-import-is-optional"></a>
+<a name="index-fully-qualified-name"></a>
+<p>The <code>import</code> statement is <em>optional</em>.  Any place you use a class
+name, you can use its <em>fully qualified name</em>, which includes its full
+package hierarchy.
+</p>
+<a name="index-imported-packages-must-be-public"></a>
+<p>When a package is imported, only those items within the package declared as
+<code>public</code> will be available to non-subclasses in the importing code.
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Member-Access.html#Member-Access" accesskey="p" rel="prev">Member Access</a>, Up: <a href="Packages.html#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

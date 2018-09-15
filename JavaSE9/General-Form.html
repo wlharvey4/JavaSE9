@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>General Form (About Java SE 9)</title>
+
+<meta name="description" content="General Form (About Java SE 9)">
+<meta name="keywords" content="General Form (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Class-Fundamentals.html#Class-Fundamentals" rel="up" title="Class Fundamentals">
+<link href="Declaring-Objects.html#Declaring-Objects" rel="next" title="Declaring Objects">
+<link href="Class-Fundamentals.html#Class-Fundamentals" rel="prev" title="Class Fundamentals">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="General-Form"></a>
+<div class="header">
+<p>
+Up: <a href="Class-Fundamentals.html#Class-Fundamentals" accesskey="u" rel="up">Class Fundamentals</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="General-Form-of-a-Class"></a>
+<h4 class="subsection">2.1.1 General Form of a Class</h4>
+<a name="index-class_002c-general-form"></a>
+
+<p>When you define a class, you declare its exact form and nature.  You do this
+by specifying the data that it contains and the code that operates on that
+data.  A class is declared by use of the <code>class</code> keyword.
+</p>
+<div class="float"><a name="ClassDeclaration"></a>
+<div class="display">
+<pre class="display">class <i>classname</i> {
+  <i>type instance-variable1</i>;
+  <i>type instance-variable2</i>;
+  &hellip;
+  <i>type instance-variableN</i>;
+
+  <i>type method-name1</i> (<i>parameter-list</i> {
+    <i>body of method</i>
+  }
+
+  <i>type method-name2</i> (<i>parameter-list</i> {
+    <i>body of method</i>
+  }
+  &hellip;
+  <i>type method-nameN</i> (<i>parameter-list</i> {
+    <i>body of method</i>
+  }
+}
+</pre></div>
+
+<div class="float-caption"><p><strong>GeneralForm 2.1: </strong>Class Declaration &mdash; General Form</p></div></div>
+<a name="index-instance-variables"></a>
+<a name="index-methods"></a>
+<a name="index-members"></a>
+<p>The data, or variables, defined within a class are called <em>instance variables</em>.
+The code is contained within <em>methods</em>.  Collectively, the methods and
+variables defined within a class are called <em>members</em> of the class.
+In most cases, the instance variables are acted upon and accessed by the
+methods defined for that class.  As a general rule, it is the methods that
+determine how a class&rsquo; data can be used.
+</p>
+<p>Each instance of the class (that is, each object of the class) contains its
+own copy of the instance variables.  The data for one object is separate and
+unique from the data for another.  Changes to the instance variables of one
+object have no effect on the instance variables of another.
+</p>
+<a name="index-main_0028_0029-method_002c-class"></a>
+<p>Java classes do not need to have a &lsquo;<samp>main()</samp>&rsquo; method; you only need to
+specify one if that class is the starting point for the program.
+</p>
+<a name="index-dot-operator"></a>
+<p>In general, you use the <em>dot operator</em> to access both the instance
+variables and the methods within an object.  Although commonly referred to
+as the dot <em>operator</em>, the formal specification for Java categorizes
+the <tt>.</tt> as a <em>separator</em>.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Up: <a href="Class-Fundamentals.html#Class-Fundamentals" accesskey="u" rel="up">Class Fundamentals</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

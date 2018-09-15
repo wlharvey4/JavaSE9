@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Interfaces (About Java SE 9)</title>
+
+<meta name="description" content="Interfaces (About Java SE 9)">
+<meta name="keywords" content="Interfaces (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Defining-Interfaces.html#Defining-Interfaces" rel="next" title="Defining Interfaces">
+<link href="Importing.html#Importing" rel="prev" title="Importing">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Interfaces"></a>
+<div class="header">
+<p>
+Next: <a href="Generics.html#Generics" accesskey="n" rel="next">Generics</a>, Previous: <a href="Packages.html#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Interfaces-1"></a>
+<h2 class="chapter">6 Interfaces</h2>
+<a name="index-Interfaces-_0028chapter_0029"></a>
+<a name="index-interfaces_002c-introduction"></a>
+<a name="index-keyword-interface"></a>
+<a name="index-abstract-class"></a>
+<a name="index-interface_002c-implement"></a>
+<a name="index-polymorphism_002c-one-interface-multiple-methods"></a>
+
+<p>Using the keyword <code>interface</code>, you can fully abstract a class&rsquo;
+interface from its implementation.  That is, using <code>interface</code>, you
+can specify what a class must do, but not how to do it.  Interfaces are
+syntactically similar to classes, but they lack instance variables, and, as a
+general rule, their methods are declared without any body.  Once it is
+defined, any number of classes can implement an <code>interface</code>.  Also,
+one class can implement any number of interfaces.  To implement an interfce,
+a class must provide the complete set of methods required by the interface.
+Each class is free to determine the details of its own implementation.  By
+providing the <code>interface</code> keyword, Java allws you to fully utilize
+the &ldquo;one interface, multiple methods&rdquo; aspect of polymorphism.
+</p>
+<a name="index-dynamic-method-resolution"></a>
+<a name="index-run_002dtime"></a>
+<a name="index-compile-time"></a>
+<a name="index-method-signatures-compatible"></a>
+<a name="index-static-environment"></a>
+<p>Interfaces are designed to support <em>dynamic method resolution</em> at run
+time.  Normally, in order for a method to be called from one class to
+another, both classes need to be present at compile time so the Java compiler
+can check to ensure that the method signatures are compatible.  This
+requirement by itself makes for a static and nonextensible classing
+environment.  Inevitably in a system like this, functionality gets pushed up
+higher and higher in the class hierarchy so that the mechanisms will be
+available to more and more subclasses.  Interfaces are designed to avoid this
+problem.  <em>They disconnect the definition of a method or set of methods
+from the inheritance hierarchy.</em>  Since interfaces are in a different
+hierarchy from classes, it is possible for classes that are unrelated in
+terms of class hierarchy to implement the same interface.  This is where the
+real power of interfaces is realized.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Defining-Interfaces.html#Defining-Interfaces" accesskey="1">Defining Interfaces</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Implementing-Interfaces.html#Implementing-Interfaces" accesskey="2">Implementing Interfaces</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Interface-References.html#Interface-References" accesskey="3">Interface References</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Partial-Implementations.html#Partial-Implementations" accesskey="4">Partial Implementations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Nested-Interfaces.html#Nested-Interfaces" accesskey="5">Nested Interfaces</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Applying-Interfaces.html#Applying-Interfaces" accesskey="6">Applying Interfaces</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Variables-in-Interfaces.html#Variables-in-Interfaces" accesskey="7">Variables in Interfaces</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Extending-Interfaces.html#Extending-Interfaces" accesskey="8">Extending Interfaces</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Default-Interface-Methods.html#Default-Interface-Methods" accesskey="9">Default Interface Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Interface-Static-Methods.html#Interface-Static-Methods">Interface Static Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Private-Interface-Methods.html#Private-Interface-Methods">Private Interface Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Generics.html#Generics" accesskey="n" rel="next">Generics</a>, Previous: <a href="Packages.html#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

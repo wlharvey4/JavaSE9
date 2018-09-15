@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Generic Class General Form (About Java SE 9)</title>
+
+<meta name="description" content="Generic Class General Form (About Java SE 9)">
+<meta name="keywords" content="Generic Class General Form (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Generics.html#Generics" rel="up" title="Generics">
+<link href="Bounded-Types.html#Bounded-Types" rel="next" title="Bounded Types">
+<link href="Class-SimpGen.html#Class-SimpGen" rel="prev" title="Class SimpGen">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Generic-Class-General-Form"></a>
+<div class="header">
+<p>
+Next: <a href="Bounded-Types.html#Bounded-Types" accesskey="n" rel="next">Bounded Types</a>, Previous: <a href="Two-Type-Parameters.html#Two-Type-Parameters" accesskey="p" rel="prev">Two Type Parameters</a>, Up: <a href="Generics.html#Generics" accesskey="u" rel="up">Generics</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="The-General-Form-of-a-Generic-Class"></a>
+<h3 class="section">7.6 The General Form of a Generic Class</h3>
+<a name="index-generic-class_002c-general-form"></a>
+
+<p>The generics syntax shown above can be generalized.  Here is the syntax for
+declaring a generic class:
+</p>
+<div class="float"><a name="GenericClass"></a>
+<div class="display">
+<pre class="display">class <i>class-name</i>&lt;<i>type-param-list</i>&gt; { &hellip;
+</pre></div>
+
+<p>Here is the full syntax for declaring a reference to a generic class and
+instance creation:
+</p>
+<div class="display">
+<pre class="display"><i>class-name</i>&lt;<i>type-arg-list</i>&gt; <i>var-name</i> =
+  new <i>class-name</i>&lt;<i>type-arg-list</i>&gt;(<i>cons-arg-list</i>);
+</pre></div>
+
+
+<div class="float-caption"><p><strong>GeneralForm 7.1: </strong>General Form for Declaring and Creating a Reference to a Generic
+Class</p></div></div>
+
+
+
+</body>
+</html>

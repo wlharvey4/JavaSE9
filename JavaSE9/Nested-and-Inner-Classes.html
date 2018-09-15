@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Nested and Inner Classes (About Java SE 9)</title>
+
+<meta name="description" content="Nested and Inner Classes (About Java SE 9)">
+<meta name="keywords" content="Nested and Inner Classes (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Methods-and-Classes.html#Methods-and-Classes" rel="up" title="Methods and Classes">
+<link href="String-Class.html#String-Class" rel="next" title="String Class">
+<link href="Arrays-2.html#Arrays-2" rel="prev" title="Arrays 2">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Nested-and-Inner-Classes"></a>
+<div class="header">
+<p>
+Next: <a href="String-Class.html#String-Class" accesskey="n" rel="next">String Class</a>, Previous: <a href="Arrays-2.html#Arrays-2" accesskey="p" rel="prev">Arrays 2</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Nested-and-Inner-Classes-1"></a>
+<h3 class="section">3.10 Nested and Inner Classes</h3>
+<a name="index-nested-classes"></a>
+<a name="index-static-and-non_002dstatic-nested-classes"></a>
+<a name="index-inner-classes"></a>
+<a name="index-classes_002c-nested-and-inner"></a>
+<a name="index-inner-classes_002c-event-handling"></a>
+<a name="index-anonymous-inner-classes"></a>
+<a name="index-inner-classes_002c-anonymous"></a>
+
+<p>It is possible to define a class within another class; such classes are known
+as <em>nested classes</em>.  The scope of a nested class is bounded by the scope
+of its enclosing class.  A nested class does not exist independently of its
+enclosing class.  A nested class has access to the members, including private
+members, of the enclosing class.  However,the enclosing class does not have
+access to the members of the nested class.  A nested class that is declared
+directly within its enclosing class scope is a member of its enclosing
+class.  It is also possible to declare a nested class that is local to a
+block.
+</p>
+<a name="Static-Nested-Class"></a>
+<h3 class="heading">Static Nested Class</h3>
+
+<p>There are two types of nested class: <em>static</em> and <em>inner</em>.  A
+static nested class is one that has the <code>static</code> modifer applied.
+Because it is static, it must access the non-static members of its enclosing
+class through an object.  That is, it cannot refer to non-static members of
+its enclosing class directly.  Static nested classes are seldom used.
+</p>
+<a name="Inner-Class"></a>
+<h3 class="heading">Inner Class</h3>
+
+<p>The most important type of nested class is the <em>inner</em> class.  An inner
+class is a non-static nested class.  It has access to all of the variables
+and methods of its outer class and may refer to them directly in the same way
+that other non-static members of the outer class do.
+</p>
+<p>An instance of an inner class can be created only in the context of its
+enclosing class.  The Java compiler will report an error otherwise.  In
+general, an inner class instance is often creaed by code wihtin its enclosing
+scope.
+</p>
+<p>It is possible to define inner classes within any block scope, including
+within the block defined by a method or even within the body of a <code>for</code>
+loop.
+</p>
+<a name="Handling-Events"></a>
+<h3 class="heading">Handling Events</h3>
+
+<p>While nested classes are not applicable to all situations, they are
+particularly helpful when handling events.  See section <a href="Event-Handling.html#Event-Handling">Event Handling</a>.  There are
+also <em>anonymous inner classes</em>, inner classes that don&rsquo;t have a name.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="String-Class.html#String-Class" accesskey="n" rel="next">String Class</a>, Previous: <a href="Arrays-2.html#Arrays-2" accesskey="p" rel="prev">Arrays 2</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

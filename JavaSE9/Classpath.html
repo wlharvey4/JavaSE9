@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Classpath (About Java SE 9)</title>
+
+<meta name="description" content="Classpath (About Java SE 9)">
+<meta name="keywords" content="Classpath (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Packages.html#Packages" rel="up" title="Packages">
+<link href="Member-Access.html#Member-Access" rel="next" title="Member Access">
+<link href="Defining-Packages.html#Defining-Packages" rel="prev" title="Defining Packages">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Classpath"></a>
+<div class="header">
+<p>
+Next: <a href="Member-Access.html#Member-Access" accesskey="n" rel="next">Member Access</a>, Previous: <a href="Defining-Packages.html#Defining-Packages" accesskey="p" rel="prev">Defining Packages</a>, Up: <a href="Packages.html#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Finding-Packages-and-CLASSPATH"></a>
+<h3 class="section">5.3 Finding Packages and CLASSPATH</h3>
+<a name="index-CLASSPATH-_002dclasspath"></a>
+<a name="index-finding-packages"></a>
+<a name="index-run_002dtime-system_002c-finding-packages"></a>
+<a name="index-modules_002c-packages"></a>
+<a name="index-module-path"></a>
+<a name="index-JDK-9_002c-package-part-of-module"></a>
+
+<p>Packages are mirrored by directories.  How does the Java run-time system know
+where to look for packages?
+</p>
+<dl compact="compact">
+<dt><b>&lsquo;<samp>cwd</samp>&rsquo;</b></dt>
+<dd><p>By default, the Java run-time system uses the currect working directory as
+its starting point.  Thus, if your package is in a subdirectory of the
+current directory, it will be found.
+</p></dd>
+<dt><b><code>CLASSPATH</code></b></dt>
+<dd><p>You can specify a directory path or paths by setting the <code>CLASSPATH</code>
+environment variable.
+</p></dd>
+<dt><b><samp>-classpath</samp></b></dt>
+<dd><p>You can use the <samp>-classpath</samp> option with <code>java</code> and
+<code>javac</code> to specify the path to your classes.
+</p></dd>
+<dt><b>module path</b></dt>
+<dd><p>Beginning with JDK 9, a package can be part of a module, and thus found on
+the <samp>module path</samp>.
+</p></dd>
+</dl>
+
+<a name="Example-Finding-a-Package"></a>
+<h4 class="subheading">Example Finding a Package</h4>
+<a name="index-packages_002c-finding_002c-example"></a>
+
+<p>Consider the following package specification:
+</p>
+<div class="example">
+<pre class="example">package mypack;
+</pre></div>
+
+<p>In order for programs to find <code>mypack</code>, the program can be executed from
+a directory <strong>immediadely above</strong> <code>mypack</code>, or the <code>CLASSPATH</code>
+must be set to include the path to <code>mypack</code> or the <samp>-classpath</samp>
+option must specify the path to <code>mypack</code> when the program is run via
+<code>java</code>.
+</p>
+<p>When the second or third of the above options is used, the <samp>class
+path</samp> <strong>must not include</strong> <samp>mypack</samp> itself.  It must simply
+specify the <samp>path</samp> to just above <samp>mypack</samp>.  For example, if
+the path to <samp>mypack</samp> is
+</p>
+<div class="example">
+<pre class="example">/MyPrograms/Java/mypack
+</pre></div>
+
+<p>then the class path to <code>mypack</code> is
+</p>
+<div class="example">
+<pre class="example">/MyPrograms/Java
+</pre></div>
+
+
+
+
+</body>
+</html>

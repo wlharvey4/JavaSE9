@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Class Gen&lt;T&gt; (About Java SE 9)</title>
+
+<meta name="description" content="Class Gen&lt;T&gt; (About Java SE 9)">
+<meta name="keywords" content="Class Gen&lt;T&gt; (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Simple-Generics-Example.html#Simple-Generics-Example" rel="up" title="Simple Generics Example">
+<link href="Class-GenDemo.html#Class-GenDemo" rel="next" title="Class GenDemo">
+<link href="Simple-Generics-Example.html#Simple-Generics-Example" rel="prev" title="Simple Generics Example">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Class-Gen_003cT_003e"></a>
+<div class="header">
+<p>
+Next: <a href="Class-GenDemo.html#Class-GenDemo" accesskey="n" rel="next">Class GenDemo</a>, Up: <a href="Simple-Generics-Example.html#Simple-Generics-Example" accesskey="u" rel="up">Simple Generics Example</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Class-Gen_003cT_003e-1"></a>
+<h4 class="subsection">7.3.1 Class Gen&lt;T&gt;</h4>
+<a name="index-generic-class-1"></a>
+<a name="index-parameter_002c-generic-class"></a>
+<a name="index-type-parameter_002c-generic-class"></a>
+<a name="index-parameterized-type"></a>
+
+<p>This is a simple generic class.  The class <code>Gen</code> is declared with a
+parameter of &lsquo;<samp>&lt;T&gt;</samp>&rsquo;:
+</p>
+<div class="example">
+<pre class="example">class Gen&lt;T&gt; {
+</pre></div>
+
+<p>&lsquo;<samp>T</samp>&rsquo; is the name of a <em>type parameter</em>.  This name is used as a
+placeholder for the actual type that will be passed to <code>Gen</code> when an
+object is created.  Thus, &lsquo;<samp>T</samp>&rsquo; is used within <code>Gen</code> whenever the
+type parameter is needed.
+</p>
+<p>Notice that &lsquo;<samp>T</samp>&rsquo; is contained within &lsquo;<samp>&lt; &gt;</samp>&rsquo;.  This syntax can be
+generalized.  Whenever a type parameter is being declared, it is specified
+within angle brackets.
+</p>
+<p>Because <code>Gen</code> uses a type parameter, <code>Gen</code> is a <em>generic
+class</em>, which is also called a <em>parameterized type</em>.
+</p>
+<a name="Outline-of-Class-Gen_003cT_003e"></a>
+<h4 class="subsubheading">Outline of Class Gen&lt;T&gt;</h4>
+
+<p>Class <code>Gen</code> contains four parts:
+</p>
+<ul>
+<li> an instance variable declaration
+</li><li> a constructor
+</li><li> a method returning the instance variable
+</li><li> a method describing the type of the instance variable
+</li></ul>
+
+<a name="Class_002dGen"></a><a name="index-_003cInstance-Variable-ob-of-Type-T_003e_002c-use"></a>
+<a name="index-_003cConstructor-taking-parameter-of-Type-T_003e_002c-use"></a>
+<a name="index-_003cMethod-returning-object-of-type-T_003e_002c-use"></a>
+<a name="index-_003cMethod-showing-type-of-T_003e_002c-use"></a>
+<a name="index-_003cClass-Gen_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Class Gen</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">class Gen&lt;T&gt; {
+  <span class="roman">&lt;<i>Instance Variable ob of Type T</i>&gt;</span>
+  <span class="roman">&lt;<i>Constructor taking parameter of Type T</i>&gt;</span>
+  <span class="roman">&lt;<i>Method returning object of type T</i>&gt;</span>
+  <span class="roman">&lt;<i>Method showing type of T</i>&gt;</span>
+}
+</pre></div>
+
+<p>This chunk is called by <span class="roman">{<samp>SimpleGenerics.java</samp>}</span>; see its first definition at <a href="Simple-Generics-Example.html#SimpleGenerics_002djava">SimpleGenerics-java</a>.
+</p>
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>Constructor taking parameter of Type T</i>&gt;</span></td><td width="65%">See <a href="#Constructor_002dtaking_002dparameter_002dof_002dType_002dT">Constructor-taking-parameter-of-Type-T</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Instance Variable ob of Type T</i>&gt;</span></td><td width="65%">See <a href="#Instance_002dVariable_002dob_002dof_002dType_002dT">Instance-Variable-ob-of-Type-T</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Method returning object of type T</i>&gt;</span></td><td width="65%">See <a href="#Method_002dreturning_002dobject_002dof_002dtype_002dT">Method-returning-object-of-type-T</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Method showing type of T</i>&gt;</span></td><td width="65%">See <a href="#Method_002dshowing_002dtype_002dof_002dT">Method-showing-type-of-T</a>.</td></tr>
+</table>
+
+<a name="Implementation-of-Class-Gen_003cT_003e"></a>
+<h4 class="subsubheading">Implementation of Class Gen&lt;T&gt;</h4>
+
+<p>&lsquo;<samp>T</samp>&rsquo; is used to declare an object called <code>ob</code>.  &lsquo;<samp>T</samp>&rsquo; is a
+placeholder for the actual type that will be specified when a <code>Gen</code>
+object is created.  Thus, <code>ob</code> will be an object of the type passed to
+&lsquo;<samp>T</samp>&rsquo;.  
+</p>
+<a name="Instance_002dVariable_002dob_002dof_002dType_002dT"></a><a name="index-_003cInstance-Variable-ob-of-Type-T_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Instance Variable ob of Type T</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">T ob;   // declare an object of type T
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Class Gen</i>&gt;</span>; see its first definition at <a href="#Class_002dGen">Class-Gen</a>.
+</p>
+<a name="The-Constructor"></a>
+<h4 class="subsubheading">The Constructor</h4>
+<a name="generics_002dconstructor"></a>
+<p>Here is the constructor for <code>Gen</code>.  Notice that its parameter, <code>o</code>,
+is of type &lsquo;<samp>T</samp>&rsquo;.  This means that the actual type of <code>o</code> is
+determined by the type passed to &lsquo;<samp>T</samp>&rsquo; when a <code>Gen</code> object is
+created.  Because both the parameter <code>o</code> and the member variable
+<code>ob</code> are of type &lsquo;<samp>T</samp>&rsquo;, they will both be the same actual type when
+a <code>Gen</code> object is created.
+</p>
+<a name="Constructor_002dtaking_002dparameter_002dof_002dType_002dT"></a><a name="index-_003cConstructor-taking-parameter-of-Type-T_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Constructor taking parameter of Type T</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">// Pass the constructor a reference to
+// an object of type T
+Gen (T o) {
+  ob = o;
+}
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Class Gen</i>&gt;</span>; see its first definition at <a href="#Class_002dGen">Class-Gen</a>.
+</p>
+<a name="Instance-Methods-getob_0028_0029-and-showType_0028_0029"></a>
+<h4 class="subsubheading">Instance Methods <code>getob()</code> and <code>showType()</code></h4>
+
+<p>The type parameter &lsquo;<samp>T</samp>&rsquo; can also be used to specify the return type of a
+method, as here in <code>getob()</code>.  Because <code>ob</code> is also of type
+&lsquo;<samp>T</samp>&rsquo;, its type is compatible wih the return type specified by
+<code>getob()</code>.  
+</p>
+<a name="Method_002dreturning_002dobject_002dof_002dtype_002dT"></a><a name="index-_003cMethod-returning-object-of-type-T_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Method returning object of type T</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">// Return ob
+T getob() {
+  return ob;
+}
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Class Gen</i>&gt;</span>; see its first definition at <a href="#Class_002dGen">Class-Gen</a>.
+</p>
+<a name="index-Class"></a>
+<a name="index-Object"></a>
+<a name="index-getClass_0028_0029_002c-defined-in-Object"></a>
+<a name="index-Class-object_002c-from-getClass_0028_0029"></a>
+<a name="index-getName_0028_0029_002c-defined-in-Class"></a>
+<a name="index-class-name_002c-from-getName_0028_0029"></a>
+
+<p>The method <code>showType()</code> displays the type of &lsquo;<samp>T</samp>&rsquo; by calling
+<code>getName()</code> on the <code>Class</code> object return by the call to
+<code>getClass()</code> on <code>ob</code>.   The <code>getClass()</code> method is defined
+by <code>Object</code> and is thus a member of <em>all</em> class types.  It returns
+a <code>Class</code> object that corresponds to the type of the class of the
+object on which it is called.  <code>Class</code> defines the <code>getName()</code>
+method, which returns a string representation of the class name.
+</p>
+<a name="Method_002dshowing_002dtype_002dof_002dT"></a><a name="index-_003cMethod-showing-type-of-T_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Method showing type of T</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">// Show type of T
+void showType() {
+  System.out.println(&quot;Type of T is &quot; + ob.getClass().getName();
+}
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Class Gen</i>&gt;</span>; see its first definition at <a href="#Class_002dGen">Class-Gen</a>.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Class-GenDemo.html#Class-GenDemo" accesskey="n" rel="next">Class GenDemo</a>, Up: <a href="Simple-Generics-Example.html#Simple-Generics-Example" accesskey="u" rel="up">Simple Generics Example</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

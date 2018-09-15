@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Bounded Wildcards (About Java SE 9)</title>
+
+<meta name="description" content="Bounded Wildcards (About Java SE 9)">
+<meta name="keywords" content="Bounded Wildcards (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Wildcard-Arguments.html#Wildcard-Arguments" rel="up" title="Wildcard Arguments">
+<link href="Generic-Methods.html#Generic-Methods" rel="next" title="Generic Methods">
+<link href="Wildcard-Syntax.html#Wildcard-Syntax" rel="prev" title="Wildcard Syntax">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Bounded-Wildcards"></a>
+<div class="header">
+<p>
+Previous: <a href="Wildcard-Syntax.html#Wildcard-Syntax" accesskey="p" rel="prev">Wildcard Syntax</a>, Up: <a href="Wildcard-Arguments.html#Wildcard-Arguments" accesskey="u" rel="up">Wildcard Arguments</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Bounded-Wildcards-1"></a>
+<h4 class="subsection">7.8.3 Bounded Wildcards</h4>
+<a name="index-wildcards_002c-bounded"></a>
+<a name="index-bounded-wildcards"></a>
+
+<p>Wildcard arguments can be bounded in much the same way that a type parameter
+can be bounded (the <em>bounded wildcard argument</em>.  A bounded wildcard is
+especially important when you are creating a generic type that will operate
+on a class hierarchy.
+</p>
+<p>A bounded wildcard specifies either an upper bound or a lower bound for the
+type argument.  This enables you to restrict the types of objects upon which
+a method will operate.
+</p>
+<a name="Upper-Bounded-Wildcard"></a>
+<h4 class="subsubheading">Upper Bounded Wildcard</h4>
+<a name="index-bounded-wildcards_002c-upper-bound"></a>
+<a name="index-upper-bounded-wildcard"></a>
+
+<p>The most common bounded wildcard is the upper bound, which is created using
+an <code>extends</code> clause.In general, to establish an upper bound for a
+wildcard, use the following type of wildcard expression:
+<a name="index-bounded-wildcards_002c-upper-bound-1"></a>
+<a name="index-upper-bound-wildcard-argument"></a>
+</p>
+<div class="float"><a name="UpperBoundedWildcard"></a>
+<div class="display">
+<pre class="display">&lt;? extends <i>superclass</i>&gt;
+</pre></div>
+
+
+<div class="float-caption"><p><strong>GeneralForm 7.2: </strong>General Form of Upper Bounded Wildcard Syntax</p></div></div>
+<p>where <i>superclass</i> is the name of the class that serves as the upper
+bound.  This is an inclusive clause.
+</p>
+<a name="Lower-Bounded-Wildcard"></a>
+<h4 class="subsubheading">Lower Bounded Wildcard</h4>
+<a name="index-bounded-wildcards_002c-lower-bound"></a>
+<a name="index-lower-bounded-wildcard"></a>
+
+<p>You can also specify a lower bound for a wildcard by adding a <code>super</code>
+clause to a wildcard declaration.  Here is its general form:
+</p>
+<div class="float"><a name="LowerBoundedWildcard"></a>
+<div class="display">
+<pre class="display">&lt;? super <i>subclass</i>&gt;
+</pre></div>
+
+
+<div class="float-caption"><p><strong>GeneralForm 7.3: </strong>General Form of Lower Bounded Wildcard Syntax</p></div></div>
+<p>Only classes that are superclasses of <i>subclass</i> are acceptable arguments
+</p>
+
+
+
+</body>
+</html>

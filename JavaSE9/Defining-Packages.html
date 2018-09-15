@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Defining Packages (About Java SE 9)</title>
+
+<meta name="description" content="Defining Packages (About Java SE 9)">
+<meta name="keywords" content="Defining Packages (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Packages.html#Packages" rel="up" title="Packages">
+<link href="Classpath.html#Classpath" rel="next" title="Classpath">
+<link href="Packages-Intro.html#Packages-Intro" rel="prev" title="Packages Intro">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Defining-Packages"></a>
+<div class="header">
+<p>
+Next: <a href="Classpath.html#Classpath" accesskey="n" rel="next">Classpath</a>, Previous: <a href="Packages-Intro.html#Packages-Intro" accesskey="p" rel="prev">Packages Intro</a>, Up: <a href="Packages.html#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Defining-Packages-1"></a>
+<h3 class="section">5.2 Defining Packages</h3>
+<a name="index-Packages_002c-Defining-_0028section_0029"></a>
+<a name="index-package-command"></a>
+<a name="index-default-package"></a>
+<a name="index-package-statement"></a>
+<a name="index-package-namespace"></a>
+
+<p>To create a package (&ldquo;define&rdquo; a package), include the
+<code>package</code> command as the first statement in a Java source
+file.  Thereafter, any classes declared within that file will belong
+to the specified package.  The <code>package</code> statement defines a
+namespace in which classes are stored.  Without the <code>package</code>
+statement, classes are put into the <samp>default</samp> package (which has
+no name).
+</p>
+<a name="General-Form-of-package-statement"></a>
+<h4 class="subheading">General Form of <code>package</code> statement</h4>
+<a name="index-package-statement_002c-general-form"></a>
+
+<div class="float"><a name="PackageStatement"></a>
+<div class="display">
+<pre class="display">package <i>pkg</i>
+</pre></div>
+
+<div class="float-caption"><p><strong>GeneralForm 5.1: </strong>Package Statement &mdash; General Form</p></div></div>
+<p><i>pkg</i> is the name of the package.  For example:
+<a name="index-package-statement_002c-example"></a>
+</p>
+<div class="example">
+<pre class="example">package mypackage;
+</pre></div>
+
+<a name="File-System-Directories"></a>
+<h4 class="subheading">File System Directories</h4>
+<a name="index-packages-stored-in-file-system"></a>
+
+<p>Java uses the file system directories to store packages.  Therefore, the
+<code>.class</code> files for any classes you declare to be part of
+<code>mypackage</code> must be stored in a directory called <code>mypackage</code>.  The
+directory name must match the package name exactly.
+</p>
+<p>More than one file can include the same <code>package</code> statement.  The
+<code>package</code> statement simply specifies to which package the classes
+defined in a file belong.  It does not exclude other classes in other files
+from being part of that same package.  Most real-world packages are spread
+across many files.
+</p>
+<a name="Hierarchy-of-Packages"></a>
+<h4 class="subheading">Hierarchy of Packages</h4>
+<a name="index-packages-hierarchy"></a>
+<a name="index-hierarchy-of-packages"></a>
+
+<p>You can create a hierarch of packages.  To do so, separate each package name
+form the one above it by use of a period.  The general form of a multileveled
+package statement is:
+<a name="index-package-statement_002c-multilevel-form"></a>
+</p>
+<div class="float"><a name="PackageStatementMulti"></a>
+<div class="display">
+<pre class="display">package <i>pkg1[.pkg2[.pkg3]]</i>
+</pre></div>
+
+<div class="float-caption"><p><strong>GeneralForm 5.2: </strong>Package Statement &mdash; Multilevel Form</p></div></div>
+<p>A package hierarchy must be reflected in the file system of your Java
+development system.  For example a package declared as:
+</p>
+<div class="example">
+<pre class="example">package a.b.c;
+</pre></div>
+
+<p>needs to be stored in directory <samp>a/b/c</samp>.
+</p>
+<a name="index-package-renaming"></a>
+<p>Be sure to choose package names carefully; you cannot rename a package
+without renaming the directory in which the classes are stored.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Classpath.html#Classpath" accesskey="n" rel="next">Classpath</a>, Previous: <a href="Packages-Intro.html#Packages-Intro" accesskey="p" rel="prev">Packages Intro</a>, Up: <a href="Packages.html#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

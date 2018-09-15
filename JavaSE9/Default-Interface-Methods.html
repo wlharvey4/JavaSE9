@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Default Interface Methods (About Java SE 9)</title>
+
+<meta name="description" content="Default Interface Methods (About Java SE 9)">
+<meta name="keywords" content="Default Interface Methods (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Interfaces.html#Interfaces" rel="up" title="Interfaces">
+<link href="Interface-Static-Methods.html#Interface-Static-Methods" rel="next" title="Interface Static Methods">
+<link href="Extending-Interfaces.html#Extending-Interfaces" rel="prev" title="Extending Interfaces">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Default-Interface-Methods"></a>
+<div class="header">
+<p>
+Next: <a href="Interface-Static-Methods.html#Interface-Static-Methods" accesskey="n" rel="next">Interface Static Methods</a>, Previous: <a href="Extending-Interfaces.html#Extending-Interfaces" accesskey="p" rel="prev">Extending Interfaces</a>, Up: <a href="Interfaces.html#Interfaces" accesskey="u" rel="up">Interfaces</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Default-Interface-Methods-1"></a>
+<h3 class="section">6.9 Default Interface Methods</h3>
+<a name="index-index-interface_002c-default-methods"></a>
+<a name="index-default-methods_002c-interface"></a>
+<a name="index-abstract-methods_002c-interface-1"></a>
+<a name="index-interface_002c-traditional-form"></a>
+<a name="index-JDK-8_002c-default-method-in-interface"></a>
+
+<p>Prior to JDK 8, an interface could not define any implementation whatsoever.
+This meant that for all previous versions of Java, the methods specified by
+an interface were abstract, constaining no body.  This is the traditional
+form of an interface.  The release of JDK 8 changed this by adding a new
+capability to <code>interface</code> called the <em>default method</em>.  A default
+method lets you define a default implementation for an interface method.  It
+is possible for an interface method to provide a body, rather than being
+abstract.
+</p>
+<a name="index-default-method_002c-interface_002c-motivation"></a>
+<a name="index-preexisting-code_002c-default-method_002c-interface"></a>
+<p>A primary motivation for the default method was to provide a means by which
+interfaces could be expanded without breaking existing code.  There must be
+implementations for all methods defined by an interface.  If a new method
+were added to a popular, widely used interface, then the addition of that
+method would break existing code because no implementation would be found for
+that new method.  The default method solves this problem by supplying an
+implementation that willbe used if no other implementation is explicitly
+provided.  Thus, the addition of a default method will not cause preexisting
+code to break.
+</p>
+<p>Another motivation for the default method was the desire to specify methods
+in an interface that are, essentially, optional, depending on how the
+interface is used.
+</p>
+<a name="Interfaces-Do-No-Maintain-State-and-Cannot-Be-Created"></a>
+<h4 class="subheading">Interfaces Do No Maintain State and Cannot Be Created</h4>
+<a name="index-interfaces_002c-key-aspect_002c-no-state"></a>
+<a name="index-difference-between-class-and-interface"></a>
+
+<p>It is important to point out that the addition of default methods does not
+change a key aspect of <code>interface</code>: its inability to maintain state
+information.  An interface still cannot have instance variables, for example.
+Thus, <strong>the defining difference between an interface and a class is
+that a class can maintain state information, but an interface cannot.</strong>
+Furthermore, it is still not possible to create an instance of an interface
+by itself.  It must be implemented by a class.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Interface-Static-Methods.html#Interface-Static-Methods" accesskey="n" rel="next">Interface Static Methods</a>, Previous: <a href="Extending-Interfaces.html#Extending-Interfaces" accesskey="p" rel="prev">Extending Interfaces</a>, Up: <a href="Interfaces.html#Interfaces" accesskey="u" rel="up">Interfaces</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

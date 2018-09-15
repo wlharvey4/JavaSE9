@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Member Access (About Java SE 9)</title>
+
+<meta name="description" content="Member Access (About Java SE 9)">
+<meta name="keywords" content="Member Access (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Packages.html#Packages" rel="up" title="Packages">
+<link href="Importing.html#Importing" rel="next" title="Importing">
+<link href="Classpath.html#Classpath" rel="prev" title="Classpath">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Member-Access"></a>
+<div class="header">
+<p>
+Next: <a href="Importing.html#Importing" accesskey="n" rel="next">Importing</a>, Previous: <a href="Classpath.html#Classpath" accesskey="p" rel="prev">Classpath</a>, Up: <a href="Packages.html#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Packages-and-Member-Access"></a>
+<h3 class="section">5.4 Packages and Member Access</h3>
+<a name="index-access-control_002c-packages"></a>
+<a name="index-packages_002c-access-control"></a>
+<a name="index-member-access"></a>
+<a name="index-access_002c-member"></a>
+
+<p>Packages add another dimension to access control.  Classes and packages are
+both means of encapsulating and containing the name space and scope of
+variables and methods.  <em>Packages</em> act as containiners for classes and
+other subordinate packages.  <em>Classes</em> act as containers for data and
+code.  The class is Java&rsquo;s smallest unit of abstraction.  As it relates to
+the interplay between classes and packages, Java addresses four categories of
+visibility for class members:
+</p>
+<ul>
+<li> Subclasses in the same package
+</li><li> Non-subclasses in the same package
+</li><li> Subclasses in different packages
+</li><li> Classes that are neither in the same package nor subclasses
+</li></ul>
+
+<p>The three access modifiers
+</p>
+<ul>
+<li> private
+</li><li> public
+</li><li> protected
+</li></ul>
+
+<p>provide a variaty of ways to produce many levels of access required by these
+categories.
+<a name="index-access-control-table"></a>
+</p>
+<div class="float"><a name="PackageAccess"></a>
+<table>
+<thead><tr><th width="40%">Category</th><th width="15%">Private</th><th width="15%">None</th><th width="15%">Protected</th><th width="15%">public</th></tr></thead>
+<tr><td width="40%">Same Class</td><td width="15%">Yes</td><td width="15%">Yes</td><td width="15%">Yes</td><td width="15%">Yes</td></tr>
+<tr><td width="40%">Same package subclass</td><td width="15%">No</td><td width="15%">Yes</td><td width="15%">Yes</td><td width="15%">Yes</td></tr>
+<tr><td width="40%">Same package non-subclass</td><td width="15%">No</td><td width="15%">Yes</td><td width="15%">Yes</td><td width="15%">Yes</td></tr>
+<tr><td width="40%">Different package subclass</td><td width="15%">No</td><td width="15%">No</td><td width="15%">Yes</td><td width="15%">Yes</td></tr>
+<tr><td width="40%">Different package noni-subclass</td><td width="15%">No</td><td width="15%">No</td><td width="15%">No</td><td width="15%">Yes</td></tr>
+</table>
+
+
+<div class="float-caption"><p><strong>Table 5.1: </strong>Package Access Table &mdash; Shows all combinations of the access
+control modifiers</p></div></div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>GenDemo as String (About Java SE 9)</title>
+
+<meta name="description" content="GenDemo as String (About Java SE 9)">
+<meta name="keywords" content="GenDemo as String (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Class-GenDemo.html#Class-GenDemo" rel="up" title="Class GenDemo">
+<link href="Notes-about-Generics.html#Notes-about-Generics" rel="next" title="Notes about Generics">
+<link href="GenDemo-as-Integer.html#GenDemo-as-Integer" rel="prev" title="GenDemo as Integer">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="GenDemo-as-String"></a>
+<div class="header">
+<p>
+Previous: <a href="GenDemo-as-Integer.html#GenDemo-as-Integer" accesskey="p" rel="prev">GenDemo as Integer</a>, Up: <a href="Class-GenDemo.html#Class-GenDemo" accesskey="u" rel="up">Class GenDemo</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Implementation-of-Class-GenDemo-with-Type-String"></a>
+<h4 class="subsubsection">7.3.2.2 Implementation of Class GenDemo with Type String</h4>
+
+<a name="Create_002da_002dGen_002dobject_002dfor_002dStrings"></a><a name="index-_003cCreate-a-Gen-object-for-Strings_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Create a Gen object for Strings</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">// Create a Gen object for Strings.
+Gen&lt;String&gt; strOb = new Gen&lt;String&gt;(&quot;Generics Test&quot;);
+
+// Show the type of data used by strOb
+strOb.showType();
+
+// Get the value of strOb.  Again, notice
+// that no cast is needed.
+String str = strOb.getob();
+System.out.println(&quot;value: &quot; + str);
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Class GenDemo</i>&gt;</span>; see its first definition at <a href="Class-GenDemo.html#Class_002dGenDemo">Class-GenDemo</a>.
+</p>
+
+
+
+</body>
+</html>

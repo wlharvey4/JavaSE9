@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Access Control (About Java SE 9)</title>
+
+<meta name="description" content="Access Control (About Java SE 9)">
+<meta name="keywords" content="Access Control (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Methods-and-Classes.html#Methods-and-Classes" rel="up" title="Methods and Classes">
+<link href="Improved-Stack-Class.html#Improved-Stack-Class" rel="next" title="Improved Stack Class">
+<link href="Recursion.html#Recursion" rel="prev" title="Recursion">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Access-Control"></a>
+<div class="header">
+<p>
+Next: <a href="static-Keyword.html#static-Keyword" accesskey="n" rel="next">static Keyword</a>, Previous: <a href="Recursion.html#Recursion" accesskey="p" rel="prev">Recursion</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Access-Control-1"></a>
+<h3 class="section">3.6 Access Control</h3>
+<a name="index-access-control_002c-single-class"></a>
+<a name="index-encapsulation_002c-access-control"></a>
+<a name="index-access-modifiers"></a>
+
+<p>Encapsulation provides another important attribute besides linking data with
+code: <em>access control</em>.  Through encapsulation, you can control what
+parts of a program can access the members of a class.  By controlling access,
+you can prevent misuse.  Thus, when correctly implemented, a class creates a
+<em>black box</em> which may be used, but the inner workings of which are not
+open to tampering.  The classes introduced earlier do not completely meet
+this goal.  For example, the <code>Stack</code> class provides the methods
+<code>push()</code> and <code>pop()</code> as a controlled interface to the stack, this
+interface is not enforced &mdash; it is possible for another part of the program
+to bypass these methods and access the stack directly.  This could lead to
+trouble.
+</p>
+<p>How a member can be accessed is determined by the <em>access modifier</em>
+attached to its declaration.  Java supplies a rich set of access modifiers.
+Some aspects of access control are related mostly to inheritance or packages
+(and now modules).  Those ideas will be discussed later.  Here, let&rsquo;s examine
+access control as it relates to a single class.
+</p>
+<a name="Access-Modifiers"></a>
+<h4 class="subheading">Access Modifiers</h4>
+<a name="index-public-access-modifier"></a>
+<a name="index-private-access-modifier"></a>
+<a name="index-protected-access-modifier"></a>
+<a name="index-default-access-level"></a>
+
+<p>Java&rsquo;s access modifiers are:
+</p>
+<ul>
+<li> public
+</li><li> private
+</li><li> protected (applies only to inheritance)
+</li><li> default access level
+</li></ul>
+
+<a name="public-vs-private-Access"></a>
+<h4 class="subsubheading"><code>public</code> vs <code>private</code> Access</h4>
+
+<p>When a member of a class is modified by <code>public</code>, then that member can
+be accessed by any other code.  When a member of a class is specified as
+<code>private</code>, then that member can only be accessed by other members of its
+class.  Thus, the method <code>main()</code> is always preceded by the
+<code>public</code> modifier.  It must be called by code that is outside the
+program &mdash; the Java run-time system.
+</p>
+<a name="Default-Access-_002d_002d_002d-No-Access-Modifier"></a>
+<h4 class="subheading">Default Access &mdash; No Access Modifier</h4>
+
+<p>When no access modifier is used, then by default the member of a class is
+public within its own package, but cannot be accessed outside of its
+package.  In the classes developed so far, all members of a class have used
+the <code>default</code> access mode.  However, this is typically not what you will
+want to be the case.  Usually, you will want to restrict access to the data
+members of a class &mdash; allowing access only through methods.  There will also
+be times when you will want to define methods that are private to a class.
+</p>
+<a name="Access-Modifier-Syntax"></a>
+<h4 class="subheading">Access Modifier Syntax</h4>
+
+<p>An access modifier precedes the rest of a member&rsquo;s type specification.  That
+is, it must begin a member&rsquo;s declaration statement.  As an example:
+</p>
+<div class="example">
+<pre class="example">public int i;
+private double j;
+
+private int myMethod(int a, char b) {
+  &hellip;
+}
+</pre></div>
+
+<a name="Access-Control-and-Inheritance"></a>
+<h4 class="subheading">Access Control and Inheritance</h4>
+
+<p>Consult the chapter on <a href="Inheritance.html#Inheritance">Inheritance</a> for more on the topic of access
+control in relation to inheritance.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Improved-Stack-Class.html#Improved-Stack-Class" accesskey="1">Improved Stack Class</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="static-Keyword.html#static-Keyword" accesskey="n" rel="next">static Keyword</a>, Previous: <a href="Recursion.html#Recursion" accesskey="p" rel="prev">Recursion</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

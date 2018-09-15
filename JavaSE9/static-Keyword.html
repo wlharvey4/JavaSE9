@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>static Keyword (About Java SE 9)</title>
+
+<meta name="description" content="static Keyword (About Java SE 9)">
+<meta name="keywords" content="static Keyword (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Methods-and-Classes.html#Methods-and-Classes" rel="up" title="Methods and Classes">
+<link href="final-Keyword.html#final-Keyword" rel="next" title="final Keyword">
+<link href="Improved-Stack-Class.html#Improved-Stack-Class" rel="prev" title="Improved Stack Class">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="static-Keyword"></a>
+<div class="header">
+<p>
+Next: <a href="final-Keyword.html#final-Keyword" accesskey="n" rel="next">final Keyword</a>, Previous: <a href="Access-Control.html#Access-Control" accesskey="p" rel="prev">Access Control</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="static-Keyword-1"></a>
+<h3 class="section">3.7 <code>static</code> Keyword</h3>
+<a name="index-static-Keyword"></a>
+<a name="index-keyword-static"></a>
+<a name="index-static-members"></a>
+
+<p>There will be times when you want to define a class member that will be used
+independently of any object of that class.  Normally, a class member must be
+accessed in conjunction with an object of its class.  However, it is possible
+to create a member that can be used by itself without reference to a specific
+instance.  To create such a member, precede its declaration with the keyword
+<code>static</code>.  When a member is declared <code>static</code>, it can be accessed
+before any objects of its class are created, and without reference to any
+object.
+</p>
+<p>You can declare both methods and variables to be <code>static</code>.  Instance
+variables declared as <code>static</code> are essentially global variables.  When
+objects of its class are declared, no copy of a <code>static</code> variable is
+made.  Instead, all instances of the class share the same <code>static</code>
+variable.
+</p>
+<a name="Restrictions-on-static-Methods"></a>
+<h4 class="subheading">Restrictions on <code>static</code> Methods</h4>
+<a name="index-static-restrictions-on-methods"></a>
+
+<p>Methods declared as <code>static</code> have several restrictions:
+</p>
+<ul>
+<li> they can only directly call other <code>static</code> methods of their class;
+</li><li> they can only directly access <code>static</code> variables of their class;
+</li><li> they cannot refer to <code>this</code> or <code>super</code> in any way;
+</li></ul>
+
+<a name="static-Block"></a>
+<h4 class="subheading"><code>static</code> Block</h4>
+<a name="index-static-initialization-block"></a>
+
+<p>If you need to do computation in order to initialize your <code>static</code>
+variables, you can declare a <code>static</code> block that gets executed exactly
+once, when the class is first loaded (<em>static initialization block</em>).
+</p>
+<div class="example">
+<pre class="example">class UseStatic {
+  static int a = 3;
+  static int b;
+
+  static {
+    b = a * 4;
+  }
+}
+</pre></div>
+
+<p>As soon as the <code>UseStatic</code> class is loaded, all of the <code>static</code>
+statements are run.  First, <code>a</code> is set to &lsquo;<samp>3</samp>&rsquo;, then the
+<code>static</code> block executes and initializes <code>b</code> to &lsquo;<samp>a * 4</samp>&rsquo; or
+&lsquo;<samp>12</samp>&rsquo;.  Then <code>main()</code> is called (not shown).
+</p>
+<a name="Use-of-static-Members-Outside-Their-Class"></a>
+<h4 class="subheading">Use of <code>static</code> Members Outside Their Class</h4>
+<a name="index-global-members"></a>
+
+<p>Outside of the class in which they are defined, <code>static</code> methods and
+variables can be used independently of any object.  To do so, you need only
+specify the name of their class followed by the dot operator:
+<i>classname.method()</i>.  <i>classname</i> is the name of the class
+in which the <code>static</code> method is declared.  A <code>static</code> variable can
+be accessed in the same way.  This is how Java implements a controlled
+version of global methods and global variables.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="final-Keyword.html#final-Keyword" accesskey="n" rel="next">final Keyword</a>, Previous: <a href="Access-Control.html#Access-Control" accesskey="p" rel="prev">Access Control</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

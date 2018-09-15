@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Methods (About Java SE 9)</title>
+
+<meta name="description" content="Methods (About Java SE 9)">
+<meta name="keywords" content="Methods (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Classes.html#Classes" rel="up" title="Classes">
+<link href="Constructors.html#Constructors" rel="next" title="Constructors">
+<link href="Declaring-Objects.html#Declaring-Objects" rel="prev" title="Declaring Objects">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Methods"></a>
+<div class="header">
+<p>
+Next: <a href="Constructors.html#Constructors" accesskey="n" rel="next">Constructors</a>, Previous: <a href="Declaring-Objects.html#Declaring-Objects" accesskey="p" rel="prev">Declaring Objects</a>, Up: <a href="Classes.html#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Methods-1"></a>
+<h3 class="section">2.3 Methods</h3>
+<a name="index-Methods"></a>
+
+<a name="General-Form-of-a-Method-Declaration"></a>
+<h3 class="heading">General Form of a Method Declaration</h3>
+
+<div class="float"><a name="MethodDeclaration"></a>
+<div class="display">
+<pre class="display"><i>type name</i> (<i>parameter-list</i>) {
+  <i>body of method</i>
+}
+</pre></div>
+
+<div class="float-caption"><p><strong>GeneralForm 2.2: </strong>Method Declaration &mdash; General Form</p></div></div>
+<a name="index-type_002c-method"></a>
+<a name="index-name_002c-method"></a>
+<a name="index-parameter-list_002c-method"></a>
+
+<p><i>type</i> specifies the type of data returned by the method.  This can be
+any valid type, including class types that you create.  If the method does
+not return a value, its return type must be <code>void</code>.
+</p>
+<p><em>name</em> is the name of the method.  This can be any legal identifier.
+</p>
+<p><em>parameter-list</em> is a sequence of type and identifier pairs separated by
+commas.  <em>Parameters</em> are essentially variables that receive the value
+of the arguments passed to the method when it is called.  If the method has
+no parameters, then the parameter list will be empty.
+</p>
+<p>Methods that have a return type other than <code>void</code> return a value to the
+calling routine using a <em>return statement</em>:
+</p>
+<div class="display">
+<pre class="display">return <i>value</i>
+</pre></div>
+
+<p>where <i>value</i> is the value returned.
+</p>
+
+
+
+
+</body>
+</html>

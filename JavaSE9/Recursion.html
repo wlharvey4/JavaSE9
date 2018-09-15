@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Recursion (About Java SE 9)</title>
+
+<meta name="description" content="Recursion (About Java SE 9)">
+<meta name="keywords" content="Recursion (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Methods-and-Classes.html#Methods-and-Classes" rel="up" title="Methods and Classes">
+<link href="Access-Control.html#Access-Control" rel="next" title="Access Control">
+<link href="Returning-Objects.html#Returning-Objects" rel="prev" title="Returning Objects">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Recursion"></a>
+<div class="header">
+<p>
+Next: <a href="Access-Control.html#Access-Control" accesskey="n" rel="next">Access Control</a>, Previous: <a href="Returning-Objects.html#Returning-Objects" accesskey="p" rel="prev">Returning Objects</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Recursion-1"></a>
+<h3 class="section">3.5 Recursion</h3>
+<a name="index-recursion_002c-recursive"></a>
+<a name="index-iteration_002c-iterative"></a>
+<a name="index-stack-overun_002c-recursion"></a>
+<a name="index-stack-exhaustion_002c-recursion"></a>
+
+<p><em>Recursion</em> is the process of defining something in terms of itself.  In
+programming, it is also what allows a method to call itself.  A method that
+calls itself is said to be <em>recursive</em>.
+</p>
+<p>When a method calls itself, new local variables and parameters are allocated
+storage on the stack, and the method code is executed with these new
+variables from the start.  As each recursive call returns, the old local
+variables and parameters are removed from the stack, and execution resumes at
+the point of the call inside the method.
+</p>
+<p>Recursive versions of many routines may execute a bit slower than the
+iterative equivalent because of the added overhead of the additional method
+calls.  A large number of recursive calls to a method could cause a stack
+overrun.  Because storage for parameters and local varibles is on the stack
+and each new call creates a new copy of these variables, it is possible that
+the stack could be exhausted.  If this occurs, the Java run-time system will
+cause an exception.
+</p>
+<p>The main advantage to recursive methods is that they can be used to create
+clearer and simpler versions of several algorithms than can their iterative
+relatives.  For example, the QuickSort sorting algorithm is quite difficult
+to implement in an iterative way.  Also, some types of AI-related algorithms
+are most easily implemented using recursive solutions.
+</p>
+
+
+
+
+
+</body>
+</html>

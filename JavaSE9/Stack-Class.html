@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Stack Class (About Java SE 9)</title>
+
+<meta name="description" content="Stack Class (About Java SE 9)">
+<meta name="keywords" content="Stack Class (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Classes.html#Classes" rel="up" title="Classes">
+<link href="Stack-Instance-Variables.html#Stack-Instance-Variables" rel="next" title="Stack Instance Variables">
+<link href="Instance-Variable-Hiding.html#Instance-Variable-Hiding" rel="prev" title="Instance Variable Hiding">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Stack-Class"></a>
+<div class="header">
+<p>
+Previous: <a href="this-Keyword.html#this-Keyword" accesskey="p" rel="prev">this Keyword</a>, Up: <a href="Classes.html#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="A-Stack-Class"></a>
+<h3 class="section">2.6 A Stack Class</h3>
+<a name="index-Stack-Class"></a>
+
+<p>To see a practical application of object-oriented programming, here is one
+of the archetypal examples of encapsulation: the stack.  A <em>stack</em>
+stores data using <em>first-in, last-out</em> ordering.  That is, a stack is
+like a stack of plates on a table &mdash; the first plate put down on the table
+is the last plate to be used.  Stacks are controlled through two operations
+traditionally called <em>push</em> and <em>pop</em>.  To put an item on top of the
+stack, you will use <code>push</code>.  To take an item off the stack, you will
+use <code>pop</code>.  It is easy to encapsulate the entire stack mechanism.
+</p>
+<p>Here is a class called <code>Stack</code> that implements a stack for up to ten
+integers, plus test class called <code>TestStack</code>:
+</p>
+<a name="Stack_002ejava"></a>
+<h3 class="heading">Stack.java</h3>
+
+<a name="Stack_002djava"></a><a name="index-_003cStack-Instance-Variables_003e_002c-use"></a>
+<a name="index-_003cStack-Constructor_003e_002c-use"></a>
+<a name="index-_003cStack-Instance-Methods_003e_002c-use"></a>
+<a name="index-_007bStack_002ejava_007d_002c-definition"></a>
+<p><span class="roman">{<samp>Stack.java</samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example">class Stack {
+  <span class="roman">&lt;<i>Stack Instance Variables</i>&gt;</span>
+  <span class="roman">&lt;<i>Stack Constructor</i>&gt;</span>
+  <span class="roman">&lt;<i>Stack Instance Methods</i>&gt;</span>
+}
+
+</pre></div>
+
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>Stack Constructor</i>&gt;</span></td><td width="65%">See <a href="Stack-Constructor-Node.html#Stack_002dConstructor">Stack-Constructor</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Stack Instance Methods</i>&gt;</span></td><td width="65%">See <a href="Stack-Instance-Methods-Node.html#Stack_002dInstance_002dMethods">Stack-Instance-Methods</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Stack Instance Variables</i>&gt;</span></td><td width="65%">See <a href="Stack-Instance-Variables.html#Stack_002dInstance_002dVariables">Stack-Instance-Variables</a>.</td></tr>
+</table>
+
+<a name="TestStack_002ejava"></a>
+<h3 class="heading">TestStack.java</h3>
+
+<a name="TestStack_002djava"></a><a name="index-_003cTestStack-Main-Method_003e_002c-use"></a>
+<a name="index-_007bTestStack_002ejava_007d_002c-definition"></a>
+<p><span class="roman">{<samp>TestStack.java</samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example">class TestStack {
+  <span class="roman">&lt;<i>TestStack Main Method</i>&gt;</span>
+}
+
+</pre></div>
+
+<p>The called chunk <span class="roman">&lt;<i>TestStack Main Method</i>&gt;</span> is first defined at
+<a href="Stack-TestStack-Node.html#TestStack_002dMain_002dMethod">TestStack-Main-Method</a>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Stack-Instance-Variables.html#Stack-Instance-Variables" accesskey="1">Stack Instance Variables</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Stack-Constructor-Node.html#Stack-Constructor-Node" accesskey="2">Stack Constructor Node</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Stack-Instance-Methods-Node.html#Stack-Instance-Methods-Node" accesskey="3">Stack Instance Methods Node</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Stack-TestStack-Node.html#Stack-TestStack-Node" accesskey="4">Stack TestStack Node</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="this-Keyword.html#this-Keyword" accesskey="p" rel="prev">this Keyword</a>, Up: <a href="Classes.html#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

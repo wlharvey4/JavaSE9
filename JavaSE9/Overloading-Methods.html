@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Overloading Methods (About Java SE 9)</title>
+
+<meta name="description" content="Overloading Methods (About Java SE 9)">
+<meta name="keywords" content="Overloading Methods (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Methods-and-Classes.html#Methods-and-Classes" rel="up" title="Methods and Classes">
+<link href="Overloading-Constructors.html#Overloading-Constructors" rel="next" title="Overloading Constructors">
+<link href="Methods-and-Classes.html#Methods-and-Classes" rel="prev" title="Methods and Classes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Overloading-Methods"></a>
+<div class="header">
+<p>
+Next: <a href="Objects-as-Parameters.html#Objects-as-Parameters" accesskey="n" rel="next">Objects as Parameters</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Overloading-Methods-1"></a>
+<h3 class="section">3.1 Overloading Methods</h3>
+<a name="index-overloading-methods"></a>
+<a name="index-methods_002c-overloading"></a>
+<a name="index-overload_002c-overloaded"></a>
+<a name="index-polymorphism_002c-overloading-of-methods"></a>
+<a name="index-overloading_002c-automatic-type-conversion"></a>
+<a name="index-one-interface_002c-multiple-methods"></a>
+
+<p>It is possible to define two or more methods within the same class that share
+the same name as long as their parameter declarations are different.  When
+this is the case, the methods are said to be <em>overloaded</em>, and the
+process is referred to as <em>method overloading</em>.  Method overloading is
+one of the ways that Java supports polymorphism.
+</p>
+<p>When an overloaded method is invoked, Java uses the type and number of
+arguments as its guid to determine which version of the overloaded method to
+actually call.  Thus, overloaded methods must differ in the type or number of
+their parameters.  While overloaded methods may have different return types,
+thei return type alone is inusfficient to distinguish two versions of a
+method.  When Java encounters a call to an overloaded method, it simply
+executes the version of the method whose parameters match the arguments used
+in the call.
+</p>
+<p>The match between arguments and parameters need not always be exact.  In some
+cases,Java&rsquo;s automatic type conversions can play a role in overload
+resolution.  For example, if there is a method with one <code>double</code>
+parameter, and that method is invoked with a single <code>int</code> argument,
+then, when no exact match is found, Java will automatically convert the
+integer into a <code>double</code>, and this conversion will be used to resolve the
+call.  Java will employ automatic type conversion only if no exact match is
+found.
+</p>
+<p>Method overloading supports polymorphism because it is one way that Java
+implements the <em>one interface, multiple methods</em> paradigm.  That is,
+Java does not need to rename each similar method just because it has a
+slightly different parameter requirements.  The value of overloading is that
+it allows related methods to be accessed by use of a common name,
+representing the <em>general action</em> that is being performed, and leaves to
+the compiler the choice of the right <em>specific</em> version for a particular
+circumstance.  The programmer need only remember the general operation being
+performed.  Through the application of polymorphism, several names have been
+reduced to one.  Overloading can help manage greater complexity.
+</p>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Overloading-Constructors.html#Overloading-Constructors" accesskey="1">Overloading Constructors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Objects-as-Parameters.html#Objects-as-Parameters" accesskey="n" rel="next">Objects as Parameters</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

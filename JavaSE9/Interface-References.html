@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Interface References (About Java SE 9)</title>
+
+<meta name="description" content="Interface References (About Java SE 9)">
+<meta name="keywords" content="Interface References (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Interfaces.html#Interfaces" rel="up" title="Interfaces">
+<link href="Partial-Implementations.html#Partial-Implementations" rel="next" title="Partial Implementations">
+<link href="Implementing-Interfaces.html#Implementing-Interfaces" rel="prev" title="Implementing Interfaces">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Interface-References"></a>
+<div class="header">
+<p>
+Next: <a href="Partial-Implementations.html#Partial-Implementations" accesskey="n" rel="next">Partial Implementations</a>, Previous: <a href="Implementing-Interfaces.html#Implementing-Interfaces" accesskey="p" rel="prev">Implementing Interfaces</a>, Up: <a href="Interfaces.html#Interfaces" accesskey="u" rel="up">Interfaces</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Accessing-Implementations-Through-Interface-References"></a>
+<h3 class="section">6.3 Accessing Implementations Through Interface References</h3>
+<a name="index-interface-references_002c-accessing-implementations"></a>
+<a name="index-object-references_002c-interfaces"></a>
+<a name="index-interfaces_002c-key-feature_002c-reference-look_002dups"></a>
+<a name="index-dynamic-dispatch_002c-interface-method-look_002dups"></a>
+<a name="index-dispatch-through-an-interface"></a>
+
+<p>You can declare variables as object references that use an interface rather
+than a class type.  Any instance of any class that implements the declared
+interface can be referred to by such a variable.  When you call a method
+through one of these references, the correct version will be called based on
+the actual instance of the interface being referred to.  This is one of the
+key features of interfaces.  The method to be executed is looked up
+dynamically at run-time, allowing classes to be created later than the code
+which calls methods on them.  The calling code can dispatch through an
+interface without having to know anything about the &ldquo;callee.&rdquo;  This process
+is similar to using a superclass reference to access a subclass object.
+</p>
+
+
+
+</body>
+</html>
