@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Method Overriding (About Java SE 9)</title>
+
+<meta name="description" content="Method Overriding (About Java SE 9)">
+<meta name="keywords" content="Method Overriding (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Inheritance.html#Inheritance" rel="up" title="Inheritance">
+<link href="Dynamic-Method-Dispatch.html#Dynamic-Method-Dispatch" rel="next" title="Dynamic Method Dispatch">
+<link href="Constructors-Executed.html#Constructors-Executed" rel="prev" title="Constructors Executed">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Method-Overriding"></a>
+<div class="header">
+<p>
+Next: <a href="Dynamic-Method-Dispatch.html#Dynamic-Method-Dispatch" accesskey="n" rel="next">Dynamic Method Dispatch</a>, Previous: <a href="Constructors-Executed.html#Constructors-Executed" accesskey="p" rel="prev">Constructors Executed</a>, Up: <a href="Inheritance.html#Inheritance" accesskey="u" rel="up">Inheritance</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Method-Overriding-1"></a>
+<h3 class="section">4.5 Method Overriding</h3>
+<a name="index-method-overriding"></a>
+<a name="index-overriding_002c-method"></a>
+<a name="index-overload-versus-override"></a>
+
+<p>In a class hierarchy, when a method in a subclass has the same name and type
+signature as a method in its superclass, then the method in the subclass is
+said to <em>override</em> the method in the superclass.  When an overriden
+method is called from within its subclass, it will always refer to the
+version of that method defined by the subclass.  The version of the method
+defined by the superclass will be hidden.
+</p>
+<p>If you wish to access the superclass version of an overridden method, you can
+so by using <code>super</code>.
+</p>
+<p>Method overriding occurs <em>only</em> when the names and the type signatures
+of the two methods are identical.  If they are not, then the two methods are
+simply overloaded (no name hiding takes place).
+</p>
+
+
+
+
+
+</body>
+</html>

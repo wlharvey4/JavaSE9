@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Dynamic Method Dispatch (About Java SE 9)</title>
+
+<meta name="description" content="Dynamic Method Dispatch (About Java SE 9)">
+<meta name="keywords" content="Dynamic Method Dispatch (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Inheritance.html#Inheritance" rel="up" title="Inheritance">
+<link href="Why-Overridden-Methods.html#Why-Overridden-Methods" rel="next" title="Why Overridden Methods">
+<link href="Method-Overriding.html#Method-Overriding" rel="prev" title="Method Overriding">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Dynamic-Method-Dispatch"></a>
+<div class="header">
+<p>
+Next: <a href="Using-Abstract-Classes.html#Using-Abstract-Classes" accesskey="n" rel="next">Using Abstract Classes</a>, Previous: <a href="Method-Overriding.html#Method-Overriding" accesskey="p" rel="prev">Method Overriding</a>, Up: <a href="Inheritance.html#Inheritance" accesskey="u" rel="up">Inheritance</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Dynamic-Method-Dispatch-1"></a>
+<h3 class="section">4.6 Dynamic Method Dispatch</h3>
+<a name="index-dynamic-method-dispatch"></a>
+<a name="index-polymorphism_002c-run_002dtime"></a>
+
+<p>Method overriding forms the basis for one of Java&rsquo;s most powerful concepts:
+<em>dynamic method dispatch</em>.  This is a meachanism by which a call to an
+overrident method is resolved at run time, rather than compile time.  This is
+important because this is how Java implements run-time polymorphism.
+</p>
+<p>A superclass reference variable can refer to a subclass object.  Java uses
+this fact to resolve calls to overriden methods at run time.  When an
+overriden method is called through a superclass reference, Java determines
+which version of that method to execute based upon the type of the object
+being referred to at the time the call occurs.  Thus, this determination is
+made at run time.  When different types of objects are referred to, different
+versions of an overridden method will be called.  In other words, <em>it is
+the type of the object being referred to</em> (not the type of the reference
+variable) that determines which version of an overridden method will be
+executed.  Therefore, if a superclass contains a method that is overridden by
+a subclass, then when different types of objects are referred to through a
+superclass reference variable, different versions of the method are executed.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Why-Overridden-Methods.html#Why-Overridden-Methods" accesskey="1">Why Overridden Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Applying-Method-Overriding.html#Applying-Method-Overriding" accesskey="2">Applying Method Overriding</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+
+</body>
+</html>

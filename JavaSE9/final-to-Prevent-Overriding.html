@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>final to Prevent Overriding (About Java SE 9)</title>
+
+<meta name="description" content="final to Prevent Overriding (About Java SE 9)">
+<meta name="keywords" content="final to Prevent Overriding (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="final-with-Inheritance.html#final-with-Inheritance" rel="up" title="final with Inheritance">
+<link href="final-to-Prevent-Inheritance.html#final-to-Prevent-Inheritance" rel="next" title="final to Prevent Inheritance">
+<link href="final-with-Inheritance.html#final-with-Inheritance" rel="prev" title="final with Inheritance">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="final-to-Prevent-Overriding"></a>
+<div class="header">
+<p>
+Next: <a href="final-to-Prevent-Inheritance.html#final-to-Prevent-Inheritance" accesskey="n" rel="next">final to Prevent Inheritance</a>, Up: <a href="final-with-Inheritance.html#final-with-Inheritance" accesskey="u" rel="up">final with Inheritance</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Using-final-to-Prevent-Overriding"></a>
+<h4 class="subsection">4.8.1 Using <code>final</code> to Prevent Overriding</h4>
+<a name="index-final-to-prevent-overriding"></a>
+<a name="index-inline_002c-inlining"></a>
+<a name="index-late-binding"></a>
+<a name="index-early-binding"></a>
+<a name="index-binding_002c-late_002c-early"></a>
+<a name="index-performance-enhancement_002c-inlining"></a>
+
+<p>There will be times when you want to prevent overriding from occurring.  To
+disallow a method from being overridden, specify <code>final</code> as a modifier
+at the start of its declaration.  Methods declared as <code>final</code> cannot be
+overridden.
+</p>
+<p>Methods declared as <code>final</code> can sometimes provide a performance
+enhancement.  The compiler is free to <em>inline</em> calls to them because it
+knows they will not be overridden by a subclass.  Inlining is an option only
+with <code>final</code> methods.  Normally, Java resolves calls to methods
+dynamically, at run time.  This is called <em>late binding</em>.  However, since
+<code>final</code> methods cannot be overridden, a call to one can be resolved at
+compile time.  This is called <em>early binding</em>.
+</p>
+
+
+
+
+</body>
+</html>

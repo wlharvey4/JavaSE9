@@ -96,6 +96,54 @@ Access Control and Inheritance
 
 * Improved Stack Class::
 
+Inheritance
+
+* Inheritance Basics::
+* Using super::
+* Multilevel Hierarchy::
+* Constructors Executed::
+* Method Overriding::
+* Dynamic Method Dispatch::
+* Using Abstract Classes::
+* final with Inheritance::
+* Object Class::
+
+General Form of a Subclass Inheriting a Superclass
+
+* Member Access and Inheritance::
+* Superclass Referencing Subclass::
+
+Using 'super'
+
+* super Calling Superclass Constructor::
+* super Referencing Superclass::
+
+Dynamic Method Dispatch
+
+* Why Overridden Methods::
+* Applying Method Overriding::
+
+Output
+
+* FindAreas SuperClass Figure Node::
+* FindAreas SubClass Rectangle Node::
+* FindAreas SubClass Triangle Node::
+* FindAreas Main Class Node::
+
+Abstract Classes Can Be Reference Variables
+
+* Improved Figure Class::
+
+Improved Figure Class
+
+* AbstractAreas Abstract Class Figure Node::
+* AbstractAreas Main Class::
+
+Using 'final' with Inheritance
+
+* final to Prevent Overriding::
+* final to Prevent Inheritance::
+
 Packages
 
 * Packages Intro::
@@ -1191,7 +1239,7 @@ File: JavaSE9.info,  Node: Inheritance,  Next: Packages,  Prev: Methods and Clas
 
 Inheritance is a cornerstone of object-oriented programming because it
 allows the creation of hierarchical classifications.  Using
-inheritance, you can create a general class taht defines traits common
+inheritance, you can create a general class that defines traits common
 to a set of related items.  This class can then be inherited by other,
 more specific classes, each adding those things that are unique to
 them.
@@ -1200,6 +1248,924 @@ them.
 does the inheriting is called a "subclass".  A subclass is a
 specialized version of a subclass.  It inherits all of the members
 defined by the superclass and adds its own, unique elements.
+
+* Menu:
+
+* Inheritance Basics::
+* Using super::
+* Multilevel Hierarchy::
+* Constructors Executed::
+* Method Overriding::
+* Dynamic Method Dispatch::
+* Using Abstract Classes::
+* final with Inheritance::
+* Object Class::
+
+
+File: JavaSE9.info,  Node: Inheritance Basics,  Next: Using super,  Up: Inheritance
+
+4.1 Inheritance Basics
+======================
+
+To _inherit_ a class, incorporate the definition of one class into
+another by using the 'extends' keyword.
+
+     class A {...}
+     class B extends A {...}
+
+   A subclass will include all of the members of its superclass.  The
+subclass can directly reference all of the members of the superclass
+as well.  Subclasses can be superclasses of other subclasses.
+
+General Form of a Subclass Inheriting a Superclass
+==================================================
+
+     class subclass-name extends superclass-name {
+       body of class
+     }
+
+GeneralForm 4.1: Subclass General Form
+
+A subclass can have only one superclass.  Java does not support the
+inheritance of multiple superclasses into a single subclass.
+
+* Menu:
+
+* Member Access and Inheritance::
+* Superclass Referencing Subclass::
+
+
+File: JavaSE9.info,  Node: Member Access and Inheritance,  Next: Superclass Referencing Subclass,  Up: Inheritance Basics
+
+4.1.1 Member Access and Inheritance
+-----------------------------------
+
+Although a subclass includes all of the members of its superclass, it
+cannot access those members of the superclass that have been declared
+as 'private'.  A class member that has been declared as 'private' will
+remain private to its class.  It is not accessible by any code outside
+its class, including subclasses.
+
+   A major advantage of inheritance is that once you have created a
+superclass that defines the attributes commoin to a set of objects, it
+can be used to create any number of more specific subclasses.  Each
+subclass can precisely tailor its own classification.
+
+
+File: JavaSE9.info,  Node: Superclass Referencing Subclass,  Prev: Member Access and Inheritance,  Up: Inheritance Basics
+
+4.1.2 A Superclass Variable Can Reference a Subclass Object
+-----------------------------------------------------------
+
+A reference variable of a superclass can be assigned a reference to
+any subclass derived from that superclass.
+
+   It is important to understand that itis the _type of the reference
+variable_ -- not the type of the object that it refers to -- that
+determines what members can be accessed.  That is, when a reference to
+a subclass object is assigned to a superclass reference variable, you
+will have access _only_ to those parts of the object defined by the
+superclass.  The superclass has no knowledge of what a subclass adds
+to it.
+
+
+File: JavaSE9.info,  Node: Using super,  Next: Multilevel Hierarchy,  Prev: Inheritance Basics,  Up: Inheritance
+
+4.2 Using 'super'
+=================
+
+Whenever a subclass needs to refer to its immediate superclass, it can
+do so by use of the keyword 'super'.  'super' has two general forms.
+The first calls the superclass' constructor.  The second is used to
+access a member of the superclass that has been hidden by a member of
+a subclass.
+
+* Menu:
+
+* super Calling Superclass Constructor::
+* super Referencing Superclass::
+
+
+File: JavaSE9.info,  Node: super Calling Superclass Constructor,  Next: super Referencing Superclass,  Up: Using super
+
+4.2.1 Using 'super' to Call Superclass Constructors
+---------------------------------------------------
+
+A subclass can call a constructor defined by its superclass by use of
+the following form of 'super':
+
+     super(arg-list);
+
+GeneralForm 4.2: 'super' Calling a Constructor
+
+   arg-list specifies any arguments needed by the constructor in the
+superclass.  'super()' must always be the first statement executed
+inside a subclass' constructor.  'super()' can be called using any
+form defined by the superclass.
+
+
+File: JavaSE9.info,  Node: super Referencing Superclass,  Prev: super Calling Superclass Constructor,  Up: Using super
+
+4.2.2 'super' Referencing Superclass
+------------------------------------
+
+The second form of 'super' acts somewhat like 'this', except that it
+always refers to the superclass of the subclass in which it is used.
+
+     super.member
+
+GeneralForm 4.3: 'super' Referencing its Superclass
+
+   member can be either a method or an instance variable.  This form
+of 'super' is most applicable to situations in which member names of a
+subclass hide members by the same name in the superclass.
+
+     i = super.i;
+
+   'super' allows access to the 'i' defined in the superclass.
+'super' can also be used to call methods that are hidden by a
+subclass.
+
+
+File: JavaSE9.info,  Node: Multilevel Hierarchy,  Next: Constructors Executed,  Prev: Using super,  Up: Inheritance
+
+4.3 Creating a Multilevel Hierarchy
+===================================
+
+You can buidl hierarchies that contain as many layers of inheritance
+as you like.  It is acceptable to use a subclass as a superclass of
+antoher.  Each subclass inherits all of tghe traits found in all of
+its superclasses.
+
+   'super' always refers to the constructor in the closest superclass.
+
+   While an entire class hierarchy can be created in a single file,
+the individual classes (superclasses and subclasses) can be placed
+into their own files and compiled separately.  Using separate files is
+the norm, not the exception, in creating class hierarchies.
+
+
+File: JavaSE9.info,  Node: Constructors Executed,  Next: Method Overriding,  Prev: Multilevel Hierarchy,  Up: Inheritance
+
+4.4 When Constructors are Executed
+==================================
+
+In a class hierarchy, constructors complete their execution in order
+of derivation, from superclass to subclass.
+
+
+File: JavaSE9.info,  Node: Method Overriding,  Next: Dynamic Method Dispatch,  Prev: Constructors Executed,  Up: Inheritance
+
+4.5 Method Overriding
+=====================
+
+In a class hierarchy, when a method in a subclass has the same name
+and type signature as a method in its superclass, then the method in
+the subclass is said to "override" the method in the superclass.  When
+an overriden method is called from within its subclass, it will always
+refer to the version of that method defined by the subclass.  The
+version of the method defined by the superclass will be hidden.
+
+   If you wish to access the superclass version of an overridden
+method, you can so by using 'super'.
+
+   Method overriding occurs _only_ when the names and the type
+signatures of the two methods are identical.  If they are not, then
+the two methods are simply overloaded (no name hiding takes place).
+
+
+File: JavaSE9.info,  Node: Dynamic Method Dispatch,  Next: Using Abstract Classes,  Prev: Method Overriding,  Up: Inheritance
+
+4.6 Dynamic Method Dispatch
+===========================
+
+Method overriding forms the basis for one of Java's most powerful
+concepts: "dynamic method dispatch".  This is a meachanism by which a
+call to an overrident method is resolved at run time, rather than
+compile time.  This is important because this is how Java implements
+run-time polymorphism.
+
+   A superclass reference variable can refer to a subclass object.
+Java uses this fact to resolve calls to overriden methods at run time.
+When an overriden method is called through a superclass reference,
+Java determines which version of that method to execute based upon the
+type of the object being referred to at the time the call occurs.
+Thus, this determination is made at run time.  When different types of
+objects are referred to, different versions of an overridden method
+will be called.  In other words, _it is the type of the object being
+referred to_ (not the type of the reference variable) that determines
+which version of an overridden method will be executed.  Therefore, if
+a superclass contains a method that is overridden by a subclass, then
+when different types of objects are referred to through a superclass
+reference variable, different versions of the method are executed.
+
+* Menu:
+
+* Why Overridden Methods::
+* Applying Method Overriding::
+
+
+File: JavaSE9.info,  Node: Why Overridden Methods,  Next: Applying Method Overriding,  Up: Dynamic Method Dispatch
+
+4.6.1 Why Overridden Methods?
+-----------------------------
+
+Overridden methods allow Java to support run-time polymorphism.
+Polymorphism is essential to object-oriented programming for one
+reason: it allows a general class to specify methods that will be
+common to all of its derivatives, while allowing subclasses to define
+the specific implementation of some or all of those methods.
+Overridden methods are another way that Java implements the "one
+interface, multiple methods" aspect of polymorphism.
+
+   Successfully applying polymorphism is understanding that the
+superclasses and subclasses form a hierarchy which moves from lesser
+to greater specialization.  Used correctly, the superclass provides
+all elements that a subclass can use directly.  It also defines those
+methods that the derived class must implement on its own.  This allows
+the subclass the flexibility to define its own methods, yet still
+enforces a consistent interface.  Thus, by combining inheritance with
+overridden methods, a superclass can define the general form of the
+methods that will be used by all of its subclasses.
+
+   Dynamic, run-time polymorphism is one of the most powerful
+mechanisms that object-oriented design brings to bear on code reuse
+and robustness.  The ability of existing code libraries to call
+methods on instances of new classes without recompiling while
+maintaining a clean abstract interface is a profoundly powerful tool.
+
+
+File: JavaSE9.info,  Node: Applying Method Overriding,  Prev: Why Overridden Methods,  Up: Dynamic Method Dispatch
+
+4.6.2 Applying
+--------------
+
+Let's look at a practical example that uses method overriding.  The
+following program creates a superclass called 'Figure' that stores the
+dimensions of a two-dimensional object.  It also defines a method
+called 'area()' that computes the area of an object.  The program
+derives two subclasses from 'Figure'.  The first is 'Rectangle' and
+the second is 'Triangle'.  Each of these subclasses overrides 'area()'
+so that it returns the area of a rectangle and a triangle
+respectively.
+
+{'FindAreas.java '} ==
+     <FindAreas SuperClass Figure >
+     <FindAreas SubClass Rectangle >
+     <FindAreas SubClass Triangle >
+     <FindAreas Main Class >
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<FindAreas Main Class >   See *note FindAreas-Main-Class-::.
+<FindAreas SubClass       See *note FindAreas-SubClass-Rectangle-::.
+Rectangle >
+<FindAreas SubClass       See *note FindAreas-SubClass-Triangle-::.
+Triangle >
+<FindAreas SuperClass     See *note FindAreas-SuperClass-Figure-::.
+Figure >
+
+Output
+......
+
+The output from the program should be:
+
+     Inside Area for Rectangle.
+     Area is 45
+     Inside Area for Triangle.
+     Area is 40
+     Area for Figure is undefined.
+     Area is 0
+
+   Through the dual mechanisms of inheritance and run-time
+polymorphism, it is possible to define one consistent interface that
+is used by several different, yet related, types of objects.  In this
+case, if an object is derived from 'Figure', then its area can be
+obtained by calling 'area()'.  The interface to this operation is the
+same no matter what type is being used.
+
+* Menu:
+
+* FindAreas SuperClass Figure Node::
+* FindAreas SubClass Rectangle Node::
+* FindAreas SubClass Triangle Node::
+* FindAreas Main Class Node::
+
+
+File: JavaSE9.info,  Node: FindAreas SuperClass Figure Node,  Next: FindAreas SubClass Rectangle Node,  Up: Applying Method Overriding
+
+4.6.2.1 FindAreas Superclass Figure Section
+...........................................
+
+<FindAreas SuperClass Figure > ==
+     class Figure {
+       <Figure Instance Variable Declarations >
+       <Figure Constructor >
+       <Figure Area Method Declaration >
+     }
+
+
+This chunk is called by {'FindAreas.java '}; see its first definition
+at *note FindAreas-java-::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Figure Area Method       See *note Figure-Area-Method-Declaration-::.
+Declaration >
+<Figure Constructor >     See *note Figure-Constructor-::.
+<Figure Instance          See
+Variable Declarations >   *note Figure-Instance-Variable-Declarations-::.
+
+Figure Instance Variable Declarations
+.....................................
+
+<Figure Instance Variable Declarations > ==
+     double dim1;
+     double dim2;
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<AbstractAreas Abstract   See
+Class Figure >            *note AbstractAreas-Abstract-Class-Figure-::.
+<FindAreas SuperClass     See *note FindAreas-SuperClass-Figure-::.
+Figure >
+
+Figure Constructor
+..................
+
+<Figure Constructor > ==
+     Figure (double 1, double b) {
+       dim1 = a;
+       dim2 = b;
+     }
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<AbstractAreas Abstract   See
+Class Figure >            *note AbstractAreas-Abstract-Class-Figure-::.
+<FindAreas SuperClass     See *note FindAreas-SuperClass-Figure-::.
+Figure >
+
+Figure Area Method Declaration
+..............................
+
+It will be this method that will be overridden by the two subclasses;
+while this method will not produce any output, each of the subclasses
+will provide a formula for their own area and output that number, even
+though the same method ('area()') is being called in each case from
+the same variable.
+
+<Figure Area Method Declaration > ==
+     double area() {
+       System.out.println("Area for Figure is undefined.");
+       return 0;
+     }
+
+
+This chunk is called by <FindAreas SuperClass Figure >; see its first
+definition at *note FindAreas-SuperClass-Figure-::.
+
+
+File: JavaSE9.info,  Node: FindAreas SubClass Rectangle Node,  Next: FindAreas SubClass Triangle Node,  Prev: FindAreas SuperClass Figure Node,  Up: Applying Method Overriding
+
+4.6.2.2 FindAreas SubClass Rectangle Section
+............................................
+
+<FindAreas SubClass Rectangle > ==
+     class Rectangle extends Figure {
+       <Rectangle Constructor >
+       <Rectangle Area Method Declaration >
+     }
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'AbstractAreas.java '}   See *note AbstractAreas-java-::.
+{'FindAreas.java '}       See *note FindAreas-java-::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Rectangle Area Method    See
+Declaration >             *note Rectangle-Area-Method-Declaration-::.
+<Rectangle Constructor    See *note Rectangle-Constructor-::.
+>
+
+Rectangle Constructor
+.....................
+
+<Rectangle Constructor > ==
+     Rectangle (double a, double b) {
+       super(a, b);
+     }
+
+
+This chunk is called by <FindAreas SubClass Rectangle >; see its first
+definition at *note FindAreas-SubClass-Rectangle-::.
+
+Rectangle Area Method Declaration
+.................................
+
+<Rectangle Area Method Declaration > ==
+     // override area for rectangle
+     double area() {
+       System.out.println("Inside Area for Rectangle.";
+       return dim1 * dim2;
+     }
+
+
+This chunk is called by <FindAreas SubClass Rectangle >; see its first
+definition at *note FindAreas-SubClass-Rectangle-::.
+
+
+File: JavaSE9.info,  Node: FindAreas SubClass Triangle Node,  Next: FindAreas Main Class Node,  Prev: FindAreas SubClass Rectangle Node,  Up: Applying Method Overriding
+
+4.6.2.3 FindAreas SubClass Triangle Section
+...........................................
+
+<FindAreas SubClass Triangle > ==
+     class Triangle extends Figure {
+       <Triangle Constructor >
+       <Triangle Area Method Declaration >
+     }
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'AbstractAreas.java '}   See *note AbstractAreas-java-::.
+{'FindAreas.java '}       See *note FindAreas-java-::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Triangle Area Method     See
+Declaration >             *note Triangle-Area-Method-Declaration-::.
+<Triangle Constructor >   See *note Triangle-Constructor-::.
+
+Triangle Constructor
+....................
+
+<Triangle Constructor > ==
+     Triangle (double a, double b) {
+       super(a, b);
+     }
+
+
+This chunk is called by <FindAreas SubClass Triangle >; see its first
+definition at *note FindAreas-SubClass-Triangle-::.
+
+Triangle Area Method Declaration
+................................
+
+<Triangle Area Method Declaration > ==
+     // override area for right triangle
+     double area () {
+       System.out.println("Inside Area for Triangle.");
+       return dim1 * dim2 / 2;
+     }
+
+
+This chunk is called by <FindAreas SubClass Triangle >; see its first
+definition at *note FindAreas-SubClass-Triangle-::.
+
+
+File: JavaSE9.info,  Node: FindAreas Main Class Node,  Prev: FindAreas SubClass Triangle Node,  Up: Applying Method Overriding
+
+4.6.2.4 FindAreas Main Class Section
+....................................
+
+<FindAreas Main Class > ==
+     class FindAreas {
+       <FindAreas Main Method Declaration >
+     }
+
+
+This chunk is called by {'FindAreas.java '}; see its first definition
+at *note FindAreas-java-::.
+
+The called chunk <FindAreas Main Method Declaration > is first defined
+at *note FindAreas-Main-Method-Declaration-::.
+
+FindAreas Main Method Declaration
+.................................
+
+<FindAreas Main Method Declaration > ==
+     public static void main (String[] args[]) {
+       <Create Basic Figure Objects >
+       <Create Basic Figure Reference Variable >
+       <Call Overridden Methods One By One >
+     }
+
+
+This chunk is called by <FindAreas Main Class >; see its first
+definition at *note FindAreas-Main-Class-::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Call Overridden          See
+Methods One By One >      *note Call-Overridden-Methods-One-By-One-::.
+<Create Basic Figure      See *note Create-Basic-Figure-Objects-::.
+Objects >
+<Create Basic Figure      See
+Reference Variable >      *note Create-Basic-Figure-Reference-Variable-::.
+
+Create Basic Figure Objects
+...........................
+
+<Create Basic Figure Objects > ==
+     Figure f = new Figure(10, 10);
+     Rectangle r = new Rectangle(9, 5);
+     Triangle t = new Triangle(10, 8);
+
+
+This chunk is called by <FindAreas Main Method Declaration >; see its
+first definition at *note FindAreas-Main-Method-Declaration-::.
+
+Create Basic Figure Reference Variable
+......................................
+
+This superclass reference variable 'Figure figref' will hold,
+alternately, references to each of the classes and will call the
+method 'area()' on each, producing a different result each time.  This
+is the essence of method overriding and dynamic method dispatch.
+
+<Create Basic Figure Reference Variable > ==
+     Figure figref;
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<AbstractAreas Main       See
+Method Declaration >      *note AbstractAreas-Main-Method-Declaration-::.
+<FindAreas Main Method    See
+Declaration >             *note FindAreas-Main-Method-Declaration-::.
+
+Call Overridden Methods One By One
+..................................
+
+<Call Overridden Methods One By One > ==
+     figref = r;
+     System.out.println("Area is " + figref.area());
+
+     figref = t;
+     System.out.println("Area is " + figref.area());
+
+     figref = f;
+     System.out.println("Area is " + figref.area());
+
+
+This chunk is called by <FindAreas Main Method Declaration >; see its
+first definition at *note FindAreas-Main-Method-Declaration-::.
+
+
+File: JavaSE9.info,  Node: Using Abstract Classes,  Next: final with Inheritance,  Prev: Dynamic Method Dispatch,  Up: Inheritance
+
+4.7 Using Abstract Classes
+==========================
+
+There are situations in which you will want to define a superclass
+that declares the structure of a given abstraction without providing a
+complete implementation of every method.  That is, sometimes you will
+wnat to create a superclass that only defines a generalized form that
+will be shared by all of its subclasses, leaving it to each subclass
+to fill in the details.  Such a class determines the nature of the
+methods that the subclasses must implement.  One way this situation
+can occur is when a superclass is unable to create a meaningful
+implementation for a method.  This is the case with 'Figure' in the
+preceding example.  The definition of 'area()' is simply a
+placeholder.  It will not compute and display the area of any type of
+object.
+
+   It is not uncommon for a method to have no meaningful definition in
+the context of its superclass.  Java's solution to this problem is the
+"abstract method".
+
+   You can require that certain methods be overridden by subclasses by
+specifying the 'abstract' type modifier.  These methods are sometimes
+referred to as "subclasser responsibility" because they have no
+implementation specified in the superclass.  Thus, a subclass must
+override them -- it cannot simply use the version defined in the
+superclass.
+
+   To declare an abstract method, use the general form:
+
+     abstract type name (parameter-list);
+
+GeneralForm 4.4: Abstract Method Declaration--General Form
+
+No method body is present.
+
+   Any class that contains one or more abstract methods must also be
+declared abstract.  To declare a class abstract, simply use the
+'abstract' keyword in front of the 'class' keyword at the beginning of
+the class declaration.  There can be no objects of an abstract class.
+That is, an abstract class cannot be directlyi instantiated with the
+'new' operator.  You cannot declare abstract constructors or abstract
+static methods.  Any subclass of an abstract class must either
+implement all of the abstract methods in the superclass, or be
+declared 'abstract' itself.  Abstract classes can include fully
+implemented methods.
+
+Abstract Classes Can Be Reference Variables
+===========================================
+
+Although abstract classes cannot be used to instantiate objects, they
+can be used to create object references, because Java's approach to
+run-time polymorphism is implemented thruogh the use of superclass
+references.  Thus, it must be possible to create a reference to an
+asbtract class so that it can be used to point to a subclass object.
+
+* Menu:
+
+* Improved Figure Class::
+
+
+File: JavaSE9.info,  Node: Improved Figure Class,  Up: Using Abstract Classes
+
+4.7.1 Improved Figure Class
+---------------------------
+
+Using the abstract class, you can improve the 'Figure' class.  Since
+there is no meaningful concept of area for an undefined
+two-dimensional figure, the following version of the program declares
+'area()' as abstract inside 'Figure'.  This means that all classes
+derived from 'Figure' must override 'area()'.
+
+{'AbstractAreas.java '} ==
+     <AbstractAreas Abstract Class Figure >
+     <FindAreas SubClass Rectangle >
+     <FindAreas SubClass Triangle >
+     <AbstractAreas Main Class >
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<AbstractAreas Abstract   See
+Class Figure >            *note AbstractAreas-Abstract-Class-Figure-::.
+<AbstractAreas Main       See *note AbstractAreas-Main-Class-::.
+Class >
+<FindAreas SubClass       See *note FindAreas-SubClass-Rectangle-::.
+Rectangle >
+<FindAreas SubClass       See *note FindAreas-SubClass-Triangle-::.
+Triangle >
+
+* Menu:
+
+* AbstractAreas Abstract Class Figure Node::
+* AbstractAreas Main Class::
+
+
+File: JavaSE9.info,  Node: AbstractAreas Abstract Class Figure Node,  Next: AbstractAreas Main Class,  Up: Improved Figure Class
+
+4.7.1.1 AbstractAreas Abstract Class Figure Section
+...................................................
+
+Notice that much of this class stays the same as the original 'Figure'
+code, but includes two 'abstract' declarations, one for the class, and
+one for the 'area()' method declaration.
+
+<AbstractAreas Abstract Class Figure > ==
+     abstract class Figure {
+       <Figure Instance Variable Declarations >
+       <Figure Constructor >
+       <AbstractAreas Abstract Area Method Declaration >
+     }
+
+
+This chunk is called by {'AbstractAreas.java '}; see its first
+definition at *note AbstractAreas-java-::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<AbstractAreas Abstract   See
+Area Method Declaration   *note AbstractAreas-Abstract-Area-Method-Declaration-::.
+>
+<Figure Constructor >     See *note Figure-Constructor-::.
+<Figure Instance          See
+Variable Declarations >   *note Figure-Instance-Variable-Declarations-::.
+
+AbstractAreas Abstract Area Method Declaration
+..............................................
+
+<AbstractAreas Abstract Area Method Declaration > ==
+     // areas is now an abstract method
+     abstract double area ();
+
+
+This chunk is called by <AbstractAreas Abstract Class Figure >; see
+its first definition at *note AbstractAreas-Abstract-Class-Figure-::.
+
+
+File: JavaSE9.info,  Node: AbstractAreas Main Class,  Prev: AbstractAreas Abstract Class Figure Node,  Up: Improved Figure Class
+
+4.7.1.2 Abstract Main Class
+...........................
+
+<AbstractAreas Main Class > ==
+     class AbstractAreas {
+       <AbstractAreas Main Method Declaration >
+     }
+
+
+This chunk is called by {'AbstractAreas.java '}; see its first
+definition at *note AbstractAreas-java-::.
+
+The called chunk <AbstractAreas Main Method Declaration > is first
+defined at *note AbstractAreas-Main-Method-Declaration-::.
+
+AbstractAreas Main Method Declaration
+.....................................
+
+<AbstractAreas Main Method Declaration > ==
+     public static void main (String[] args) {
+       <Create Basic Figure Objects Except Figure >
+       <Create Basic Figure Reference Variable >
+       <Call Overridden Methods One By One Except Figure >
+     }
+
+
+This chunk is called by <AbstractAreas Main Class >; see its first
+definition at *note AbstractAreas-Main-Class-::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Call Overridden          See
+Methods One By One        *note Call-Overridden-Methods-One-By-One-Except-Figure-::.
+Except Figure >
+<Create Basic Figure      See
+Objects Except Figure >   *note Create-Basic-Figure-Objects-Except-Figure-::.
+<Create Basic Figure      See
+Reference Variable >      *note Create-Basic-Figure-Reference-Variable-::.
+
+Create Basic Figure Objects Except Figure
+.........................................
+
+The only difference here is that because the superclass Figure is now
+abstract, it cannot be instantiated using 'new'.  It can, however, be
+used as a reference variable, and so the declaration 'Figure figref;'
+is still valid and does not change from the prior implementation.
+*This is the essence of run-time polymorphism and dynamic method
+dispatch.*
+
+<Create Basic Figure Objects Except Figure > ==
+     // abstract class Figure cannot be instantiated
+     // Figure f = new Figure (10, 10);
+     Rectangle r = new Rectangle (9, 5);
+     Triangle t = new Triangle (10, 8);
+
+
+This chunk is called by <AbstractAreas Main Method Declaration >; see
+its first definition at *note
+AbstractAreas-Main-Method-Declaration-::.
+
+Call Overridden Methods One By One Except Figure
+................................................
+
+The only difference here is that, because there is no 'Figure' object,
+it cannot be referenced.
+
+<Call Overridden Methods One By One Except Figure > ==
+     figref = r;
+     System.out.println("Area is " + figref.area());
+
+     figref = t;
+     System.out.println("Area is " + figref.aread());
+
+     // there is no Figure object, so this will not work.
+     // figref = f;
+
+
+This chunk is called by <AbstractAreas Main Method Declaration >; see
+its first definition at *note
+AbstractAreas-Main-Method-Declaration-::.
+
+
+File: JavaSE9.info,  Node: final with Inheritance,  Next: Object Class,  Prev: Using Abstract Classes,  Up: Inheritance
+
+4.8 Using 'final' with Inheritance
+==================================
+
+The keyword 'final' has three uses.
+
+  1. create the equivalent of a name constant.
+  2. prevent overriding
+  3. prevent inheritance
+
+* Menu:
+
+* final to Prevent Overriding::
+* final to Prevent Inheritance::
+
+
+File: JavaSE9.info,  Node: final to Prevent Overriding,  Next: final to Prevent Inheritance,  Up: final with Inheritance
+
+4.8.1 Using 'final' to Prevent Overriding
+-----------------------------------------
+
+There will be times when you want to prevent overriding from
+occurring.  To disallow a method from being overridden, specify
+'final' as a modifier at the start of its declaration.  Methods
+declared as 'final' cannot be overridden.
+
+   Methods declared as 'final' can sometimes provide a performance
+enhancement.  The compiler is free to "inline" calls to them because
+it knows they will not be overridden by a subclass.  Inlining is an
+option only with 'final' methods.  Normally, Java resolves calls to
+methods dynamically, at run time.  This is called "late binding".
+However, since 'final' methods cannot be overridden, a call to one can
+be resolved at compile time.  This is called "early binding".
+
+
+File: JavaSE9.info,  Node: final to Prevent Inheritance,  Prev: final to Prevent Overriding,  Up: final with Inheritance
+
+4.8.2 Using 'final' to Prevent Inheritance
+------------------------------------------
+
+Sometimes you will want to prevent a class from being inherited.  To
+do this, precede the class declaration with 'final'.  Declaring a
+class as 'final' implicitly declares all of its methods as 'final'
+also.
+
+
+File: JavaSE9.info,  Node: Object Class,  Prev: final with Inheritance,  Up: Inheritance
+
+4.9 The Object Class
+====================
+
+There is one special class, 'Object', defined by Java.  All other
+classes are subclasses of 'Object'.  That is, 'Object' is a superclass
+of all other classes.  This means that a reference variable of type
+'Object' can refer to an object of any other class.  Also, since
+arrays are implemented as classes, a variable of type 'Object' can
+also refer to any array.
+
+'Object' Methods
+================
+
+'Object' defines the following methods; this means they are available
+in every object.
+
+'Object clone()'
+     Creates a new object that is the same as the object being cloned.
+'boolean equals(Object object)'
+     Determines whether one object is equal to another.
+'void finalize()'
+     Called before an unused object is recycled.  (Deprecated by JDK
+     9).
+'Class<?> getClass()'
+     Obtains the class of an object at run time.
+'int hashCode()'
+     Returns the hash code associated with the invoking object.
+'void notify()'
+     Resumes execution of a thread waiting on the invoking object.
+'void notifyAll()'
+     Resumes execution of all threads waiting on the invoking object.
+'String toString()'
+     Returns a string that describes the object.
+'void wait()'
+'void wait(long milliseconds)'
+'void wait(long millisconds, int nanoseconds)'
+     Waits on another thread of execution
+
+   The methods
+   * 'getClass()'
+   * 'notify()'
+   * 'notifyAll()'
+   * 'wait()'
+
+are declared as 'final'.  You may override the others.
+
+   However, notice two methods now:
+
+'equals()'
+     compares two objects; returns 'true' if the objects are equal,
+     and 'false' if not; the precise definition of equality can vary,
+     depending on the type of objects being compared.
+'toString()'
+     returns a string that contains a description of the object on
+     which it is called; this method is automatically called when an
+     object is output using 'println()'; many classes override this
+     method; doing so allows them to tailor a description specifically
+     for the types of objects that they create.
 
 
 File: JavaSE9.info,  Node: Packages,  Next: Interfaces,  Prev: Inheritance,  Up: Top
@@ -3282,6 +4248,10 @@ File: JavaSE9.info,  Node: File Definitions,  Next: Code Chunk Definitions,  Up:
 B.1 Source File Definitions
 ===========================
 
+{'AbstractAreas.java '}
+     This chunk is defined in *note AbstractAreas-java-::.
+{'FindAreas.java '}
+     This chunk is defined in *note FindAreas-java-::.
 {'GenMethDemo.java'}
      This chunk is defined in *note GenMethDemo-java::.
 {'Makefile'}
@@ -3303,6 +4273,23 @@ File: JavaSE9.info,  Node: Code Chunk Definitions,  Next: Code Chunk References,
 B.2 Code Chunk Definitions
 ==========================
 
+<AbstractAreas Abstract Area Method Declaration >
+     This chunk is defined in *note
+     AbstractAreas-Abstract-Area-Method-Declaration-::.
+<AbstractAreas Abstract Class Figure >
+     This chunk is defined in *note
+     AbstractAreas-Abstract-Class-Figure-::.
+<AbstractAreas Main Class >
+     This chunk is defined in *note AbstractAreas-Main-Class-::.
+<AbstractAreas Main Method Declaration >
+     This chunk is defined in *note
+     AbstractAreas-Main-Method-Declaration-::.
+<Call Overridden Methods One By One >
+     This chunk is defined in *note
+     Call-Overridden-Methods-One-By-One-::.
+<Call Overridden Methods One By One Except Figure >
+     This chunk is defined in *note
+     Call-Overridden-Methods-One-By-One-Except-Figure-::.
 <Class Declaration>
      This chunk is defined in *note Class-Declaration::.
 <Class Gen>
@@ -3318,11 +4305,37 @@ B.2 Code Chunk Definitions
 <Constructor taking parameter of Type T>
      This chunk is defined in *note
      Constructor-taking-parameter-of-Type-T::.
+<Create Basic Figure Objects >
+     This chunk is defined in *note Create-Basic-Figure-Objects-::.
+<Create Basic Figure Objects Except Figure >
+     This chunk is defined in *note
+     Create-Basic-Figure-Objects-Except-Figure-::.
+<Create Basic Figure Reference Variable >
+     This chunk is defined in *note
+     Create-Basic-Figure-Reference-Variable-::.
 <Create a Gen object for Integers>
      This chunk is defined in *note
      Create-a-Gen-object-for-Integers::.
 <Create a Gen object for Strings>
      This chunk is defined in *note Create-a-Gen-object-for-Strings::.
+<Figure Area Method Declaration >
+     This chunk is defined in *note Figure-Area-Method-Declaration-::.
+<Figure Constructor >
+     This chunk is defined in *note Figure-Constructor-::.
+<Figure Instance Variable Declarations >
+     This chunk is defined in *note
+     Figure-Instance-Variable-Declarations-::.
+<FindAreas Main Class >
+     This chunk is defined in *note FindAreas-Main-Class-::.
+<FindAreas Main Method Declaration >
+     This chunk is defined in *note
+     FindAreas-Main-Method-Declaration-::.
+<FindAreas SubClass Rectangle >
+     This chunk is defined in *note FindAreas-SubClass-Rectangle-::.
+<FindAreas SubClass Triangle >
+     This chunk is defined in *note FindAreas-SubClass-Triangle-::.
+<FindAreas SuperClass Figure >
+     This chunk is defined in *note FindAreas-SuperClass-Figure-::.
 <GenMethDemo Main>
      This chunk is defined in *note GenMethDemo-Main::.
 <Get Value>
@@ -3346,6 +4359,11 @@ B.2 Code Chunk Definitions
      Method-returning-object-of-type-T::.
 <Method showing type of T>
      This chunk is defined in *note Method-showing-type-of-T::.
+<Rectangle Area Method Declaration >
+     This chunk is defined in *note
+     Rectangle-Area-Method-Declaration-::.
+<Rectangle Constructor >
+     This chunk is defined in *note Rectangle-Constructor-::.
 <Reference to Integer Instance>
      This chunk is defined in *note Reference-to-Integer-Instance::.
 <Show Type>
@@ -3367,6 +4385,11 @@ B.2 Code Chunk Definitions
      This chunk is defined in *note Static-Method-isIn::.
 <TestStack Main Method>
      This chunk is defined in *note TestStack-Main-Method::.
+<Triangle Area Method Declaration >
+     This chunk is defined in *note
+     Triangle-Area-Method-Declaration-::.
+<Triangle Constructor >
+     This chunk is defined in *note Triangle-Constructor-::.
 <Two Instance Variables Declarations>
      This chunk is defined in *note
      Two-Instance-Variables-Declarations::.
@@ -3377,6 +4400,33 @@ File: JavaSE9.info,  Node: Code Chunk References,  Prev: Code Chunk Definitions,
 B.3 Code Chunk References
 =========================
 
+<AbstractAreas Abstract Area Method Declaration >
+
+     This chunk is called by <AbstractAreas Abstract Class Figure >;
+     see its first definition at *note
+     AbstractAreas-Abstract-Class-Figure-::.
+<AbstractAreas Abstract Class Figure >
+
+     This chunk is called by {'AbstractAreas.java '}; see its first
+     definition at *note AbstractAreas-java-::.
+<AbstractAreas Main Class >
+
+     This chunk is called by {'AbstractAreas.java '}; see its first
+     definition at *note AbstractAreas-java-::.
+<AbstractAreas Main Method Declaration >
+
+     This chunk is called by <AbstractAreas Main Class >; see its
+     first definition at *note AbstractAreas-Main-Class-::.
+<Call Overridden Methods One By One >
+
+     This chunk is called by <FindAreas Main Method Declaration >; see
+     its first definition at *note
+     FindAreas-Main-Method-Declaration-::.
+<Call Overridden Methods One By One Except Figure >
+
+     This chunk is called by <AbstractAreas Main Method Declaration >;
+     see its first definition at *note
+     AbstractAreas-Main-Method-Declaration-::.
 <Class Declaration>
 
      This chunk is called by <Class TwoGen>; see its first definition
@@ -3405,6 +4455,26 @@ B.3 Code Chunk References
 
      This chunk is called by <Class Gen>; see its first definition at
      *note Class-Gen::.
+<Create Basic Figure Objects >
+
+     This chunk is called by <FindAreas Main Method Declaration >; see
+     its first definition at *note
+     FindAreas-Main-Method-Declaration-::.
+<Create Basic Figure Objects Except Figure >
+
+     This chunk is called by <AbstractAreas Main Method Declaration >;
+     see its first definition at *note
+     AbstractAreas-Main-Method-Declaration-::.
+<Create Basic Figure Reference Variable >
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     <AbstractAreas Main       See
+     Method Declaration >      *note AbstractAreas-Main-Method-Declaration-::.
+     <FindAreas Main Method    See
+     Declaration >             *note FindAreas-Main-Method-Declaration-::.
 <Create a Gen object for Integers>
 
      This chunk is called by <Class GenDemo>; see its first definition
@@ -3413,6 +4483,58 @@ B.3 Code Chunk References
 
      This chunk is called by <Class GenDemo>; see its first definition
      at *note Class-GenDemo::.
+<Figure Area Method Declaration >
+
+     This chunk is called by <FindAreas SuperClass Figure >; see its
+     first definition at *note FindAreas-SuperClass-Figure-::.
+<Figure Constructor >
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     <AbstractAreas Abstract   See
+     Class Figure >            *note AbstractAreas-Abstract-Class-Figure-::.
+     <FindAreas SuperClass     See *note FindAreas-SuperClass-Figure-::.
+     Figure >
+<Figure Instance Variable Declarations >
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     <AbstractAreas Abstract   See
+     Class Figure >            *note AbstractAreas-Abstract-Class-Figure-::.
+     <FindAreas SuperClass     See *note FindAreas-SuperClass-Figure-::.
+     Figure >
+<FindAreas Main Class >
+
+     This chunk is called by {'FindAreas.java '}; see its first
+     definition at *note FindAreas-java-::.
+<FindAreas Main Method Declaration >
+
+     This chunk is called by <FindAreas Main Class >; see its first
+     definition at *note FindAreas-Main-Class-::.
+<FindAreas SubClass Rectangle >
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'AbstractAreas.java '}   See *note AbstractAreas-java-::.
+     {'FindAreas.java '}       See *note FindAreas-java-::.
+<FindAreas SubClass Triangle >
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'AbstractAreas.java '}   See *note AbstractAreas-java-::.
+     {'FindAreas.java '}       See *note FindAreas-java-::.
+<FindAreas SuperClass Figure >
+
+     This chunk is called by {'FindAreas.java '}; see its first
+     definition at *note FindAreas-java-::.
 <GenMethDemo Main>
 
      This chunk is called by {'GenMethDemo.java'}; see its first
@@ -3457,6 +4579,14 @@ B.3 Code Chunk References
 
      This chunk is called by <Class Gen>; see its first definition at
      *note Class-Gen::.
+<Rectangle Area Method Declaration >
+
+     This chunk is called by <FindAreas SubClass Rectangle >; see its
+     first definition at *note FindAreas-SubClass-Rectangle-::.
+<Rectangle Constructor >
+
+     This chunk is called by <FindAreas SubClass Rectangle >; see its
+     first definition at *note FindAreas-SubClass-Rectangle-::.
 <Reference to Integer Instance>
 
      This chunk is called by <Create a Gen object for Integers>; see
@@ -3505,6 +4635,14 @@ B.3 Code Chunk References
 
      This chunk is called by {'TestStack.java'}; see its first
      definition at *note TestStack-java::.
+<Triangle Area Method Declaration >
+
+     This chunk is called by <FindAreas SubClass Triangle >; see its
+     first definition at *note FindAreas-SubClass-Triangle-::.
+<Triangle Constructor >
+
+     This chunk is called by <FindAreas SubClass Triangle >; see its
+     first definition at *note FindAreas-SubClass-Triangle-::.
 <Two Instance Variables Declarations>
 
      This chunk is called by <Class TwoGen>; see its first definition
@@ -3530,6 +4668,13 @@ List of General Forms
 
 * GeneralForm 2.1: ClassDeclaration.     Class Declaration -- ...
 * GeneralForm 2.2: MethodDeclaration.    Method Declaration -- ...
+* GeneralForm 4.1: Subclass.             Subclass General Form
+* GeneralForm 4.2: SuperCallingConstructor.
+                                         'super' Calling a ...
+* GeneralForm 4.3: SuperReferencingSuperclass.
+                                         'super' Referencing its ...
+* GeneralForm 4.4: AbstractMethodDeclaration.
+                                         Abstract Method ...
 * GeneralForm 5.1: PackageStatement.     Package Statement -- ...
 * GeneralForm 5.2: PackageStatementMulti.Package Statement -- ...
 * GeneralForm 5.3: Import.               Import Statement -- ...
@@ -3557,6 +4702,30 @@ Index
  [index ]
 * Menu:
 
+* <AbstractAreas Abstract Area Method Declaration >, definition: AbstractAreas Abstract Class Figure Node.
+                                                            (line  34)
+* <AbstractAreas Abstract Area Method Declaration >, use: AbstractAreas Abstract Class Figure Node.
+                                                            (line  10)
+* <AbstractAreas Abstract Class Figure >, definition: AbstractAreas Abstract Class Figure Node.
+                                                            (line  10)
+* <AbstractAreas Abstract Class Figure >, use: Improved Figure Class.
+                                                            (line  12)
+* <AbstractAreas Main Class >, definition: AbstractAreas Main Class.
+                                                            (line   6)
+* <AbstractAreas Main Class >, use:      Improved Figure Class.
+                                                            (line  12)
+* <AbstractAreas Main Method Declaration >, definition: AbstractAreas Main Class.
+                                                            (line  21)
+* <AbstractAreas Main Method Declaration >, use: AbstractAreas Main Class.
+                                                            (line   6)
+* <Call Overridden Methods One By One >, definition: FindAreas Main Class Node.
+                                                            (line  78)
+* <Call Overridden Methods One By One >, use: FindAreas Main Class Node.
+                                                            (line  21)
+* <Call Overridden Methods One By One Except Figure >, definition: AbstractAreas Main Class.
+                                                            (line  70)
+* <Call Overridden Methods One By One Except Figure >, use: AbstractAreas Main Class.
+                                                            (line  21)
 * <Class Declaration>, definition:       Class TwoGen.      (line  34)
 * <Class Declaration>, use:              Class TwoGen.      (line   6)
 * <Class Gen>, definition:               Class Gen<T>.      (line  33)
@@ -3584,6 +4753,60 @@ Index
 * <Create a Gen object for Strings>, definition: GenDemo as String.
                                                             (line   6)
 * <Create a Gen object for Strings>, use: Class GenDemo.    (line  22)
+* <Create Basic Figure Objects >, definition: FindAreas Main Class Node.
+                                                            (line  45)
+* <Create Basic Figure Objects >, use:   FindAreas Main Class Node.
+                                                            (line  21)
+* <Create Basic Figure Objects Except Figure >, definition: AbstractAreas Main Class.
+                                                            (line  53)
+* <Create Basic Figure Objects Except Figure >, use: AbstractAreas Main Class.
+                                                            (line  21)
+* <Create Basic Figure Reference Variable >, definition: FindAreas Main Class Node.
+                                                            (line  62)
+* <Create Basic Figure Reference Variable >, use: FindAreas Main Class Node.
+                                                            (line  21)
+* <Create Basic Figure Reference Variable >, use <1>: AbstractAreas Main Class.
+                                                            (line  21)
+* <Figure Area Method Declaration >, definition: FindAreas SuperClass Figure Node.
+                                                            (line  71)
+* <Figure Area Method Declaration >, use: FindAreas SuperClass Figure Node.
+                                                            (line   6)
+* <Figure Constructor >, definition:     FindAreas SuperClass Figure Node.
+                                                            (line  46)
+* <Figure Constructor >, use:            FindAreas SuperClass Figure Node.
+                                                            (line   6)
+* <Figure Constructor >, use <1>:        AbstractAreas Abstract Class Figure Node.
+                                                            (line  10)
+* <Figure Instance Variable Declarations >, definition: FindAreas SuperClass Figure Node.
+                                                            (line  29)
+* <Figure Instance Variable Declarations >, use: FindAreas SuperClass Figure Node.
+                                                            (line   6)
+* <Figure Instance Variable Declarations >, use <1>: AbstractAreas Abstract Class Figure Node.
+                                                            (line  10)
+* <FindAreas Main Class >, definition:   FindAreas Main Class Node.
+                                                            (line   6)
+* <FindAreas Main Class >, use:          Applying Method Overriding.
+                                                            (line  15)
+* <FindAreas Main Method Declaration >, definition: FindAreas Main Class Node.
+                                                            (line  21)
+* <FindAreas Main Method Declaration >, use: FindAreas Main Class Node.
+                                                            (line   6)
+* <FindAreas SubClass Rectangle >, definition: FindAreas SubClass Rectangle Node.
+                                                            (line   6)
+* <FindAreas SubClass Rectangle >, use:  Applying Method Overriding.
+                                                            (line  15)
+* <FindAreas SubClass Rectangle >, use <1>: Improved Figure Class.
+                                                            (line  12)
+* <FindAreas SubClass Triangle >, definition: FindAreas SubClass Triangle Node.
+                                                            (line   6)
+* <FindAreas SubClass Triangle >, use:   Applying Method Overriding.
+                                                            (line  15)
+* <FindAreas SubClass Triangle >, use <1>: Improved Figure Class.
+                                                            (line  12)
+* <FindAreas SuperClass Figure >, definition: FindAreas SuperClass Figure Node.
+                                                            (line   6)
+* <FindAreas SuperClass Figure >, use:   Applying Method Overriding.
+                                                            (line  15)
 * <GenMethDemo Main>, definition:        GenMethDemo Main.  (line   6)
 * <GenMethDemo Main>, use:               Example of Generic Method.
                                                             (line  13)
@@ -3616,6 +4839,14 @@ Index
 * <Method returning object of type T>, use: Class Gen<T>.   (line  33)
 * <Method showing type of T>, definition: Class Gen<T>.     (line 115)
 * <Method showing type of T>, use:       Class Gen<T>.      (line  33)
+* <Rectangle Area Method Declaration >, definition: FindAreas SubClass Rectangle Node.
+                                                            (line  43)
+* <Rectangle Area Method Declaration >, use: FindAreas SubClass Rectangle Node.
+                                                            (line   6)
+* <Rectangle Constructor >, definition:  FindAreas SubClass Rectangle Node.
+                                                            (line  31)
+* <Rectangle Constructor >, use:         FindAreas SubClass Rectangle Node.
+                                                            (line   6)
 * <Reference to Integer Instance>, definition: GenDemo as Integer.
                                                             (line  58)
 * <Reference to Integer Instance>, use:  GenDemo as Integer.
@@ -3655,11 +4886,23 @@ Index
 * <TestStack Main Method>, definition:   Stack TestStack Node.
                                                             (line   6)
 * <TestStack Main Method>, use:          Stack Class.       (line  42)
+* <Triangle Area Method Declaration >, definition: FindAreas SubClass Triangle Node.
+                                                            (line  42)
+* <Triangle Area Method Declaration >, use: FindAreas SubClass Triangle Node.
+                                                            (line   6)
+* <Triangle Constructor >, definition:   FindAreas SubClass Triangle Node.
+                                                            (line  30)
+* <Triangle Constructor >, use:          FindAreas SubClass Triangle Node.
+                                                            (line   6)
 * <Two Instance Variables Declarations>, definition: Class TwoGen.
                                                             (line  43)
 * <Two Instance Variables Declarations>, use: Class TwoGen. (line   6)
 * ==:                                    Enumeration Basics.
                                                             (line  38)
+* {AbstractAreas.java }, definition:     Improved Figure Class.
+                                                            (line  12)
+* {FindAreas.java }, definition:         Applying Method Overriding.
+                                                            (line  15)
 * {GenMethDemo.java}, definition:        Example of Generic Method.
                                                             (line  13)
 * {Makefile}, definition:                The Makefile.      (line   6)
@@ -3672,11 +4915,17 @@ Index
 * {TwoTypeParameters.java}, definition:  Two Types Example Code.
                                                             (line   6)
 * abstract class:                        Interfaces.        (line   6)
+* abstract class, inheritance:           Using Abstract Classes.
+                                                            (line   6)
+* abstract method:                       Using Abstract Classes.
+                                                            (line   6)
 * abstract methods, interface:           Defining Interfaces.
                                                             (line  22)
 * abstract methods, interface <1>:       Default Interface Methods.
                                                             (line   6)
 * abstract over types:                   Generics.          (line   6)
+* abstract type modifier:                Using Abstract Classes.
+                                                            (line   6)
 * access control table:                  Member Access.     (line  27)
 * access control, packages:              Member Access.     (line   6)
 * access control, single class:          Access Control.    (line   6)
@@ -3699,6 +4948,8 @@ Index
 * AWT:                                   AWT.               (line   6)
 * AWT Controls:                          AWT Controls.      (line   6)
 * AWT Layout Managers, Menus:            AWT Controls.      (line   5)
+* binding, late, early:                  final to Prevent Overriding.
+                                                            (line   6)
 * bounded types:                         Bounded Types.     (line   6)
 * bounded wildcards:                     Bounded Wildcards. (line   6)
 * bounded wildcards, lower bound:        Bounded Wildcards. (line  32)
@@ -3755,7 +5006,11 @@ Index
 * dynamic allocation, run time:          Declaring Objects. (line   6)
 * dynamic dispatch, interface method look-ups: Interface References.
                                                             (line   6)
+* dynamic method dispatch:               Dynamic Method Dispatch.
+                                                            (line   6)
 * dynamic method resolution:             Interfaces.        (line  19)
+* early binding:                         final to Prevent Overriding.
+                                                            (line   6)
 * encapsulation, access control:         Access Control.    (line   6)
 * enum valueOf():                        Enum Methods.      (line   6)
 * enum values():                         Enum Methods.      (line   6)
@@ -3791,6 +5046,7 @@ Index
 * equality, enum types:                  Enumeration Basics.
                                                             (line  38)
 * equals():                              String Class.      (line  33)
+* equals() <1>:                          Object Class.      (line  49)
 * erasure:                               Class GenDemo.     (line   6)
 * Event Handling:                        Event Handling.    (line   5)
 * example generic method:                Example of Generic Method.
@@ -3801,9 +5057,17 @@ Index
 * extending interfaces:                  Extending Interfaces.
                                                             (line   6)
 * extends clause:                        Bounded Types.     (line   6)
+* extends keyword:                       Inheritance Basics.
+                                                            (line   6)
 * extents, with interfaces:              Extending Interfaces.
                                                             (line   6)
 * final Keyword:                         final Keyword.     (line   6)
+* final to prevent inheritance:          final to Prevent Inheritance.
+                                                            (line   6)
+* final to prevent overriding:           final to Prevent Overriding.
+                                                            (line   6)
+* final with inheritance:                final with Inheritance.
+                                                            (line   6)
 * final, traditional enums:              Enumerations.      (line   6)
 * finding packages:                      Classpath.         (line   6)
 * fully qualified name:                  Importing.         (line  39)
@@ -3867,8 +5131,15 @@ Index
 * Graphics:                              AWT.               (line   6)
 * hiding, instance variables:            Instance Variable Hiding.
                                                             (line   6)
+* hierarchical classifications:          Inheritance.       (line   6)
 * hierarchical structure, packages:      Packages.          (line   6)
 * hierarchy of packages:                 Defining Packages. (line  41)
+* hierarchy, constructors executed:      Constructors Executed.
+                                                            (line   6)
+* hierarchy, files:                      Multilevel Hierarchy.
+                                                            (line   6)
+* hierarchy, multilevel, creating:       Multilevel Hierarchy.
+                                                            (line   6)
 * Images:                                Images.            (line   5)
 * implements clause:                     Implementing Interfaces.
                                                             (line   6)
@@ -3880,7 +5151,13 @@ Index
 * index interface, default methods:      Default Interface Methods.
                                                             (line   6)
 * Inheritance:                           Inheritance.       (line   6)
+* inheritance basics:                    Inheritance Basics.
+                                                            (line   6)
+* inheritance, member access:            Member Access and Inheritance.
+                                                            (line   6)
 * inheriting interfaces:                 Extending Interfaces.
+                                                            (line   6)
+* inline, inlining:                      final to Prevent Overriding.
                                                             (line   6)
 * inner classes:                         Nested and Inner Classes.
                                                             (line   6)
@@ -3960,10 +5237,14 @@ Index
 * JDK 9, package part of module:         Classpath.         (line   6)
 * JDK 9, private interface method:       Private Interface Methods.
                                                             (line   6)
+* keyword extends:                       Inheritance Basics.
+                                                            (line   6)
 * keyword final:                         final Keyword.     (line   6)
 * keyword interface:                     Interfaces.        (line   6)
 * keyword static:                        static Keyword.    (line   6)
 * keyword, enum:                         Enumeration Basics.
+                                                            (line   6)
+* late binding:                          final to Prevent Overriding.
                                                             (line   6)
 * length instance variable:              Arrays 2.          (line   6)
 * length():                              String Class.      (line  33)
@@ -3977,8 +5258,13 @@ Index
                                                             (line   6)
 * Makefile, The (appendix):              The Makefile.      (line   6)
 * member access:                         Member Access.     (line   6)
+* member access, inheritance:            Member Access and Inheritance.
+                                                            (line   6)
+* member hiding:                         super Referencing Superclass.
+                                                            (line   6)
 * member interfaces:                     Nested Interfaces. (line   6)
 * members:                               General Form.      (line  32)
+* method overriding:                     Method Overriding. (line   6)
 * method signatures compatible:          Interfaces.        (line  19)
 * method, static, interface:             Interface Static Methods.
                                                             (line   6)
@@ -3992,6 +5278,8 @@ Index
                                                             (line   6)
 * module path:                           Classpath.         (line   6)
 * modules, packages:                     Classpath.         (line   6)
+* multilevel hierarchy:                  Multilevel Hierarchy.
+                                                            (line   6)
 * name, method:                          Methods.           (line  15)
 * naming mechanism:                      Packages Intro.    (line   6)
 * nested classes:                        Nested and Inner Classes.
@@ -4001,6 +5289,7 @@ Index
 * new operator:                          Declaring Objects. (line   6)
 * NIO:                                   NIO.               (line   5)
 * Object:                                Class Gen<T>.      (line 107)
+* Object class:                          Object Class.      (line   6)
 * object references, interfaces:         Interface References.
                                                             (line   6)
 * Object type:                           What are Generics. (line   6)
@@ -4012,8 +5301,11 @@ Index
 * objects, dynamical allocation:         Returning Objects. (line   6)
 * objects, references to:                Returning Objects. (line   6)
 * objects, returning from methods:       Returning Objects. (line   6)
+* one interface, many methods polymorphism: Why Overridden Methods.
+                                                            (line   6)
 * _one interface, multiple methods_:     Overloading Methods.
                                                             (line   6)
+* overload versus override:              Method Overriding. (line   6)
 * overload, overloaded:                  Overloading Methods.
                                                             (line   6)
 * overloading constructors:              Overloading Constructors.
@@ -4022,6 +5314,7 @@ Index
                                                             (line   6)
 * overloading, automatic type conversion: Overloading Methods.
                                                             (line   6)
+* overriding, method:                    Method Overriding. (line   6)
 * package command:                       Defining Packages. (line   6)
 * package namespace:                     Defining Packages. (line   6)
 * package renaming:                      Defining Packages. (line  56)
@@ -4046,21 +5339,33 @@ Index
 * parameters, as objects:                Objects as Parameters.
                                                             (line   6)
 * partitioning mechanism:                Packages Intro.    (line   6)
+* performance enhancement, inlining:     final to Prevent Overriding.
+                                                            (line   6)
+* polymorphism, dynamic run-time:        Why Overridden Methods.
+                                                            (line   6)
 * polymorphism, one interface multiple methods: Interfaces. (line   6)
 * polymorphism, overloading of methods:  Overloading Methods.
+                                                            (line   6)
+* polymorphism, run-time:                Dynamic Method Dispatch.
                                                             (line   6)
 * preexisting code, default method, interface: Default Interface Methods.
                                                             (line  15)
 * Primitive Wrappers:                    Primitive Wrappers.
                                                             (line   6)
 * private access modifier:               Access Control.    (line  28)
+* private and inheritance:               Member Access and Inheritance.
+                                                            (line   6)
 * protected access modifier:             Access Control.    (line  28)
 * public access modifier:                Access Control.    (line  28)
 * recursion, recursive:                  Recursion.         (line   6)
+* reference variable, superclass:        Superclass Referencing Subclass.
+                                                            (line   6)
 * Regular Expressions:                   Regular Expressions.
                                                             (line   5)
 * run time, dynamic allocation:          Declaring Objects. (line   6)
 * run-time:                              Interfaces.        (line  19)
+* run-time polymorphism, abstract class: Using Abstract Classes.
+                                                            (line  52)
 * run-time system, finding packages:     Classpath.         (line   6)
 * self-typed constants:                  Enumeration Basics.
                                                             (line  15)
@@ -4089,7 +5394,14 @@ Index
 * String operator +:                     String Class.      (line  20)
 * Strings:                               Strings.           (line   6)
 * subclass:                              Inheritance.       (line   6)
+* super calling superclass constructors: super Calling Superclass Constructor.
+                                                            (line   6)
+* super referencing superclass:          super Referencing Superclass.
+                                                            (line   6)
+* super, using:                          Using super.       (line   6)
 * superclass:                            Inheritance.       (line   6)
+* superclass referencing subclass:       Superclass Referencing Subclass.
+                                                            (line   6)
 * Swing:                                 Swing.             (line   5)
 * switch statement, enum types:          Enumeration Basics.
                                                             (line  38)
@@ -4097,6 +5409,7 @@ Index
                                                             (line   6)
 * Text:                                  AWT.               (line   5)
 * this Keyword:                          this Keyword.      (line   6)
+* toString():                            Object Class.      (line  49)
 * type abstraction, generics:            Generics.          (line   6)
 * type argument, passed to type parameter: GenDemo as Integer.
                                                             (line   6)
@@ -4141,186 +5454,249 @@ Function Index
 * Menu:
 
 * == on Enum:                            Inherit Enum.       (line 37)
+* boolean equals(Object object):         Object Class.       (line 21)
+* Class<?> getClass():                   Object Class.       (line 26)
 * compareTo on Enum:                     Inherit Enum.       (line 21)
 * equals on Enum:                        Inherit Enum.       (line 34)
+* int hashCode():                        Object Class.       (line 28)
+* Object clone():                        Object Class.       (line 19)
 * ordinal on Enum:                       Inherit Enum.       (line 13)
+* String toString():                     Object Class.       (line 34)
 * valueOf on Enum:                       Enum Methods.       (line 14)
 * values on Enum:                        Enum Methods.       (line  8)
+* void finalize():                       Object Class.       (line 23)
+* void notify():                         Object Class.       (line 30)
+* void notifyAll():                      Object Class.       (line 32)
+* void wait():                           Object Class.       (line 36)
+* void wait(long millisconds, int nanoseconds): Object Class.
+                                                             (line 38)
+* void wait(long milliseconds):          Object Class.       (line 37)
 
 
 
 Tag Table:
 Node: Top75
-Node: Java SE 9 Introduction3445
-Node: Classes3587
-Node: Class Fundamentals4031
-Node: General Form4447
-Ref: ClassDeclaration4787
-Node: Declaring Objects6302
-Node: Methods7696
-Ref: MethodDeclaration7895
-Node: Constructors8738
-Node: this Keyword9502
-Node: Instance Variable Hiding10055
-Node: Stack Class10859
-Ref: Stack-java11683
-Ref: TestStack-java12238
-Node: Stack Instance Variables12539
-Ref: Stack-Instance-Variables12706
-Node: Stack Constructor Node12872
-Ref: Stack-Constructor13083
-Node: Stack Instance Methods Node13462
-Ref: Stack-Instance-Methods13679
-Node: Stack Push and Pop Node14341
-Ref: Stack-Push14512
-Ref: Stack-Pop14820
-Node: Stack TestStack Node15149
-Ref: TestStack-Main-Method15321
-Node: Methods and Classes16049
-Node: Overloading Methods16755
-Node: Overloading Constructors19065
-Node: Objects as Parameters19253
-Node: Argument Passing19929
-Node: Returning Objects21271
-Node: Recursion21898
-Node: Access Control23410
-Node: Improved Stack Class26355
-Ref: StackImproved-java26589
-Ref: Stack-Private-Instance-Variables27227
-Ref: Improved Stack Class-Footnote-128251
-Node: static Keyword28370
-Node: final Keyword30809
-Node: Arrays 231712
-Node: Nested and Inner Classes32409
-Node: String Class34534
-Node: Command-Line Arguments35791
-Node: Varargs36615
-Node: Inheritance38431
-Node: Packages39165
-Node: Packages Intro39623
-Node: Defining Packages40167
-Ref: PackageStatement40769
-Ref: PackageStatementMulti41739
-Node: Classpath42162
-Node: Member Access43702
-Ref: PackageAccess44677
-Node: Importing45278
-Ref: Import45902
-Node: Interfaces47177
-Node: Defining Interfaces49285
-Ref: InterfaceSimple49540
-Node: Implementing Interfaces50870
-Ref: ClassImplementsInterface51364
-Node: Interface References51849
-Node: Partial Implementations52840
-Node: Nested Interfaces53274
-Node: Applying Interfaces54048
-Node: Variables in Interfaces54248
-Node: Extending Interfaces54978
-Node: Default Interface Methods55457
-Node: Interface Static Methods57561
-Ref: InterfaceStaticMethod58293
-Node: Private Interface Methods58575
-Node: Generics59331
-Node: Motivation61171
-Node: What are Generics63147
-Node: Simple Generics Example64214
-Ref: SimpleGenerics-java64529
-Node: Class Gen<T>64924
-Ref: Class-Gen65919
-Ref: Instance-Variable-ob-of-Type-T67031
-Ref: generics-constructor67231
-Ref: Constructor-taking-parameter-of-Type-T67577
-Ref: Method-returning-object-of-type-T68113
-Ref: Method-showing-type-of-T68738
-Node: Class GenDemo68977
-Ref: Class-GenDemo69756
-Node: GenDemo as Integer70513
-Ref: Create-a-Gen-object-for-Integers70725
-Ref: Integer-Type-Parameter71855
-Ref: Reference-to-Integer-Instance72702
-Ref: Show-Type73245
-Ref: Get-Value73737
-Node: GenDemo as String73978
-Ref: Create-a-Gen-object-for-Strings74188
-Node: Notes about Generics74643
-Node: Reference Types74899
-Node: Type Arguments75425
-Node: Subtyping75988
-Node: Type Safety77122
-Node: Two Type Parameters77481
-Node: Two Types Example Code78029
-Ref: TwoTypeParameters-java78203
-Node: Class TwoGen78607
-Ref: Class-TwoGen78744
-Ref: Class-Declaration79774
-Ref: Two-Instance-Variables-Declarations79980
-Ref: Constructor-of-Two-Parameters80163
-Ref: Instance-Methods-Show-and-Get80419
-Node: Class SimpGen80810
-Ref: Class-SimpGen81073
-Node: Generic Class General Form81642
-Ref: GenericClass81949
-Node: Bounded Types82273
-Node: Wildcard Arguments83671
-Node: Wildcard Motivation83916
-Node: Wildcard Syntax86463
-Node: Bounded Wildcards87381
-Ref: UpperBoundedWildcard88202
-Ref: LowerBoundedWildcard88582
-Node: Generic Methods88747
-Ref: GenericMethod89147
-Node: Example of Generic Method89315
-Ref: GenMethDemo-java89816
-Node: Method isIn90270
-Ref: Static-Method-isIn90490
-Node: GenMethDemo Main91861
-Ref: GenMethDemo-Main92011
-Node: Generic Constructors92906
-Node: Enumerations93273
-Node: Enumeration Basics94147
-Node: Enum Methods95742
-Node: Enumerations as Class Types96969
-Node: Inherit Enum98843
-Node: Strings100679
-Node: java Lang100803
-Node: Primitive Wrappers102448
-Node: Number103237
-Node: Double and Float103353
-Node: isInfiinite() and isNaN()103523
-Node: Byte Short Integer Long103726
-Node: Numbers to from String103939
-Node: java util Collections104140
-Node: java util Utility Classes104359
-Node: java io Input Output104569
-Node: NIO104735
-Node: Networking104842
-Node: Event Handling104957
-Node: AWT105080
-Node: AWT Controls105267
-Node: Images105448
-Node: Concurrency105557
-Node: Streams105699
-Node: Regular Expressions105832
-Node: Swing106007
-Node: The Makefile106147
-Ref: Makefile106292
-Node: Makefile Constants106923
-Ref: Makefile-CONSTANTS107064
-Node: Makefile Defaults107200
-Ref: Makefile-DEFAULTS107383
-Node: Makefile Tangle Weave107533
-Ref: Makefile-TANGLE-WEAVE107722
-Node: Makefile Clean108114
-Ref: Makefile-CLEAN108263
-Node: Code Chunk Summaries108450
-Node: File Definitions108940
-Node: Code Chunk Definitions109632
-Node: Code Chunk References112487
-Node: List of Tables117204
-Node: List of General Forms117421
-Node: Bibliography118424
-Node: Concept Index118556
-Node: Function Index158377
+Node: Java SE 9 Introduction4386
+Node: Classes4528
+Node: Class Fundamentals4972
+Node: General Form5388
+Ref: ClassDeclaration5728
+Node: Declaring Objects7243
+Node: Methods8637
+Ref: MethodDeclaration8836
+Node: Constructors9679
+Node: this Keyword10443
+Node: Instance Variable Hiding10996
+Node: Stack Class11800
+Ref: Stack-java12624
+Ref: TestStack-java13179
+Node: Stack Instance Variables13480
+Ref: Stack-Instance-Variables13647
+Node: Stack Constructor Node13813
+Ref: Stack-Constructor14024
+Node: Stack Instance Methods Node14403
+Ref: Stack-Instance-Methods14620
+Node: Stack Push and Pop Node15282
+Ref: Stack-Push15453
+Ref: Stack-Pop15761
+Node: Stack TestStack Node16090
+Ref: TestStack-Main-Method16262
+Node: Methods and Classes16990
+Node: Overloading Methods17696
+Node: Overloading Constructors20006
+Node: Objects as Parameters20194
+Node: Argument Passing20870
+Node: Returning Objects22212
+Node: Recursion22839
+Node: Access Control24351
+Node: Improved Stack Class27296
+Ref: StackImproved-java27530
+Ref: Stack-Private-Instance-Variables28168
+Ref: Improved Stack Class-Footnote-129192
+Node: static Keyword29311
+Node: final Keyword31750
+Node: Arrays 232653
+Node: Nested and Inner Classes33350
+Node: String Class35475
+Node: Command-Line Arguments36732
+Node: Varargs37556
+Node: Inheritance39372
+Node: Inheritance Basics40327
+Ref: Subclass40923
+Node: Member Access and Inheritance41253
+Node: Superclass Referencing Subclass42029
+Node: Using super42809
+Node: super Calling Superclass Constructor43337
+Ref: SuperCallingConstructor43666
+Node: super Referencing Superclass43973
+Ref: SuperReferencingSuperclass44309
+Node: Multilevel Hierarchy44735
+Node: Constructors Executed45490
+Node: Method Overriding45800
+Node: Dynamic Method Dispatch46686
+Node: Why Overridden Methods48133
+Node: Applying Method Overriding49683
+Ref: FindAreas-java-50315
+Node: FindAreas SuperClass Figure Node51686
+Ref: FindAreas-SuperClass-Figure-51913
+Ref: Figure-Instance-Variable-Declarations-52700
+Ref: Figure-Constructor-53171
+Ref: Figure-Area-Method-Declaration-53986
+Node: FindAreas SubClass Rectangle Node54253
+Ref: FindAreas-SubClass-Rectangle-54523
+Ref: Rectangle-Constructor-55357
+Ref: Rectangle-Area-Method-Declaration-55646
+Node: FindAreas SubClass Triangle Node55960
+Ref: FindAreas-SubClass-Triangle-56221
+Ref: Triangle-Constructor-57045
+Ref: Triangle-Area-Method-Declaration-57328
+Node: FindAreas Main Class Node57649
+Ref: FindAreas-Main-Class-57854
+Ref: FindAreas-Main-Method-Declaration-58244
+Ref: Create-Basic-Figure-Objects-59106
+Ref: Create-Basic-Figure-Reference-Variable-59735
+Ref: Call-Overridden-Methods-One-By-One-60248
+Node: Using Abstract Classes60638
+Ref: AbstractMethodDeclaration62148
+Node: Improved Figure Class63371
+Ref: AbstractAreas-java-63818
+Node: AbstractAreas Abstract Class Figure Node64598
+Ref: AbstractAreas-Abstract-Class-Figure-65019
+Ref: AbstractAreas-Abstract-Area-Method-Declaration-65895
+Node: AbstractAreas Main Class66159
+Ref: AbstractAreas-Main-Class-66348
+Ref: AbstractAreas-Main-Method-Declaration-66774
+Ref: Create-Basic-Figure-Objects-Except-Figure-68115
+Ref: Call-Overridden-Methods-One-By-One-Except-Figure-68678
+Node: final with Inheritance69099
+Node: final to Prevent Overriding69502
+Node: final to Prevent Inheritance70415
+Node: Object Class70835
+Node: Packages72972
+Node: Packages Intro73430
+Node: Defining Packages73974
+Ref: PackageStatement74576
+Ref: PackageStatementMulti75546
+Node: Classpath75969
+Node: Member Access77509
+Ref: PackageAccess78484
+Node: Importing79085
+Ref: Import79709
+Node: Interfaces80984
+Node: Defining Interfaces83092
+Ref: InterfaceSimple83347
+Node: Implementing Interfaces84677
+Ref: ClassImplementsInterface85171
+Node: Interface References85656
+Node: Partial Implementations86647
+Node: Nested Interfaces87081
+Node: Applying Interfaces87855
+Node: Variables in Interfaces88055
+Node: Extending Interfaces88785
+Node: Default Interface Methods89264
+Node: Interface Static Methods91368
+Ref: InterfaceStaticMethod92100
+Node: Private Interface Methods92382
+Node: Generics93138
+Node: Motivation94978
+Node: What are Generics96954
+Node: Simple Generics Example98021
+Ref: SimpleGenerics-java98336
+Node: Class Gen<T>98731
+Ref: Class-Gen99726
+Ref: Instance-Variable-ob-of-Type-T100838
+Ref: generics-constructor101038
+Ref: Constructor-taking-parameter-of-Type-T101384
+Ref: Method-returning-object-of-type-T101920
+Ref: Method-showing-type-of-T102545
+Node: Class GenDemo102784
+Ref: Class-GenDemo103563
+Node: GenDemo as Integer104320
+Ref: Create-a-Gen-object-for-Integers104532
+Ref: Integer-Type-Parameter105662
+Ref: Reference-to-Integer-Instance106509
+Ref: Show-Type107052
+Ref: Get-Value107544
+Node: GenDemo as String107785
+Ref: Create-a-Gen-object-for-Strings107995
+Node: Notes about Generics108450
+Node: Reference Types108706
+Node: Type Arguments109232
+Node: Subtyping109795
+Node: Type Safety110929
+Node: Two Type Parameters111288
+Node: Two Types Example Code111836
+Ref: TwoTypeParameters-java112010
+Node: Class TwoGen112414
+Ref: Class-TwoGen112551
+Ref: Class-Declaration113581
+Ref: Two-Instance-Variables-Declarations113787
+Ref: Constructor-of-Two-Parameters113970
+Ref: Instance-Methods-Show-and-Get114226
+Node: Class SimpGen114617
+Ref: Class-SimpGen114880
+Node: Generic Class General Form115449
+Ref: GenericClass115756
+Node: Bounded Types116080
+Node: Wildcard Arguments117478
+Node: Wildcard Motivation117723
+Node: Wildcard Syntax120270
+Node: Bounded Wildcards121188
+Ref: UpperBoundedWildcard122009
+Ref: LowerBoundedWildcard122389
+Node: Generic Methods122554
+Ref: GenericMethod122954
+Node: Example of Generic Method123122
+Ref: GenMethDemo-java123623
+Node: Method isIn124077
+Ref: Static-Method-isIn124297
+Node: GenMethDemo Main125668
+Ref: GenMethDemo-Main125818
+Node: Generic Constructors126713
+Node: Enumerations127080
+Node: Enumeration Basics127954
+Node: Enum Methods129549
+Node: Enumerations as Class Types130776
+Node: Inherit Enum132650
+Node: Strings134486
+Node: java Lang134610
+Node: Primitive Wrappers136255
+Node: Number137044
+Node: Double and Float137160
+Node: isInfiinite() and isNaN()137330
+Node: Byte Short Integer Long137533
+Node: Numbers to from String137746
+Node: java util Collections137947
+Node: java util Utility Classes138166
+Node: java io Input Output138376
+Node: NIO138542
+Node: Networking138649
+Node: Event Handling138764
+Node: AWT138887
+Node: AWT Controls139074
+Node: Images139255
+Node: Concurrency139364
+Node: Streams139506
+Node: Regular Expressions139639
+Node: Swing139814
+Node: The Makefile139954
+Ref: Makefile140099
+Node: Makefile Constants140730
+Ref: Makefile-CONSTANTS140871
+Node: Makefile Defaults141007
+Ref: Makefile-DEFAULTS141190
+Node: Makefile Tangle Weave141340
+Ref: Makefile-TANGLE-WEAVE141529
+Node: Makefile Clean141921
+Ref: Makefile-CLEAN142070
+Node: Code Chunk Summaries142257
+Node: File Definitions142747
+Node: Code Chunk Definitions143597
+Node: Code Chunk References148764
+Node: List of Tables158158
+Node: List of General Forms158375
+Node: Bibliography159771
+Node: Concept Index159903
+Node: Function Index211911
 
 End Tag Table

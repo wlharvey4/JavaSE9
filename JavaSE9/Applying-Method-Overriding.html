@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Applying Method Overriding (About Java SE 9)</title>
+
+<meta name="description" content="Applying Method Overriding (About Java SE 9)">
+<meta name="keywords" content="Applying Method Overriding (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Dynamic-Method-Dispatch.html#Dynamic-Method-Dispatch" rel="up" title="Dynamic Method Dispatch">
+<link href="FindAreas-SuperClass-Figure-Node.html#FindAreas-SuperClass-Figure-Node" rel="next" title="FindAreas SuperClass Figure Node">
+<link href="Why-Overridden-Methods.html#Why-Overridden-Methods" rel="prev" title="Why Overridden Methods">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Applying-Method-Overriding"></a>
+<div class="header">
+<p>
+Previous: <a href="Why-Overridden-Methods.html#Why-Overridden-Methods" accesskey="p" rel="prev">Why Overridden Methods</a>, Up: <a href="Dynamic-Method-Dispatch.html#Dynamic-Method-Dispatch" accesskey="u" rel="up">Dynamic Method Dispatch</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Applying"></a>
+<h4 class="subsection">4.6.2 Applying</h4>
+
+<p>Let&rsquo;s look at a practical example that uses method overriding.  The following
+program creates a superclass called <code>Figure</code> that stores the dimensions
+of a two-dimensional object.  It also defines a method called <code>area()</code>
+that computes the area of an object.  The program derives two subclasses from
+<code>Figure</code>.  The first is <code>Rectangle</code> and the second is
+<code>Triangle</code>.  Each of these subclasses overrides <code>area()</code> so that it
+returns the area of a rectangle and a triangle respectively.
+</p>
+<a name="FindAreas_002djava_002d"></a><a name="index-_003cFindAreas-SuperClass-Figure-_003e_002c-use"></a>
+<a name="index-_003cFindAreas-SubClass-Rectangle-_003e_002c-use"></a>
+<a name="index-_003cFindAreas-SubClass-Triangle-_003e_002c-use"></a>
+<a name="index-_003cFindAreas-Main-Class-_003e_002c-use"></a>
+<a name="index-_007bFindAreas_002ejava-_007d_002c-definition"></a>
+<p><span class="roman">{<samp>FindAreas.java </samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example"><span class="roman">&lt;<i>FindAreas SuperClass Figure </i>&gt;</span>
+<span class="roman">&lt;<i>FindAreas SubClass Rectangle </i>&gt;</span>
+<span class="roman">&lt;<i>FindAreas SubClass Triangle </i>&gt;</span>
+<span class="roman">&lt;<i>FindAreas Main Class </i>&gt;</span>
+
+</pre></div>
+
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>FindAreas Main Class </i>&gt;</span></td><td width="65%">See <a href="FindAreas-Main-Class-Node.html#FindAreas_002dMain_002dClass_002d">FindAreas-Main-Class-</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>FindAreas SubClass Rectangle </i>&gt;</span></td><td width="65%">See <a href="FindAreas-SubClass-Rectangle-Node.html#FindAreas_002dSubClass_002dRectangle_002d">FindAreas-SubClass-Rectangle-</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>FindAreas SubClass Triangle </i>&gt;</span></td><td width="65%">See <a href="FindAreas-SubClass-Triangle-Node.html#FindAreas_002dSubClass_002dTriangle_002d">FindAreas-SubClass-Triangle-</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>FindAreas SuperClass Figure </i>&gt;</span></td><td width="65%">See <a href="FindAreas-SuperClass-Figure-Node.html#FindAreas_002dSuperClass_002dFigure_002d">FindAreas-SuperClass-Figure-</a>.</td></tr>
+</table>
+
+<a name="Output"></a>
+<h4 class="subsubheading">Output</h4>
+
+<p>The output from the program should be:
+</p>
+<div class="example">
+<pre class="example">Inside Area for Rectangle.
+Area is 45
+Inside Area for Triangle.
+Area is 40
+Area for Figure is undefined.
+Area is 0
+</pre></div>
+
+<p>Through the dual mechanisms of inheritance and run-time polymorphism, it is
+possible to define one consistent interface that is used by several
+different, yet related, types of objects.  In this case, if an object is
+derived from <code>Figure</code>, then its area can be obtained by calling
+<code>area()</code>. The interface to this operation is the same no matter what
+type is being used.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="FindAreas-SuperClass-Figure-Node.html#FindAreas-SuperClass-Figure-Node" accesskey="1">FindAreas SuperClass Figure Node</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FindAreas-SubClass-Rectangle-Node.html#FindAreas-SubClass-Rectangle-Node" accesskey="2">FindAreas SubClass Rectangle Node</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FindAreas-SubClass-Triangle-Node.html#FindAreas-SubClass-Triangle-Node" accesskey="3">FindAreas SubClass Triangle Node</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FindAreas-Main-Class-Node.html#FindAreas-Main-Class-Node" accesskey="4">FindAreas Main Class Node</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Why-Overridden-Methods.html#Why-Overridden-Methods" accesskey="p" rel="prev">Why Overridden Methods</a>, Up: <a href="Dynamic-Method-Dispatch.html#Dynamic-Method-Dispatch" accesskey="u" rel="up">Dynamic Method Dispatch</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

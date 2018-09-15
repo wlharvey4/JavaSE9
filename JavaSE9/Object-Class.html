@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Object Class (About Java SE 9)</title>
+
+<meta name="description" content="Object Class (About Java SE 9)">
+<meta name="keywords" content="Object Class (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Inheritance.html#Inheritance" rel="up" title="Inheritance">
+<link href="Packages.html#Packages" rel="next" title="Packages">
+<link href="final-to-Prevent-Inheritance.html#final-to-Prevent-Inheritance" rel="prev" title="final to Prevent Inheritance">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Object-Class"></a>
+<div class="header">
+<p>
+Previous: <a href="final-with-Inheritance.html#final-with-Inheritance" accesskey="p" rel="prev">final with Inheritance</a>, Up: <a href="Inheritance.html#Inheritance" accesskey="u" rel="up">Inheritance</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="The-Object-Class"></a>
+<h3 class="section">4.9 The Object Class</h3>
+<a name="index-Object-class"></a>
+
+<p>There is one special class, <code>Object</code>, defined by Java.  All other
+classes are subclasses of <code>Object</code>.  That is, <code>Object</code> is a
+superclass of all other classes.  This means that a reference variable of
+type <code>Object</code> can refer to an object of any other class.  Also, since
+arrays are implemented as classes, a variable of type <code>Object</code> can also
+refer to any array.
+</p>
+<a name="Object-Methods"></a>
+<h3 class="heading"><code>Object</code> Methods</h3>
+
+<p><code>Object</code> defines the following methods; this means they are available in
+every object.
+</p>
+<dl compact="compact">
+<dt><code>Object clone()</code>
+<a name="index-Object-clone_0028_0029"></a>
+</dt>
+<dd><p>Creates a new object that is the same as the object being cloned.
+</p></dd>
+<dt><code>boolean equals(Object <i>object</i>)</code>
+<a name="index-boolean-equals_0028Object-object_0029"></a>
+</dt>
+<dd><p>Determines whether one object is equal to another.
+</p></dd>
+<dt><code>void finalize()</code>
+<a name="index-void-finalize_0028_0029"></a>
+</dt>
+<dd><p>Called before an unused object is recycled.  (Deprecated by JDK 9).
+</p></dd>
+<dt><code>Class&lt;?&gt; getClass()</code>
+<a name="index-Class_003c_003f_003e-getClass_0028_0029"></a>
+</dt>
+<dd><p>Obtains the class of an object at run time.
+</p></dd>
+<dt><code>int hashCode()</code>
+<a name="index-int-hashCode_0028_0029"></a>
+</dt>
+<dd><p>Returns the hash code associated with the invoking object.
+</p></dd>
+<dt><code>void notify()</code>
+<a name="index-void-notify_0028_0029"></a>
+</dt>
+<dd><p>Resumes execution of a thread waiting on the invoking object.
+</p></dd>
+<dt><code>void notifyAll()</code>
+<a name="index-void-notifyAll_0028_0029"></a>
+</dt>
+<dd><p>Resumes execution of all threads waiting on the invoking object.
+</p></dd>
+<dt><code>String toString()</code>
+<a name="index-String-toString_0028_0029"></a>
+</dt>
+<dd><p>Returns a string that describes the object.
+</p></dd>
+<dt><code>void wait()</code>
+<a name="index-void-wait_0028_0029"></a>
+</dt>
+<dt><code>void wait(long <i>milliseconds</i>)</code>
+<a name="index-void-wait_0028long-milliseconds_0029"></a>
+</dt>
+<dt><code>void wait(long <i>millisconds</i>, int <i>nanoseconds</i>)</code>
+<a name="index-void-wait_0028long-millisconds_002c-int-nanoseconds_0029"></a>
+</dt>
+<dd><p>Waits on another thread of execution
+</p></dd>
+</dl>
+
+<p>The methods
+</p><ul>
+<li> <code>getClass()</code>
+</li><li> <code>notify()</code>
+</li><li> <code>notifyAll()</code>
+</li><li> <code>wait()</code>
+</li></ul>
+
+<p>are declared as <code>final</code>.  You may override the others.
+</p>
+<p>However, notice two methods now:
+<a name="index-equals_0028_0029-1"></a>
+<a name="index-toString_0028_0029"></a>
+</p>
+<dl compact="compact">
+<dt><code>equals()</code></dt>
+<dd><p>compares two objects; returns <code>true</code> if the objects are equal, and
+<code>false</code> if not; the precise definition of equality can vary, depending
+on the type of objects being compared.
+</p></dd>
+<dt><code>toString()</code></dt>
+<dd><p>returns a string that contains a description of the object on which it is
+called; this method is automatically called when an object is output using
+<code>println()</code>; many classes override this method; doing so allows them to
+tailor a description specifically for the types of objects that they create.
+</p></dd>
+</dl>
+
+
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="final-with-Inheritance.html#final-with-Inheritance" accesskey="p" rel="prev">final with Inheritance</a>, Up: <a href="Inheritance.html#Inheritance" accesskey="u" rel="up">Inheritance</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Using Abstract Classes (About Java SE 9)</title>
+
+<meta name="description" content="Using Abstract Classes (About Java SE 9)">
+<meta name="keywords" content="Using Abstract Classes (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Inheritance.html#Inheritance" rel="up" title="Inheritance">
+<link href="Improved-Figure-Class.html#Improved-Figure-Class" rel="next" title="Improved Figure Class">
+<link href="FindAreas-Main-Class-Node.html#FindAreas-Main-Class-Node" rel="prev" title="FindAreas Main Class Node">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Using-Abstract-Classes"></a>
+<div class="header">
+<p>
+Next: <a href="final-with-Inheritance.html#final-with-Inheritance" accesskey="n" rel="next">final with Inheritance</a>, Previous: <a href="Dynamic-Method-Dispatch.html#Dynamic-Method-Dispatch" accesskey="p" rel="prev">Dynamic Method Dispatch</a>, Up: <a href="Inheritance.html#Inheritance" accesskey="u" rel="up">Inheritance</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Using-Abstract-Classes-1"></a>
+<h3 class="section">4.7 Using Abstract Classes</h3>
+<a name="index-abstract-class_002c-inheritance"></a>
+<a name="index-abstract-method"></a>
+<a name="index-abstract-type-modifier"></a>
+
+<p>There are situations in which you will want to define a superclass that
+declares the structure of a given abstraction without providing a complete
+implementation of every method.  That is, sometimes you will wnat to create a
+superclass that only defines a generalized form that will be shared by all of
+its subclasses, leaving it to each subclass to fill in the details.  Such a
+class determines the nature of the methods that the subclasses must
+implement.  One way this situation can occur is when a superclass is unable
+to create a meaningful implementation for a method.  This is the case with
+<code>Figure</code> in the preceding example.  The definition of <code>area()</code> is
+simply a placeholder.  It will not compute and display the area of any type
+of object.
+</p>
+<p>It is not uncommon for a method to have no meaningful definition in the
+context of its superclass.  Java&rsquo;s solution to this problem is the
+<em>abstract method</em>.
+</p>
+<p>You can require that certain methods be overridden by subclasses by
+specifying the <code>abstract</code> type modifier.  These methods are sometimes
+referred to as <em>subclasser responsibility</em> because they have no
+implementation specified in the superclass.  Thus, a subclass must override
+them &mdash; it cannot simply use the version defined in the superclass.
+</p>
+<p>To declare an abstract method, use the general form:
+</p>
+<div class="float"><a name="AbstractMethodDeclaration"></a>
+<div class="display">
+<pre class="display">abstract <i>type</i> <i>name</i> (<i>parameter-list</i>);
+</pre></div>
+
+<div class="float-caption"><p><strong>GeneralForm 4.4: </strong>Abstract Method Declaration&mdash;General Form</p></div></div>
+<p>No method body is present.
+</p>
+<p>Any class that contains one or more abstract methods must also be declared
+abstract.  To declare a class abstract, simply use the <code>abstract</code>
+keyword in front of the <code>class</code> keyword at the beginning of the class
+declaration.  There can be no objects of an abstract class.  That is, an
+abstract class cannot be directlyi instantiated with the <code>new</code>
+operator.  You cannot declare abstract constructors or abstract static
+methods.  Any subclass of an abstract class must either implement all of the
+abstract methods in the superclass, or be declared <code>abstract</code> itself.
+Abstract classes can include fully implemented methods.
+</p>
+<a name="Abstract-Classes-Can-Be-Reference-Variables"></a>
+<h3 class="heading">Abstract Classes Can Be Reference Variables</h3>
+<a name="index-run_002dtime-polymorphism_002c-abstract-class"></a>
+
+<p>Although abstract classes cannot be used to instantiate objects, they can be
+used to create object references, because Java&rsquo;s approach to run-time
+polymorphism is implemented thruogh the use of superclass references.  Thus,
+it must be possible to create a reference to an asbtract class so that it can
+be used to point to a subclass object.  
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Improved-Figure-Class.html#Improved-Figure-Class" accesskey="1">Improved Figure Class</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="final-with-Inheritance.html#final-with-Inheritance" accesskey="n" rel="next">final with Inheritance</a>, Previous: <a href="Dynamic-Method-Dispatch.html#Dynamic-Method-Dispatch" accesskey="p" rel="prev">Dynamic Method Dispatch</a>, Up: <a href="Inheritance.html#Inheritance" accesskey="u" rel="up">Inheritance</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
