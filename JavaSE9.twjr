@@ -2908,14 +2908,210 @@ other part of your program and without reference to a specific @file{System}
 object.  While these are all byte streams, they can be wrapped within
 character-based streams, if desired.
 
+
 @c -----------------------------------------------------------------------------
 
 @node Reading Console Input
 @section Reading Console Input
 @cindex Reading Console Input
 @cindex console input, reading
+@cindex internationalization, character streams
+@cindex character-based stream
+@cindex stream, character-based
+
+For commercial applications, the preferred method of reading console input is
+to use a character-oriented stream.  This makes your program easier to
+internationalize and maintain.
+
+@subheading @code{System.in} Wrapped in @file{BufferedReader}
+@cindex @code{System.in}
+@cindex @file{BufferedReader}
+@cindex @file{Reader} abstract class
+@cindex @file{InputStreamReader} concrete subclass
+@cindex @file{InputStream}
+
+Console input is accomplished by reading from @code{System.in}  To obtain a
+character-based stream that is attached to the console, wrap @code{System.in}
+in a @file{BufferedReader} object.  @file{BufferedReader} supports a buffered
+input stream.  A commonly-used constructor is:
+
+@display
+BufferedReader(Reader @ii{inputReader})
+@end display
 
 
+@noindent Here, @ii{inputReader} is the stream that is linked to the instance
+of @file{BufferedReader} that is being created.  @file{Reader} is the
+abstract class.  One of its concrete subclasses is @file{InputStreamReader},
+which converts bytes to characters.  To obtain a @file{InputStreamReader}
+object that is linked to @code{System.in}, use the following constructor:
+
+@display
+InputStreamReader(InputStream @ii{inputStream})
+@end display
+
+Because @code{System.in} refers to an object of type @file{InputStream}, it
+can be used for @ii{inputStream}.  Putting it all together, the following
+line of code creates a @file{BufferedReader} that is connected to the
+keyboard:
+
+@example
+BufferedReader br = new BufferedReader(
+  new InputStreamReader(System.in));
+@end example
+
+@noindent After this statement executes, @code{br} is a character-based
+  stream that is linked to the console through @code{System.in}.  
+
+
+@c .....................................
+
+@node Reading Characters
+@subsection Reading Characters
+@cindex characters, reading
+@cindex reading characters
+@cindex @code{read()}, from @file{BufferedReader}
+
+To read a character from a @file{BufferedReader}, use @code{read()}.  The
+version of @code{read()} that we will be using is
+
+@display
+int read() throws IOException
+@end display
+
+@noindent Each time that @code{read()} is called, it reads a character from
+the input stream and returns it as an integer value. @footnote{Note that
+@code{System.in} is line buffered by default; this means that no input is
+actually passed to the program until the user presses @key{enter}.  This does
+not make @code{file} particularly valuable for interactive console input.}
+It returns -1 when an attempt is made to read at the end of the stream.  It
+can throw an @code{IOException}.
+
+@subsubheading Program Demonstrating Reading Characters from Console
+@cindex @file{BRRead.java}
+
+The following program demonstrates @code{read()} by reading characters from
+the console until the user types a ``q''.  Any I/O exceptions that might be
+generated are simply thrown out of @code{main()}.  In more sophisticated
+applications, you can handle the exceptions explicitly.
+
+@(BRRead.java@)=
+@<Import java.io@>
+class BRRead {
+  public static void main(String[] args[]) throws IOException {
+    @<BRRead BufferedReader Constructor@>
+    @<BRRead Enter Characters@>
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node Import java.io
+@subsubsection Import @file{java.io}
+@cindex import @file{java.io}
+
+@<Import java.io@>=
+import java.io.*;
+
+@
+
+@c _____________________________________
+
+@node BRRead BufferedReader Constructor Node
+@subsubsection BRRead BufferedReader Constructor Section
+@cindex BRRead BufferedReader Constructor
+
+@<BRRead BufferedReader Constructor@>=
+BufferedReader br = new BufferedReader(
+  new InputStreamReader(System.in));
+  
+@
+
+@c _____________________________________
+
+@node BRRead Enter Characters Node
+@subsubsection BRRead Enter Characters Section
+@cindex BRRead Enter Characters
+
+@<BRRead Enter Characters@>=
+char c;
+do {
+  c = (char) br.read();
+  System.out.println(c);
+} while (c != 'q');
+
+@
+
+
+@c .....................................
+
+@node Reading Strings
+@subsection Reading Strings
+@cindex strings, reading
+@cindex reading strings
+
+To read a string frmo the keyboard, use the version of @code{readLine()} that
+is a member of the @file{BufferedReader} class.  Its general form is:
+
+@display
+String readLine() throws IOException
+@end display
+
+@noindent It returns a @code{String} object.
+
+@subsubheading Program Demonstrating Reading a String from Console
+@cindex @file{BRReadLines.java}
+
+The following program demonstrates @file{BufferedReader} and the
+@code{readLine()} method; the program reas and displays lines of text until
+the word ``stop'' is entered.
+
+@(BRReadLines.java@)=
+@<Import java.io@>
+
+class BRReadLines {
+  public static void main(String[] args) throws IOException {
+    @<BRReadLines BufferedReader Constructor@>
+    @<BRReadLines Enter Lines@>
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node BRReadLines BufferedReader Constructor
+@subsubsection BRReadLines BufferedReader Constructor
+@cindex BRReadLines BufferedReader Constructor
+
+@<BRReadLines BufferedReader Constructor@>=
+// create a BufferedReader using System.in
+BufferedReader br = new BufferedReader(
+  new InputStreamReader(System.in))
+
+@
+
+@c _____________________________________
+
+@node BRReadLines Enter Lines
+@subsubsection BRReadLines Enter Lines
+@cindex BRReadLines Enter Lines
+
+@<BRReadLines Enter Lines@>=
+String str;
+
+System.out.println("Enter lines of text.");
+System.out.println("Enter 'stop' to quit.");
+
+do {
+  str = br.readLine();
+  System.out.println(str);
+
+} while (!str.equals("stop"));
+
+@
 
 
 @c -----------------------------------------------------------------------------

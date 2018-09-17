@@ -195,6 +195,22 @@ Byte Streams and Character Streams
 * Character Stream Class::
 * Predefined Streams::
 
+'System.in' Wrapped in 'BufferedReader'
+
+* Reading Characters::
+* Reading Strings::
+
+Program Demonstrating Reading Characters from Console
+
+* Import java.io::
+* BRRead BufferedReader Constructor Node::
+* BRRead Enter Characters Node::
+
+Program Demonstrating Reading a String from Console
+
+* BRReadLines BufferedReader Constructor::
+* BRReadLines Enter Lines::
+
 Generics
 
 * Motivation::
@@ -2966,6 +2982,231 @@ File: JavaSE9.info,  Node: Reading Console Input,  Next: Writing Console Output,
 7.2 Reading Console Input
 =========================
 
+For commercial applications, the preferred method of reading console
+input is to use a character-oriented stream.  This makes your program
+easier to internationalize and maintain.
+
+'System.in' Wrapped in 'BufferedReader'
+---------------------------------------
+
+Console input is accomplished by reading from 'System.in' To obtain a
+character-based stream that is attached to the console, wrap
+'System.in' in a 'BufferedReader' object.  'BufferedReader' supports a
+buffered input stream.  A commonly-used constructor is:
+
+     BufferedReader(Reader inputReader)
+
+Here, inputReader is the stream that is linked to the instance of
+'BufferedReader' that is being created.  'Reader' is the abstract
+class.  One of its concrete subclasses is 'InputStreamReader', which
+converts bytes to characters.  To obtain a 'InputStreamReader' object
+that is linked to 'System.in', use the following constructor:
+
+     InputStreamReader(InputStream inputStream)
+
+   Because 'System.in' refers to an object of type 'InputStream', it
+can be used for inputStream.  Putting it all together, the following
+line of code creates a 'BufferedReader' that is connected to the
+keyboard:
+
+     BufferedReader br = new BufferedReader(
+       new InputStreamReader(System.in));
+
+After this statement executes, 'br' is a character-based stream that
+is linked to the console through 'System.in'.
+
+* Menu:
+
+* Reading Characters::
+* Reading Strings::
+
+
+File: JavaSE9.info,  Node: Reading Characters,  Next: Reading Strings,  Up: Reading Console Input
+
+7.2.1 Reading Characters
+------------------------
+
+To read a character from a 'BufferedReader', use 'read()'.  The
+version of 'read()' that we will be using is
+
+     int read() throws IOException
+
+Each time that 'read()' is called, it reads a character from the input
+stream and returns it as an integer value.  (1) It returns -1 when an
+attempt is made to read at the end of the stream.  It can throw an
+'IOException'.
+
+Program Demonstrating Reading Characters from Console
+.....................................................
+
+The following program demonstrates 'read()' by reading characters from
+the console until the user types a "q".  Any I/O exceptions that might
+be generated are simply thrown out of 'main()'.  In more sophisticated
+applications, you can handle the exceptions explicitly.
+
+{'BRRead.java'} ==
+     <Import java.io>
+     class BRRead {
+       public static void main(String[] args[]) throws IOException {
+         <BRRead BufferedReader Constructor>
+         <BRRead Enter Characters>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<BRRead BufferedReader    See
+Constructor>              *note BRRead-BufferedReader-Constructor::.
+<BRRead Enter             See *note BRRead-Enter-Characters::.
+Characters>
+<Import java.io>          See *note Import-java-io::.
+
+* Menu:
+
+* Import java.io::
+* BRRead BufferedReader Constructor Node::
+* BRRead Enter Characters Node::
+
+   ---------- Footnotes ----------
+
+   (1) Note that 'System.in' is line buffered by default; this means
+that no input is actually passed to the program until the user presses
+<enter>.  This does not make 'file' particularly valuable for
+interactive console input.
+
+
+File: JavaSE9.info,  Node: Import java.io,  Next: BRRead BufferedReader Constructor Node,  Up: Reading Characters
+
+7.2.1.1 Import 'java.io'
+........................
+
+<Import java.io> ==
+     import java.io.*;
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'BRRead.java'}           See *note BRRead-java::.
+{'BRReadLines.java'}      See *note BRReadLines-java::.
+
+
+File: JavaSE9.info,  Node: BRRead BufferedReader Constructor Node,  Next: BRRead Enter Characters Node,  Prev: Import java.io,  Up: Reading Characters
+
+7.2.1.2 BRRead BufferedReader Constructor Section
+.................................................
+
+<BRRead BufferedReader Constructor> ==
+     BufferedReader br = new BufferedReader(
+       new InputStreamReader(System.in));
+
+
+This chunk is called by {'BRRead.java'}; see its first definition at
+*note BRRead-java::.
+
+
+File: JavaSE9.info,  Node: BRRead Enter Characters Node,  Prev: BRRead BufferedReader Constructor Node,  Up: Reading Characters
+
+7.2.1.3 BRRead Enter Characters Section
+.......................................
+
+<BRRead Enter Characters> ==
+     char c;
+     do {
+       c = (char) br.read();
+       System.out.println(c);
+     } while (c != 'q');
+
+
+This chunk is called by {'BRRead.java'}; see its first definition at
+*note BRRead-java::.
+
+
+File: JavaSE9.info,  Node: Reading Strings,  Prev: Reading Characters,  Up: Reading Console Input
+
+7.2.2 Reading Strings
+---------------------
+
+To read a string frmo the keyboard, use the version of 'readLine()'
+that is a member of the 'BufferedReader' class.  Its general form is:
+
+     String readLine() throws IOException
+
+It returns a 'String' object.
+
+Program Demonstrating Reading a String from Console
+...................................................
+
+The following program demonstrates 'BufferedReader' and the
+'readLine()' method; the program reas and displays lines of text until
+the word "stop" is entered.
+
+{'BRReadLines.java'} ==
+     <Import java.io>
+
+     class BRReadLines {
+       public static void main(String[] args) throws IOException {
+         <BRReadLines BufferedReader Constructor>
+         <BRReadLines Enter Lines>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<BRReadLines              See
+BufferedReader            *note BRReadLines-BufferedReader-Constructor::.
+Constructor>
+<BRReadLines Enter        See *note BRReadLines-Enter-Lines::.
+Lines>
+<Import java.io>          See *note Import-java-io::.
+
+* Menu:
+
+* BRReadLines BufferedReader Constructor::
+* BRReadLines Enter Lines::
+
+
+File: JavaSE9.info,  Node: BRReadLines BufferedReader Constructor,  Next: BRReadLines Enter Lines,  Up: Reading Strings
+
+7.2.2.1 BRReadLines BufferedReader Constructor
+..............................................
+
+<BRReadLines BufferedReader Constructor> ==
+     // create a BufferedReader using System.in
+     BufferedReader br = new BufferedReader(
+       new InputStreamReader(System.in))
+
+
+This chunk is called by {'BRReadLines.java'}; see its first definition
+at *note BRReadLines-java::.
+
+
+File: JavaSE9.info,  Node: BRReadLines Enter Lines,  Prev: BRReadLines BufferedReader Constructor,  Up: Reading Strings
+
+7.2.2.2 BRReadLines Enter Lines
+...............................
+
+<BRReadLines Enter Lines> ==
+     String str;
+
+     System.out.println("Enter lines of text.");
+     System.out.println("Enter 'stop' to quit.");
+
+     do {
+       str = br.readLine();
+       System.out.println(str);
+
+     } while (!str.equals("stop"));
+
+
+This chunk is called by {'BRReadLines.java'}; see its first definition
+at *note BRReadLines-java::.
+
 
 File: JavaSE9.info,  Node: Writing Console Output,  Next: PrintWriter Class,  Prev: Reading Console Input,  Up: I/O
 
@@ -4618,6 +4859,10 @@ B.1 Source File Definitions
 
 {'AbstractAreas.java '}
      This chunk is defined in *note AbstractAreas-java-::.
+{'BRRead.java'}
+     This chunk is defined in *note BRRead-java::.
+{'BRReadLines.java'}
+     This chunk is defined in *note BRReadLines-java::.
 {'FindAreas.java '}
      This chunk is defined in *note FindAreas-java-::.
 {'GenMethDemo.java'}
@@ -4652,6 +4897,16 @@ B.2 Code Chunk Definitions
 <AbstractAreas Main Method Declaration >
      This chunk is defined in *note
      AbstractAreas-Main-Method-Declaration-::.
+<BRRead BufferedReader Constructor>
+     This chunk is defined in *note
+     BRRead-BufferedReader-Constructor::.
+<BRRead Enter Characters>
+     This chunk is defined in *note BRRead-Enter-Characters::.
+<BRReadLines BufferedReader Constructor>
+     This chunk is defined in *note
+     BRReadLines-BufferedReader-Constructor::.
+<BRReadLines Enter Lines>
+     This chunk is defined in *note BRReadLines-Enter-Lines::.
 <Call Overridden Methods One By One >
      This chunk is defined in *note
      Call-Overridden-Methods-One-By-One-::.
@@ -4708,6 +4963,8 @@ B.2 Code Chunk Definitions
      This chunk is defined in *note GenMethDemo-Main::.
 <Get Value>
      This chunk is defined in *note Get-Value::.
+<Import java.io>
+     This chunk is defined in *note Import-java-io::.
 <Instance Methods Show and Get>
      This chunk is defined in *note Instance-Methods-Show-and-Get::.
 <Instance Variable ob of Type T>
@@ -4785,6 +5042,22 @@ B.3 Code Chunk References
 
      This chunk is called by <AbstractAreas Main Class >; see its
      first definition at *note AbstractAreas-Main-Class-::.
+<BRRead BufferedReader Constructor>
+
+     This chunk is called by {'BRRead.java'}; see its first definition
+     at *note BRRead-java::.
+<BRRead Enter Characters>
+
+     This chunk is called by {'BRRead.java'}; see its first definition
+     at *note BRRead-java::.
+<BRReadLines BufferedReader Constructor>
+
+     This chunk is called by {'BRReadLines.java'}; see its first
+     definition at *note BRReadLines-java::.
+<BRReadLines Enter Lines>
+
+     This chunk is called by {'BRReadLines.java'}; see its first
+     definition at *note BRReadLines-java::.
 <Call Overridden Methods One By One >
 
      This chunk is called by <FindAreas Main Method Declaration >; see
@@ -4911,6 +5184,14 @@ B.3 Code Chunk References
 
      This chunk is called by <Create a Gen object for Integers>; see
      its first definition at *note Create-a-Gen-object-for-Integers::.
+<Import java.io>
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'BRRead.java'}           See *note BRRead-java::.
+     {'BRReadLines.java'}      See *note BRReadLines-java::.
 <Instance Methods Show and Get>
 
      This chunk is called by <Class TwoGen>; see its first definition
@@ -5088,6 +5369,21 @@ Index
                                                             (line  21)
 * <AbstractAreas Main Method Declaration >, use: AbstractAreas Main Class.
                                                             (line   6)
+* <BRRead BufferedReader Constructor>, definition: BRRead BufferedReader Constructor Node.
+                                                            (line   6)
+* <BRRead BufferedReader Constructor>, use: Reading Characters.
+                                                            (line  24)
+* <BRRead Enter Characters>, definition: BRRead Enter Characters Node.
+                                                            (line   6)
+* <BRRead Enter Characters>, use:        Reading Characters.
+                                                            (line  24)
+* <BRReadLines BufferedReader Constructor>, definition: BRReadLines BufferedReader Constructor.
+                                                            (line   6)
+* <BRReadLines BufferedReader Constructor>, use: Reading Strings.
+                                                            (line  20)
+* <BRReadLines Enter Lines>, definition: BRReadLines Enter Lines.
+                                                            (line   6)
+* <BRReadLines Enter Lines>, use:        Reading Strings.   (line  20)
 * <Call Overridden Methods One By One >, definition: FindAreas Main Class Node.
                                                             (line  78)
 * <Call Overridden Methods One By One >, use: FindAreas Main Class Node.
@@ -5184,6 +5480,10 @@ Index
                                                             (line  91)
 * <Get Value>, use:                      GenDemo as Integer.
                                                             (line   6)
+* <Import java.io>, definition:          Import java.io.    (line   6)
+* <Import java.io>, use:                 Reading Characters.
+                                                            (line  24)
+* <Import java.io>, use <1>:             Reading Strings.   (line  20)
 * <Instance Methods Show and Get>, definition: Class TwoGen.
                                                             (line  67)
 * <Instance Methods Show and Get>, use:  Class TwoGen.      (line   6)
@@ -5271,6 +5571,9 @@ Index
                                                             (line  38)
 * {AbstractAreas.java }, definition:     Improved Figure Class.
                                                             (line  12)
+* {BRRead.java}, definition:             Reading Characters.
+                                                            (line  24)
+* {BRReadLines.java}, definition:        Reading Strings.   (line  20)
 * {FindAreas.java }, definition:         Applying Method Overriding.
                                                             (line  15)
 * {GenMethDemo.java}, definition:        Example of Generic Method.
@@ -5328,6 +5631,19 @@ Index
 * bounded wildcards, lower bound:        Bounded Wildcards. (line  32)
 * bounded wildcards, upper bound:        Bounded Wildcards. (line  18)
 * bounded wildcards, upper bound <1>:    Bounded Wildcards. (line  20)
+* BRRead BufferedReader Constructor:     BRRead BufferedReader Constructor Node.
+                                                            (line   6)
+* BRRead Enter Characters:               BRRead Enter Characters Node.
+                                                            (line   6)
+* BRRead.java:                           Reading Characters.
+                                                            (line  19)
+* BRReadLines BufferedReader Constructor: BRReadLines BufferedReader Constructor.
+                                                            (line   6)
+* BRReadLines Enter Lines:               BRReadLines Enter Lines.
+                                                            (line   6)
+* BRReadLines.java:                      Reading Strings.   (line  16)
+* BufferedReader:                        Reading Console Input.
+                                                            (line  13)
 * Byte Stream Class:                     Byte Stream Class. (line   6)
 * Byte Streams, definition:              Byte Streams Character Streams.
                                                             (line   6)
@@ -5338,6 +5654,10 @@ Index
 * Character Streams, definition:         Byte Streams Character Streams.
                                                             (line   6)
 * character streams, Unicode:            Character Stream Class.
+                                                            (line   6)
+* character-based stream:                Reading Console Input.
+                                                            (line   6)
+* characters, reading:                   Reading Characters.
                                                             (line   6)
 * charAT():                              String Class.      (line  33)
 * Class:                                 Class Gen<T>.      (line 107)
@@ -5366,7 +5686,7 @@ Index
 * Concurrency Utilities:                 Concurrency.       (line   5)
 * console I/O:                           I/O Basics.        (line   6)
 * console input, reading:                Reading Console Input.
-                                                            (line   5)
+                                                            (line   6)
 * constant, final variable:              final Keyword.     (line   6)
 * Constants:                             Makefile Constants.
                                                             (line   6)
@@ -5533,6 +5853,7 @@ Index
 * implements clause:                     Implementing Interfaces.
                                                             (line   6)
 * import is optional:                    Importing.         (line  39)
+* import java.io:                        Import java.io.    (line   6)
 * import packages:                       Packages.          (line   6)
 * import statement, general form and example: Importing.    (line  14)
 * imported packages must be public:      Importing.         (line  43)
@@ -5558,6 +5879,10 @@ Index
                                                             (line   6)
 * input stream:                          Streams.           (line   6)
 * input/output system:                   I/O.               (line   6)
+* InputStream:                           Reading Console Input.
+                                                            (line  13)
+* InputStreamReader concrete subclass:   Reading Console Input.
+                                                            (line  13)
 * instance variables:                    General Form.      (line  32)
 * instance, class:                       Class Fundamentals.
                                                             (line   6)
@@ -5609,6 +5934,8 @@ Index
 * interfaces, shared constants:          Variables in Interfaces.
                                                             (line   6)
 * internationalization, character streams: Byte Streams Character Streams.
+                                                            (line   6)
+* internationalization, character streams <1>: Reading Console Input.
                                                             (line   6)
 * introduction to Java SE 9:             Java SE 9 Introduction.
                                                             (line   5)
@@ -5765,13 +6092,20 @@ Index
                                                             (line   6)
 * protected access modifier:             Access Control.    (line  28)
 * public access modifier:                Access Control.    (line  28)
+* read(), from BufferedReader:           Reading Characters.
+                                                            (line   6)
 * read(), InputStream abstract class:    Byte Stream Class. (line  58)
 * read(), Reader:                        Character Stream Class.
                                                             (line  55)
 * Reader abstract class:                 Character Stream Class.
                                                             (line   6)
+* Reader abstract class <1>:             Reading Console Input.
+                                                            (line  13)
+* reading characters:                    Reading Characters.
+                                                            (line   6)
 * Reading Console Input:                 Reading Console Input.
                                                             (line   6)
+* reading strings:                       Reading Strings.   (line   6)
 * recursion, recursive:                  Recursion.         (line   6)
 * reference variable, superclass:        Superclass Referencing Subclass.
                                                             (line   6)
@@ -5807,6 +6141,8 @@ Index
 * stream definition:                     Streams.           (line   6)
 * stream variables, predefined:          Predefined Streams.
                                                             (line   6)
+* stream, character-based:               Reading Console Input.
+                                                            (line   6)
 * stream, input:                         Streams.           (line   6)
 * stream, output:                        Streams.           (line   6)
 * Streams:                               Streams.           (line   6)
@@ -5822,6 +6158,7 @@ Index
 * String methods:                        String Class.      (line  33)
 * String operator +:                     String Class.      (line  20)
 * Strings:                               Strings.           (line   6)
+* strings, reading:                      Reading Strings.   (line   6)
 * subclass:                              Inheritance.       (line   6)
 * super calling superclass constructors: super Calling Superclass Constructor.
                                                             (line   6)
@@ -5836,6 +6173,8 @@ Index
                                                             (line  38)
 * System class:                          Predefined Streams.
                                                             (line   6)
+* System.in:                             Reading Console Input.
+                                                            (line  13)
 * template, class:                       Class Fundamentals.
                                                             (line   6)
 * Text:                                  AWT.               (line   5)
@@ -5921,249 +6260,264 @@ Function Index
 
 Tag Table:
 Node: Top75
-Node: Java SE 9 Introduction4913
-Node: Classes5055
-Node: Class Fundamentals5499
-Node: General Form5915
-Ref: ClassDeclaration6255
-Node: Declaring Objects7770
-Node: Methods9164
-Ref: MethodDeclaration9363
-Node: Constructors10206
-Node: this Keyword10970
-Node: Instance Variable Hiding11523
-Node: Stack Class12327
-Ref: Stack-java13151
-Ref: TestStack-java13706
-Node: Stack Instance Variables14007
-Ref: Stack-Instance-Variables14174
-Node: Stack Constructor Node14340
-Ref: Stack-Constructor14551
-Node: Stack Instance Methods Node14930
-Ref: Stack-Instance-Methods15147
-Node: Stack Push and Pop Node15809
-Ref: Stack-Push15980
-Ref: Stack-Pop16288
-Node: Stack TestStack Node16617
-Ref: TestStack-Main-Method16789
-Node: Methods and Classes17517
-Node: Overloading Methods18223
-Node: Overloading Constructors20533
-Node: Objects as Parameters20721
-Node: Argument Passing21397
-Node: Returning Objects22739
-Node: Recursion23366
-Node: Access Control24878
-Node: Improved Stack Class27823
-Ref: StackImproved-java28057
-Ref: Stack-Private-Instance-Variables28695
-Ref: Improved Stack Class-Footnote-129719
-Node: static Keyword29838
-Node: final Keyword32277
-Node: Arrays 233180
-Node: Nested and Inner Classes33877
-Node: String Class36002
-Node: Command-Line Arguments37259
-Node: Varargs38083
-Node: Inheritance39899
-Node: Inheritance Basics40854
-Ref: Subclass41450
-Node: Member Access and Inheritance41780
-Node: Superclass Referencing Subclass42556
-Node: Using super43336
-Node: super Calling Superclass Constructor43864
-Ref: SuperCallingConstructor44193
-Node: super Referencing Superclass44500
-Ref: SuperReferencingSuperclass44836
-Node: Multilevel Hierarchy45262
-Node: Constructors Executed46017
-Node: Method Overriding46327
-Node: Dynamic Method Dispatch47213
-Node: Why Overridden Methods48660
-Node: Applying Method Overriding50210
-Ref: FindAreas-java-50842
-Node: FindAreas SuperClass Figure Node52213
-Ref: FindAreas-SuperClass-Figure-52440
-Ref: Figure-Instance-Variable-Declarations-53227
-Ref: Figure-Constructor-53698
-Ref: Figure-Area-Method-Declaration-54513
-Node: FindAreas SubClass Rectangle Node54780
-Ref: FindAreas-SubClass-Rectangle-55050
-Ref: Rectangle-Constructor-55884
-Ref: Rectangle-Area-Method-Declaration-56173
-Node: FindAreas SubClass Triangle Node56487
-Ref: FindAreas-SubClass-Triangle-56748
-Ref: Triangle-Constructor-57572
-Ref: Triangle-Area-Method-Declaration-57855
-Node: FindAreas Main Class Node58176
-Ref: FindAreas-Main-Class-58381
-Ref: FindAreas-Main-Method-Declaration-58771
-Ref: Create-Basic-Figure-Objects-59633
-Ref: Create-Basic-Figure-Reference-Variable-60262
-Ref: Call-Overridden-Methods-One-By-One-60775
-Node: Using Abstract Classes61165
-Ref: AbstractMethodDeclaration62675
-Node: Improved Figure Class63898
-Ref: AbstractAreas-java-64345
-Node: AbstractAreas Abstract Class Figure Node65125
-Ref: AbstractAreas-Abstract-Class-Figure-65546
-Ref: AbstractAreas-Abstract-Area-Method-Declaration-66422
-Node: AbstractAreas Main Class66686
-Ref: AbstractAreas-Main-Class-66875
-Ref: AbstractAreas-Main-Method-Declaration-67301
-Ref: Create-Basic-Figure-Objects-Except-Figure-68642
-Ref: Call-Overridden-Methods-One-By-One-Except-Figure-69205
-Node: final with Inheritance69626
-Node: final to Prevent Overriding70029
-Node: final to Prevent Inheritance70942
-Node: Object Class71362
-Node: Packages73499
-Node: Packages Intro73957
-Node: Defining Packages74501
-Ref: PackageStatement75103
-Ref: PackageStatementMulti76073
-Node: Classpath76496
-Node: Member Access78036
-Ref: PackageAccess79011
-Node: Importing79612
-Ref: Import80236
-Node: Interfaces81511
-Node: Defining Interfaces83614
-Ref: InterfaceSimple83869
-Node: Implementing Interfaces85199
-Ref: ClassImplementsInterface85693
-Node: Interface References86178
-Node: Partial Implementations87169
-Node: Nested Interfaces87603
-Node: Applying Interfaces88377
-Node: Variables in Interfaces88577
-Node: Extending Interfaces89307
-Node: Default Interface Methods89786
-Node: Interface Static Methods91890
-Ref: InterfaceStaticMethod92622
-Node: Private Interface Methods92904
-Node: I/O93660
-Node: I/O Basics94638
-Node: Streams95647
-Node: Byte Streams Character Streams96453
-Node: Byte Stream Class97537
-Ref: ByteStreamClasses98175
-Node: Character Stream Class99639
-Ref: CharacterStreamClasses100190
-Node: Predefined Streams101498
-Node: Reading Console Input102335
-Node: Writing Console Output102500
-Node: PrintWriter Class102674
-Node: Reading and Writing Files102850
-Node: Automatically Closing Files103039
-Node: transient and volatile Modifiers103247
-Node: Using instanceof103472
-Node: strictfp103634
-Node: Native Methods103762
-Node: Using assert103896
-Node: Static Import104035
-Node: Overloaded Constructors with this104191
-Node: Compact API Profiles104427
-Node: Generics104583
-Node: Motivation106416
-Node: What are Generics108392
-Node: Simple Generics Example109459
-Ref: SimpleGenerics-java109774
-Node: Class Gen<T>110169
-Ref: Class-Gen111164
-Ref: Instance-Variable-ob-of-Type-T112276
-Ref: generics-constructor112476
-Ref: Constructor-taking-parameter-of-Type-T112822
-Ref: Method-returning-object-of-type-T113358
-Ref: Method-showing-type-of-T113983
-Node: Class GenDemo114222
-Ref: Class-GenDemo115001
-Node: GenDemo as Integer115758
-Ref: Create-a-Gen-object-for-Integers115970
-Ref: Integer-Type-Parameter117100
-Ref: Reference-to-Integer-Instance117947
-Ref: Show-Type118490
-Ref: Get-Value118982
-Node: GenDemo as String119223
-Ref: Create-a-Gen-object-for-Strings119433
-Node: Notes about Generics119888
-Node: Reference Types120144
-Node: Type Arguments120670
-Node: Subtyping121233
-Node: Type Safety122367
-Node: Two Type Parameters122726
-Node: Two Types Example Code123274
-Ref: TwoTypeParameters-java123448
-Node: Class TwoGen123852
-Ref: Class-TwoGen123989
-Ref: Class-Declaration125019
-Ref: Two-Instance-Variables-Declarations125225
-Ref: Constructor-of-Two-Parameters125408
-Ref: Instance-Methods-Show-and-Get125664
-Node: Class SimpGen126055
-Ref: Class-SimpGen126318
-Node: Generic Class General Form126887
-Ref: GenericClass127194
-Node: Bounded Types127518
-Node: Wildcard Arguments128916
-Node: Wildcard Motivation129161
-Node: Wildcard Syntax131708
-Node: Bounded Wildcards132626
-Ref: UpperBoundedWildcard133447
-Ref: LowerBoundedWildcard133827
-Node: Generic Methods133992
-Ref: GenericMethod134392
-Node: Example of Generic Method134560
-Ref: GenMethDemo-java135061
-Node: Method isIn135515
-Ref: Static-Method-isIn135735
-Node: GenMethDemo Main137106
-Ref: GenMethDemo-Main137256
-Node: Generic Constructors138151
-Node: Enumerations138518
-Node: Enumeration Basics139392
-Node: Enum Methods140987
-Node: Enumerations as Class Types142214
-Node: Inherit Enum144088
-Node: Strings145924
-Node: java Lang146050
-Node: Primitive Wrappers147695
-Node: Number148484
-Node: Double and Float148600
-Node: isInfiinite() and isNaN()148770
-Node: Byte Short Integer Long148973
-Node: Numbers to from String149186
-Node: java util Collections149387
-Node: java util Utility Classes149606
-Node: java io Input Output149816
-Node: NIO149982
-Node: Networking150089
-Node: Event Handling150204
-Node: AWT150327
-Node: AWT Controls150514
-Node: Images150695
-Node: Concurrency150804
-Node: Streams API150950
-Node: Regular Expressions151087
-Node: Swing151266
-Node: The Makefile151406
-Ref: Makefile151551
-Node: Makefile Constants152182
-Ref: Makefile-CONSTANTS152323
-Node: Makefile Defaults152459
-Ref: Makefile-DEFAULTS152642
-Node: Makefile Tangle Weave152792
-Ref: Makefile-TANGLE-WEAVE152981
-Node: Makefile Clean153373
-Ref: Makefile-CLEAN153522
-Node: Code Chunk Summaries153709
-Node: File Definitions154199
-Node: Code Chunk Definitions155049
-Node: Code Chunk References160216
-Node: List of Tables169610
-Node: List of General Forms169966
-Node: Bibliography171362
-Node: Concept Index171494
-Node: Function Index228697
+Node: Java SE 9 Introduction5274
+Node: Classes5416
+Node: Class Fundamentals5860
+Node: General Form6276
+Ref: ClassDeclaration6616
+Node: Declaring Objects8131
+Node: Methods9525
+Ref: MethodDeclaration9724
+Node: Constructors10567
+Node: this Keyword11331
+Node: Instance Variable Hiding11884
+Node: Stack Class12688
+Ref: Stack-java13512
+Ref: TestStack-java14067
+Node: Stack Instance Variables14368
+Ref: Stack-Instance-Variables14535
+Node: Stack Constructor Node14701
+Ref: Stack-Constructor14912
+Node: Stack Instance Methods Node15291
+Ref: Stack-Instance-Methods15508
+Node: Stack Push and Pop Node16170
+Ref: Stack-Push16341
+Ref: Stack-Pop16649
+Node: Stack TestStack Node16978
+Ref: TestStack-Main-Method17150
+Node: Methods and Classes17878
+Node: Overloading Methods18584
+Node: Overloading Constructors20894
+Node: Objects as Parameters21082
+Node: Argument Passing21758
+Node: Returning Objects23100
+Node: Recursion23727
+Node: Access Control25239
+Node: Improved Stack Class28184
+Ref: StackImproved-java28418
+Ref: Stack-Private-Instance-Variables29056
+Ref: Improved Stack Class-Footnote-130080
+Node: static Keyword30199
+Node: final Keyword32638
+Node: Arrays 233541
+Node: Nested and Inner Classes34238
+Node: String Class36363
+Node: Command-Line Arguments37620
+Node: Varargs38444
+Node: Inheritance40260
+Node: Inheritance Basics41215
+Ref: Subclass41811
+Node: Member Access and Inheritance42141
+Node: Superclass Referencing Subclass42917
+Node: Using super43697
+Node: super Calling Superclass Constructor44225
+Ref: SuperCallingConstructor44554
+Node: super Referencing Superclass44861
+Ref: SuperReferencingSuperclass45197
+Node: Multilevel Hierarchy45623
+Node: Constructors Executed46378
+Node: Method Overriding46688
+Node: Dynamic Method Dispatch47574
+Node: Why Overridden Methods49021
+Node: Applying Method Overriding50571
+Ref: FindAreas-java-51203
+Node: FindAreas SuperClass Figure Node52574
+Ref: FindAreas-SuperClass-Figure-52801
+Ref: Figure-Instance-Variable-Declarations-53588
+Ref: Figure-Constructor-54059
+Ref: Figure-Area-Method-Declaration-54874
+Node: FindAreas SubClass Rectangle Node55141
+Ref: FindAreas-SubClass-Rectangle-55411
+Ref: Rectangle-Constructor-56245
+Ref: Rectangle-Area-Method-Declaration-56534
+Node: FindAreas SubClass Triangle Node56848
+Ref: FindAreas-SubClass-Triangle-57109
+Ref: Triangle-Constructor-57933
+Ref: Triangle-Area-Method-Declaration-58216
+Node: FindAreas Main Class Node58537
+Ref: FindAreas-Main-Class-58742
+Ref: FindAreas-Main-Method-Declaration-59132
+Ref: Create-Basic-Figure-Objects-59994
+Ref: Create-Basic-Figure-Reference-Variable-60623
+Ref: Call-Overridden-Methods-One-By-One-61136
+Node: Using Abstract Classes61526
+Ref: AbstractMethodDeclaration63036
+Node: Improved Figure Class64259
+Ref: AbstractAreas-java-64706
+Node: AbstractAreas Abstract Class Figure Node65486
+Ref: AbstractAreas-Abstract-Class-Figure-65907
+Ref: AbstractAreas-Abstract-Area-Method-Declaration-66783
+Node: AbstractAreas Main Class67047
+Ref: AbstractAreas-Main-Class-67236
+Ref: AbstractAreas-Main-Method-Declaration-67662
+Ref: Create-Basic-Figure-Objects-Except-Figure-69003
+Ref: Call-Overridden-Methods-One-By-One-Except-Figure-69566
+Node: final with Inheritance69987
+Node: final to Prevent Overriding70390
+Node: final to Prevent Inheritance71303
+Node: Object Class71723
+Node: Packages73860
+Node: Packages Intro74318
+Node: Defining Packages74862
+Ref: PackageStatement75464
+Ref: PackageStatementMulti76434
+Node: Classpath76857
+Node: Member Access78397
+Ref: PackageAccess79372
+Node: Importing79973
+Ref: Import80597
+Node: Interfaces81872
+Node: Defining Interfaces83975
+Ref: InterfaceSimple84230
+Node: Implementing Interfaces85560
+Ref: ClassImplementsInterface86054
+Node: Interface References86539
+Node: Partial Implementations87530
+Node: Nested Interfaces87964
+Node: Applying Interfaces88738
+Node: Variables in Interfaces88938
+Node: Extending Interfaces89668
+Node: Default Interface Methods90147
+Node: Interface Static Methods92251
+Ref: InterfaceStaticMethod92983
+Node: Private Interface Methods93265
+Node: I/O94021
+Node: I/O Basics94999
+Node: Streams96008
+Node: Byte Streams Character Streams96814
+Node: Byte Stream Class97898
+Ref: ByteStreamClasses98536
+Node: Character Stream Class100000
+Ref: CharacterStreamClasses100551
+Node: Predefined Streams101859
+Node: Reading Console Input102696
+Node: Reading Characters104277
+Ref: BRRead-java105178
+Ref: Reading Characters-Footnote-1105957
+Node: Import java.io106187
+Ref: Import-java-io106355
+Node: BRRead BufferedReader Constructor Node106678
+Ref: BRRead-BufferedReader-Constructor106933
+Node: BRRead Enter Characters Node107152
+Ref: BRRead-Enter-Characters107364
+Node: Reading Strings107593
+Ref: BRReadLines-java108217
+Node: BRReadLines BufferedReader Constructor108963
+Ref: BRReadLines-BufferedReader-Constructor109181
+Node: BRReadLines Enter Lines109462
+Ref: BRReadLines-Enter-Lines109650
+Node: Writing Console Output110007
+Node: PrintWriter Class110181
+Node: Reading and Writing Files110357
+Node: Automatically Closing Files110546
+Node: transient and volatile Modifiers110754
+Node: Using instanceof110979
+Node: strictfp111141
+Node: Native Methods111269
+Node: Using assert111403
+Node: Static Import111542
+Node: Overloaded Constructors with this111698
+Node: Compact API Profiles111934
+Node: Generics112090
+Node: Motivation113923
+Node: What are Generics115899
+Node: Simple Generics Example116966
+Ref: SimpleGenerics-java117281
+Node: Class Gen<T>117676
+Ref: Class-Gen118671
+Ref: Instance-Variable-ob-of-Type-T119783
+Ref: generics-constructor119983
+Ref: Constructor-taking-parameter-of-Type-T120329
+Ref: Method-returning-object-of-type-T120865
+Ref: Method-showing-type-of-T121490
+Node: Class GenDemo121729
+Ref: Class-GenDemo122508
+Node: GenDemo as Integer123265
+Ref: Create-a-Gen-object-for-Integers123477
+Ref: Integer-Type-Parameter124607
+Ref: Reference-to-Integer-Instance125454
+Ref: Show-Type125997
+Ref: Get-Value126489
+Node: GenDemo as String126730
+Ref: Create-a-Gen-object-for-Strings126940
+Node: Notes about Generics127395
+Node: Reference Types127651
+Node: Type Arguments128177
+Node: Subtyping128740
+Node: Type Safety129874
+Node: Two Type Parameters130233
+Node: Two Types Example Code130781
+Ref: TwoTypeParameters-java130955
+Node: Class TwoGen131359
+Ref: Class-TwoGen131496
+Ref: Class-Declaration132526
+Ref: Two-Instance-Variables-Declarations132732
+Ref: Constructor-of-Two-Parameters132915
+Ref: Instance-Methods-Show-and-Get133171
+Node: Class SimpGen133562
+Ref: Class-SimpGen133825
+Node: Generic Class General Form134394
+Ref: GenericClass134701
+Node: Bounded Types135025
+Node: Wildcard Arguments136423
+Node: Wildcard Motivation136668
+Node: Wildcard Syntax139215
+Node: Bounded Wildcards140133
+Ref: UpperBoundedWildcard140954
+Ref: LowerBoundedWildcard141334
+Node: Generic Methods141499
+Ref: GenericMethod141899
+Node: Example of Generic Method142067
+Ref: GenMethDemo-java142568
+Node: Method isIn143022
+Ref: Static-Method-isIn143242
+Node: GenMethDemo Main144613
+Ref: GenMethDemo-Main144763
+Node: Generic Constructors145658
+Node: Enumerations146025
+Node: Enumeration Basics146899
+Node: Enum Methods148494
+Node: Enumerations as Class Types149721
+Node: Inherit Enum151595
+Node: Strings153431
+Node: java Lang153557
+Node: Primitive Wrappers155202
+Node: Number155991
+Node: Double and Float156107
+Node: isInfiinite() and isNaN()156277
+Node: Byte Short Integer Long156480
+Node: Numbers to from String156693
+Node: java util Collections156894
+Node: java util Utility Classes157113
+Node: java io Input Output157323
+Node: NIO157489
+Node: Networking157596
+Node: Event Handling157711
+Node: AWT157834
+Node: AWT Controls158021
+Node: Images158202
+Node: Concurrency158311
+Node: Streams API158457
+Node: Regular Expressions158594
+Node: Swing158773
+Node: The Makefile158913
+Ref: Makefile159058
+Node: Makefile Constants159689
+Ref: Makefile-CONSTANTS159830
+Node: Makefile Defaults159966
+Ref: Makefile-DEFAULTS160149
+Node: Makefile Tangle Weave160299
+Ref: Makefile-TANGLE-WEAVE160488
+Node: Makefile Clean160880
+Ref: Makefile-CLEAN161029
+Node: Code Chunk Summaries161216
+Node: File Definitions161706
+Node: Code Chunk Definitions162700
+Node: Code Chunk References168354
+Node: List of Tables178621
+Node: List of General Forms178977
+Node: Bibliography180373
+Node: Concept Index180505
+Node: Function Index241750
 
 End Tag Table
