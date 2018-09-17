@@ -17,6 +17,7 @@ This file documents Outline Covering Java SE 9.
 * Inheritance::
 * Packages::
 * Interfaces::
+* I/O::
 * Generics::
 * Enumerations::
 * Strings::
@@ -31,7 +32,7 @@ This file documents Outline Covering Java SE 9.
 * AWT Controls::
 * Images::
 * Concurrency::
-* Streams::
+* Streams API::
 * Regular Expressions::
 * Swing::
 * The Makefile::
@@ -165,6 +166,34 @@ Interfaces
 * Default Interface Methods::
 * Interface Static Methods::
 * Private Interface Methods::
+
+I/O
+
+* I/O Basics::
+* Reading Console Input::
+* Writing Console Output::
+* PrintWriter Class::
+* Reading and Writing Files::
+* Automatically Closing Files::
+* transient and volatile Modifiers::
+* Using instanceof::
+* strictfp::
+* Native Methods::
+* Using assert::
+* Static Import::
+* Overloaded Constructors with this::
+* Compact API Profiles::
+
+I/O Basics
+
+* Streams::
+* Byte Streams Character Streams::
+
+Byte Streams and Character Streams
+
+* Byte Stream Class::
+* Character Stream Class::
+* Predefined Streams::
 
 Generics
 
@@ -2394,7 +2423,7 @@ declared as 'public' will be available to non-subclasses in the
 importing code.
 
 
-File: JavaSE9.info,  Node: Interfaces,  Next: Generics,  Prev: Packages,  Up: Top
+File: JavaSE9.info,  Node: Interfaces,  Next: I/O,  Prev: Packages,  Up: Top
 
 6 Interfaces
 ************
@@ -2671,9 +2700,348 @@ or more default methods use a common piece of code, thus avoiding code
 duplication.
 
 
-File: JavaSE9.info,  Node: Generics,  Next: Enumerations,  Prev: Interfaces,  Up: Top
+File: JavaSE9.info,  Node: I/O,  Next: Generics,  Prev: Interfaces,  Up: Top
 
-7 Generics
+7 I/O
+*****
+
+This chapter introduces 'java.io', which supports Java's basic
+input/output system, including file I/O. Support for I/O comes from
+Java's core API libraries, not from language keywords.  In this
+chapter the foundation of this subsystem is introduced so that you can
+see how it fits into the larger context of the Java programming and
+execution environment.
+
+   This chapter also looks at the 'try-with-resources' statement and
+several more Java keywords:
+
+   * 'volatile'
+   * 'instanceof'
+   * 'native'
+   * 'strictfp'
+   * 'assert'
+
+* Menu:
+
+* I/O Basics::
+* Reading Console Input::
+* Writing Console Output::
+* PrintWriter Class::
+* Reading and Writing Files::
+* Automatically Closing Files::
+* transient and volatile Modifiers::
+* Using instanceof::
+* strictfp::
+* Native Methods::
+* Using assert::
+* Static Import::
+* Overloaded Constructors with this::
+* Compact API Profiles::
+
+
+File: JavaSE9.info,  Node: I/O Basics,  Next: Reading Console Input,  Up: I/O
+
+7.1 I/O Basics
+==============
+
+Most real applications of Java are not text-based, console programs.
+Rather, they are either graphically oriented programs that rely on one
+of Java's graphical user interface (GUI) frameworks, such as Swing,
+the AWT, or JavaFX, for user interaction, or they are Web
+applications.  Text-based console programs do not constitute an
+important use for Java in the real world.  Java's support for console
+I/O is limited and somewhat awkword to use.  Text-based console I/O is
+just not that useful in real-world Java programming.
+
+   Java does, however, provide strong, flexible support for I/O as it
+relates to files and networks.  Java's I/O system is cohesive and
+consistent.  A general overview of I/O is presented here.  A detailed
+description is found in chapters describing the Java Library: *Note
+java io Input Output:: and *Note NIO::.
+
+* Menu:
+
+* Streams::
+* Byte Streams Character Streams::
+
+
+File: JavaSE9.info,  Node: Streams,  Next: Byte Streams Character Streams,  Up: I/O Basics
+
+7.1.1 Streams
+-------------
+
+Java programs perform I/O through streams.  A "stream" is an
+abstraction that either produces or consumes information.  A stream is
+linked to a physical device by the Java I/O system.  All streams
+behave in the same manner, even if the actual physical device to which
+they are linked differ.  Thus, the same I/O classes and methods can be
+applied to different types of devices.  This means that an input
+stream can abstract many different kinds of input; from a disk file, a
+keyboard, or a network socket.  Likewise, an output stream may refer
+to the console, a disk file, or a network connection.  Java implements
+streams within class hierarchies defined in the 'java.io' package.
+
+
+File: JavaSE9.info,  Node: Byte Streams Character Streams,  Prev: Streams,  Up: I/O Basics
+
+7.1.2 Byte Streams and Character Streams
+----------------------------------------
+
+Java defines two types of streams:
+
+   * byte streams
+   * character streams
+
+   "Byte streams" provide a convenient means for handling input and
+output of bytes.  Byte streams are used when reading or writing binary
+data.  "Character streams" provide a convenient means for handling
+input and output of characters.  They use Unicode and therefore can be
+internationalized.  In some cases, character streams are more
+efficient than byte streams.
+
+   The original version of Java (Java 1.0) did not include character
+streams and thus all I/O was byte-oriented.  Character streams were
+added by Java 1.1 and certain byte-oriented classes and methods were
+deprecated.
+
+   At the lowest level, all I/O is still byte-oriented.  The
+character-based streams simply provide a convenient and efficient
+means for handling characters.
+
+* Menu:
+
+* Byte Stream Class::
+* Character Stream Class::
+* Predefined Streams::
+
+
+File: JavaSE9.info,  Node: Byte Stream Class,  Next: Character Stream Class,  Up: Byte Streams Character Streams
+
+7.1.2.1 The Byte Stream Class
+.............................
+
+Byte streams are defined by using two class hierarchies.  At the top
+are two abstract classes:
+
+   * 'InputStream'
+   * 'OutputStream'
+
+   Each of these abstract classes has several concrete subclasses that
+handle the differences among various devices, such as disk files,
+network connnections, and memory buffers.  The byte stream classes in
+'java.io' are shown in *note Table 7.1: ByteStreamClasses.
+
+   To use the stream classes, you must import 'java.io'.
+
+'BufferedInputStream'
+'BufferedOutputStream'
+     Buffered input and output streams
+'ByteArrayInputStream'
+'ByteArrayOutputStream'
+     Input and Output streams that read from and write to a byte array
+'DataInputStream'
+'DataOutputStream'
+     Input and Output streams that contain methods for reading and
+     writing the Java standard data types
+'FileInputStream'
+'FileOutputStream'
+     Input and Output streams that read from and write to a file
+'FilterInputStream'
+'FilterOutputStream'
+     Implements 'InputStream' and 'OutputStream'
+'InputStream'
+'OutputStream'
+     Abstract classes that describe stream input and output
+'ObjectInputStream'
+'ObjectOutputStream'
+     Input and Output streams for objects
+'PipedInputStream'
+'PipedOutputStream'
+     Input and Output pipe
+'PrintStream'
+     Output stream that contains 'print()' and 'println()'
+'PushbackInputStream'
+     Input stream that allows bytes to be returned to the input stream
+'SequenceInputStream'
+     Input stream that is a combination of two or more input streams
+     that will be read sequentially, one after the other
+
+Table 7.1: The Byte Stream Classes in 'java.io'
+
+   The abstract classes 'InputStream' and 'OutputStream' define
+several key methods that the other stream classes implement.  Two of
+the most important are:
+
+   * 'read()'
+   * 'write()'
+
+which respectively read and write bytes of data.  Each has a form that
+is abstract and must be overridden by derived stream classes.
+
+
+File: JavaSE9.info,  Node: Character Stream Class,  Next: Predefined Streams,  Prev: Byte Stream Class,  Up: Byte Streams Character Streams
+
+7.1.2.2 The Character Stream Class
+..................................
+
+Character streams are defined by using two class hierarchies.  At the
+top are two abstract classes:
+
+   * 'Reader'
+   * 'Writer'.
+
+   These abstract classes handle Unicode character streams.  Java has
+several concrete subclasses of these.  The character stream classes in
+'java.io' are shown in *note Table 7.2: CharacterStreamClasses.
+
+'BufferedReader'
+'BufferedWriter'
+     Buffered input and output character streams
+'CharArrayReader'
+'CharArrayWriter'
+     Input and Output streams that read and write to and from a
+     character array
+'FileReader'
+'FileWriter'
+     Input and Output streams that read from and write to a file
+'FilterReader'
+'FilterWriter'
+     Filtered read and writer
+'InputStreamReader'
+'OutputStreamWriter'
+     Input and Output streams that translate bytes to characters
+'LineNumberReader'
+     Input stream that counts lines
+'PipedReader'
+'PipedWriter'
+     Input and Output pipes
+'PrintWriter'
+     Output stream that contains 'print()' and 'println()'
+'PushbackReader'
+     Input stream that allows characters to be return to the input
+     stream
+'Reader'
+'Writer'
+     Abstract clases tha describe character stream input and output
+'StringReader'
+'StringWriter'
+     Input and output streams that read from and write to a string
+
+Table 7.2: The Character Stream I/O Classes in 'java.io'
+
+   The abstract classes 'Reader' and 'Writer' define several key
+methods that the other stream classes implement.  Two of the most
+important methods are:
+
+   * 'read()'
+   * 'write()'
+
+which read and write characters of data, respectively.  Each has a
+form that is abstract and must be overridden by derived stream
+classes.
+
+
+File: JavaSE9.info,  Node: Predefined Streams,  Prev: Character Stream Class,  Up: Byte Streams Character Streams
+
+7.1.2.3 The Predefined Streams
+..............................
+
+The 'java.lang' package defines a class called 'System', which
+encapsulates several aspects of the run-time environment.  System
+contains three predefined stream variables:
+
+  1. 'in' (standard input), an object of type 'InputStream'
+  2. 'out' (standard output), an object of type 'PrintStream'
+  3. 'err' (standard error), an object of type 'PrintStream'
+
+These fields are declared as 'public', 'static', and 'final' within
+'System'.  This means that they can be used by any other part of your
+program and without reference to a specific 'System' object.  While
+these are all byte streams, they can be wrapped within character-based
+streams, if desired.
+
+
+File: JavaSE9.info,  Node: Reading Console Input,  Next: Writing Console Output,  Prev: I/O Basics,  Up: I/O
+
+7.2 Reading Console Input
+=========================
+
+
+File: JavaSE9.info,  Node: Writing Console Output,  Next: PrintWriter Class,  Prev: Reading Console Input,  Up: I/O
+
+7.3 Writing Console Output
+==========================
+
+
+File: JavaSE9.info,  Node: PrintWriter Class,  Next: Reading and Writing Files,  Prev: Writing Console Output,  Up: I/O
+
+7.4 The PrintWriter Class
+=========================
+
+
+File: JavaSE9.info,  Node: Reading and Writing Files,  Next: Automatically Closing Files,  Prev: PrintWriter Class,  Up: I/O
+
+7.5 Reading and Writing Files
+=============================
+
+
+File: JavaSE9.info,  Node: Automatically Closing Files,  Next: transient and volatile Modifiers,  Prev: Reading and Writing Files,  Up: I/O
+
+7.6 Automatically Closing Files
+===============================
+
+
+File: JavaSE9.info,  Node: transient and volatile Modifiers,  Next: Using instanceof,  Prev: Automatically Closing Files,  Up: I/O
+
+7.7 The 'transient' and 'volative' Modifiers
+============================================
+
+
+File: JavaSE9.info,  Node: Using instanceof,  Next: strictfp,  Prev: transient and volatile Modifiers,  Up: I/O
+
+7.8 Using 'instanceof'
+======================
+
+
+File: JavaSE9.info,  Node: strictfp,  Next: Native Methods,  Prev: Using instanceof,  Up: I/O
+
+7.9 'strictfp'
+==============
+
+
+File: JavaSE9.info,  Node: Native Methods,  Next: Using assert,  Prev: strictfp,  Up: I/O
+
+7.10 Native Methods
+===================
+
+
+File: JavaSE9.info,  Node: Using assert,  Next: Static Import,  Prev: Native Methods,  Up: I/O
+
+7.11 Using 'assert'
+===================
+
+
+File: JavaSE9.info,  Node: Static Import,  Next: Overloaded Constructors with this,  Prev: Using assert,  Up: I/O
+
+7.12 Static Import
+==================
+
+
+File: JavaSE9.info,  Node: Overloaded Constructors with this,  Next: Compact API Profiles,  Prev: Static Import,  Up: I/O
+
+7.13 Invoking Overloaded Constructors Through 'this()'
+======================================================
+
+
+File: JavaSE9.info,  Node: Compact API Profiles,  Prev: Overloaded Constructors with this,  Up: I/O
+
+7.14 Compact API Profiles
+=========================
+
+
+File: JavaSE9.info,  Node: Generics,  Next: Enumerations,  Prev: I/O,  Up: Top
+
+8 Generics
 **********
 
 "Generics", introduced in J2SE 5.0, allows a type or method to operate
@@ -2720,7 +3088,7 @@ difficult cases.
 
 File: JavaSE9.info,  Node: Motivation,  Next: What are Generics,  Up: Generics
 
-7.1 Motivation for Generics
+8.1 Motivation for Generics
 ===========================
 
 Code Fragment Without Generics
@@ -2771,7 +3139,7 @@ readability and robustness.
 
 File: JavaSE9.info,  Node: What are Generics,  Next: Simple Generics Example,  Prev: Motivation,  Up: Generics
 
-7.2 What Are Generics
+8.2 What Are Generics
 =====================
 
 The term "generics" means parameterized types.  Parameterized types
@@ -2794,7 +3162,7 @@ automatic and implicit.
 
 File: JavaSE9.info,  Node: Simple Generics Example,  Next: Notes about Generics,  Prev: What are Generics,  Up: Generics
 
-7.3 A Simple Generics Example
+8.3 A Simple Generics Example
 =============================
 
 The following program defines two classes.  The first is the generic
@@ -2818,7 +3186,7 @@ Chunk name                First definition point
 
 File: JavaSE9.info,  Node: Class Gen<T>,  Next: Class GenDemo,  Up: Simple Generics Example
 
-7.3.1 Class Gen<T>
+8.3.1 Class Gen<T>
 ------------------
 
 This is a simple generic class.  The class 'Gen' is declared with a
@@ -2943,7 +3311,7 @@ Class-Gen::.
 
 File: JavaSE9.info,  Node: Class GenDemo,  Prev: Class Gen<T>,  Up: Simple Generics Example
 
-7.3.2 Class GenDemo
+8.3.2 Class GenDemo
 -------------------
 
 The 'GenDemo' class demonstrates the generic 'Gen' class.
@@ -2991,7 +3359,7 @@ for Strings>
 
 File: JavaSE9.info,  Node: GenDemo as Integer,  Next: GenDemo as String,  Up: Class GenDemo
 
-7.3.2.1 Implementation of Class GenDemo with Type Integer
+8.3.2.1 Implementation of Class GenDemo with Type Integer
 .........................................................
 
 <Create a Gen object for Integers> ==
@@ -3091,7 +3459,7 @@ first definition at *note Create-a-Gen-object-for-Integers::.
 
 File: JavaSE9.info,  Node: GenDemo as String,  Prev: GenDemo as Integer,  Up: Class GenDemo
 
-7.3.2.2 Implementation of Class GenDemo with Type String
+8.3.2.2 Implementation of Class GenDemo with Type String
 ........................................................
 
 <Create a Gen object for Strings> ==
@@ -3113,7 +3481,7 @@ This chunk is called by <Class GenDemo>; see its first definition at
 
 File: JavaSE9.info,  Node: Notes about Generics,  Next: Two Type Parameters,  Prev: Simple Generics Example,  Up: Generics
 
-7.4 Notes About Generics
+8.4 Notes About Generics
 ========================
 
 * Menu:
@@ -3126,7 +3494,7 @@ File: JavaSE9.info,  Node: Notes about Generics,  Next: Two Type Parameters,  Pr
 
 File: JavaSE9.info,  Node: Reference Types,  Next: Type Arguments,  Up: Notes about Generics
 
-7.4.1 Generics Work Only with Reference Types
+8.4.1 Generics Work Only with Reference Types
 ---------------------------------------------
 
 When declaring an instance of a generic type, the type argument passed
@@ -3140,7 +3508,7 @@ type wrapper transparent.
 
 File: JavaSE9.info,  Node: Type Arguments,  Next: Subtyping,  Prev: Reference Types,  Up: Notes about Generics
 
-7.4.2 Generic Types Differ Based on their Type Arguments
+8.4.2 Generic Types Differ Based on their Type Arguments
 --------------------------------------------------------
 
 A reference of one specific version of a generic type is not
@@ -3156,7 +3524,7 @@ arguments differ.
 
 File: JavaSE9.info,  Node: Subtyping,  Next: Type Safety,  Prev: Type Arguments,  Up: Notes about Generics
 
-7.4.3 Generics and Subtyping
+8.4.3 Generics and Subtyping
 ----------------------------
 
 Is the following legal?
@@ -3188,7 +3556,7 @@ is not the case that 'G<Foo>' is a subtype of 'G<Bar>'.
 
 File: JavaSE9.info,  Node: Type Safety,  Prev: Subtyping,  Up: Notes about Generics
 
-7.4.4 How Generics Improve Type Safety
+8.4.4 How Generics Improve Type Safety
 --------------------------------------
 
 Generics automatically ensure the type safety of all operations
@@ -3198,7 +3566,7 @@ the coder to enter cases and to type-check code by hand.
 
 File: JavaSE9.info,  Node: Two Type Parameters,  Next: Generic Class General Form,  Prev: Notes about Generics,  Up: Generics
 
-7.5 A Generic Class with Two Type Parameters
+8.5 A Generic Class with Two Type Parameters
 ============================================
 
 You can declare more than one type parameter in a generic type.  To
@@ -3214,7 +3582,7 @@ different.
 
 File: JavaSE9.info,  Node: Two Types Example Code,  Up: Two Type Parameters
 
-7.5.1 Example of Code with Two Type Parameters
+8.5.1 Example of Code with Two Type Parameters
 ----------------------------------------------
 
 {'TwoTypeParameters.java'} ==
@@ -3235,7 +3603,7 @@ Chunk name                First definition point
 
 File: JavaSE9.info,  Node: Class TwoGen,  Next: Class SimpGen,  Up: Two Types Example Code
 
-7.5.1.1 Class TwoGen
+8.5.1.1 Class TwoGen
 ....................
 
 <Class TwoGen> ==
@@ -3320,7 +3688,7 @@ This chunk is called by <Class TwoGen>; see its first definition at
 
 File: JavaSE9.info,  Node: Class SimpGen,  Prev: Class TwoGen,  Up: Two Types Example Code
 
-7.5.1.2 Class SimpGen
+8.5.1.2 Class SimpGen
 .....................
 
 Two type arguments must be supplied to the constructor.  In this case,
@@ -3350,7 +3718,7 @@ definition at *note TwoTypeParameters-java::.
 
 File: JavaSE9.info,  Node: Generic Class General Form,  Next: Bounded Types,  Prev: Two Type Parameters,  Up: Generics
 
-7.6 The General Form of a Generic Class
+8.6 The General Form of a Generic Class
 =======================================
 
 The generics syntax shown above can be generalized.  Here is the
@@ -3364,13 +3732,13 @@ and instance creation:
      class-name<type-arg-list> var-name =
        new class-name<type-arg-list>(cons-arg-list);
 
-GeneralForm 7.1: General Form for Declaring and Creating a Reference
+GeneralForm 8.1: General Form for Declaring and Creating a Reference
 to a Generic Class
 
 
 File: JavaSE9.info,  Node: Bounded Types,  Next: Wildcard Arguments,  Prev: Generic Class General Form,  Up: Generics
 
-7.7 Bounded Types
+8.7 Bounded Types
 =================
 
 Sometimes it can be useful to limit the types that can be passed to a
@@ -3407,7 +3775,7 @@ implement 'MyInterface'.
 
 File: JavaSE9.info,  Node: Wildcard Arguments,  Next: Generic Methods,  Prev: Bounded Types,  Up: Generics
 
-7.8 Using Wildcard Arguments
+8.8 Using Wildcard Arguments
 ============================
 
 * Menu:
@@ -3419,7 +3787,7 @@ File: JavaSE9.info,  Node: Wildcard Arguments,  Next: Generic Methods,  Prev: Bo
 
 File: JavaSE9.info,  Node: Wildcard Motivation,  Next: Wildcard Syntax,  Up: Wildcard Arguments
 
-7.8.1 Wildcard Motivation
+8.8.1 Wildcard Motivation
 -------------------------
 
 Consider the problem of writing a routine that prints out all the
@@ -3484,7 +3852,7 @@ where the type 'Object' is expected.
 
 File: JavaSE9.info,  Node: Wildcard Syntax,  Next: Bounded Wildcards,  Prev: Wildcard Motivation,  Up: Wildcard Arguments
 
-7.8.2 Wildcard Syntax
+8.8.2 Wildcard Syntax
 ---------------------
 
 Sometimes type safety can get in the way of perfectly acceptable
@@ -3509,7 +3877,7 @@ The wildcard simply matches any _valid_ 'Stats' object.
 
 File: JavaSE9.info,  Node: Bounded Wildcards,  Prev: Wildcard Syntax,  Up: Wildcard Arguments
 
-7.8.3 Bounded Wildcards
+8.8.3 Bounded Wildcards
 -----------------------
 
 Wildcard arguments can be bounded in much the same way that a type
@@ -3530,7 +3898,7 @@ a wildcard, use the following type of wildcard expression:
 
      <? extends superclass>
 
-GeneralForm 7.2: General Form of Upper Bounded Wildcard Syntax
+GeneralForm 8.2: General Form of Upper Bounded Wildcard Syntax
 
    where superclass is the name of the class that serves as the upper
 bound.  This is an inclusive clause.
@@ -3543,7 +3911,7 @@ clause to a wildcard declaration.  Here is its general form:
 
      <? super subclass>
 
-GeneralForm 7.3: General Form of Lower Bounded Wildcard Syntax
+GeneralForm 8.3: General Form of Lower Bounded Wildcard Syntax
 
    Only classes that are superclasses of subclass are acceptable
 arguments
@@ -3551,7 +3919,7 @@ arguments
 
 File: JavaSE9.info,  Node: Generic Methods,  Next: Generic Constructors,  Prev: Wildcard Arguments,  Up: Generics
 
-7.9 Creating a Generic Method
+8.9 Creating a Generic Method
 =============================
 
 It is possible to declare a generic method that uses one or more type
@@ -3563,7 +3931,7 @@ Generalized Form
 
      < type-param-list > ret-type meth-name ( param-list ) { ...
 
-GeneralForm 7.4: General Form for Declaring a Generic Method
+GeneralForm 8.4: General Form for Declaring a Generic Method
 
 * Menu:
 
@@ -3572,7 +3940,7 @@ GeneralForm 7.4: General Form for Declaring a Generic Method
 
 File: JavaSE9.info,  Node: Example of Generic Method,  Up: Generic Methods
 
-7.9.1 Example of Generic Method
+8.9.1 Example of Generic Method
 -------------------------------
 
 The following program declares a non-generic class called
@@ -3602,7 +3970,7 @@ Chunk name                First definition point
 
 File: JavaSE9.info,  Node: Method isIn,  Next: GenMethDemo Main,  Up: Example of Generic Method
 
-7.9.1.1 Method isIn()
+8.9.1.1 Method isIn()
 .....................
 
 The *type parameters* are declared _before_ the return type of the
@@ -3648,7 +4016,7 @@ argumetns are specified:
 
 File: JavaSE9.info,  Node: GenMethDemo Main,  Prev: Method isIn,  Up: Example of Generic Method
 
-7.9.1.2 GenMethDemo Main
+8.9.1.2 GenMethDemo Main
 ........................
 
 <GenMethDemo Main> ==
@@ -3687,7 +4055,7 @@ at *note GenMethDemo-java::.
 
 File: JavaSE9.info,  Node: Generic Constructors,  Prev: Generic Methods,  Up: Generics
 
-7.10 Generic Constructors
+8.10 Generic Constructors
 =========================
 
 It is possible for constructors to be generic, even if their class is
@@ -3699,7 +4067,7 @@ parameters come first).
 
 File: JavaSE9.info,  Node: Enumerations,  Next: Strings,  Prev: Generics,  Up: Top
 
-8 Enumerations
+9 Enumerations
 **************
 
 Enumerations were added by JDK 5.  In earlier versions of Java,
@@ -3729,7 +4097,7 @@ are greatly expanded.  An enumeration can have:
 
 File: JavaSE9.info,  Node: Enumeration Basics,  Next: Enum Methods,  Up: Enumerations
 
-8.1 Enumeration Basics
+9.1 Enumeration Basics
 ======================
 
 An enumeration is created using the 'enum' keyword.
@@ -3783,7 +4151,7 @@ When an enumeration object is printed, its name is output (without the
 
 File: JavaSE9.info,  Node: Enum Methods,  Next: Enumerations as Class Types,  Prev: Enumeration Basics,  Up: Enumerations
 
-8.2 Enum Methods 'values()' and 'valueOf()'
+9.2 Enum Methods 'values()' and 'valueOf()'
 ===========================================
 
 All enumerations inherit two methods:
@@ -3822,7 +4190,7 @@ enumeration constant corresponding to the value of a string.
 
 File: JavaSE9.info,  Node: Enumerations as Class Types,  Next: Inherit Enum,  Prev: Enum Methods,  Up: Enumerations
 
-8.3 Java Enumerations are Class Types
+9.3 Java Enumerations are Class Types
 =====================================
 
 A Java enumeration is a class type.  That is, 'enum' defines a class,
@@ -3869,7 +4237,7 @@ of the class in which it is defined.
 
 File: JavaSE9.info,  Node: Inherit Enum,  Prev: Enumerations as Class Types,  Up: Enumerations
 
-8.4 Enumerations Inherit 'Enum'
+9.4 Enumerations Inherit 'Enum'
 ===============================
 
 All enumerations automatically inherit from one superclass:
@@ -3919,13 +4287,13 @@ ordinal values in general.)
 
 File: JavaSE9.info,  Node: Strings,  Next: java Lang,  Prev: Enumerations,  Up: Top
 
-9 String Handling
-*****************
+10 String Handling
+******************
 
 
 File: JavaSE9.info,  Node: java Lang,  Next: java util Collections,  Prev: Strings,  Up: Top
 
-10 'java.lang'
+11 'java.lang'
 **************
 
 Classes and interfaces defined by 'java.lang', which is automatically
@@ -4005,7 +4373,7 @@ fundamental to all of Java programming.  Beginning with JDK 9, all of
 
 File: JavaSE9.info,  Node: Primitive Wrappers,  Up: java Lang
 
-10.1 Primitive Type Wrappers
+11.1 Primitive Type Wrappers
 ============================
 
 Java uses primitive types for 'int', 'char', etc.  for performance
@@ -4029,109 +4397,109 @@ a class.  They are commonly referred to as "type wrappers".
 
 File: JavaSE9.info,  Node: Number,  Next: Double and Float,  Up: Primitive Wrappers
 
-10.1.1 Number
+11.1.1 Number
 -------------
 
 
 File: JavaSE9.info,  Node: Double and Float,  Next: isInfiinite() and isNaN(),  Prev: Number,  Up: Primitive Wrappers
 
-10.1.2 Double and Float
+11.1.2 Double and Float
 -----------------------
 
 
 File: JavaSE9.info,  Node: isInfiinite() and isNaN(),  Next: Byte Short Integer Long,  Prev: Double and Float,  Up: Primitive Wrappers
 
-10.1.3 isInfinite() and isNaN()
+11.1.3 isInfinite() and isNaN()
 -------------------------------
 
 
 File: JavaSE9.info,  Node: Byte Short Integer Long,  Next: Numbers to from String,  Prev: isInfiinite() and isNaN(),  Up: Primitive Wrappers
 
-10.1.4 Byte, Short, Integer, Long
+11.1.4 Byte, Short, Integer, Long
 ---------------------------------
 
 
 File: JavaSE9.info,  Node: Numbers to from String,  Prev: Byte Short Integer Long,  Up: Primitive Wrappers
 
-10.1.5 Converting Numbers to and from String
+11.1.5 Converting Numbers to and from String
 --------------------------------------------
 
 
 File: JavaSE9.info,  Node: java util Collections,  Next: java util Utility Classes,  Prev: java Lang,  Up: Top
 
-11 'java.util' -- Part 1: The Collections Framework
+12 'java.util' -- Part 1: The Collections Framework
 ***************************************************
 
 
 File: JavaSE9.info,  Node: java util Utility Classes,  Next: java io Input Output,  Prev: java util Collections,  Up: Top
 
-12 'java.util' -- Part 2: Utility Classes
+13 'java.util' -- Part 2: Utility Classes
 *****************************************
 
 
 File: JavaSE9.info,  Node: java io Input Output,  Next: NIO,  Prev: java util Utility Classes,  Up: Top
 
-13 'java.io' -- Input/Output
+14 'java.io' -- Input/Output
 ****************************
 
 
 File: JavaSE9.info,  Node: NIO,  Next: Networking,  Prev: java io Input Output,  Up: Top
 
-14 NIO
+15 NIO
 ******
 
 
 File: JavaSE9.info,  Node: Networking,  Next: Event Handling,  Prev: NIO,  Up: Top
 
-15 Networking
+16 Networking
 *************
 
 
 File: JavaSE9.info,  Node: Event Handling,  Next: AWT,  Prev: Networking,  Up: Top
 
-16 Event Handling
+17 Event Handling
 *****************
 
 
 File: JavaSE9.info,  Node: AWT,  Next: AWT Controls,  Prev: Event Handling,  Up: Top
 
-17 AWT: Working with Windows, Graphics, and Text
+18 AWT: Working with Windows, Graphics, and Text
 ************************************************
 
 
 File: JavaSE9.info,  Node: AWT Controls,  Next: Images,  Prev: AWT,  Up: Top
 
-18 Using AWT Controls, Layout Managers, and Menus
+19 Using AWT Controls, Layout Managers, and Menus
 *************************************************
 
 
 File: JavaSE9.info,  Node: Images,  Next: Concurrency,  Prev: AWT Controls,  Up: Top
 
-19 Images
+20 Images
 *********
 
 
-File: JavaSE9.info,  Node: Concurrency,  Next: Streams,  Prev: Images,  Up: Top
+File: JavaSE9.info,  Node: Concurrency,  Next: Streams API,  Prev: Images,  Up: Top
 
-20 The Concurrency Utilities
+21 The Concurrency Utilities
 ****************************
 
 
-File: JavaSE9.info,  Node: Streams,  Next: Regular Expressions,  Prev: Concurrency,  Up: Top
+File: JavaSE9.info,  Node: Streams API,  Next: Regular Expressions,  Prev: Concurrency,  Up: Top
 
-21 The Stream API
+22 The Stream API
 *****************
 
 
-File: JavaSE9.info,  Node: Regular Expressions,  Next: Swing,  Prev: Streams,  Up: Top
+File: JavaSE9.info,  Node: Regular Expressions,  Next: Swing,  Prev: Streams API,  Up: Top
 
-22 Regular Expressions and Other Packages
+23 Regular Expressions and Other Packages
 *****************************************
 
 
 File: JavaSE9.info,  Node: Swing,  Next: The Makefile,  Prev: Regular Expressions,  Up: Top
 
-23 Introducinvg Swing
+24 Introducinvg Swing
 *********************
 
 
@@ -4657,6 +5025,8 @@ List of Tables
 * Menu:
 
 * Table 5.1: PackageAccess.              Package Access Table
+* Table 7.1: ByteStreamClasses.          The Byte Stream Classes ...
+* Table 7.2: CharacterStreamClasses.     The Character Stream I/O ...
 
 
 File: JavaSE9.info,  Node: List of General Forms,  Next: Bibliography,  Prev: List of Tables,  Up: Top
@@ -4682,10 +5052,10 @@ List of General Forms
 * GeneralForm 6.2: ClassImplementsInterface.
                                          Class Implementing ...
 * GeneralForm 6.3: InterfaceStaticMethod.Interface Static Method, ...
-* GeneralForm 7.1: GenericClass.         General Form Generic Class
-* GeneralForm 7.2: UpperBoundedWildcard. Upper Bounded Wildcard
-* GeneralForm 7.3: LowerBoundedWildcard. Lower Bounded Wildcard
-* GeneralForm 7.4: GenericMethod.        Generic Method Declaration
+* GeneralForm 8.1: GenericClass.         General Form Generic Class
+* GeneralForm 8.2: UpperBoundedWildcard. Upper Bounded Wildcard
+* GeneralForm 8.3: LowerBoundedWildcard. Lower Bounded Wildcard
+* GeneralForm 8.4: GenericMethod.        Generic Method Declaration
 
 
 File: JavaSE9.info,  Node: Bibliography,  Next: Concept Index,  Prev: List of General Forms,  Up: Top
@@ -4934,13 +5304,14 @@ Index
 * accessibility:                         Packages Intro.    (line   6)
 * anonymous inner classes:               Nested and Inner Classes.
                                                             (line   6)
-* API, Stream:                           Streams.           (line   5)
+* API, Stream:                           Streams API.       (line   5)
 * argument passing:                      Argument Passing.  (line   6)
 * arguments, command-line:               Command-Line Arguments.
                                                             (line   6)
 * arguments, varargs:                    Varargs.           (line   6)
 * Arrays:                                Arrays 2.          (line   6)
 * arrays as objects:                     Arrays 2.          (line   6)
+* assert:                                I/O.               (line   6)
 * auto-boxing, generics:                 Reference Types.   (line   6)
 * auto-unboxing, generics:               Reference Types.   (line   6)
 * autoboxing in generic reference:       GenDemo as Integer.
@@ -4948,6 +5319,8 @@ Index
 * AWT:                                   AWT.               (line   6)
 * AWT Controls:                          AWT Controls.      (line   6)
 * AWT Layout Managers, Menus:            AWT Controls.      (line   5)
+* binary data, reading and writing:      Byte Streams Character Streams.
+                                                            (line   6)
 * binding, late, early:                  final to Prevent Overriding.
                                                             (line   6)
 * bounded types:                         Bounded Types.     (line   6)
@@ -4955,8 +5328,17 @@ Index
 * bounded wildcards, lower bound:        Bounded Wildcards. (line  32)
 * bounded wildcards, upper bound:        Bounded Wildcards. (line  18)
 * bounded wildcards, upper bound <1>:    Bounded Wildcards. (line  20)
+* Byte Stream Class:                     Byte Stream Class. (line   6)
+* Byte Streams, definition:              Byte Streams Character Streams.
+                                                            (line   6)
 * casts, eliminated in generics:         Type Safety.       (line   6)
 * casts, generics, automatic, implicit:  What are Generics. (line   6)
+* Character Stream Class:                Character Stream Class.
+                                                            (line   6)
+* Character Streams, definition:         Byte Streams Character Streams.
+                                                            (line   6)
+* character streams, Unicode:            Character Stream Class.
+                                                            (line   6)
 * charAT():                              String Class.      (line  33)
 * Class:                                 Class Gen<T>.      (line 107)
 * Class fundamentals:                    Class Fundamentals.
@@ -4982,6 +5364,9 @@ Index
 * compile time:                          Interfaces.        (line  19)
 * compile-time type check:               Motivation.        (line  31)
 * Concurrency Utilities:                 Concurrency.       (line   5)
+* console I/O:                           I/O Basics.        (line   6)
+* console input, reading:                Reading Console Input.
+                                                            (line   5)
 * constant, final variable:              final Keyword.     (line   6)
 * Constants:                             Makefile Constants.
                                                             (line   6)
@@ -5048,6 +5433,8 @@ Index
 * equals():                              String Class.      (line  33)
 * equals() <1>:                          Object Class.      (line  49)
 * erasure:                               Class GenDemo.     (line   6)
+* err:                                   Predefined Streams.
+                                                            (line   6)
 * Event Handling:                        Event Handling.    (line   5)
 * example generic method:                Example of Generic Method.
                                                             (line   6)
@@ -5140,6 +5527,8 @@ Index
                                                             (line   6)
 * hierarchy, multilevel, creating:       Multilevel Hierarchy.
                                                             (line   6)
+* I/O:                                   I/O.               (line   6)
+* I/O Basics:                            I/O Basics.        (line   6)
 * Images:                                Images.            (line   5)
 * implements clause:                     Implementing Interfaces.
                                                             (line   6)
@@ -5148,6 +5537,8 @@ Index
 * import statement, general form and example: Importing.    (line  14)
 * imported packages must be public:      Importing.         (line  43)
 * importing packages:                    Importing.         (line   6)
+* in:                                    Predefined Streams.
+                                                            (line   6)
 * index interface, default methods:      Default Interface Methods.
                                                             (line   6)
 * Inheritance:                           Inheritance.       (line   6)
@@ -5165,9 +5556,12 @@ Index
                                                             (line   6)
 * inner classes, event handling:         Nested and Inner Classes.
                                                             (line   6)
+* input stream:                          Streams.           (line   6)
+* input/output system:                   I/O.               (line   6)
 * instance variables:                    General Form.      (line  32)
 * instance, class:                       Class Fundamentals.
                                                             (line   6)
+* instanceof:                            I/O.               (line   6)
 * intefaces, applying:                   Applying Interfaces.
                                                             (line   6)
 * interface as bound, generics:          Bounded Types.     (line  22)
@@ -5214,15 +5608,22 @@ Index
 * interfaces, nested:                    Nested Interfaces. (line   6)
 * interfaces, shared constants:          Variables in Interfaces.
                                                             (line   6)
+* internationalization, character streams: Byte Streams Character Streams.
+                                                            (line   6)
 * introduction to Java SE 9:             Java SE 9 Introduction.
                                                             (line   5)
 * Introduction to Packages (section):    Packages Intro.    (line   6)
 * iteration, iterative:                  Recursion.         (line   6)
 * J2SE 5.0:                              Generics.          (line   6)
+* Java I/O system:                       Streams.           (line   6)
 * Java SE 9 introduction:                Java SE 9 Introduction.
                                                             (line   6)
-* java.io:                               java io Input Output.
+* java.io:                               I/O.               (line   6)
+* java.io <1>:                           Character Stream Class.
+                                                            (line   6)
+* java.io <2>:                           java io Input Output.
                                                             (line   5)
+* java.io package:                       Streams.           (line   6)
 * java.lang:                             Importing.         (line  29)
 * java.lang <1>:                         java Lang.         (line   6)
 * java.util Collections Framework:       java util Collections.
@@ -5282,6 +5683,7 @@ Index
                                                             (line   6)
 * name, method:                          Methods.           (line  15)
 * naming mechanism:                      Packages Intro.    (line   6)
+* native:                                I/O.               (line   6)
 * nested classes:                        Nested and Inner Classes.
                                                             (line   6)
 * nested interfaces:                     Nested Interfaces. (line   6)
@@ -5305,6 +5707,9 @@ Index
                                                             (line   6)
 * _one interface, multiple methods_:     Overloading Methods.
                                                             (line   6)
+* out:                                   Predefined Streams.
+                                                            (line   6)
+* output stream:                         Streams.           (line   6)
 * overload versus override:              Method Overriding. (line   6)
 * overload, overloaded:                  Overloading Methods.
                                                             (line   6)
@@ -5322,6 +5727,7 @@ Index
 * package statement, example:            Defining Packages. (line  20)
 * package statement, general form:       Defining Packages. (line  16)
 * package statement, multilevel form:    Defining Packages. (line  43)
+* package, java.io:                      Streams.           (line   6)
 * Packages (chapter):                    Packages.          (line   6)
 * packages hierarchy:                    Defining Packages. (line  41)
 * packages stored in file system:        Defining Packages. (line  27)
@@ -5348,6 +5754,8 @@ Index
                                                             (line   6)
 * polymorphism, run-time:                Dynamic Method Dispatch.
                                                             (line   6)
+* Predefined Streams:                    Predefined Streams.
+                                                            (line   6)
 * preexisting code, default method, interface: Default Interface Methods.
                                                             (line  15)
 * Primitive Wrappers:                    Primitive Wrappers.
@@ -5357,6 +5765,13 @@ Index
                                                             (line   6)
 * protected access modifier:             Access Control.    (line  28)
 * public access modifier:                Access Control.    (line  28)
+* read(), InputStream abstract class:    Byte Stream Class. (line  58)
+* read(), Reader:                        Character Stream Class.
+                                                            (line  55)
+* Reader abstract class:                 Character Stream Class.
+                                                            (line   6)
+* Reading Console Input:                 Reading Console Input.
+                                                            (line   6)
 * recursion, recursive:                  Recursion.         (line   6)
 * reference variable, superclass:        Superclass Referencing Subclass.
                                                             (line   6)
@@ -5385,7 +5800,21 @@ Index
 * static method, interface:              Interface Static Methods.
                                                             (line   6)
 * static restrictions on methods:        static Keyword.    (line  24)
-* Stream API:                            Streams.           (line   6)
+* Stream API:                            Streams API.       (line   6)
+* Stream Class, Byte:                    Byte Stream Class. (line   6)
+* Stream Class, Character:               Character Stream Class.
+                                                            (line   6)
+* stream definition:                     Streams.           (line   6)
+* stream variables, predefined:          Predefined Streams.
+                                                            (line   6)
+* stream, input:                         Streams.           (line   6)
+* stream, output:                        Streams.           (line   6)
+* Streams:                               Streams.           (line   6)
+* Streams, Character:                    Byte Streams Character Streams.
+                                                            (line   6)
+* Streams, Predefined:                   Predefined Streams.
+                                                            (line   6)
+* strictfp:                              I/O.               (line   6)
 * String Class:                          String Class.      (line   6)
 * String concatenation:                  String Class.      (line  20)
 * String construction:                   String Class.      (line  20)
@@ -5405,11 +5834,15 @@ Index
 * Swing:                                 Swing.             (line   5)
 * switch statement, enum types:          Enumeration Basics.
                                                             (line  38)
+* System class:                          Predefined Streams.
+                                                            (line   6)
 * template, class:                       Class Fundamentals.
                                                             (line   6)
 * Text:                                  AWT.               (line   5)
+* text-based console programs:           I/O Basics.        (line   6)
 * this Keyword:                          this Keyword.      (line   6)
 * toString():                            Object Class.      (line  49)
+* try-with-resources:                    I/O.               (line   6)
 * type abstraction, generics:            Generics.          (line   6)
 * type argument, passed to type parameter: GenDemo as Integer.
                                                             (line   6)
@@ -5422,6 +5855,12 @@ Index
                                                             (line   6)
 * type wrappers, generics:               Reference Types.   (line   6)
 * type, method:                          Methods.           (line  15)
+* Unicode:                               Byte Streams Character Streams.
+                                                            (line   6)
+* Unicode character streams:             Character Stream Class.
+                                                            (line   6)
+* Unicode character streams <1>:         Character Stream Class.
+                                                            (line   6)
 * upper bound:                           Bounded Types.     (line   6)
 * upper bound wildcard argument:         Bounded Wildcards. (line  20)
 * upper bounded wildcard:                Bounded Wildcards. (line  18)
@@ -5434,6 +5873,7 @@ Index
 * variable-arity method:                 Varargs.           (line   6)
 * variable-length arguments:             Varargs.           (line   6)
 * visibility mechanism:                  Packages Intro.    (line   6)
+* volative:                              I/O.               (line   6)
 * wildcard arguments, generics:          Wildcard Arguments.
                                                             (line   6)
 * wildcard syntax:                       Wildcard Syntax.   (line   6)
@@ -5442,6 +5882,11 @@ Index
                                                             (line   6)
 * Windows:                               AWT.               (line   6)
 * Wrappers, Primitives:                  Primitive Wrappers.
+                                                            (line   6)
+* write(), OutputStream abstract class:  Byte Stream Class. (line  58)
+* write(), Writer:                       Character Stream Class.
+                                                            (line  55)
+* Writer abstract class:                 Character Stream Class.
                                                             (line   6)
 
 
@@ -5476,227 +5921,249 @@ Function Index
 
 Tag Table:
 Node: Top75
-Node: Java SE 9 Introduction4386
-Node: Classes4528
-Node: Class Fundamentals4972
-Node: General Form5388
-Ref: ClassDeclaration5728
-Node: Declaring Objects7243
-Node: Methods8637
-Ref: MethodDeclaration8836
-Node: Constructors9679
-Node: this Keyword10443
-Node: Instance Variable Hiding10996
-Node: Stack Class11800
-Ref: Stack-java12624
-Ref: TestStack-java13179
-Node: Stack Instance Variables13480
-Ref: Stack-Instance-Variables13647
-Node: Stack Constructor Node13813
-Ref: Stack-Constructor14024
-Node: Stack Instance Methods Node14403
-Ref: Stack-Instance-Methods14620
-Node: Stack Push and Pop Node15282
-Ref: Stack-Push15453
-Ref: Stack-Pop15761
-Node: Stack TestStack Node16090
-Ref: TestStack-Main-Method16262
-Node: Methods and Classes16990
-Node: Overloading Methods17696
-Node: Overloading Constructors20006
-Node: Objects as Parameters20194
-Node: Argument Passing20870
-Node: Returning Objects22212
-Node: Recursion22839
-Node: Access Control24351
-Node: Improved Stack Class27296
-Ref: StackImproved-java27530
-Ref: Stack-Private-Instance-Variables28168
-Ref: Improved Stack Class-Footnote-129192
-Node: static Keyword29311
-Node: final Keyword31750
-Node: Arrays 232653
-Node: Nested and Inner Classes33350
-Node: String Class35475
-Node: Command-Line Arguments36732
-Node: Varargs37556
-Node: Inheritance39372
-Node: Inheritance Basics40327
-Ref: Subclass40923
-Node: Member Access and Inheritance41253
-Node: Superclass Referencing Subclass42029
-Node: Using super42809
-Node: super Calling Superclass Constructor43337
-Ref: SuperCallingConstructor43666
-Node: super Referencing Superclass43973
-Ref: SuperReferencingSuperclass44309
-Node: Multilevel Hierarchy44735
-Node: Constructors Executed45490
-Node: Method Overriding45800
-Node: Dynamic Method Dispatch46686
-Node: Why Overridden Methods48133
-Node: Applying Method Overriding49683
-Ref: FindAreas-java-50315
-Node: FindAreas SuperClass Figure Node51686
-Ref: FindAreas-SuperClass-Figure-51913
-Ref: Figure-Instance-Variable-Declarations-52700
-Ref: Figure-Constructor-53171
-Ref: Figure-Area-Method-Declaration-53986
-Node: FindAreas SubClass Rectangle Node54253
-Ref: FindAreas-SubClass-Rectangle-54523
-Ref: Rectangle-Constructor-55357
-Ref: Rectangle-Area-Method-Declaration-55646
-Node: FindAreas SubClass Triangle Node55960
-Ref: FindAreas-SubClass-Triangle-56221
-Ref: Triangle-Constructor-57045
-Ref: Triangle-Area-Method-Declaration-57328
-Node: FindAreas Main Class Node57649
-Ref: FindAreas-Main-Class-57854
-Ref: FindAreas-Main-Method-Declaration-58244
-Ref: Create-Basic-Figure-Objects-59106
-Ref: Create-Basic-Figure-Reference-Variable-59735
-Ref: Call-Overridden-Methods-One-By-One-60248
-Node: Using Abstract Classes60638
-Ref: AbstractMethodDeclaration62148
-Node: Improved Figure Class63371
-Ref: AbstractAreas-java-63818
-Node: AbstractAreas Abstract Class Figure Node64598
-Ref: AbstractAreas-Abstract-Class-Figure-65019
-Ref: AbstractAreas-Abstract-Area-Method-Declaration-65895
-Node: AbstractAreas Main Class66159
-Ref: AbstractAreas-Main-Class-66348
-Ref: AbstractAreas-Main-Method-Declaration-66774
-Ref: Create-Basic-Figure-Objects-Except-Figure-68115
-Ref: Call-Overridden-Methods-One-By-One-Except-Figure-68678
-Node: final with Inheritance69099
-Node: final to Prevent Overriding69502
-Node: final to Prevent Inheritance70415
-Node: Object Class70835
-Node: Packages72972
-Node: Packages Intro73430
-Node: Defining Packages73974
-Ref: PackageStatement74576
-Ref: PackageStatementMulti75546
-Node: Classpath75969
-Node: Member Access77509
-Ref: PackageAccess78484
-Node: Importing79085
-Ref: Import79709
-Node: Interfaces80984
-Node: Defining Interfaces83092
-Ref: InterfaceSimple83347
-Node: Implementing Interfaces84677
-Ref: ClassImplementsInterface85171
-Node: Interface References85656
-Node: Partial Implementations86647
-Node: Nested Interfaces87081
-Node: Applying Interfaces87855
-Node: Variables in Interfaces88055
-Node: Extending Interfaces88785
-Node: Default Interface Methods89264
-Node: Interface Static Methods91368
-Ref: InterfaceStaticMethod92100
-Node: Private Interface Methods92382
-Node: Generics93138
-Node: Motivation94978
-Node: What are Generics96954
-Node: Simple Generics Example98021
-Ref: SimpleGenerics-java98336
-Node: Class Gen<T>98731
-Ref: Class-Gen99726
-Ref: Instance-Variable-ob-of-Type-T100838
-Ref: generics-constructor101038
-Ref: Constructor-taking-parameter-of-Type-T101384
-Ref: Method-returning-object-of-type-T101920
-Ref: Method-showing-type-of-T102545
-Node: Class GenDemo102784
-Ref: Class-GenDemo103563
-Node: GenDemo as Integer104320
-Ref: Create-a-Gen-object-for-Integers104532
-Ref: Integer-Type-Parameter105662
-Ref: Reference-to-Integer-Instance106509
-Ref: Show-Type107052
-Ref: Get-Value107544
-Node: GenDemo as String107785
-Ref: Create-a-Gen-object-for-Strings107995
-Node: Notes about Generics108450
-Node: Reference Types108706
-Node: Type Arguments109232
-Node: Subtyping109795
-Node: Type Safety110929
-Node: Two Type Parameters111288
-Node: Two Types Example Code111836
-Ref: TwoTypeParameters-java112010
-Node: Class TwoGen112414
-Ref: Class-TwoGen112551
-Ref: Class-Declaration113581
-Ref: Two-Instance-Variables-Declarations113787
-Ref: Constructor-of-Two-Parameters113970
-Ref: Instance-Methods-Show-and-Get114226
-Node: Class SimpGen114617
-Ref: Class-SimpGen114880
-Node: Generic Class General Form115449
-Ref: GenericClass115756
-Node: Bounded Types116080
-Node: Wildcard Arguments117478
-Node: Wildcard Motivation117723
-Node: Wildcard Syntax120270
-Node: Bounded Wildcards121188
-Ref: UpperBoundedWildcard122009
-Ref: LowerBoundedWildcard122389
-Node: Generic Methods122554
-Ref: GenericMethod122954
-Node: Example of Generic Method123122
-Ref: GenMethDemo-java123623
-Node: Method isIn124077
-Ref: Static-Method-isIn124297
-Node: GenMethDemo Main125668
-Ref: GenMethDemo-Main125818
-Node: Generic Constructors126713
-Node: Enumerations127080
-Node: Enumeration Basics127954
-Node: Enum Methods129549
-Node: Enumerations as Class Types130776
-Node: Inherit Enum132650
-Node: Strings134486
-Node: java Lang134610
-Node: Primitive Wrappers136255
-Node: Number137044
-Node: Double and Float137160
-Node: isInfiinite() and isNaN()137330
-Node: Byte Short Integer Long137533
-Node: Numbers to from String137746
-Node: java util Collections137947
-Node: java util Utility Classes138166
-Node: java io Input Output138376
-Node: NIO138542
-Node: Networking138649
-Node: Event Handling138764
-Node: AWT138887
-Node: AWT Controls139074
-Node: Images139255
-Node: Concurrency139364
-Node: Streams139506
-Node: Regular Expressions139639
-Node: Swing139814
-Node: The Makefile139954
-Ref: Makefile140099
-Node: Makefile Constants140730
-Ref: Makefile-CONSTANTS140871
-Node: Makefile Defaults141007
-Ref: Makefile-DEFAULTS141190
-Node: Makefile Tangle Weave141340
-Ref: Makefile-TANGLE-WEAVE141529
-Node: Makefile Clean141921
-Ref: Makefile-CLEAN142070
-Node: Code Chunk Summaries142257
-Node: File Definitions142747
-Node: Code Chunk Definitions143597
-Node: Code Chunk References148764
-Node: List of Tables158158
-Node: List of General Forms158375
-Node: Bibliography159771
-Node: Concept Index159903
-Node: Function Index211911
+Node: Java SE 9 Introduction4913
+Node: Classes5055
+Node: Class Fundamentals5499
+Node: General Form5915
+Ref: ClassDeclaration6255
+Node: Declaring Objects7770
+Node: Methods9164
+Ref: MethodDeclaration9363
+Node: Constructors10206
+Node: this Keyword10970
+Node: Instance Variable Hiding11523
+Node: Stack Class12327
+Ref: Stack-java13151
+Ref: TestStack-java13706
+Node: Stack Instance Variables14007
+Ref: Stack-Instance-Variables14174
+Node: Stack Constructor Node14340
+Ref: Stack-Constructor14551
+Node: Stack Instance Methods Node14930
+Ref: Stack-Instance-Methods15147
+Node: Stack Push and Pop Node15809
+Ref: Stack-Push15980
+Ref: Stack-Pop16288
+Node: Stack TestStack Node16617
+Ref: TestStack-Main-Method16789
+Node: Methods and Classes17517
+Node: Overloading Methods18223
+Node: Overloading Constructors20533
+Node: Objects as Parameters20721
+Node: Argument Passing21397
+Node: Returning Objects22739
+Node: Recursion23366
+Node: Access Control24878
+Node: Improved Stack Class27823
+Ref: StackImproved-java28057
+Ref: Stack-Private-Instance-Variables28695
+Ref: Improved Stack Class-Footnote-129719
+Node: static Keyword29838
+Node: final Keyword32277
+Node: Arrays 233180
+Node: Nested and Inner Classes33877
+Node: String Class36002
+Node: Command-Line Arguments37259
+Node: Varargs38083
+Node: Inheritance39899
+Node: Inheritance Basics40854
+Ref: Subclass41450
+Node: Member Access and Inheritance41780
+Node: Superclass Referencing Subclass42556
+Node: Using super43336
+Node: super Calling Superclass Constructor43864
+Ref: SuperCallingConstructor44193
+Node: super Referencing Superclass44500
+Ref: SuperReferencingSuperclass44836
+Node: Multilevel Hierarchy45262
+Node: Constructors Executed46017
+Node: Method Overriding46327
+Node: Dynamic Method Dispatch47213
+Node: Why Overridden Methods48660
+Node: Applying Method Overriding50210
+Ref: FindAreas-java-50842
+Node: FindAreas SuperClass Figure Node52213
+Ref: FindAreas-SuperClass-Figure-52440
+Ref: Figure-Instance-Variable-Declarations-53227
+Ref: Figure-Constructor-53698
+Ref: Figure-Area-Method-Declaration-54513
+Node: FindAreas SubClass Rectangle Node54780
+Ref: FindAreas-SubClass-Rectangle-55050
+Ref: Rectangle-Constructor-55884
+Ref: Rectangle-Area-Method-Declaration-56173
+Node: FindAreas SubClass Triangle Node56487
+Ref: FindAreas-SubClass-Triangle-56748
+Ref: Triangle-Constructor-57572
+Ref: Triangle-Area-Method-Declaration-57855
+Node: FindAreas Main Class Node58176
+Ref: FindAreas-Main-Class-58381
+Ref: FindAreas-Main-Method-Declaration-58771
+Ref: Create-Basic-Figure-Objects-59633
+Ref: Create-Basic-Figure-Reference-Variable-60262
+Ref: Call-Overridden-Methods-One-By-One-60775
+Node: Using Abstract Classes61165
+Ref: AbstractMethodDeclaration62675
+Node: Improved Figure Class63898
+Ref: AbstractAreas-java-64345
+Node: AbstractAreas Abstract Class Figure Node65125
+Ref: AbstractAreas-Abstract-Class-Figure-65546
+Ref: AbstractAreas-Abstract-Area-Method-Declaration-66422
+Node: AbstractAreas Main Class66686
+Ref: AbstractAreas-Main-Class-66875
+Ref: AbstractAreas-Main-Method-Declaration-67301
+Ref: Create-Basic-Figure-Objects-Except-Figure-68642
+Ref: Call-Overridden-Methods-One-By-One-Except-Figure-69205
+Node: final with Inheritance69626
+Node: final to Prevent Overriding70029
+Node: final to Prevent Inheritance70942
+Node: Object Class71362
+Node: Packages73499
+Node: Packages Intro73957
+Node: Defining Packages74501
+Ref: PackageStatement75103
+Ref: PackageStatementMulti76073
+Node: Classpath76496
+Node: Member Access78036
+Ref: PackageAccess79011
+Node: Importing79612
+Ref: Import80236
+Node: Interfaces81511
+Node: Defining Interfaces83614
+Ref: InterfaceSimple83869
+Node: Implementing Interfaces85199
+Ref: ClassImplementsInterface85693
+Node: Interface References86178
+Node: Partial Implementations87169
+Node: Nested Interfaces87603
+Node: Applying Interfaces88377
+Node: Variables in Interfaces88577
+Node: Extending Interfaces89307
+Node: Default Interface Methods89786
+Node: Interface Static Methods91890
+Ref: InterfaceStaticMethod92622
+Node: Private Interface Methods92904
+Node: I/O93660
+Node: I/O Basics94638
+Node: Streams95647
+Node: Byte Streams Character Streams96453
+Node: Byte Stream Class97537
+Ref: ByteStreamClasses98175
+Node: Character Stream Class99639
+Ref: CharacterStreamClasses100190
+Node: Predefined Streams101498
+Node: Reading Console Input102335
+Node: Writing Console Output102500
+Node: PrintWriter Class102674
+Node: Reading and Writing Files102850
+Node: Automatically Closing Files103039
+Node: transient and volatile Modifiers103247
+Node: Using instanceof103472
+Node: strictfp103634
+Node: Native Methods103762
+Node: Using assert103896
+Node: Static Import104035
+Node: Overloaded Constructors with this104191
+Node: Compact API Profiles104427
+Node: Generics104583
+Node: Motivation106416
+Node: What are Generics108392
+Node: Simple Generics Example109459
+Ref: SimpleGenerics-java109774
+Node: Class Gen<T>110169
+Ref: Class-Gen111164
+Ref: Instance-Variable-ob-of-Type-T112276
+Ref: generics-constructor112476
+Ref: Constructor-taking-parameter-of-Type-T112822
+Ref: Method-returning-object-of-type-T113358
+Ref: Method-showing-type-of-T113983
+Node: Class GenDemo114222
+Ref: Class-GenDemo115001
+Node: GenDemo as Integer115758
+Ref: Create-a-Gen-object-for-Integers115970
+Ref: Integer-Type-Parameter117100
+Ref: Reference-to-Integer-Instance117947
+Ref: Show-Type118490
+Ref: Get-Value118982
+Node: GenDemo as String119223
+Ref: Create-a-Gen-object-for-Strings119433
+Node: Notes about Generics119888
+Node: Reference Types120144
+Node: Type Arguments120670
+Node: Subtyping121233
+Node: Type Safety122367
+Node: Two Type Parameters122726
+Node: Two Types Example Code123274
+Ref: TwoTypeParameters-java123448
+Node: Class TwoGen123852
+Ref: Class-TwoGen123989
+Ref: Class-Declaration125019
+Ref: Two-Instance-Variables-Declarations125225
+Ref: Constructor-of-Two-Parameters125408
+Ref: Instance-Methods-Show-and-Get125664
+Node: Class SimpGen126055
+Ref: Class-SimpGen126318
+Node: Generic Class General Form126887
+Ref: GenericClass127194
+Node: Bounded Types127518
+Node: Wildcard Arguments128916
+Node: Wildcard Motivation129161
+Node: Wildcard Syntax131708
+Node: Bounded Wildcards132626
+Ref: UpperBoundedWildcard133447
+Ref: LowerBoundedWildcard133827
+Node: Generic Methods133992
+Ref: GenericMethod134392
+Node: Example of Generic Method134560
+Ref: GenMethDemo-java135061
+Node: Method isIn135515
+Ref: Static-Method-isIn135735
+Node: GenMethDemo Main137106
+Ref: GenMethDemo-Main137256
+Node: Generic Constructors138151
+Node: Enumerations138518
+Node: Enumeration Basics139392
+Node: Enum Methods140987
+Node: Enumerations as Class Types142214
+Node: Inherit Enum144088
+Node: Strings145924
+Node: java Lang146050
+Node: Primitive Wrappers147695
+Node: Number148484
+Node: Double and Float148600
+Node: isInfiinite() and isNaN()148770
+Node: Byte Short Integer Long148973
+Node: Numbers to from String149186
+Node: java util Collections149387
+Node: java util Utility Classes149606
+Node: java io Input Output149816
+Node: NIO149982
+Node: Networking150089
+Node: Event Handling150204
+Node: AWT150327
+Node: AWT Controls150514
+Node: Images150695
+Node: Concurrency150804
+Node: Streams API150950
+Node: Regular Expressions151087
+Node: Swing151266
+Node: The Makefile151406
+Ref: Makefile151551
+Node: Makefile Constants152182
+Ref: Makefile-CONSTANTS152323
+Node: Makefile Defaults152459
+Ref: Makefile-DEFAULTS152642
+Node: Makefile Tangle Weave152792
+Ref: Makefile-TANGLE-WEAVE152981
+Node: Makefile Clean153373
+Ref: Makefile-CLEAN153522
+Node: Code Chunk Summaries153709
+Node: File Definitions154199
+Node: Code Chunk Definitions155049
+Node: Code Chunk References160216
+Node: List of Tables169610
+Node: List of General Forms169966
+Node: Bibliography171362
+Node: Concept Index171494
+Node: Function Index228697
 
 End Tag Table

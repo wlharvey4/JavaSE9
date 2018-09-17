@@ -25,7 +25,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.2.0
+@set VERSION 0.2.1
 
 @iftex
 @set DOCUMENT book
@@ -2597,7 +2597,404 @@ default methods use a common piece of code, thus avoiding code duplication.
 
 
 
-@c ****************************************************************************
+@c *****************************************************************************
+
+@node I/O
+@chapter I/O
+@cindex I/O
+@cindex @file{java.io}
+@cindex input/output system
+@cindex @code{try-with-resources}
+@cindex @code{volative}
+@cindex @code{instanceof}
+@cindex @code{native}
+@cindex @code{strictfp}
+@cindex @code{assert}
+
+This chapter introduces @file{java.io}, which supports Java's basic
+input/output system, including file I/O.  Support for I/O comes from Java's
+core API libraries, not from language keywords.  In this chapter the
+foundation of this subsystem is introduced so that you can see how it fits
+into the larger context of the Java programming and execution environment.
+
+This chapter also looks at the @code{try-with-resources} statement and
+several more Java keywords:
+
+@itemize
+@item
+@code{volatile}
+@item
+@code{instanceof}
+@item
+@code{native}
+@item
+@code{strictfp}
+@item
+@code{assert}
+@end itemize
+
+@c -----------------------------------------------------------------------------
+
+@node I/O Basics
+@section I/O Basics
+@cindex I/O Basics
+@cindex text-based console programs
+@cindex console I/O
+
+Most real applications of Java are not text-based, console programs.  Rather,
+they are either graphically oriented programs that rely on one of Java's
+graphical user interface (GUI) frameworks, such as Swing, the AWT, or JavaFX,
+for user interaction, or they are Web applications.  Text-based console
+programs do not constitute an important use for Java in the real world.
+Java's support for console I/O is limited and somewhat awkword to use.
+Text-based console I/O is just not that useful in real-world Java
+programming.
+
+Java does, however, provide strong, flexible support for I/O as it relates to
+files and networks.  Java's I/O system is cohesive and consistent.  A general
+overview of I/O is presented here.  A detailed description is found in
+chapters describing the Java Library: @xref{java io Input Output} and
+@xref{NIO}.  
+
+
+@c .....................................
+
+@node Streams
+@subsection Streams
+@cindex Streams
+@cindex stream definition
+@cindex Java I/O system
+@cindex stream, input
+@cindex stream, output
+@cindex input stream
+@cindex output stream
+@cindex @file{java.io} package
+@cindex package, @file{java.io}
+
+Java programs perform I/O through streams.  A @dfn{stream} is an abstraction
+that either produces or consumes information.  A stream is linked to a
+physical device by the Java I/O system.  All streams behave in the same
+manner, even if the actual physical device to which they are linked differ.
+Thus, the same I/O classes and methods can be applied to different types of
+devices.  This means that an input stream can abstract many different kinds
+of input; from a disk file, a keyboard, or a network socket.  Likewise, an
+output stream may refer to the console, a disk file, or a network
+connection.  Java implements streams within class hierarchies defined in the
+@file{java.io} package.
+
+@c .....................................
+
+@node Byte Streams Character Streams
+@subsection Byte Streams and Character Streams
+@cindex Byte Streams, definition
+@cindex Character Streams, definition
+@cindex Streams, Character
+@cindex binary data, reading and writing
+@cindex Unicode
+@cindex internationalization, character streams
+
+Java defines two types of streams:
+
+@itemize
+@item
+byte streams
+@item
+character streams
+@end itemize
+
+
+@dfn{Byte streams} provide a convenient means for handling input and output
+of bytes.  Byte streams are used when reading or writing binary data.
+@dfn{Character streams} provide a convenient means for handling input  and
+output of characters.  They use Unicode and therefore can be
+internationalized.  In some cases, character streams are more efficient than
+byte streams.
+
+The original version of Java (Java 1.0) did not include character streams and
+thus all I/O was byte-oriented.  Character streams were added by Java 1.1 and
+certain byte-oriented classes and methods were deprecated.
+
+At the lowest level, all I/O is still byte-oriented.  The character-based
+streams simply provide a convenient and efficient means for handling
+characters.  
+
+@c _____________________________________
+
+@node Byte Stream Class
+@subsubsection The Byte Stream Class
+@cindex Byte Stream Class
+@cindex Stream Class, Byte
+
+Byte streams are defined by using two class hierarchies.  At the top are two
+abstract classes:
+
+@itemize
+@item
+@file{InputStream}
+@item
+@file{OutputStream}
+@end itemize
+
+Each of these abstract classes has several concrete subclasses that handle
+the differences among various devices, such as disk files, network
+connnections, and memory buffers.  The byte stream classes in @file{java.io}
+are shown in @ref{ByteStreamClasses}.
+
+To use the stream classes, you must import @file{java.io}.
+
+@float Table,ByteStreamClasses
+@table @file
+@item BufferedInputStream
+@itemx BufferedOutputStream
+Buffered input and output streams
+@item ByteArrayInputStream
+@itemx ByteArrayOutputStream
+Input and Output streams that read from and write to a byte array
+@item DataInputStream
+@itemx DataOutputStream
+Input and Output streams that contain methods for reading and writing the
+Java standard data types
+@item FileInputStream
+@itemx FileOutputStream
+Input and Output streams that read from and write to a file
+@item FilterInputStream
+@itemx FilterOutputStream
+Implements @file{InputStream} and @file{OutputStream}
+@item InputStream
+@itemx OutputStream
+Abstract classes that describe stream input and output
+@item ObjectInputStream
+@itemx ObjectOutputStream
+Input and Output streams for objects
+@item PipedInputStream
+@itemx PipedOutputStream
+Input and Output pipe
+@item PrintStream
+Output stream that contains @code{print()} and @code{println()}
+@item PushbackInputStream
+Input stream that allows bytes to be returned to the input stream
+@item SequenceInputStream
+Input stream that is a combination of two or more input streams that will be
+read sequentially, one after the other
+@end table
+@caption{The Byte Stream Classes in @file{java.io}}
+@end float
+
+The abstract classes @file{InputStream} and @file{OutputStream} define
+several key methods that the other stream classes implement.  Two of the most
+important are:
+
+@cindex @code{read()}, @file{InputStream} abstract class
+@cindex @code{write()}, @file{OutputStream} abstract class
+
+@itemize
+@item
+@code{read()}
+@item
+@code{write()}
+@end itemize
+
+@noindent which respectively read and write bytes of data.  Each has a form
+that is abstract and must be overridden by derived stream classes.
+
+@c _____________________________________
+
+@node Character Stream Class
+@subsubsection The Character Stream Class
+@cindex Character Stream Class
+@cindex Stream Class, Character
+@cindex @file{Reader} abstract class
+@cindex @file{Writer} abstract class
+@cindex Unicode character streams
+@cindex @file{java.io}
+@cindex Unicode character streams
+@cindex character streams, Unicode
+
+Character streams are defined by using two class hierarchies.  At the top are
+two abstract classes:
+
+@itemize
+@item
+@file{Reader}
+@item
+@file{Writer}.
+@end itemize
+
+These abstract classes handle Unicode character streams.  Java has several
+concrete subclasses of these.  The character stream classes in @file{java.io}
+are shown in @ref{CharacterStreamClasses}.
+
+@float Table,CharacterStreamClasses
+@table @file
+@item BufferedReader
+@itemx BufferedWriter
+Buffered input and output character streams
+@item CharArrayReader
+@itemx CharArrayWriter
+Input and Output streams that read and write to and from a character array
+@item FileReader
+@itemx FileWriter
+Input and Output streams that read from and write to a file
+@item FilterReader
+@itemx FilterWriter
+Filtered read and writer
+@item InputStreamReader
+@itemx OutputStreamWriter
+Input and Output streams that translate bytes to characters
+@item LineNumberReader
+Input stream that counts lines
+@item PipedReader
+@itemx PipedWriter
+Input and Output pipes
+@item PrintWriter
+Output stream that contains @code{print()} and @code{println()}
+@item PushbackReader
+Input stream that allows characters to be return to the input stream
+@item Reader
+@itemx Writer
+Abstract clases tha describe character stream input and output
+@item StringReader
+@itemx StringWriter
+Input and output streams that read from and write to a string
+@end table
+@caption{The Character Stream I/O Classes in @file{java.io}}
+@end float
+
+The abstract classes @file{Reader} and @file{Writer} define several key
+methods that the other stream classes implement.  Two of the most important
+methods are:
+
+@cindex @code{read()}, @file{Reader}
+@cindex @code{write()}, @file{Writer}
+
+@itemize
+@item
+@code{read()}
+@item
+@code{write()}
+@end itemize
+
+@noindent which read and write characters of data, respectively.  Each has a
+form that is abstract and must be overridden by derived stream classes.
+
+@c _____________________________________
+
+@node Predefined Streams
+@subsubsection The Predefined Streams
+@cindex Predefined Streams
+@cindex Streams, Predefined
+@cindex @file{System} class
+@cindex stream variables, predefined
+@cindex @code{in}
+@cindex @code{out}
+@cindex @code{err}
+
+The @file{java.lang} package defines a class called @file{System}, which
+encapsulates several aspects of the run-time environment.  System contains
+three predefined stream variables:
+
+@enumerate
+@item
+@code{in} (standard input), an object of type @file{InputStream}
+@item
+@code{out} (standard output), an object of type @file{PrintStream}
+@item
+@code{err} (standard error), an object of type @file{PrintStream}
+@end enumerate
+
+@noindent These fields are declared as @code{public}, @code{static}, and
+@code{final} within @file{System}.  This means that they can be used by any
+other part of your program and without reference to a specific @file{System}
+object.  While these are all byte streams, they can be wrapped within
+character-based streams, if desired.
+
+@c -----------------------------------------------------------------------------
+
+@node Reading Console Input
+@section Reading Console Input
+@cindex Reading Console Input
+@cindex console input, reading
+
+
+
+
+@c -----------------------------------------------------------------------------
+
+@node Writing Console Output
+@section Writing Console Output
+
+
+@c -----------------------------------------------------------------------------
+
+@node PrintWriter Class
+@section The PrintWriter Class
+
+
+@c -----------------------------------------------------------------------------
+
+@node Reading and Writing Files
+@section Reading and Writing Files
+
+
+@c -----------------------------------------------------------------------------
+
+@node Automatically Closing Files
+@section Automatically Closing Files
+
+
+@c -----------------------------------------------------------------------------
+
+@node transient and volatile Modifiers
+@section The @code{transient} and @code{volative} Modifiers
+
+
+@c -----------------------------------------------------------------------------
+
+@node Using instanceof
+@section Using @code{instanceof}
+
+
+@c -----------------------------------------------------------------------------
+
+@node strictfp
+@section @code{strictfp}
+
+
+@c -----------------------------------------------------------------------------
+
+@node Native Methods
+@section Native Methods
+
+
+@c -----------------------------------------------------------------------------
+
+@node Using assert
+@section Using @code{assert}
+
+
+@c -----------------------------------------------------------------------------
+
+@node Static Import
+@section Static Import
+
+
+@c -----------------------------------------------------------------------------
+
+@node Overloaded Constructors with this
+@section Invoking Overloaded Constructors Through @code{this()}
+
+
+@c -----------------------------------------------------------------------------
+
+@node Compact API Profiles
+@section Compact API Profiles
+
+
+
+
+
+
+@c *****************************************************************************
 
 @node Generics
 @chapter Generics
@@ -3991,7 +4388,7 @@ class.  They are commonly referred to as @dfn{type wrappers}.
 @chapter The Concurrency Utilities
 @cindex Concurrency Utilities
 
-@node Streams
+@node Streams API
 @chapter The Stream API
 @cindex Stream API
 @cindex API, Stream
