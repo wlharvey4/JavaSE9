@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Character Stream Class (About Java SE 9)</title>
+
+<meta name="description" content="Character Stream Class (About Java SE 9)">
+<meta name="keywords" content="Character Stream Class (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Byte-Streams-Character-Streams.html#Byte-Streams-Character-Streams" rel="up" title="Byte Streams Character Streams">
+<link href="Predefined-Streams.html#Predefined-Streams" rel="next" title="Predefined Streams">
+<link href="Byte-Stream-Class.html#Byte-Stream-Class" rel="prev" title="Byte Stream Class">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Character-Stream-Class"></a>
+<div class="header">
+<p>
+Next: <a href="Predefined-Streams.html#Predefined-Streams" accesskey="n" rel="next">Predefined Streams</a>, Previous: <a href="Byte-Stream-Class.html#Byte-Stream-Class" accesskey="p" rel="prev">Byte Stream Class</a>, Up: <a href="Byte-Streams-Character-Streams.html#Byte-Streams-Character-Streams" accesskey="u" rel="up">Byte Streams Character Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="The-Character-Stream-Class"></a>
+<h4 class="subsubsection">7.1.2.2 The Character Stream Class</h4>
+<a name="index-Character-Stream-Class"></a>
+<a name="index-Stream-Class_002c-Character"></a>
+<a name="index-Reader-abstract-class"></a>
+<a name="index-Writer-abstract-class"></a>
+<a name="index-Unicode-character-streams"></a>
+<a name="index-java_002eio-1"></a>
+<a name="index-Unicode-character-streams-1"></a>
+<a name="index-character-streams_002c-Unicode"></a>
+
+<p>Character streams are defined by using two class hierarchies.  At the top are
+two abstract classes:
+</p>
+<ul>
+<li> <samp>Reader</samp>
+</li><li> <samp>Writer</samp>.
+</li></ul>
+
+<p>These abstract classes handle Unicode character streams.  Java has several
+concrete subclasses of these.  The character stream classes in <samp>java.io</samp>
+are shown in <a href="#CharacterStreamClasses">Table 7.2</a>.
+</p>
+<div class="float"><a name="CharacterStreamClasses"></a>
+<dl compact="compact">
+<dt><samp>BufferedReader</samp></dt>
+<dt><samp>BufferedWriter</samp></dt>
+<dd><p>Buffered input and output character streams
+</p></dd>
+<dt><samp>CharArrayReader</samp></dt>
+<dt><samp>CharArrayWriter</samp></dt>
+<dd><p>Input and Output streams that read and write to and from a character array
+</p></dd>
+<dt><samp>FileReader</samp></dt>
+<dt><samp>FileWriter</samp></dt>
+<dd><p>Input and Output streams that read from and write to a file
+</p></dd>
+<dt><samp>FilterReader</samp></dt>
+<dt><samp>FilterWriter</samp></dt>
+<dd><p>Filtered read and writer
+</p></dd>
+<dt><samp>InputStreamReader</samp></dt>
+<dt><samp>OutputStreamWriter</samp></dt>
+<dd><p>Input and Output streams that translate bytes to characters
+</p></dd>
+<dt><samp>LineNumberReader</samp></dt>
+<dd><p>Input stream that counts lines
+</p></dd>
+<dt><samp>PipedReader</samp></dt>
+<dt><samp>PipedWriter</samp></dt>
+<dd><p>Input and Output pipes
+</p></dd>
+<dt><samp>PrintWriter</samp></dt>
+<dd><p>Output stream that contains <code>print()</code> and <code>println()</code>
+</p></dd>
+<dt><samp>PushbackReader</samp></dt>
+<dd><p>Input stream that allows characters to be return to the input stream
+</p></dd>
+<dt><samp>Reader</samp></dt>
+<dt><samp>Writer</samp></dt>
+<dd><p>Abstract clases tha describe character stream input and output
+</p></dd>
+<dt><samp>StringReader</samp></dt>
+<dt><samp>StringWriter</samp></dt>
+<dd><p>Input and output streams that read from and write to a string
+</p></dd>
+</dl>
+
+<div class="float-caption"><p><strong>Table 7.2: </strong>The Character Stream I/O Classes in <samp>java.io</samp></p></div></div>
+<p>The abstract classes <samp>Reader</samp> and <samp>Writer</samp> define several key
+methods that the other stream classes implement.  Two of the most important
+methods are:
+</p>
+<a name="index-read_0028_0029_002c-Reader"></a>
+<a name="index-write_0028_0029_002c-Writer"></a>
+
+<ul>
+<li> <code>read()</code>
+</li><li> <code>write()</code>
+</li></ul>
+
+<p>which read and write characters of data, respectively.  Each has a
+form that is abstract and must be overridden by derived stream classes.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Predefined-Streams.html#Predefined-Streams" accesskey="n" rel="next">Predefined Streams</a>, Previous: <a href="Byte-Stream-Class.html#Byte-Stream-Class" accesskey="p" rel="prev">Byte Stream Class</a>, Up: <a href="Byte-Streams-Character-Streams.html#Byte-Streams-Character-Streams" accesskey="u" rel="up">Byte Streams Character Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

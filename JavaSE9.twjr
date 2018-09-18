@@ -3118,18 +3118,657 @@ do {
 
 @node Writing Console Output
 @section Writing Console Output
+@cindex Writing Console Output
+@cindex @file{PrintStream} as byte stream
+@cindex @file{OutputStream} as byte stream abstract class
+@cindex @code{print()}, from @file{PrintStream}
+@cindex @code{println()}, from @file{PrintStream}
+@cindex @code{System.out} as byte stream
+@cindex @code{write()} low-level method
+
+The methods
+
+@itemize
+@item
+@code{print()}
+@item
+@code{println()}
+@end itemize
+
+@noindent are defined by the class @file{PrintStream} (which is the type of
+object referenced by @code{System.out}).  Remember, @code{System.out} is a
+byte stream, but is acceptable for simple program output.  A character-based
+alternative is described in the next section.
+
+Because @file{PrintStream} is an output stream (type byte) derived from
+@file{OutputStream} (an abstract byte stream class), it also implements the
+low-level method @code{write()}.  Thus, @code{write()} can be used to write
+to the console.  The simplest form of @code{write()} defined by
+@file{PrintStream} is here:
+
+@display
+void write(int @ii{byteval})
+@end display
+
+This method writes the byte specified by @ii{byteval}.  Although @ii{byteval}
+is declared as in integer, only the low-order eight bits are written.
+
+Here is a short example that uses @code{write()} to output the character
+``A'' followed by a newline to the screen:
+
+@example
+//Demonstrate System.out.write()
+class WriteDemo @{
+  public static void main (String[] args) @{
+    int b;
+    b = 'A';
+    System.out.write(b);
+    System.out.write('\n');
+  @}
+@}
+@end example
+@cindex @code{write()} example
 
 
 @c -----------------------------------------------------------------------------
 
 @node PrintWriter Class
 @section The PrintWriter Class
+@cindex @file{PrintWriter} Class, character-based stream
+@cindex character-based stream class, @file{PrintWriter}
+@cindex internationalization of output to console
 
+Using @file{System.out} to write to the console is probably best for
+debugging purposes or for sample programs.  For real-world programs, the
+recommended method of writing to the console when using Java is through a
+@file{PrintWriter} stream.  @file{PrintWriter} is one of the character-based
+classes.  User a character-based class for console output makes
+internationalizing your program easier.
+
+@c .................................
+
+@node PrinterWriter Constructors
+@subsection @file{PrintWriter} Constructors
+@cindex @file{PrintWriter} constructor
+@cindex @code{print()} and @code{println()}, @file{PrintWriter} class
+@cindex @code{flushingOn}
+@cindex flushing
+@cindex @code{toString()}, @file{PrintWriter}
+
+@file{PrintWriter} defines several constructors.  Here is one:
+
+@display
+PrintWriter(OutputStream @ii{outStream}, boolean @ii{flusingOn})
+@end display
+
+@ii{outputStream} is an object of type @file{OutputStream}, and
+@ii{flushingOn} controls whether Java flushes the output stream every time a
+@code{println} method is called.  If @ii{flushingOn} is @code{true}, flushing
+automatically takes place.  If @code{false}, flushing is not automatic.
+
+@file{PrintWriter} supports @code{print()} and @code{println()} methods.  You
+can use these methods in the same way you used them with @code{System.out}.
+If an argument is not a simple type, the @file{PrintWriter} methods call the
+object's @code{toString()} method and then display the result.  
+
+@subheading Writing to the Console with a @file{PrintWriter}
+
+To write to the console by using a @file{PrintWriter}, specify
+@code{System.out} for the output stream and automatic flushing.
+
+@example
+PrintWriter pw = new PrintWriter(System.out, true);
+@end example
+
+@c .................................
+
+@node Demonstration Using PrintWriter
+@subsection Demonstration Using a @file{PrintWriter} for Console Output
+@cindex demonstration using @file{PrintWriter}
+
+@(PrinterWriterDemo.java@)=
+@<Import java.io@>
+
+public class PrintWriterDemo {
+  public static void main (String[] args) {
+    @<PrintWriterDemo PrintWriter Constructor@>
+    @<PrintWriterDemo Printing To Console@>
+  }
+}
+
+@
+
+@c _________________________________
+
+@node PrintWriterDemo PrintWriter Constructor
+@subsubsection PrintWriterDemo PrintWriter Constructor
+
+@<PrintWriterDemo PrintWriter Constructor@>=
+PrintWriter pw = new PrintWriter (System.out, true);
+
+@
+
+@c _________________________________
+
+@node PrintWriterDemo Printing To Console
+@subsubsection PrintWriterDemo Printing To Console
+
+@<PrintWriterDemo Printing To Console@>=
+pw.println("This is a string");
+int i = -7;
+pw.println(i);
+double d = 4.5e-7;
+pw.println(d);
+
+@
+
+@c .................................
+
+@node PrintWriter Concluding Comments
+@subsection @file{PrintWriter} Concluding Comments
+
+There is nothing wrong with using @file{System.out} to write simple text
+output to the console.  Using a @file{PrintWriter} makes your real-world
+applications easier to internationalize.  There is no other adavantage gained
+by using a @file{PrintWriter} in the simple programs, however.
 
 @c -----------------------------------------------------------------------------
 
 @node Reading and Writing Files
 @section Reading and Writing Files
+@cindex Files, Reading and Writing
+
+Java provides a number of class and methods that allow you to read and write
+files.  The purpose of this section is to introduce the basic techniques that
+read from and write to a file.  Although byte streams are used, these
+techniques can be adapted to the character-based streams.
+
+@.....................................
+
+@node FileInputStream and FileOutputStream
+@subsection @file{FileInputStream} and @file{FileOutputStream}
+@cindex @file{FileInputStream}
+@cindex @file{FileOutputStream}
+
+Two of the most often-used stream classes are:
+
+@itemize
+@item
+@file{FileInputStream}
+@item
+@file{FielOutputStream}
+@end itemize
+
+@noindent which create byte streams linked to files.
+
+@subheading Open a File
+@cindex file, open
+
+To open a file, create an object of one of these clases, specifying the name
+of the file as an argument to the constructor.  We will use the following
+constructors:
+
+@display
+FileInputStream(String @ii{fileName} throws FileNotFoundException
+FileOutputStream(String @ii{fileName} throws FileNotFoundException
+@end display
+
+Note that when an output file is opened, any preexisting file by the sam name
+is destroyed.
+
+@subheading Close a File
+@cindex file, close
+@cindex @code{close()}
+
+When you are done with a file, you must close it.  This is done by calling
+the @code{close()} method, which is implemented by both
+@file{FileInputStream} and @file{FileOutputStream}.
+
+@display
+void close() throws IOException
+@end display
+
+@noindent Closing a file releases the system resources allocated to the
+file.  Failure to close a file can result in ``memory leaks'' because of
+unused resources remaining allocated.
+
+@subheading @file{AutoClosable Interface}
+@cindex @file{AutoClosable interface}
+
+Beginning with JDK 7, the @code{close()} method is specified by the
+@file{AutoCloseable} interface in @file{java.lang}.  @file{AutoCloseable} is
+inherited by the @file{Closable} interface in @file{java.io}.  Both
+interfaces are implemented by the stream classes, including
+@file{FileInputStream} and @file{FileOutputStream}.
+
+@subheading Try With Resources
+
+There are two basic approaches you can use to close a file.  The first is the
+traditional approach, in which @code{close()} is called explicitly when the
+file is no longer needed.  This is the approach used by all versions of Java
+prior to JDK 7.
+
+The second is to use the @code{try-with-resources} statement added by JDK 7,
+which automatically closes a file when it is no longer needed.  In this
+approach, no explicit call to @file{close()} is executed.
+
+@subheading Reading From A File
+@cindex file, read from
+@cindex @code{read()}
+
+To read from a file, you can use a version of @code{read()} that is defined
+within @file{FileInputStream}.
+
+@display
+int read() throws IOException
+@end display
+
+@noindent Each time that it is called, it reads a single byte from the file
+and returns the byte as an integer value.  @code{read()} returns -1 when an
+attempt is made to read at the end of the stream.
+
+@subheading Writing to a File
+@cindex write to a file
+@cindex file, write to
+@cindex @code{write()}, @file{FileOutputStream} class
+
+To write to a file, you can use the @code{write()} method defined by
+@file{FileOutputStream}.  Its simplest form is:
+
+@display
+void write(int @ii{byteval} throws IOException
+@end display
+
+This method writes the byte specified by @ii{byteval} to the file.  Although
+@ii{byteval} is declared as an integer, only the low-order eight bits are
+written to th file.
+
+@c .....................................
+
+@node Demonstration Reading From a File
+@subsection Demonstration Reading From a File
+@cindex reading from file demonstration
+
+The following program uses @code{read()} to input and display the contents of
+a file that contains ASCII test.  The name of the file is specified as a
+command-line argument.
+
+@(ShowFile.java@)=
+@<ShowFile Initial Comments@>
+@<Import java.io@>
+class ShowFile {
+  public static void main (String[] args) {
+    @<ShowFile Instance Variable Declarations@>
+    @<ShowFile Open a File@>
+    @<ShowFile Read a File@>
+    @<ShowFile Close a File@>
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node ShowFile Initial Comments
+@subsubsection ShowFile Initial Comments
+
+@<ShowFile Initial Comments@>=
+/* Display a text file.
+   To use this program, specify the name
+   of the file that you want to see.
+   For example, to see a file called TEST.TXT,
+   use the following command line:
+
+   java ShowFile TEST.TXT
+ */
+ 
+@
+
+@c _____________________________________
+
+@node ShowFile Instance Variable Declarations
+@subsubsection ShowFile Instance Variable Declarations
+
+@<ShowFile Instance Variable Declarations@>=
+int i;
+FileInputstream fin;
+
+@
+
+@c _____________________________________
+
+@node ShowFile Open a File
+@subsubsection ShowFile Open a File
+
+Notice all of the @code{try/catch} blocks that handle the I/O errors that
+might occur.  Each I/O operation is monitored for exceptions, and if an
+exception occurs, it is handled.
+
+
+@<ShowFile Open a File@>=
+// First, confirm that a filename has been specified.
+if (args.length != 1) {
+  System.out.printli("Usage: ShowFile filename");
+  return;
+}
+
+// Attempt to open the file
+try {
+  fin = new FileInputStream(args[0]);
+} catch (FileNotFoundException e) {
+  System.out.println("Cannot Open File");
+  return;
+}
+
+@
+
+@c _____________________________________
+
+@node ShowFile Read a File
+@subsubsection ShowFile Read a File
+
+@<ShowFile Read a File@>=
+// At this point, the file is open and can be read.
+// The following reads characters until EOF is encountered.
+try {
+  do {
+    i = fin.read();
+    if (i != -1) System.out.print ((char) i);
+  } while (i != -1);
+} catch (IOException e) {
+  System.out.println("Error Reading File");
+}
+
+@
+
+@c _____________________________________
+
+@node ShowFile Close a File
+@subsubsection ShowFile Close a File
+
+@<ShowFile Close a File@>=
+// Close the file
+try {
+  fin.close();
+} catch (IOException e) {
+  System.out.println("Error Closing File");
+}
+
+@
+
+@c _____________________________________
+
+@node close() Within finally
+@subsubsection @code{close()} Within @code{finally} Block
+@cindex @code{close()} Within @code{finally}
+
+Although the preceding example closes the file stream after the file is read,
+there is a variation that is often useful.  The variation is to call
+@code{close()} within a @code{finally} block.  In this approach, all of the
+methods that access the file are contained within a @code{try} block, and the
+@code{finally} block is used to close the file.  This way, no matter how the
+@code{try} block terminates, the file is closed.
+
+One advantage tothis approach in general is that if the code that accesses a
+file terminates because of some non-I/O related exception, the file is still
+closed by the @code{finally} block.
+
+Here is how the @code{try} block that reads the file can be recode:
+
+@(ShowFileAlt.java@)=
+@<ShowFile Initial Comments@>
+@<Import java.io@>
+class ShowFileAlt {
+  public static void main (String[] args) {
+    @<ShowFile Instance Variable Declarations@>
+    @<ShowFile Open a File@>
+    @<ShowFileAlt Read a File@>
+    @<ShowFile Close a File@>
+  }
+}
+
+@
+
+@subsubheading ShowFileAlt Read a File
+
+@<ShowFileAlt Read a File@>=
+try {
+  do {
+    i = fin.read();
+    if (i != -1) System.out.print ((char) i);
+  } while (i != -1);
+} catch (IOException e) {
+  System.out.println("Error Reading File.");
+} finally {
+  // Close the file on the way out of the block.
+  try {
+    fin.close();
+  } catch (IOException e) {
+    System.out.println ("Error Closing File.");
+  }
+}
+
+@
+
+
+@c .....................................
+
+@node Demonstration Reading From File with Single try
+@subsection Demonstration Reading From a File with a Single @code{try} Block
+
+Sometimes it's easier to wrap the portions of a program that open a file and
+access the file within a single @code{try} block (rather than separating the
+two) and then use a @code{finally} block to close the file.
+
+Here is another way to write the @file{ShowFile} program:
+
+@(ShowFileSingleTry@)=
+@<ShowFile Initial Comments@>
+@<ShowFileSingleTry Additional Initial Comment@>
+@<Import java.io@>
+class ShowFileSingleTry {
+  public static void main (String[] args) {
+    @<ShowFile Instance Variable Declarations@>
+    @<ShowFile Open a File@>
+    @<ShowFileSingleTry Read a File@>
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node ShowFileSingleTry Additional Initial Comment
+@subsubsection ShowFile SingleTry Additional Initial Comment
+
+@<ShowFileSingleTry Additional Initial Comment@>=
+/* This variation wraps the code that opens and
+   accesses the file within a single try block.
+   The file is closed by the finally block.
+ */
+
+@
+
+@c _____________________________________
+
+@node ShowFileSingleTry Read a File
+@subsubsection ShowFileSingleTry Read a File
+
+In this approach, @code{fin} is initialized to @code{null}.  In the
+@code{finally} block, the file is closed only if @code{fin} is not
+@code{null}.  This works because @code{fin} will be non-@code{null} only if
+the file is successfully opened.  Thus, @code{close()} is not called if an
+exception occurrs while opening the file.
+
+@<ShowFileSingleTry Read a File@>=
+// The following code opens a file, reads characters until EOF
+// is encountered, and then closes the file via a finally block.
+
+try {
+  fin = new FileInputStream(args[0]);
+
+  do {
+    i = fin.read();
+    if (i != -1) System.out.print((char) i);
+  } while (i != -1);
+
+} catch (FileNotFoundException e) {
+  System.out.println("File Not Found.");
+
+} catch (IOException e) {
+  System.out.println("An I/O Error Occurred");
+
+} finally {
+  // Close file in all cases
+  try {
+    if (fin != null) fin.close();
+  } catch (IOException e) {
+    System.out.println("Error Clsoing File");
+  }
+}
+
+@
+
+@subsubheading More Compact Catch Code
+
+It is possible to make the @code{try/catch} sequence a bit more compact.
+Because @file{FileNotFoundException} is a subclass of @file{IOException}, it
+need not be caught separately.  Here is the sequence recoded to eliminate
+catching @file{FileNotFoundException}.  In this case, the standard exception
+message, which describes the error, is displayed.
+
+@example
+@} catch (IOException e) @{
+  System.out.println("I/O Error: " + e);
+@} finally @{
+  try @{
+    if (fin != null) fin.close();
+  @} catch (IOException e) @{
+    System.out.println("Error Closing File");
+  @}
+@}
+@end example
+
+In this approach, any error, including an error opening the file, is simply
+handled by the single @code{catch} statement.  This approach may not be
+appropriate in cases in which you want to deal separately with  a failure to
+open a file, such as might be caused by a mis-typed filename.  In such a
+situation, you might want to prompt for the correct name before entering a
+@code{try} block that accesses the file.
+
+The next example uses @code{write()} to copy a file.
+
+@c .....................................
+
+@node Demonstration Writing to a File
+@subsection Demonstration Writing to a File
+@cindex write to file demonstration
+@cindex exceptions for I/O errors
+
+This example uses @code{write()} to copy a file.
+
+Notice that all potential I/O errors are handled in the programs by the use
+of exceptions.  This differs from some computer languages that use error
+codes to report file errors.  They enable Java to easily differentiate the
+end-of-file condition from file errors when input is being performed.
+
+@(CopyFile.java@)=
+@<CopyFile Initial Comments@>
+@<Import java.io@>
+class CopyFile {
+  public static void main (String[] args) {
+    @<CopyFile Instance Variable Declarations@>
+    @<CopyFile Check For 2 Files@>
+    @<CopyFile Copy a File@>
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node CopyFile Initial Comments
+@subsubsection CopyFile Initial Comments
+
+@<CopyFile Initial Comments@>=
+/* Copy a file
+   To use this program, specify the name
+   of the source file and the destination file.
+   For example, to copy a file called FIRST.TXT
+   to a file called SECOND.TXT, use the following
+   command line.
+
+   java CopyFile FIRST.TXT SECOND.TXT
+ */
+
+@
+
+@c _____________________________________
+
+@node CopyFile Instance Variable Declarations
+@subsubsection CopyFile Instance Variable Declarations
+
+@<CopyFile Instance Variable Declarations@>=
+int i;
+FileInputStream fin = null;
+FileOutputStream fout = null;
+
+@
+
+@c _____________________________________
+
+@node CopyFile Check for 2 Files
+@subsubsection CopyFile Check for 2 Files
+
+@<CopyFile Check For 2 Files@>=
+// First, confirm that both files have been specified
+if (args.length != 2) {
+  System.out.println("Usage: CopyFile from to");
+  return;
+}
+
+@
+
+@c _____________________________________
+
+@node CopyFile Copy a File
+@subsubsection CopyFile Copy a File
+
+Notice that there are two separate @code{try} blocks used when closing the
+files.  This ensures that both files are closed, even if the call to
+@code{fin.close()} throws an exception.
+
+@<CopyFile Copy a File@>=
+// Copy a file
+try {
+  // Attempt to open the files
+  fin = new FileInputStream(args[0]);
+  fout = new FileOutputStream(args[1]);
+
+  do {
+    i = fin.read();
+    if (i != -1) fout.write(i);
+  } while (i != -1);
+  
+} catch (IOException e) {
+  System.out.println("I/O Error: " + e);
+
+} finally {
+  try {
+    if (fin != null) fin.close();
+  } catch (IOException e2) {
+    System.out.println("Error Closing Input File");
+  }
+
+  try {
+    if (fout != null) fout.close();
+  } catch (IOException e2) {
+    System.out.println("Error Closing Output File");
+  }
+}
+
+@
+
 
 
 @c -----------------------------------------------------------------------------

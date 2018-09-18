@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Byte Stream Class (About Java SE 9)</title>
+
+<meta name="description" content="Byte Stream Class (About Java SE 9)">
+<meta name="keywords" content="Byte Stream Class (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Byte-Streams-Character-Streams.html#Byte-Streams-Character-Streams" rel="up" title="Byte Streams Character Streams">
+<link href="Character-Stream-Class.html#Character-Stream-Class" rel="next" title="Character Stream Class">
+<link href="Byte-Streams-Character-Streams.html#Byte-Streams-Character-Streams" rel="prev" title="Byte Streams Character Streams">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Byte-Stream-Class"></a>
+<div class="header">
+<p>
+Next: <a href="Character-Stream-Class.html#Character-Stream-Class" accesskey="n" rel="next">Character Stream Class</a>, Up: <a href="Byte-Streams-Character-Streams.html#Byte-Streams-Character-Streams" accesskey="u" rel="up">Byte Streams Character Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="The-Byte-Stream-Class"></a>
+<h4 class="subsubsection">7.1.2.1 The Byte Stream Class</h4>
+<a name="index-Byte-Stream-Class"></a>
+<a name="index-Stream-Class_002c-Byte"></a>
+
+<p>Byte streams are defined by using two class hierarchies.  At the top are two
+abstract classes:
+</p>
+<ul>
+<li> <samp>InputStream</samp>
+</li><li> <samp>OutputStream</samp>
+</li></ul>
+
+<p>Each of these abstract classes has several concrete subclasses that handle
+the differences among various devices, such as disk files, network
+connnections, and memory buffers.  The byte stream classes in <samp>java.io</samp>
+are shown in <a href="#ByteStreamClasses">Table 7.1</a>.
+</p>
+<p>To use the stream classes, you must import <samp>java.io</samp>.
+</p>
+<div class="float"><a name="ByteStreamClasses"></a>
+<dl compact="compact">
+<dt><samp>BufferedInputStream</samp></dt>
+<dt><samp>BufferedOutputStream</samp></dt>
+<dd><p>Buffered input and output streams
+</p></dd>
+<dt><samp>ByteArrayInputStream</samp></dt>
+<dt><samp>ByteArrayOutputStream</samp></dt>
+<dd><p>Input and Output streams that read from and write to a byte array
+</p></dd>
+<dt><samp>DataInputStream</samp></dt>
+<dt><samp>DataOutputStream</samp></dt>
+<dd><p>Input and Output streams that contain methods for reading and writing the
+Java standard data types
+</p></dd>
+<dt><samp>FileInputStream</samp></dt>
+<dt><samp>FileOutputStream</samp></dt>
+<dd><p>Input and Output streams that read from and write to a file
+</p></dd>
+<dt><samp>FilterInputStream</samp></dt>
+<dt><samp>FilterOutputStream</samp></dt>
+<dd><p>Implements <samp>InputStream</samp> and <samp>OutputStream</samp>
+</p></dd>
+<dt><samp>InputStream</samp></dt>
+<dt><samp>OutputStream</samp></dt>
+<dd><p>Abstract classes that describe stream input and output
+</p></dd>
+<dt><samp>ObjectInputStream</samp></dt>
+<dt><samp>ObjectOutputStream</samp></dt>
+<dd><p>Input and Output streams for objects
+</p></dd>
+<dt><samp>PipedInputStream</samp></dt>
+<dt><samp>PipedOutputStream</samp></dt>
+<dd><p>Input and Output pipe
+</p></dd>
+<dt><samp>PrintStream</samp></dt>
+<dd><p>Output stream that contains <code>print()</code> and <code>println()</code>
+</p></dd>
+<dt><samp>PushbackInputStream</samp></dt>
+<dd><p>Input stream that allows bytes to be returned to the input stream
+</p></dd>
+<dt><samp>SequenceInputStream</samp></dt>
+<dd><p>Input stream that is a combination of two or more input streams that will be
+read sequentially, one after the other
+</p></dd>
+</dl>
+
+<div class="float-caption"><p><strong>Table 7.1: </strong>The Byte Stream Classes in <samp>java.io</samp></p></div></div>
+<p>The abstract classes <samp>InputStream</samp> and <samp>OutputStream</samp> define
+several key methods that the other stream classes implement.  Two of the most
+important are:
+</p>
+<a name="index-read_0028_0029_002c-InputStream-abstract-class"></a>
+<a name="index-write_0028_0029_002c-OutputStream-abstract-class"></a>
+
+<ul>
+<li> <code>read()</code>
+</li><li> <code>write()</code>
+</li></ul>
+
+<p>which respectively read and write bytes of data.  Each has a form
+that is abstract and must be overridden by derived stream classes.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Character-Stream-Class.html#Character-Stream-Class" accesskey="n" rel="next">Character Stream Class</a>, Up: <a href="Byte-Streams-Character-Streams.html#Byte-Streams-Character-Streams" accesskey="u" rel="up">Byte Streams Character Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

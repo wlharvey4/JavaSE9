@@ -13,9 +13,9 @@
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="index.html#Top" rel="up" title="Top">
-<link href="Regular-Expressions.html#Regular-Expressions" rel="next" title="Regular Expressions">
-<link href="Concurrency.html#Concurrency" rel="prev" title="Concurrency">
+<link href="I_002fO-Basics.html#I_002fO-Basics" rel="up" title="I/O Basics">
+<link href="Byte-Streams-Character-Streams.html#Byte-Streams-Character-Streams" rel="next" title="Byte Streams Character Streams">
+<link href="I_002fO-Basics.html#I_002fO-Basics" rel="prev" title="I/O Basics">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -51,13 +51,32 @@ ul.no-bullet {list-style: none}
 <a name="Streams"></a>
 <div class="header">
 <p>
-Next: <a href="Regular-Expressions.html#Regular-Expressions" accesskey="n" rel="next">Regular Expressions</a>, Previous: <a href="Concurrency.html#Concurrency" accesskey="p" rel="prev">Concurrency</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Byte-Streams-Character-Streams.html#Byte-Streams-Character-Streams" accesskey="n" rel="next">Byte Streams Character Streams</a>, Up: <a href="I_002fO-Basics.html#I_002fO-Basics" accesskey="u" rel="up">I/O Basics</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<a name="The-Stream-API"></a>
-<h2 class="chapter">21 The Stream API</h2>
-<a name="index-Stream-API"></a>
-<a name="index-API_002c-Stream"></a>
+<a name="Streams-1"></a>
+<h4 class="subsection">7.1.1 Streams</h4>
+<a name="index-Streams"></a>
+<a name="index-stream-definition"></a>
+<a name="index-Java-I_002fO-system"></a>
+<a name="index-stream_002c-input"></a>
+<a name="index-stream_002c-output"></a>
+<a name="index-input-stream"></a>
+<a name="index-output-stream"></a>
+<a name="index-java_002eio-package"></a>
+<a name="index-package_002c-java_002eio"></a>
+
+<p>Java programs perform I/O through streams.  A <em>stream</em> is an abstraction
+that either produces or consumes information.  A stream is linked to a
+physical device by the Java I/O system.  All streams behave in the same
+manner, even if the actual physical device to which they are linked differ.
+Thus, the same I/O classes and methods can be applied to different types of
+devices.  This means that an input stream can abstract many different kinds
+of input; from a disk file, a keyboard, or a network socket.  Likewise, an
+output stream may refer to the console, a disk file, or a network
+connection.  Java implements streams within class hierarchies defined in the
+<samp>java.io</samp> package.
+</p>
 
 
 

@@ -211,6 +211,45 @@ Program Demonstrating Reading a String from Console
 * BRReadLines BufferedReader Constructor::
 * BRReadLines Enter Lines::
 
+The PrintWriter Class
+
+* PrinterWriter Constructors::
+* Demonstration Using PrintWriter::
+* PrintWriter Concluding Comments::
+
+Demonstration Using a 'PrintWriter' for Console Output
+
+* PrintWriterDemo PrintWriter Constructor::
+* PrintWriterDemo Printing To Console::
+
+Reading and Writing Files
+
+* FileInputStream and FileOutputStream::
+* Demonstration Reading From a File::
+* Demonstration Reading From File with Single try::
+* Demonstration Writing to a File::
+
+Demonstration Reading From a File
+
+* ShowFile Initial Comments::
+* ShowFile Instance Variable Declarations::
+* ShowFile Open a File::
+* ShowFile Read a File::
+* ShowFile Close a File::
+* close() Within finally::
+
+Demonstration Reading From a File with a Single 'try' Block
+
+* ShowFileSingleTry Additional Initial Comment::
+* ShowFileSingleTry Read a File::
+
+Demonstration Writing to a File
+
+* CopyFile Initial Comments::
+* CopyFile Instance Variable Declarations::
+* CopyFile Check for 2 Files::
+* CopyFile Copy a File::
+
 Generics
 
 * Motivation::
@@ -3092,6 +3131,11 @@ Chunk name                First definition point
 -------------------------------------------------------------------------
 {'BRRead.java'}           See *note BRRead-java::.
 {'BRReadLines.java'}      See *note BRReadLines-java::.
+{'CopyFile.java'}         See *note CopyFile-java::.
+{'PrinterWriterDemo.java'}See *note PrinterWriterDemo-java::.
+{'ShowFile.java'}         See *note ShowFile-java::.
+{'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
+{'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
 
 
 File: JavaSE9.info,  Node: BRRead BufferedReader Constructor Node,  Next: BRRead Enter Characters Node,  Prev: Import java.io,  Up: Reading Characters
@@ -3213,17 +3257,772 @@ File: JavaSE9.info,  Node: Writing Console Output,  Next: PrintWriter Class,  Pr
 7.3 Writing Console Output
 ==========================
 
+The methods
+
+   * 'print()'
+   * 'println()'
+
+are defined by the class 'PrintStream' (which is the type of object
+referenced by 'System.out').  Remember, 'System.out' is a byte stream,
+but is acceptable for simple program output.  A character-based
+alternative is described in the next section.
+
+   Because 'PrintStream' is an output stream (type byte) derived from
+'OutputStream' (an abstract byte stream class), it also implements the
+low-level method 'write()'.  Thus, 'write()' can be used to write to
+the console.  The simplest form of 'write()' defined by 'PrintStream'
+is here:
+
+     void write(int byteval)
+
+   This method writes the byte specified by byteval.  Although byteval
+is declared as in integer, only the low-order eight bits are written.
+
+   Here is a short example that uses 'write()' to output the character
+"A" followed by a newline to the screen:
+
+     //Demonstrate System.out.write()
+     class WriteDemo {
+       public static void main (String[] args) {
+         int b;
+         b = 'A';
+         System.out.write(b);
+         System.out.write('\n');
+       }
+     }
+
 
 File: JavaSE9.info,  Node: PrintWriter Class,  Next: Reading and Writing Files,  Prev: Writing Console Output,  Up: I/O
 
 7.4 The PrintWriter Class
 =========================
 
+Using 'System.out' to write to the console is probably best for
+debugging purposes or for sample programs.  For real-world programs,
+the recommended method of writing to the console when using Java is
+through a 'PrintWriter' stream.  'PrintWriter' is one of the
+character-based classes.  User a character-based class for console
+output makes internationalizing your program easier.
+
+* Menu:
+
+* PrinterWriter Constructors::
+* Demonstration Using PrintWriter::
+* PrintWriter Concluding Comments::
+
+
+File: JavaSE9.info,  Node: PrinterWriter Constructors,  Next: Demonstration Using PrintWriter,  Up: PrintWriter Class
+
+7.4.1 'PrintWriter' Constructors
+--------------------------------
+
+'PrintWriter' defines several constructors.  Here is one:
+
+     PrintWriter(OutputStream outStream, boolean flusingOn)
+
+   outputStream is an object of type 'OutputStream', and flushingOn
+controls whether Java flushes the output stream every time a 'println'
+method is called.  If flushingOn is 'true', flushing automatically
+takes place.  If 'false', flushing is not automatic.
+
+   'PrintWriter' supports 'print()' and 'println()' methods.  You can
+use these methods in the same way you used them with 'System.out'.  If
+an argument is not a simple type, the 'PrintWriter' methods call the
+object's 'toString()' method and then display the result.
+
+Writing to the Console with a 'PrintWriter'
+-------------------------------------------
+
+To write to the console by using a 'PrintWriter', specify 'System.out'
+for the output stream and automatic flushing.
+
+     PrintWriter pw = new PrintWriter(System.out, true);
+
+
+File: JavaSE9.info,  Node: Demonstration Using PrintWriter,  Next: PrintWriter Concluding Comments,  Prev: PrinterWriter Constructors,  Up: PrintWriter Class
+
+7.4.2 Demonstration Using a 'PrintWriter' for Console Output
+------------------------------------------------------------
+
+{'PrinterWriterDemo.java'} ==
+     <Import java.io>
+
+     public class PrintWriterDemo {
+       public static void main (String[] args) {
+         <PrintWriterDemo PrintWriter Constructor>
+         <PrintWriterDemo Printing To Console>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Import java.io>          See *note Import-java-io::.
+<PrintWriterDemo          See
+PrintWriter               *note PrintWriterDemo-PrintWriter-Constructor::.
+Constructor>
+<PrintWriterDemo          See
+Printing To Console>      *note PrintWriterDemo-Printing-To-Console::.
+
+* Menu:
+
+* PrintWriterDemo PrintWriter Constructor::
+* PrintWriterDemo Printing To Console::
+
+
+File: JavaSE9.info,  Node: PrintWriterDemo PrintWriter Constructor,  Next: PrintWriterDemo Printing To Console,  Up: Demonstration Using PrintWriter
+
+7.4.2.1 PrintWriterDemo PrintWriter Constructor
+...............................................
+
+<PrintWriterDemo PrintWriter Constructor> ==
+     PrintWriter pw = new PrintWriter (System.out, true);
+
+
+This chunk is called by {'PrinterWriterDemo.java'}; see its first
+definition at *note PrinterWriterDemo-java::.
+
+
+File: JavaSE9.info,  Node: PrintWriterDemo Printing To Console,  Prev: PrintWriterDemo PrintWriter Constructor,  Up: Demonstration Using PrintWriter
+
+7.4.2.2 PrintWriterDemo Printing To Console
+...........................................
+
+<PrintWriterDemo Printing To Console> ==
+     pw.println("This is a string");
+     int i = -7;
+     pw.println(i);
+     double d = 4.5e-7;
+     pw.println(d);
+
+
+This chunk is called by {'PrinterWriterDemo.java'}; see its first
+definition at *note PrinterWriterDemo-java::.
+
+
+File: JavaSE9.info,  Node: PrintWriter Concluding Comments,  Prev: Demonstration Using PrintWriter,  Up: PrintWriter Class
+
+7.4.3 'PrintWriter' Concluding Comments
+---------------------------------------
+
+There is nothing wrong with using 'System.out' to write simple text
+output to the console.  Using a 'PrintWriter' makes your real-world
+applications easier to internationalize.  There is no other adavantage
+gained by using a 'PrintWriter' in the simple programs, however.
+
 
 File: JavaSE9.info,  Node: Reading and Writing Files,  Next: Automatically Closing Files,  Prev: PrintWriter Class,  Up: I/O
 
 7.5 Reading and Writing Files
 =============================
+
+Java provides a number of class and methods that allow you to read and
+write files.  The purpose of this section is to introduce the basic
+techniques that read from and write to a file.  Although byte streams
+are used, these techniques can be adapted to the character-based
+streams.
+
+   .....................................
+
+* Menu:
+
+* FileInputStream and FileOutputStream::
+* Demonstration Reading From a File::
+* Demonstration Reading From File with Single try::
+* Demonstration Writing to a File::
+
+
+File: JavaSE9.info,  Node: FileInputStream and FileOutputStream,  Next: Demonstration Reading From a File,  Up: Reading and Writing Files
+
+7.5.1 'FileInputStream' and 'FileOutputStream'
+----------------------------------------------
+
+Two of the most often-used stream classes are:
+
+   * 'FileInputStream'
+   * 'FielOutputStream'
+
+which create byte streams linked to files.
+
+Open a File
+-----------
+
+To open a file, create an object of one of these clases, specifying
+the name of the file as an argument to the constructor.  We will use
+the following constructors:
+
+     FileInputStream(String fileName throws FileNotFoundException
+     FileOutputStream(String fileName throws FileNotFoundException
+
+   Note that when an output file is opened, any preexisting file by
+the sam name is destroyed.
+
+Close a File
+------------
+
+When you are done with a file, you must close it.  This is done by
+calling the 'close()' method, which is implemented by both
+'FileInputStream' and 'FileOutputStream'.
+
+     void close() throws IOException
+
+Closing a file releases the system resources allocated to the file.
+Failure to close a file can result in "memory leaks" because of unused
+resources remaining allocated.
+
+'AutoClosable Interface'
+------------------------
+
+Beginning with JDK 7, the 'close()' method is specified by the
+'AutoCloseable' interface in 'java.lang'.  'AutoCloseable' is
+inherited by the 'Closable' interface in 'java.io'.  Both interfaces
+are implemented by the stream classes, including 'FileInputStream' and
+'FileOutputStream'.
+
+Try With Resources
+------------------
+
+There are two basic approaches you can use to close a file.  The first
+is the traditional approach, in which 'close()' is called explicitly
+when the file is no longer needed.  This is the approach used by all
+versions of Java prior to JDK 7.
+
+   The second is to use the 'try-with-resources' statement added by
+JDK 7, which automatically closes a file when it is no longer needed.
+In this approach, no explicit call to 'close()' is executed.
+
+Reading From A File
+-------------------
+
+To read from a file, you can use a version of 'read()' that is defined
+within 'FileInputStream'.
+
+     int read() throws IOException
+
+Each time that it is called, it reads a single byte from the file and
+returns the byte as an integer value.  'read()' returns -1 when an
+attempt is made to read at the end of the stream.
+
+Writing to a File
+-----------------
+
+To write to a file, you can use the 'write()' method defined by
+'FileOutputStream'.  Its simplest form is:
+
+     void write(int byteval throws IOException
+
+   This method writes the byte specified by byteval to the file.
+Although byteval is declared as an integer, only the low-order eight
+bits are written to th file.
+
+
+File: JavaSE9.info,  Node: Demonstration Reading From a File,  Next: Demonstration Reading From File with Single try,  Prev: FileInputStream and FileOutputStream,  Up: Reading and Writing Files
+
+7.5.2 Demonstration Reading From a File
+---------------------------------------
+
+The following program uses 'read()' to input and display the contents
+of a file that contains ASCII test.  The name of the file is specified
+as a command-line argument.
+
+{'ShowFile.java'} ==
+     <ShowFile Initial Comments>
+     <Import java.io>
+     class ShowFile {
+       public static void main (String[] args) {
+         <ShowFile Instance Variable Declarations>
+         <ShowFile Open a File>
+         <ShowFile Read a File>
+         <ShowFile Close a File>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Import java.io>          See *note Import-java-io::.
+<ShowFile Close a File>   See *note ShowFile-Close-a-File::.
+<ShowFile Initial         See *note ShowFile-Initial-Comments::.
+Comments>
+<ShowFile Instance        See
+Variable Declarations>    *note ShowFile-Instance-Variable-Declarations::.
+<ShowFile Open a File>    See *note ShowFile-Open-a-File::.
+<ShowFile Read a File>    See *note ShowFile-Read-a-File::.
+
+* Menu:
+
+* ShowFile Initial Comments::
+* ShowFile Instance Variable Declarations::
+* ShowFile Open a File::
+* ShowFile Read a File::
+* ShowFile Close a File::
+* close() Within finally::
+
+
+File: JavaSE9.info,  Node: ShowFile Initial Comments,  Next: ShowFile Instance Variable Declarations,  Up: Demonstration Reading From a File
+
+7.5.2.1 ShowFile Initial Comments
+.................................
+
+<ShowFile Initial Comments> ==
+     /* Display a text file.
+        To use this program, specify the name
+        of the file that you want to see.
+        For example, to see a file called TEST.TXT,
+        use the following command line:
+
+        java ShowFile TEST.TXT
+      */
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'ShowFile.java'}         See *note ShowFile-java::.
+{'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
+{'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
+
+
+File: JavaSE9.info,  Node: ShowFile Instance Variable Declarations,  Next: ShowFile Open a File,  Prev: ShowFile Initial Comments,  Up: Demonstration Reading From a File
+
+7.5.2.2 ShowFile Instance Variable Declarations
+...............................................
+
+<ShowFile Instance Variable Declarations> ==
+     int i;
+     FileInputstream fin;
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'ShowFile.java'}         See *note ShowFile-java::.
+{'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
+{'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
+
+
+File: JavaSE9.info,  Node: ShowFile Open a File,  Next: ShowFile Read a File,  Prev: ShowFile Instance Variable Declarations,  Up: Demonstration Reading From a File
+
+7.5.2.3 ShowFile Open a File
+............................
+
+Notice all of the 'try/catch' blocks that handle the I/O errors that
+might occur.  Each I/O operation is monitored for exceptions, and if
+an exception occurs, it is handled.
+
+<ShowFile Open a File> ==
+     // First, confirm that a filename has been specified.
+     if (args.length != 1) {
+       System.out.printli("Usage: ShowFile filename");
+       return;
+     }
+
+     // Attempt to open the file
+     try {
+       fin = new FileInputStream(args[0]);
+     } catch (FileNotFoundException e) {
+       System.out.println("Cannot Open File");
+       return;
+     }
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'ShowFile.java'}         See *note ShowFile-java::.
+{'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
+{'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
+
+
+File: JavaSE9.info,  Node: ShowFile Read a File,  Next: ShowFile Close a File,  Prev: ShowFile Open a File,  Up: Demonstration Reading From a File
+
+7.5.2.4 ShowFile Read a File
+............................
+
+<ShowFile Read a File> ==
+     // At this point, the file is open and can be read.
+     // The following reads characters until EOF is encountered.
+     try {
+       do {
+         i = fin.read();
+         if (i != -1) System.out.print ((char) i);
+       } while (i != -1);
+     } catch (IOException e) {
+       System.out.println("Error Reading File");
+     }
+
+
+This chunk is called by {'ShowFile.java'}; see its first definition at
+*note ShowFile-java::.
+
+
+File: JavaSE9.info,  Node: ShowFile Close a File,  Next: close() Within finally,  Prev: ShowFile Read a File,  Up: Demonstration Reading From a File
+
+7.5.2.5 ShowFile Close a File
+.............................
+
+<ShowFile Close a File> ==
+     // Close the file
+     try {
+       fin.close();
+     } catch (IOException e) {
+       System.out.println("Error Closing File");
+     }
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'ShowFile.java'}         See *note ShowFile-java::.
+{'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
+
+
+File: JavaSE9.info,  Node: close() Within finally,  Prev: ShowFile Close a File,  Up: Demonstration Reading From a File
+
+7.5.2.6 'close()' Within 'finally' Block
+........................................
+
+Although the preceding example closes the file stream after the file
+is read, there is a variation that is often useful.  The variation is
+to call 'close()' within a 'finally' block.  In this approach, all of
+the methods that access the file are contained within a 'try' block,
+and the 'finally' block is used to close the file.  This way, no
+matter how the 'try' block terminates, the file is closed.
+
+   One advantage tothis approach in general is that if the code that
+accesses a file terminates because of some non-I/O related exception,
+the file is still closed by the 'finally' block.
+
+   Here is how the 'try' block that reads the file can be recode:
+
+{'ShowFileAlt.java'} ==
+     <ShowFile Initial Comments>
+     <Import java.io>
+     class ShowFileAlt {
+       public static void main (String[] args) {
+         <ShowFile Instance Variable Declarations>
+         <ShowFile Open a File>
+         <ShowFileAlt Read a File>
+         <ShowFile Close a File>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Import java.io>          See *note Import-java-io::.
+<ShowFile Close a File>   See *note ShowFile-Close-a-File::.
+<ShowFile Initial         See *note ShowFile-Initial-Comments::.
+Comments>
+<ShowFile Instance        See
+Variable Declarations>    *note ShowFile-Instance-Variable-Declarations::.
+<ShowFile Open a File>    See *note ShowFile-Open-a-File::.
+<ShowFileAlt Read a       See *note ShowFileAlt-Read-a-File::.
+File>
+
+ShowFileAlt Read a File
+.......................
+
+<ShowFileAlt Read a File> ==
+     try {
+       do {
+         i = fin.read();
+         if (i != -1) System.out.print ((char) i);
+       } while (i != -1);
+     } catch (IOException e) {
+       System.out.println("Error Reading File.");
+     } finally {
+       // Close the file on the way out of the block.
+       try {
+         fin.close();
+       } catch (IOException e) {
+         System.out.println ("Error Closing File.");
+       }
+     }
+
+
+This chunk is called by {'ShowFileAlt.java'}; see its first definition
+at *note ShowFileAlt-java::.
+
+
+File: JavaSE9.info,  Node: Demonstration Reading From File with Single try,  Next: Demonstration Writing to a File,  Prev: Demonstration Reading From a File,  Up: Reading and Writing Files
+
+7.5.3 Demonstration Reading From a File with a Single 'try' Block
+-----------------------------------------------------------------
+
+Sometimes it's easier to wrap the portions of a program that open a
+file and access the file within a single 'try' block (rather than
+separating the two) and then use a 'finally' block to close the file.
+
+   Here is another way to write the 'ShowFile' program:
+
+{'ShowFileSingleTry'} ==
+     <ShowFile Initial Comments>
+     <ShowFileSingleTry Additional Initial Comment>
+     <Import java.io>
+     class ShowFileSingleTry {
+       public static void main (String[] args) {
+         <ShowFile Instance Variable Declarations>
+         <ShowFile Open a File>
+         <ShowFileSingleTry Read a File>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Import java.io>          See *note Import-java-io::.
+<ShowFile Initial         See *note ShowFile-Initial-Comments::.
+Comments>
+<ShowFile Instance        See
+Variable Declarations>    *note ShowFile-Instance-Variable-Declarations::.
+<ShowFile Open a File>    See *note ShowFile-Open-a-File::.
+<ShowFileSingleTry        See
+Additional Initial        *note ShowFileSingleTry-Additional-Initial-Comment::.
+Comment>
+<ShowFileSingleTry Read   See *note ShowFileSingleTry-Read-a-File::.
+a File>
+
+* Menu:
+
+* ShowFileSingleTry Additional Initial Comment::
+* ShowFileSingleTry Read a File::
+
+
+File: JavaSE9.info,  Node: ShowFileSingleTry Additional Initial Comment,  Next: ShowFileSingleTry Read a File,  Up: Demonstration Reading From File with Single try
+
+7.5.3.1 ShowFile SingleTry Additional Initial Comment
+.....................................................
+
+<ShowFileSingleTry Additional Initial Comment> ==
+     /* This variation wraps the code that opens and
+        accesses the file within a single try block.
+        The file is closed by the finally block.
+      */
+
+
+This chunk is called by {'ShowFileSingleTry'}; see its first
+definition at *note ShowFileSingleTry::.
+
+
+File: JavaSE9.info,  Node: ShowFileSingleTry Read a File,  Prev: ShowFileSingleTry Additional Initial Comment,  Up: Demonstration Reading From File with Single try
+
+7.5.3.2 ShowFileSingleTry Read a File
+.....................................
+
+In this approach, 'fin' is initialized to 'null'.  In the 'finally'
+block, the file is closed only if 'fin' is not 'null'.  This works
+because 'fin' will be non-'null' only if the file is successfully
+opened.  Thus, 'close()' is not called if an exception occurrs while
+opening the file.
+
+<ShowFileSingleTry Read a File> ==
+     // The following code opens a file, reads characters until EOF
+     // is encountered, and then closes the file via a finally block.
+
+     try {
+       fin = new FileInputStream(args[0]);
+
+       do {
+         i = fin.read();
+         if (i != -1) System.out.print((char) i);
+       } while (i != -1);
+
+     } catch (FileNotFoundException e) {
+       System.out.println("File Not Found.");
+
+     } catch (IOException e) {
+       System.out.println("An I/O Error Occurred");
+
+     } finally {
+       // Close file in all cases
+       try {
+         if (fin != null) fin.close();
+       } catch (IOException e) {
+         System.out.println("Error Clsoing File");
+       }
+     }
+
+
+This chunk is called by {'ShowFileSingleTry'}; see its first
+definition at *note ShowFileSingleTry::.
+
+More Compact Catch Code
+.......................
+
+It is possible to make the 'try/catch' sequence a bit more compact.
+Because 'FileNotFoundException' is a subclass of 'IOException', it
+need not be caught separately.  Here is the sequence recoded to
+eliminate catching 'FileNotFoundException'.  In this case, the
+standard exception message, which describes the error, is displayed.
+
+     } catch (IOException e) {
+       System.out.println("I/O Error: " + e);
+     } finally {
+       try {
+         if (fin != null) fin.close();
+       } catch (IOException e) {
+         System.out.println("Error Closing File");
+       }
+     }
+
+   In this approach, any error, including an error opening the file,
+is simply handled by the single 'catch' statement.  This approach may
+not be appropriate in cases in which you want to deal separately with
+a failure to open a file, such as might be caused by a mis-typed
+filename.  In such a situation, you might want to prompt for the
+correct name before entering a 'try' block that accesses the file.
+
+   The next example uses 'write()' to copy a file.
+
+
+File: JavaSE9.info,  Node: Demonstration Writing to a File,  Prev: Demonstration Reading From File with Single try,  Up: Reading and Writing Files
+
+7.5.4 Demonstration Writing to a File
+-------------------------------------
+
+This example uses 'write()' to copy a file.
+
+   Notice that all potential I/O errors are handled in the programs by
+the use of exceptions.  This differs from some computer languages that
+use error codes to report file errors.  They enable Java to easily
+differentiate the end-of-file condition from file errors when input is
+being performed.
+
+{'CopyFile.java'} ==
+     <CopyFile Initial Comments>
+     <Import java.io>
+     class CopyFile {
+       public static void main (String[] args) {
+         <CopyFile Instance Variable Declarations>
+         <CopyFile Check For 2 Files>
+         <CopyFile Copy a File>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<CopyFile Check For 2     See *note CopyFile-Check-For-2-Files::.
+Files>
+<CopyFile Copy a File>    See *note CopyFile-Copy-a-File::.
+<CopyFile Initial         See *note CopyFile-Initial-Comments::.
+Comments>
+<CopyFile Instance        See
+Variable Declarations>    *note CopyFile-Instance-Variable-Declarations::.
+<Import java.io>          See *note Import-java-io::.
+
+* Menu:
+
+* CopyFile Initial Comments::
+* CopyFile Instance Variable Declarations::
+* CopyFile Check for 2 Files::
+* CopyFile Copy a File::
+
+
+File: JavaSE9.info,  Node: CopyFile Initial Comments,  Next: CopyFile Instance Variable Declarations,  Up: Demonstration Writing to a File
+
+7.5.4.1 CopyFile Initial Comments
+.................................
+
+<CopyFile Initial Comments> ==
+     /* Copy a file
+        To use this program, specify the name
+        of the source file and the destination file.
+        For example, to copy a file called FIRST.TXT
+        to a file called SECOND.TXT, use the following
+        command line.
+
+        java CopyFile FIRST.TXT SECOND.TXT
+      */
+
+
+This chunk is called by {'CopyFile.java'}; see its first definition at
+*note CopyFile-java::.
+
+
+File: JavaSE9.info,  Node: CopyFile Instance Variable Declarations,  Next: CopyFile Check for 2 Files,  Prev: CopyFile Initial Comments,  Up: Demonstration Writing to a File
+
+7.5.4.2 CopyFile Instance Variable Declarations
+...............................................
+
+<CopyFile Instance Variable Declarations> ==
+     int i;
+     FileInputStream fin = null;
+     FileOutputStream fout = null;
+
+
+This chunk is called by {'CopyFile.java'}; see its first definition at
+*note CopyFile-java::.
+
+
+File: JavaSE9.info,  Node: CopyFile Check for 2 Files,  Next: CopyFile Copy a File,  Prev: CopyFile Instance Variable Declarations,  Up: Demonstration Writing to a File
+
+7.5.4.3 CopyFile Check for 2 Files
+..................................
+
+<CopyFile Check For 2 Files> ==
+     // First, confirm that both files have been specified
+     if (args.length != 2) {
+       System.out.println("Usage: CopyFile from to");
+       return;
+     }
+
+
+This chunk is called by {'CopyFile.java'}; see its first definition at
+*note CopyFile-java::.
+
+
+File: JavaSE9.info,  Node: CopyFile Copy a File,  Prev: CopyFile Check for 2 Files,  Up: Demonstration Writing to a File
+
+7.5.4.4 CopyFile Copy a File
+............................
+
+Notice that there are two separate 'try' blocks used when closing the
+files.  This ensures that both files are closed, even if the call to
+'fin.close()' throws an exception.
+
+<CopyFile Copy a File> ==
+     // Copy a file
+     try {
+       // Attempt to open the files
+       fin = new FileInputStream(args[0]);
+       fout = new FileOutputStream(args[1]);
+
+       do {
+         i = fin.read();
+         if (i != -1) fout.write(i);
+       } while (i != -1);
+
+     } catch (IOException e) {
+       System.out.println("I/O Error: " + e);
+
+     } finally {
+       try {
+         if (fin != null) fin.close();
+       } catch (IOException e2) {
+         System.out.println("Error Closing Input File");
+       }
+
+       try {
+         if (fout != null) fout.close();
+       } catch (IOException e2) {
+         System.out.println("Error Closing Output File");
+       }
+     }
+
+
+This chunk is called by {'CopyFile.java'}; see its first definition at
+*note CopyFile-java::.
 
 
 File: JavaSE9.info,  Node: Automatically Closing Files,  Next: transient and volatile Modifiers,  Prev: Reading and Writing Files,  Up: I/O
@@ -4863,12 +5662,22 @@ B.1 Source File Definitions
      This chunk is defined in *note BRRead-java::.
 {'BRReadLines.java'}
      This chunk is defined in *note BRReadLines-java::.
+{'CopyFile.java'}
+     This chunk is defined in *note CopyFile-java::.
 {'FindAreas.java '}
      This chunk is defined in *note FindAreas-java-::.
 {'GenMethDemo.java'}
      This chunk is defined in *note GenMethDemo-java::.
 {'Makefile'}
      This chunk is defined in *note Makefile::.
+{'PrinterWriterDemo.java'}
+     This chunk is defined in *note PrinterWriterDemo-java::.
+{'ShowFile.java'}
+     This chunk is defined in *note ShowFile-java::.
+{'ShowFileAlt.java'}
+     This chunk is defined in *note ShowFileAlt-java::.
+{'ShowFileSingleTry'}
+     This chunk is defined in *note ShowFileSingleTry::.
 {'SimpleGenerics.java'}
      This chunk is defined in *note SimpleGenerics-java::.
 {'Stack.java'}
@@ -4928,6 +5737,15 @@ B.2 Code Chunk Definitions
 <Constructor taking parameter of Type T>
      This chunk is defined in *note
      Constructor-taking-parameter-of-Type-T::.
+<CopyFile Check For 2 Files>
+     This chunk is defined in *note CopyFile-Check-For-2-Files::.
+<CopyFile Copy a File>
+     This chunk is defined in *note CopyFile-Copy-a-File::.
+<CopyFile Initial Comments>
+     This chunk is defined in *note CopyFile-Initial-Comments::.
+<CopyFile Instance Variable Declarations>
+     This chunk is defined in *note
+     CopyFile-Instance-Variable-Declarations::.
 <Create Basic Figure Objects >
      This chunk is defined in *note Create-Basic-Figure-Objects-::.
 <Create Basic Figure Objects Except Figure >
@@ -4984,6 +5802,12 @@ B.2 Code Chunk Definitions
      Method-returning-object-of-type-T::.
 <Method showing type of T>
      This chunk is defined in *note Method-showing-type-of-T::.
+<PrintWriterDemo PrintWriter Constructor>
+     This chunk is defined in *note
+     PrintWriterDemo-PrintWriter-Constructor::.
+<PrintWriterDemo Printing To Console>
+     This chunk is defined in *note
+     PrintWriterDemo-Printing-To-Console::.
 <Rectangle Area Method Declaration >
      This chunk is defined in *note
      Rectangle-Area-Method-Declaration-::.
@@ -4993,6 +5817,24 @@ B.2 Code Chunk Definitions
      This chunk is defined in *note Reference-to-Integer-Instance::.
 <Show Type>
      This chunk is defined in *note Show-Type::.
+<ShowFile Close a File>
+     This chunk is defined in *note ShowFile-Close-a-File::.
+<ShowFile Initial Comments>
+     This chunk is defined in *note ShowFile-Initial-Comments::.
+<ShowFile Instance Variable Declarations>
+     This chunk is defined in *note
+     ShowFile-Instance-Variable-Declarations::.
+<ShowFile Open a File>
+     This chunk is defined in *note ShowFile-Open-a-File::.
+<ShowFile Read a File>
+     This chunk is defined in *note ShowFile-Read-a-File::.
+<ShowFileAlt Read a File>
+     This chunk is defined in *note ShowFileAlt-Read-a-File::.
+<ShowFileSingleTry Additional Initial Comment>
+     This chunk is defined in *note
+     ShowFileSingleTry-Additional-Initial-Comment::.
+<ShowFileSingleTry Read a File>
+     This chunk is defined in *note ShowFileSingleTry-Read-a-File::.
 <Stack Constructor>
      This chunk is defined in *note Stack-Constructor::.
 <Stack Instance Methods>
@@ -5096,6 +5938,22 @@ B.3 Code Chunk References
 
      This chunk is called by <Class Gen>; see its first definition at
      *note Class-Gen::.
+<CopyFile Check For 2 Files>
+
+     This chunk is called by {'CopyFile.java'}; see its first
+     definition at *note CopyFile-java::.
+<CopyFile Copy a File>
+
+     This chunk is called by {'CopyFile.java'}; see its first
+     definition at *note CopyFile-java::.
+<CopyFile Initial Comments>
+
+     This chunk is called by {'CopyFile.java'}; see its first
+     definition at *note CopyFile-java::.
+<CopyFile Instance Variable Declarations>
+
+     This chunk is called by {'CopyFile.java'}; see its first
+     definition at *note CopyFile-java::.
 <Create Basic Figure Objects >
 
      This chunk is called by <FindAreas Main Method Declaration >; see
@@ -5192,6 +6050,11 @@ B.3 Code Chunk References
      -------------------------------------------------------------------------
      {'BRRead.java'}           See *note BRRead-java::.
      {'BRReadLines.java'}      See *note BRReadLines-java::.
+     {'CopyFile.java'}         See *note CopyFile-java::.
+     {'PrinterWriterDemo.java'}See *note PrinterWriterDemo-java::.
+     {'ShowFile.java'}         See *note ShowFile-java::.
+     {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
+     {'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
 <Instance Methods Show and Get>
 
      This chunk is called by <Class TwoGen>; see its first definition
@@ -5228,6 +6091,14 @@ B.3 Code Chunk References
 
      This chunk is called by <Class Gen>; see its first definition at
      *note Class-Gen::.
+<PrintWriterDemo PrintWriter Constructor>
+
+     This chunk is called by {'PrinterWriterDemo.java'}; see its first
+     definition at *note PrinterWriterDemo-java::.
+<PrintWriterDemo Printing To Console>
+
+     This chunk is called by {'PrinterWriterDemo.java'}; see its first
+     definition at *note PrinterWriterDemo-java::.
 <Rectangle Area Method Declaration >
 
      This chunk is called by <FindAreas SubClass Rectangle >; see its
@@ -5244,6 +6115,57 @@ B.3 Code Chunk References
 
      This chunk is called by <Create a Gen object for Integers>; see
      its first definition at *note Create-a-Gen-object-for-Integers::.
+<ShowFile Close a File>
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'ShowFile.java'}         See *note ShowFile-java::.
+     {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
+<ShowFile Initial Comments>
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'ShowFile.java'}         See *note ShowFile-java::.
+     {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
+     {'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
+<ShowFile Instance Variable Declarations>
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'ShowFile.java'}         See *note ShowFile-java::.
+     {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
+     {'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
+<ShowFile Open a File>
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'ShowFile.java'}         See *note ShowFile-java::.
+     {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
+     {'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
+<ShowFile Read a File>
+
+     This chunk is called by {'ShowFile.java'}; see its first
+     definition at *note ShowFile-java::.
+<ShowFileAlt Read a File>
+
+     This chunk is called by {'ShowFileAlt.java'}; see its first
+     definition at *note ShowFileAlt-java::.
+<ShowFileSingleTry Additional Initial Comment>
+
+     This chunk is called by {'ShowFileSingleTry'}; see its first
+     definition at *note ShowFileSingleTry::.
+<ShowFileSingleTry Read a File>
+
+     This chunk is called by {'ShowFileSingleTry'}; see its first
+     definition at *note ShowFileSingleTry::.
 <Stack Constructor>
 
      This chunk is called by the following chunks:
@@ -5413,6 +6335,22 @@ Index
                                                             (line  79)
 * <Constructor taking parameter of Type T>, use: Class Gen<T>.
                                                             (line  33)
+* <CopyFile Check For 2 Files>, definition: CopyFile Check for 2 Files.
+                                                            (line   6)
+* <CopyFile Check For 2 Files>, use:     Demonstration Writing to a File.
+                                                            (line  14)
+* <CopyFile Copy a File>, definition:    CopyFile Copy a File.
+                                                            (line  10)
+* <CopyFile Copy a File>, use:           Demonstration Writing to a File.
+                                                            (line  14)
+* <CopyFile Initial Comments>, definition: CopyFile Initial Comments.
+                                                            (line   6)
+* <CopyFile Initial Comments>, use:      Demonstration Writing to a File.
+                                                            (line  14)
+* <CopyFile Instance Variable Declarations>, definition: CopyFile Instance Variable Declarations.
+                                                            (line   6)
+* <CopyFile Instance Variable Declarations>, use: Demonstration Writing to a File.
+                                                            (line  14)
 * <Create a Gen object for Integers>, definition: GenDemo as Integer.
                                                             (line   6)
 * <Create a Gen object for Integers>, use: Class GenDemo.   (line  22)
@@ -5484,6 +6422,16 @@ Index
 * <Import java.io>, use:                 Reading Characters.
                                                             (line  24)
 * <Import java.io>, use <1>:             Reading Strings.   (line  20)
+* <Import java.io>, use <2>:             Demonstration Using PrintWriter.
+                                                            (line   6)
+* <Import java.io>, use <3>:             Demonstration Reading From a File.
+                                                            (line  10)
+* <Import java.io>, use <4>:             close() Within finally.
+                                                            (line  19)
+* <Import java.io>, use <5>:             Demonstration Reading From File with Single try.
+                                                            (line  12)
+* <Import java.io>, use <6>:             Demonstration Writing to a File.
+                                                            (line  14)
 * <Instance Methods Show and Get>, definition: Class TwoGen.
                                                             (line  67)
 * <Instance Methods Show and Get>, use:  Class TwoGen.      (line   6)
@@ -5509,6 +6457,14 @@ Index
 * <Method returning object of type T>, use: Class Gen<T>.   (line  33)
 * <Method showing type of T>, definition: Class Gen<T>.     (line 115)
 * <Method showing type of T>, use:       Class Gen<T>.      (line  33)
+* <PrintWriterDemo Printing To Console>, definition: PrintWriterDemo Printing To Console.
+                                                            (line   6)
+* <PrintWriterDemo Printing To Console>, use: Demonstration Using PrintWriter.
+                                                            (line   6)
+* <PrintWriterDemo PrintWriter Constructor>, definition: PrintWriterDemo PrintWriter Constructor.
+                                                            (line   6)
+* <PrintWriterDemo PrintWriter Constructor>, use: Demonstration Using PrintWriter.
+                                                            (line   6)
 * <Rectangle Area Method Declaration >, definition: FindAreas SubClass Rectangle Node.
                                                             (line  43)
 * <Rectangle Area Method Declaration >, use: FindAreas SubClass Rectangle Node.
@@ -5525,6 +6481,52 @@ Index
                                                             (line  76)
 * <Show Type>, use:                      GenDemo as Integer.
                                                             (line   6)
+* <ShowFile Close a File>, definition:   ShowFile Close a File.
+                                                            (line   6)
+* <ShowFile Close a File>, use:          Demonstration Reading From a File.
+                                                            (line  10)
+* <ShowFile Close a File>, use <1>:      close() Within finally.
+                                                            (line  19)
+* <ShowFile Initial Comments>, definition: ShowFile Initial Comments.
+                                                            (line   6)
+* <ShowFile Initial Comments>, use:      Demonstration Reading From a File.
+                                                            (line  10)
+* <ShowFile Initial Comments>, use <1>:  close() Within finally.
+                                                            (line  19)
+* <ShowFile Initial Comments>, use <2>:  Demonstration Reading From File with Single try.
+                                                            (line  12)
+* <ShowFile Instance Variable Declarations>, definition: ShowFile Instance Variable Declarations.
+                                                            (line   6)
+* <ShowFile Instance Variable Declarations>, use: Demonstration Reading From a File.
+                                                            (line  10)
+* <ShowFile Instance Variable Declarations>, use <1>: close() Within finally.
+                                                            (line  19)
+* <ShowFile Instance Variable Declarations>, use <2>: Demonstration Reading From File with Single try.
+                                                            (line  12)
+* <ShowFile Open a File>, definition:    ShowFile Open a File.
+                                                            (line  10)
+* <ShowFile Open a File>, use:           Demonstration Reading From a File.
+                                                            (line  10)
+* <ShowFile Open a File>, use <1>:       close() Within finally.
+                                                            (line  19)
+* <ShowFile Open a File>, use <2>:       Demonstration Reading From File with Single try.
+                                                            (line  12)
+* <ShowFile Read a File>, definition:    ShowFile Read a File.
+                                                            (line   6)
+* <ShowFile Read a File>, use:           Demonstration Reading From a File.
+                                                            (line  10)
+* <ShowFileAlt Read a File>, definition: close() Within finally.
+                                                            (line  48)
+* <ShowFileAlt Read a File>, use:        close() Within finally.
+                                                            (line  19)
+* <ShowFileSingleTry Additional Initial Comment>, definition: ShowFileSingleTry Additional Initial Comment.
+                                                            (line   6)
+* <ShowFileSingleTry Additional Initial Comment>, use: Demonstration Reading From File with Single try.
+                                                            (line  12)
+* <ShowFileSingleTry Read a File>, definition: ShowFileSingleTry Read a File.
+                                                            (line  12)
+* <ShowFileSingleTry Read a File>, use:  Demonstration Reading From File with Single try.
+                                                            (line  12)
 * <Stack Constructor>, definition:       Stack Constructor Node.
                                                             (line   6)
 * <Stack Constructor>, use:              Stack Class.       (line  22)
@@ -5574,11 +6576,21 @@ Index
 * {BRRead.java}, definition:             Reading Characters.
                                                             (line  24)
 * {BRReadLines.java}, definition:        Reading Strings.   (line  20)
+* {CopyFile.java}, definition:           Demonstration Writing to a File.
+                                                            (line  14)
 * {FindAreas.java }, definition:         Applying Method Overriding.
                                                             (line  15)
 * {GenMethDemo.java}, definition:        Example of Generic Method.
                                                             (line  13)
 * {Makefile}, definition:                The Makefile.      (line   6)
+* {PrinterWriterDemo.java}, definition:  Demonstration Using PrintWriter.
+                                                            (line   6)
+* {ShowFile.java}, definition:           Demonstration Reading From a File.
+                                                            (line  10)
+* {ShowFileAlt.java}, definition:        close() Within finally.
+                                                            (line  19)
+* {ShowFileSingleTry}, definition:       Demonstration Reading From File with Single try.
+                                                            (line  12)
 * {SimpleGenerics.java}, definition:     Simple Generics Example.
                                                             (line   9)
 * {Stack.java}, definition:              Stack Class.       (line  22)
@@ -5619,6 +6631,8 @@ Index
 * auto-unboxing, generics:               Reference Types.   (line   6)
 * autoboxing in generic reference:       GenDemo as Integer.
                                                             (line  46)
+* AutoClosable interface:                FileInputStream and FileOutputStream.
+                                                            (line  42)
 * AWT:                                   AWT.               (line   6)
 * AWT Controls:                          AWT Controls.      (line   6)
 * AWT Layout Managers, Menus:            AWT Controls.      (line   5)
@@ -5657,6 +6671,8 @@ Index
                                                             (line   6)
 * character-based stream:                Reading Console Input.
                                                             (line   6)
+* character-based stream class, PrintWriter: PrintWriter Class.
+                                                            (line   6)
 * characters, reading:                   Reading Characters.
                                                             (line   6)
 * charAT():                              String Class.      (line  33)
@@ -5675,6 +6691,10 @@ Index
 * classes, nested and inner:             Nested and Inner Classes.
                                                             (line   6)
 * CLASSPATH -classpath:                  Classpath.         (line   6)
+* close():                               FileInputStream and FileOutputStream.
+                                                            (line  29)
+* close() Within finally:                close() Within finally.
+                                                            (line   6)
 * Collections Framework:                 Generics.          (line   6)
 * collections, generics:                 Generics.          (line   6)
 * collisions, prevention:                Packages.          (line   6)
@@ -5703,6 +6723,8 @@ Index
 * default methods, interface:            Default Interface Methods.
                                                             (line   6)
 * default package:                       Defining Packages. (line   6)
+* demonstration using PrintWriter:       Demonstration Using PrintWriter.
+                                                            (line   6)
 * difference between class and interface: Default Interface Methods.
                                                             (line  32)
 * dispatch through an interface:         Interface References.
@@ -5760,6 +6782,8 @@ Index
                                                             (line   6)
 * example, generics:                     Simple Generics Example.
                                                             (line   6)
+* exceptions for I/O errors:             Demonstration Writing to a File.
+                                                            (line   6)
 * exposure of code:                      Packages Intro.    (line   6)
 * extending interfaces:                  Extending Interfaces.
                                                             (line   6)
@@ -5767,6 +6791,20 @@ Index
 * extends keyword:                       Inheritance Basics.
                                                             (line   6)
 * extents, with interfaces:              Extending Interfaces.
+                                                            (line   6)
+* file, close:                           FileInputStream and FileOutputStream.
+                                                            (line  29)
+* file, open:                            FileInputStream and FileOutputStream.
+                                                            (line  16)
+* file, read from:                       FileInputStream and FileOutputStream.
+                                                            (line  63)
+* file, write to:                        FileInputStream and FileOutputStream.
+                                                            (line  75)
+* FileInputStream:                       FileInputStream and FileOutputStream.
+                                                            (line   6)
+* FileOutputStream:                      FileInputStream and FileOutputStream.
+                                                            (line   6)
+* Files, Reading and Writing:            Reading and Writing Files.
                                                             (line   6)
 * final Keyword:                         final Keyword.     (line   6)
 * final to prevent inheritance:          final to Prevent Inheritance.
@@ -5777,6 +6815,10 @@ Index
                                                             (line   6)
 * final, traditional enums:              Enumerations.      (line   6)
 * finding packages:                      Classpath.         (line   6)
+* flushing:                              PrinterWriter Constructors.
+                                                            (line   6)
+* flushingOn:                            PrinterWriter Constructors.
+                                                            (line   6)
 * fully qualified name:                  Importing.         (line  39)
 * generic class:                         Simple Generics Example.
                                                             (line   6)
@@ -5933,6 +6975,8 @@ Index
 * interfaces, nested:                    Nested Interfaces. (line   6)
 * interfaces, shared constants:          Variables in Interfaces.
                                                             (line   6)
+* internationalization of output to console: PrintWriter Class.
+                                                            (line   6)
 * internationalization, character streams: Byte Streams Character Streams.
                                                             (line   6)
 * internationalization, character streams <1>: Reading Console Input.
@@ -6037,6 +7081,8 @@ Index
 * out:                                   Predefined Streams.
                                                             (line   6)
 * output stream:                         Streams.           (line   6)
+* OutputStream as byte stream abstract class: Writing Console Output.
+                                                            (line   6)
 * overload versus override:              Method Overriding. (line   6)
 * overload, overloaded:                  Overloading Methods.
                                                             (line   6)
@@ -6087,11 +7133,25 @@ Index
                                                             (line  15)
 * Primitive Wrappers:                    Primitive Wrappers.
                                                             (line   6)
+* print() and println(), PrintWriter class: PrinterWriter Constructors.
+                                                            (line   6)
+* print(), from PrintStream:             Writing Console Output.
+                                                            (line   6)
+* println(), from PrintStream:           Writing Console Output.
+                                                            (line   6)
+* PrintStream as byte stream:            Writing Console Output.
+                                                            (line   6)
+* PrintWriter Class, character-based stream: PrintWriter Class.
+                                                            (line   6)
+* PrintWriter constructor:               PrinterWriter Constructors.
+                                                            (line   6)
 * private access modifier:               Access Control.    (line  28)
 * private and inheritance:               Member Access and Inheritance.
                                                             (line   6)
 * protected access modifier:             Access Control.    (line  28)
 * public access modifier:                Access Control.    (line  28)
+* read():                                FileInputStream and FileOutputStream.
+                                                            (line  63)
 * read(), from BufferedReader:           Reading Characters.
                                                             (line   6)
 * read(), InputStream abstract class:    Byte Stream Class. (line  58)
@@ -6104,6 +7164,8 @@ Index
 * reading characters:                    Reading Characters.
                                                             (line   6)
 * Reading Console Input:                 Reading Console Input.
+                                                            (line   6)
+* reading from file demonstration:       Demonstration Reading From a File.
                                                             (line   6)
 * reading strings:                       Reading Strings.   (line   6)
 * recursion, recursive:                  Recursion.         (line   6)
@@ -6175,12 +7237,16 @@ Index
                                                             (line   6)
 * System.in:                             Reading Console Input.
                                                             (line  13)
+* System.out as byte stream:             Writing Console Output.
+                                                            (line   6)
 * template, class:                       Class Fundamentals.
                                                             (line   6)
 * Text:                                  AWT.               (line   5)
 * text-based console programs:           I/O Basics.        (line   6)
 * this Keyword:                          this Keyword.      (line   6)
 * toString():                            Object Class.      (line  49)
+* toString(), PrintWriter:               PrinterWriter Constructors.
+                                                            (line   6)
 * try-with-resources:                    I/O.               (line   6)
 * type abstraction, generics:            Generics.          (line   6)
 * type argument, passed to type parameter: GenDemo as Integer.
@@ -6222,10 +7288,22 @@ Index
 * Windows:                               AWT.               (line   6)
 * Wrappers, Primitives:                  Primitive Wrappers.
                                                             (line   6)
+* write to a file:                       FileInputStream and FileOutputStream.
+                                                            (line  75)
+* write to file demonstration:           Demonstration Writing to a File.
+                                                            (line   6)
+* write() example:                       Writing Console Output.
+                                                            (line  38)
+* write() low-level method:              Writing Console Output.
+                                                            (line   6)
+* write(), FileOutputStream class:       FileInputStream and FileOutputStream.
+                                                            (line  75)
 * write(), OutputStream abstract class:  Byte Stream Class. (line  58)
 * write(), Writer:                       Character Stream Class.
                                                             (line  55)
 * Writer abstract class:                 Character Stream Class.
+                                                            (line   6)
+* Writing Console Output:                Writing Console Output.
                                                             (line   6)
 
 
@@ -6260,264 +7338,304 @@ Function Index
 
 Tag Table:
 Node: Top75
-Node: Java SE 9 Introduction5274
-Node: Classes5416
-Node: Class Fundamentals5860
-Node: General Form6276
-Ref: ClassDeclaration6616
-Node: Declaring Objects8131
-Node: Methods9525
-Ref: MethodDeclaration9724
-Node: Constructors10567
-Node: this Keyword11331
-Node: Instance Variable Hiding11884
-Node: Stack Class12688
-Ref: Stack-java13512
-Ref: TestStack-java14067
-Node: Stack Instance Variables14368
-Ref: Stack-Instance-Variables14535
-Node: Stack Constructor Node14701
-Ref: Stack-Constructor14912
-Node: Stack Instance Methods Node15291
-Ref: Stack-Instance-Methods15508
-Node: Stack Push and Pop Node16170
-Ref: Stack-Push16341
-Ref: Stack-Pop16649
-Node: Stack TestStack Node16978
-Ref: TestStack-Main-Method17150
-Node: Methods and Classes17878
-Node: Overloading Methods18584
-Node: Overloading Constructors20894
-Node: Objects as Parameters21082
-Node: Argument Passing21758
-Node: Returning Objects23100
-Node: Recursion23727
-Node: Access Control25239
-Node: Improved Stack Class28184
-Ref: StackImproved-java28418
-Ref: Stack-Private-Instance-Variables29056
-Ref: Improved Stack Class-Footnote-130080
-Node: static Keyword30199
-Node: final Keyword32638
-Node: Arrays 233541
-Node: Nested and Inner Classes34238
-Node: String Class36363
-Node: Command-Line Arguments37620
-Node: Varargs38444
-Node: Inheritance40260
-Node: Inheritance Basics41215
-Ref: Subclass41811
-Node: Member Access and Inheritance42141
-Node: Superclass Referencing Subclass42917
-Node: Using super43697
-Node: super Calling Superclass Constructor44225
-Ref: SuperCallingConstructor44554
-Node: super Referencing Superclass44861
-Ref: SuperReferencingSuperclass45197
-Node: Multilevel Hierarchy45623
-Node: Constructors Executed46378
-Node: Method Overriding46688
-Node: Dynamic Method Dispatch47574
-Node: Why Overridden Methods49021
-Node: Applying Method Overriding50571
-Ref: FindAreas-java-51203
-Node: FindAreas SuperClass Figure Node52574
-Ref: FindAreas-SuperClass-Figure-52801
-Ref: Figure-Instance-Variable-Declarations-53588
-Ref: Figure-Constructor-54059
-Ref: Figure-Area-Method-Declaration-54874
-Node: FindAreas SubClass Rectangle Node55141
-Ref: FindAreas-SubClass-Rectangle-55411
-Ref: Rectangle-Constructor-56245
-Ref: Rectangle-Area-Method-Declaration-56534
-Node: FindAreas SubClass Triangle Node56848
-Ref: FindAreas-SubClass-Triangle-57109
-Ref: Triangle-Constructor-57933
-Ref: Triangle-Area-Method-Declaration-58216
-Node: FindAreas Main Class Node58537
-Ref: FindAreas-Main-Class-58742
-Ref: FindAreas-Main-Method-Declaration-59132
-Ref: Create-Basic-Figure-Objects-59994
-Ref: Create-Basic-Figure-Reference-Variable-60623
-Ref: Call-Overridden-Methods-One-By-One-61136
-Node: Using Abstract Classes61526
-Ref: AbstractMethodDeclaration63036
-Node: Improved Figure Class64259
-Ref: AbstractAreas-java-64706
-Node: AbstractAreas Abstract Class Figure Node65486
-Ref: AbstractAreas-Abstract-Class-Figure-65907
-Ref: AbstractAreas-Abstract-Area-Method-Declaration-66783
-Node: AbstractAreas Main Class67047
-Ref: AbstractAreas-Main-Class-67236
-Ref: AbstractAreas-Main-Method-Declaration-67662
-Ref: Create-Basic-Figure-Objects-Except-Figure-69003
-Ref: Call-Overridden-Methods-One-By-One-Except-Figure-69566
-Node: final with Inheritance69987
-Node: final to Prevent Overriding70390
-Node: final to Prevent Inheritance71303
-Node: Object Class71723
-Node: Packages73860
-Node: Packages Intro74318
-Node: Defining Packages74862
-Ref: PackageStatement75464
-Ref: PackageStatementMulti76434
-Node: Classpath76857
-Node: Member Access78397
-Ref: PackageAccess79372
-Node: Importing79973
-Ref: Import80597
-Node: Interfaces81872
-Node: Defining Interfaces83975
-Ref: InterfaceSimple84230
-Node: Implementing Interfaces85560
-Ref: ClassImplementsInterface86054
-Node: Interface References86539
-Node: Partial Implementations87530
-Node: Nested Interfaces87964
-Node: Applying Interfaces88738
-Node: Variables in Interfaces88938
-Node: Extending Interfaces89668
-Node: Default Interface Methods90147
-Node: Interface Static Methods92251
-Ref: InterfaceStaticMethod92983
-Node: Private Interface Methods93265
-Node: I/O94021
-Node: I/O Basics94999
-Node: Streams96008
-Node: Byte Streams Character Streams96814
-Node: Byte Stream Class97898
-Ref: ByteStreamClasses98536
-Node: Character Stream Class100000
-Ref: CharacterStreamClasses100551
-Node: Predefined Streams101859
-Node: Reading Console Input102696
-Node: Reading Characters104277
-Ref: BRRead-java105178
-Ref: Reading Characters-Footnote-1105957
-Node: Import java.io106187
-Ref: Import-java-io106355
-Node: BRRead BufferedReader Constructor Node106678
-Ref: BRRead-BufferedReader-Constructor106933
-Node: BRRead Enter Characters Node107152
-Ref: BRRead-Enter-Characters107364
-Node: Reading Strings107593
-Ref: BRReadLines-java108217
-Node: BRReadLines BufferedReader Constructor108963
-Ref: BRReadLines-BufferedReader-Constructor109181
-Node: BRReadLines Enter Lines109462
-Ref: BRReadLines-Enter-Lines109650
-Node: Writing Console Output110007
-Node: PrintWriter Class110181
-Node: Reading and Writing Files110357
-Node: Automatically Closing Files110546
-Node: transient and volatile Modifiers110754
-Node: Using instanceof110979
-Node: strictfp111141
-Node: Native Methods111269
-Node: Using assert111403
-Node: Static Import111542
-Node: Overloaded Constructors with this111698
-Node: Compact API Profiles111934
-Node: Generics112090
-Node: Motivation113923
-Node: What are Generics115899
-Node: Simple Generics Example116966
-Ref: SimpleGenerics-java117281
-Node: Class Gen<T>117676
-Ref: Class-Gen118671
-Ref: Instance-Variable-ob-of-Type-T119783
-Ref: generics-constructor119983
-Ref: Constructor-taking-parameter-of-Type-T120329
-Ref: Method-returning-object-of-type-T120865
-Ref: Method-showing-type-of-T121490
-Node: Class GenDemo121729
-Ref: Class-GenDemo122508
-Node: GenDemo as Integer123265
-Ref: Create-a-Gen-object-for-Integers123477
-Ref: Integer-Type-Parameter124607
-Ref: Reference-to-Integer-Instance125454
-Ref: Show-Type125997
-Ref: Get-Value126489
-Node: GenDemo as String126730
-Ref: Create-a-Gen-object-for-Strings126940
-Node: Notes about Generics127395
-Node: Reference Types127651
-Node: Type Arguments128177
-Node: Subtyping128740
-Node: Type Safety129874
-Node: Two Type Parameters130233
-Node: Two Types Example Code130781
-Ref: TwoTypeParameters-java130955
-Node: Class TwoGen131359
-Ref: Class-TwoGen131496
-Ref: Class-Declaration132526
-Ref: Two-Instance-Variables-Declarations132732
-Ref: Constructor-of-Two-Parameters132915
-Ref: Instance-Methods-Show-and-Get133171
-Node: Class SimpGen133562
-Ref: Class-SimpGen133825
-Node: Generic Class General Form134394
-Ref: GenericClass134701
-Node: Bounded Types135025
-Node: Wildcard Arguments136423
-Node: Wildcard Motivation136668
-Node: Wildcard Syntax139215
-Node: Bounded Wildcards140133
-Ref: UpperBoundedWildcard140954
-Ref: LowerBoundedWildcard141334
-Node: Generic Methods141499
-Ref: GenericMethod141899
-Node: Example of Generic Method142067
-Ref: GenMethDemo-java142568
-Node: Method isIn143022
-Ref: Static-Method-isIn143242
-Node: GenMethDemo Main144613
-Ref: GenMethDemo-Main144763
-Node: Generic Constructors145658
-Node: Enumerations146025
-Node: Enumeration Basics146899
-Node: Enum Methods148494
-Node: Enumerations as Class Types149721
-Node: Inherit Enum151595
-Node: Strings153431
-Node: java Lang153557
-Node: Primitive Wrappers155202
-Node: Number155991
-Node: Double and Float156107
-Node: isInfiinite() and isNaN()156277
-Node: Byte Short Integer Long156480
-Node: Numbers to from String156693
-Node: java util Collections156894
-Node: java util Utility Classes157113
-Node: java io Input Output157323
-Node: NIO157489
-Node: Networking157596
-Node: Event Handling157711
-Node: AWT157834
-Node: AWT Controls158021
-Node: Images158202
-Node: Concurrency158311
-Node: Streams API158457
-Node: Regular Expressions158594
-Node: Swing158773
-Node: The Makefile158913
-Ref: Makefile159058
-Node: Makefile Constants159689
-Ref: Makefile-CONSTANTS159830
-Node: Makefile Defaults159966
-Ref: Makefile-DEFAULTS160149
-Node: Makefile Tangle Weave160299
-Ref: Makefile-TANGLE-WEAVE160488
-Node: Makefile Clean160880
-Ref: Makefile-CLEAN161029
-Node: Code Chunk Summaries161216
-Node: File Definitions161706
-Node: Code Chunk Definitions162700
-Node: Code Chunk References168354
-Node: List of Tables178621
-Node: List of General Forms178977
-Node: Bibliography180373
-Node: Concept Index180505
-Node: Function Index241750
+Node: Java SE 9 Introduction6259
+Node: Classes6401
+Node: Class Fundamentals6845
+Node: General Form7261
+Ref: ClassDeclaration7601
+Node: Declaring Objects9116
+Node: Methods10510
+Ref: MethodDeclaration10709
+Node: Constructors11552
+Node: this Keyword12316
+Node: Instance Variable Hiding12869
+Node: Stack Class13673
+Ref: Stack-java14497
+Ref: TestStack-java15052
+Node: Stack Instance Variables15353
+Ref: Stack-Instance-Variables15520
+Node: Stack Constructor Node15686
+Ref: Stack-Constructor15897
+Node: Stack Instance Methods Node16276
+Ref: Stack-Instance-Methods16493
+Node: Stack Push and Pop Node17155
+Ref: Stack-Push17326
+Ref: Stack-Pop17634
+Node: Stack TestStack Node17963
+Ref: TestStack-Main-Method18135
+Node: Methods and Classes18863
+Node: Overloading Methods19569
+Node: Overloading Constructors21879
+Node: Objects as Parameters22067
+Node: Argument Passing22743
+Node: Returning Objects24085
+Node: Recursion24712
+Node: Access Control26224
+Node: Improved Stack Class29169
+Ref: StackImproved-java29403
+Ref: Stack-Private-Instance-Variables30041
+Ref: Improved Stack Class-Footnote-131065
+Node: static Keyword31184
+Node: final Keyword33623
+Node: Arrays 234526
+Node: Nested and Inner Classes35223
+Node: String Class37348
+Node: Command-Line Arguments38605
+Node: Varargs39429
+Node: Inheritance41245
+Node: Inheritance Basics42200
+Ref: Subclass42796
+Node: Member Access and Inheritance43126
+Node: Superclass Referencing Subclass43902
+Node: Using super44682
+Node: super Calling Superclass Constructor45210
+Ref: SuperCallingConstructor45539
+Node: super Referencing Superclass45846
+Ref: SuperReferencingSuperclass46182
+Node: Multilevel Hierarchy46608
+Node: Constructors Executed47363
+Node: Method Overriding47673
+Node: Dynamic Method Dispatch48559
+Node: Why Overridden Methods50006
+Node: Applying Method Overriding51556
+Ref: FindAreas-java-52188
+Node: FindAreas SuperClass Figure Node53559
+Ref: FindAreas-SuperClass-Figure-53786
+Ref: Figure-Instance-Variable-Declarations-54573
+Ref: Figure-Constructor-55044
+Ref: Figure-Area-Method-Declaration-55859
+Node: FindAreas SubClass Rectangle Node56126
+Ref: FindAreas-SubClass-Rectangle-56396
+Ref: Rectangle-Constructor-57230
+Ref: Rectangle-Area-Method-Declaration-57519
+Node: FindAreas SubClass Triangle Node57833
+Ref: FindAreas-SubClass-Triangle-58094
+Ref: Triangle-Constructor-58918
+Ref: Triangle-Area-Method-Declaration-59201
+Node: FindAreas Main Class Node59522
+Ref: FindAreas-Main-Class-59727
+Ref: FindAreas-Main-Method-Declaration-60117
+Ref: Create-Basic-Figure-Objects-60979
+Ref: Create-Basic-Figure-Reference-Variable-61608
+Ref: Call-Overridden-Methods-One-By-One-62121
+Node: Using Abstract Classes62511
+Ref: AbstractMethodDeclaration64021
+Node: Improved Figure Class65244
+Ref: AbstractAreas-java-65691
+Node: AbstractAreas Abstract Class Figure Node66471
+Ref: AbstractAreas-Abstract-Class-Figure-66892
+Ref: AbstractAreas-Abstract-Area-Method-Declaration-67768
+Node: AbstractAreas Main Class68032
+Ref: AbstractAreas-Main-Class-68221
+Ref: AbstractAreas-Main-Method-Declaration-68647
+Ref: Create-Basic-Figure-Objects-Except-Figure-69988
+Ref: Call-Overridden-Methods-One-By-One-Except-Figure-70551
+Node: final with Inheritance70972
+Node: final to Prevent Overriding71375
+Node: final to Prevent Inheritance72288
+Node: Object Class72708
+Node: Packages74845
+Node: Packages Intro75303
+Node: Defining Packages75847
+Ref: PackageStatement76449
+Ref: PackageStatementMulti77419
+Node: Classpath77842
+Node: Member Access79382
+Ref: PackageAccess80357
+Node: Importing80958
+Ref: Import81582
+Node: Interfaces82857
+Node: Defining Interfaces84960
+Ref: InterfaceSimple85215
+Node: Implementing Interfaces86545
+Ref: ClassImplementsInterface87039
+Node: Interface References87524
+Node: Partial Implementations88515
+Node: Nested Interfaces88949
+Node: Applying Interfaces89723
+Node: Variables in Interfaces89923
+Node: Extending Interfaces90653
+Node: Default Interface Methods91132
+Node: Interface Static Methods93236
+Ref: InterfaceStaticMethod93968
+Node: Private Interface Methods94250
+Node: I/O95006
+Node: I/O Basics95984
+Node: Streams96993
+Node: Byte Streams Character Streams97799
+Node: Byte Stream Class98883
+Ref: ByteStreamClasses99521
+Node: Character Stream Class100985
+Ref: CharacterStreamClasses101536
+Node: Predefined Streams102844
+Node: Reading Console Input103681
+Node: Reading Characters105262
+Ref: BRRead-java106163
+Ref: Reading Characters-Footnote-1106942
+Node: Import java.io107172
+Ref: Import-java-io107340
+Node: BRRead BufferedReader Constructor Node107944
+Ref: BRRead-BufferedReader-Constructor108199
+Node: BRRead Enter Characters Node108418
+Ref: BRRead-Enter-Characters108630
+Node: Reading Strings108859
+Ref: BRReadLines-java109483
+Node: BRReadLines BufferedReader Constructor110229
+Ref: BRReadLines-BufferedReader-Constructor110447
+Node: BRReadLines Enter Lines110728
+Ref: BRReadLines-Enter-Lines110916
+Node: Writing Console Output111273
+Node: PrintWriter Class112542
+Node: PrinterWriter Constructors113214
+Node: Demonstration Using PrintWriter114316
+Ref: PrinterWriterDemo-java114600
+Node: PrintWriterDemo PrintWriter Constructor115403
+Ref: PrintWriterDemo-PrintWriter-Constructor115652
+Node: PrintWriterDemo Printing To Console115870
+Ref: PrintWriterDemo-Printing-To-Console116111
+Node: PrintWriter Concluding Comments116385
+Node: Reading and Writing Files116865
+Node: FileInputStream and FileOutputStream117557
+Node: Demonstration Reading From a File120298
+Ref: ShowFile-java120746
+Node: ShowFile Initial Comments121843
+Ref: ShowFile-Initial-Comments122056
+Node: ShowFile Instance Variable Declarations122676
+Ref: ShowFile-Instance-Variable-Declarations122946
+Node: ShowFile Open a File123368
+Ref: ShowFile-Open-a-File123770
+Node: ShowFile Read a File124498
+Ref: ShowFile-Read-a-File124707
+Node: ShowFile Close a File125164
+Ref: ShowFile-Close-a-File125377
+Node: close() Within finally125827
+Ref: ShowFileAlt-java126692
+Ref: ShowFileAlt-Read-a-File127669
+Node: Demonstration Reading From File with Single try128215
+Ref: ShowFileSingleTry128802
+Node: ShowFileSingleTry Additional Initial Comment129921
+Ref: ShowFileSingleTry-Additional-Initial-Comment130197
+Node: ShowFileSingleTry Read a File130516
+Ref: ShowFileSingleTry-Read-a-File131049
+Node: Demonstration Writing to a File132959
+Ref: CopyFile-java133529
+Node: CopyFile Initial Comments134504
+Ref: CopyFile-Initial-Comments134715
+Node: CopyFile Instance Variable Declarations135145
+Ref: CopyFile-Instance-Variable-Declarations135419
+Node: CopyFile Check for 2 Files135641
+Ref: CopyFile-Check-For-2-Files135884
+Node: CopyFile Copy a File136177
+Ref: CopyFile-Copy-a-File136535
+Node: Automatically Closing Files137325
+Node: transient and volatile Modifiers137533
+Node: Using instanceof137758
+Node: strictfp137920
+Node: Native Methods138048
+Node: Using assert138182
+Node: Static Import138321
+Node: Overloaded Constructors with this138477
+Node: Compact API Profiles138713
+Node: Generics138869
+Node: Motivation140702
+Node: What are Generics142678
+Node: Simple Generics Example143745
+Ref: SimpleGenerics-java144060
+Node: Class Gen<T>144455
+Ref: Class-Gen145450
+Ref: Instance-Variable-ob-of-Type-T146562
+Ref: generics-constructor146762
+Ref: Constructor-taking-parameter-of-Type-T147108
+Ref: Method-returning-object-of-type-T147644
+Ref: Method-showing-type-of-T148269
+Node: Class GenDemo148508
+Ref: Class-GenDemo149287
+Node: GenDemo as Integer150044
+Ref: Create-a-Gen-object-for-Integers150256
+Ref: Integer-Type-Parameter151386
+Ref: Reference-to-Integer-Instance152233
+Ref: Show-Type152776
+Ref: Get-Value153268
+Node: GenDemo as String153509
+Ref: Create-a-Gen-object-for-Strings153719
+Node: Notes about Generics154174
+Node: Reference Types154430
+Node: Type Arguments154956
+Node: Subtyping155519
+Node: Type Safety156653
+Node: Two Type Parameters157012
+Node: Two Types Example Code157560
+Ref: TwoTypeParameters-java157734
+Node: Class TwoGen158138
+Ref: Class-TwoGen158275
+Ref: Class-Declaration159305
+Ref: Two-Instance-Variables-Declarations159511
+Ref: Constructor-of-Two-Parameters159694
+Ref: Instance-Methods-Show-and-Get159950
+Node: Class SimpGen160341
+Ref: Class-SimpGen160604
+Node: Generic Class General Form161173
+Ref: GenericClass161480
+Node: Bounded Types161804
+Node: Wildcard Arguments163202
+Node: Wildcard Motivation163447
+Node: Wildcard Syntax165994
+Node: Bounded Wildcards166912
+Ref: UpperBoundedWildcard167733
+Ref: LowerBoundedWildcard168113
+Node: Generic Methods168278
+Ref: GenericMethod168678
+Node: Example of Generic Method168846
+Ref: GenMethDemo-java169347
+Node: Method isIn169801
+Ref: Static-Method-isIn170021
+Node: GenMethDemo Main171392
+Ref: GenMethDemo-Main171542
+Node: Generic Constructors172437
+Node: Enumerations172804
+Node: Enumeration Basics173678
+Node: Enum Methods175273
+Node: Enumerations as Class Types176500
+Node: Inherit Enum178374
+Node: Strings180210
+Node: java Lang180336
+Node: Primitive Wrappers181981
+Node: Number182770
+Node: Double and Float182886
+Node: isInfiinite() and isNaN()183056
+Node: Byte Short Integer Long183259
+Node: Numbers to from String183472
+Node: java util Collections183673
+Node: java util Utility Classes183892
+Node: java io Input Output184102
+Node: NIO184268
+Node: Networking184375
+Node: Event Handling184490
+Node: AWT184613
+Node: AWT Controls184800
+Node: Images184981
+Node: Concurrency185090
+Node: Streams API185236
+Node: Regular Expressions185373
+Node: Swing185552
+Node: The Makefile185692
+Ref: Makefile185837
+Node: Makefile Constants186468
+Ref: Makefile-CONSTANTS186609
+Node: Makefile Defaults186745
+Ref: Makefile-DEFAULTS186928
+Node: Makefile Tangle Weave187078
+Ref: Makefile-TANGLE-WEAVE187267
+Node: Makefile Clean187659
+Ref: Makefile-CLEAN187808
+Node: Code Chunk Summaries187995
+Node: File Definitions188485
+Node: Code Chunk Definitions189866
+Node: Code Chunk References196957
+Node: List of Tables210491
+Node: List of General Forms210847
+Node: Bibliography212243
+Node: Concept Index212375
+Node: Function Index285052
 
 End Tag Table

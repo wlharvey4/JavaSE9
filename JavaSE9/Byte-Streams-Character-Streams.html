@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Byte Streams Character Streams (About Java SE 9)</title>
+
+<meta name="description" content="Byte Streams Character Streams (About Java SE 9)">
+<meta name="keywords" content="Byte Streams Character Streams (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="I_002fO-Basics.html#I_002fO-Basics" rel="up" title="I/O Basics">
+<link href="Byte-Stream-Class.html#Byte-Stream-Class" rel="next" title="Byte Stream Class">
+<link href="Streams.html#Streams" rel="prev" title="Streams">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Byte-Streams-Character-Streams"></a>
+<div class="header">
+<p>
+Previous: <a href="Streams.html#Streams" accesskey="p" rel="prev">Streams</a>, Up: <a href="I_002fO-Basics.html#I_002fO-Basics" accesskey="u" rel="up">I/O Basics</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Byte-Streams-and-Character-Streams"></a>
+<h4 class="subsection">7.1.2 Byte Streams and Character Streams</h4>
+<a name="index-Byte-Streams_002c-definition"></a>
+<a name="index-Character-Streams_002c-definition"></a>
+<a name="index-Streams_002c-Character"></a>
+<a name="index-binary-data_002c-reading-and-writing"></a>
+<a name="index-Unicode"></a>
+<a name="index-internationalization_002c-character-streams"></a>
+
+<p>Java defines two types of streams:
+</p>
+<ul>
+<li> byte streams
+</li><li> character streams
+</li></ul>
+
+
+<p><em>Byte streams</em> provide a convenient means for handling input and output
+of bytes.  Byte streams are used when reading or writing binary data.
+<em>Character streams</em> provide a convenient means for handling input  and
+output of characters.  They use Unicode and therefore can be
+internationalized.  In some cases, character streams are more efficient than
+byte streams.
+</p>
+<p>The original version of Java (Java 1.0) did not include character streams and
+thus all I/O was byte-oriented.  Character streams were added by Java 1.1 and
+certain byte-oriented classes and methods were deprecated.
+</p>
+<p>At the lowest level, all I/O is still byte-oriented.  The character-based
+streams simply provide a convenient and efficient means for handling
+characters.  
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Byte-Stream-Class.html#Byte-Stream-Class" accesskey="1">Byte Stream Class</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Character-Stream-Class.html#Character-Stream-Class" accesskey="2">Character Stream Class</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Predefined-Streams.html#Predefined-Streams" accesskey="3">Predefined Streams</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+
+</body>
+</html>

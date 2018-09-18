@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Reading Characters (About Java SE 9)</title>
+
+<meta name="description" content="Reading Characters (About Java SE 9)">
+<meta name="keywords" content="Reading Characters (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Reading-Console-Input.html#Reading-Console-Input" rel="up" title="Reading Console Input">
+<link href="Import-java_002eio.html#Import-java_002eio" rel="next" title="Import java.io">
+<link href="Reading-Console-Input.html#Reading-Console-Input" rel="prev" title="Reading Console Input">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Reading-Characters"></a>
+<div class="header">
+<p>
+Next: <a href="Reading-Strings.html#Reading-Strings" accesskey="n" rel="next">Reading Strings</a>, Up: <a href="Reading-Console-Input.html#Reading-Console-Input" accesskey="u" rel="up">Reading Console Input</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Reading-Characters-1"></a>
+<h4 class="subsection">7.2.1 Reading Characters</h4>
+<a name="index-characters_002c-reading"></a>
+<a name="index-reading-characters"></a>
+<a name="index-read_0028_0029_002c-from-BufferedReader"></a>
+
+<p>To read a character from a <samp>BufferedReader</samp>, use <code>read()</code>.  The
+version of <code>read()</code> that we will be using is
+</p>
+<div class="display">
+<pre class="display">int read() throws IOException
+</pre></div>
+
+<p>Each time that <code>read()</code> is called, it reads a character from
+the input stream and returns it as an integer value. <a name="DOCF2" href="#FOOT2"><sup>2</sup></a>
+It returns -1 when an attempt is made to read at the end of the stream.  It
+can throw an <code>IOException</code>.
+</p>
+<a name="Program-Demonstrating-Reading-Characters-from-Console"></a>
+<h4 class="subsubheading">Program Demonstrating Reading Characters from Console</h4>
+<a name="index-BRRead_002ejava"></a>
+
+<p>The following program demonstrates <code>read()</code> by reading characters from
+the console until the user types a &ldquo;q&rdquo;.  Any I/O exceptions that might be
+generated are simply thrown out of <code>main()</code>.  In more sophisticated
+applications, you can handle the exceptions explicitly.
+</p>
+<a name="BRRead_002djava"></a><a name="index-_003cImport-java_002eio_003e_002c-use"></a>
+<a name="index-_003cBRRead-BufferedReader-Constructor_003e_002c-use"></a>
+<a name="index-_003cBRRead-Enter-Characters_003e_002c-use"></a>
+<a name="index-_007bBRRead_002ejava_007d_002c-definition"></a>
+<p><span class="roman">{<samp>BRRead.java</samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example"><span class="roman">&lt;<i>Import java.io</i>&gt;</span>
+class BRRead {
+  public static void main(String[] args[]) throws IOException {
+    <span class="roman">&lt;<i>BRRead BufferedReader Constructor</i>&gt;</span>
+    <span class="roman">&lt;<i>BRRead Enter Characters</i>&gt;</span>
+  }
+}
+
+</pre></div>
+
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>BRRead BufferedReader Constructor</i>&gt;</span></td><td width="65%">See <a href="BRRead-BufferedReader-Constructor-Node.html#BRRead_002dBufferedReader_002dConstructor">BRRead-BufferedReader-Constructor</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>BRRead Enter Characters</i>&gt;</span></td><td width="65%">See <a href="BRRead-Enter-Characters-Node.html#BRRead_002dEnter_002dCharacters">BRRead-Enter-Characters</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Import java.io</i>&gt;</span></td><td width="65%">See <a href="Import-java_002eio.html#Import_002djava_002dio">Import-java-io</a>.</td></tr>
+</table>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Import-java_002eio.html#Import-java_002eio" accesskey="1">Import java.io</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="BRRead-BufferedReader-Constructor-Node.html#BRRead-BufferedReader-Constructor-Node" accesskey="2">BRRead BufferedReader Constructor Node</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="BRRead-Enter-Characters-Node.html#BRRead-Enter-Characters-Node" accesskey="3">BRRead Enter Characters Node</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT2" href="#DOCF2">(2)</a></h3>
+<p>Note that
+<code>System.in</code> is line buffered by default; this means that no input is
+actually passed to the program until the user presses <tt class="key">enter</tt>.  This does
+not make <code>file</code> particularly valuable for interactive console input.</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Demonstration Reading From a File (About Java SE 9)</title>
+
+<meta name="description" content="Demonstration Reading From a File (About Java SE 9)">
+<meta name="keywords" content="Demonstration Reading From a File (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Reading-and-Writing-Files.html#Reading-and-Writing-Files" rel="up" title="Reading and Writing Files">
+<link href="ShowFile-Initial-Comments.html#ShowFile-Initial-Comments" rel="next" title="ShowFile Initial Comments">
+<link href="FileInputStream-and-FileOutputStream.html#FileInputStream-and-FileOutputStream" rel="prev" title="FileInputStream and FileOutputStream">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Demonstration-Reading-From-a-File"></a>
+<div class="header">
+<p>
+Next: <a href="Demonstration-Reading-From-File-with-Single-try.html#Demonstration-Reading-From-File-with-Single-try" accesskey="n" rel="next">Demonstration Reading From File with Single try</a>, Previous: <a href="FileInputStream-and-FileOutputStream.html#FileInputStream-and-FileOutputStream" accesskey="p" rel="prev">FileInputStream and FileOutputStream</a>, Up: <a href="Reading-and-Writing-Files.html#Reading-and-Writing-Files" accesskey="u" rel="up">Reading and Writing Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Demonstration-Reading-From-a-File-1"></a>
+<h4 class="subsection">7.5.2 Demonstration Reading From a File</h4>
+<a name="index-reading-from-file-demonstration"></a>
+
+<p>The following program uses <code>read()</code> to input and display the contents of
+a file that contains ASCII test.  The name of the file is specified as a
+command-line argument.
+</p>
+<a name="ShowFile_002djava"></a><a name="index-_003cShowFile-Initial-Comments_003e_002c-use"></a>
+<a name="index-_003cImport-java_002eio_003e_002c-use-3"></a>
+<a name="index-_003cShowFile-Instance-Variable-Declarations_003e_002c-use"></a>
+<a name="index-_003cShowFile-Open-a-File_003e_002c-use"></a>
+<a name="index-_003cShowFile-Read-a-File_003e_002c-use"></a>
+<a name="index-_003cShowFile-Close-a-File_003e_002c-use"></a>
+<a name="index-_007bShowFile_002ejava_007d_002c-definition"></a>
+<p><span class="roman">{<samp>ShowFile.java</samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example"><span class="roman">&lt;<i>ShowFile Initial Comments</i>&gt;</span>
+<span class="roman">&lt;<i>Import java.io</i>&gt;</span>
+class ShowFile {
+  public static void main (String[] args) {
+    <span class="roman">&lt;<i>ShowFile Instance Variable Declarations</i>&gt;</span>
+    <span class="roman">&lt;<i>ShowFile Open a File</i>&gt;</span>
+    <span class="roman">&lt;<i>ShowFile Read a File</i>&gt;</span>
+    <span class="roman">&lt;<i>ShowFile Close a File</i>&gt;</span>
+  }
+}
+
+</pre></div>
+
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>Import java.io</i>&gt;</span></td><td width="65%">See <a href="Import-java_002eio.html#Import_002djava_002dio">Import-java-io</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFile Close a File</i>&gt;</span></td><td width="65%">See <a href="ShowFile-Close-a-File.html#ShowFile_002dClose_002da_002dFile">ShowFile-Close-a-File</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFile Initial Comments</i>&gt;</span></td><td width="65%">See <a href="ShowFile-Initial-Comments.html#ShowFile_002dInitial_002dComments">ShowFile-Initial-Comments</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFile Instance Variable Declarations</i>&gt;</span></td><td width="65%">See <a href="ShowFile-Instance-Variable-Declarations.html#ShowFile_002dInstance_002dVariable_002dDeclarations">ShowFile-Instance-Variable-Declarations</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFile Open a File</i>&gt;</span></td><td width="65%">See <a href="ShowFile-Open-a-File.html#ShowFile_002dOpen_002da_002dFile">ShowFile-Open-a-File</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFile Read a File</i>&gt;</span></td><td width="65%">See <a href="ShowFile-Read-a-File.html#ShowFile_002dRead_002da_002dFile">ShowFile-Read-a-File</a>.</td></tr>
+</table>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ShowFile-Initial-Comments.html#ShowFile-Initial-Comments" accesskey="1">ShowFile Initial Comments</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ShowFile-Instance-Variable-Declarations.html#ShowFile-Instance-Variable-Declarations" accesskey="2">ShowFile Instance Variable Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ShowFile-Open-a-File.html#ShowFile-Open-a-File" accesskey="3">ShowFile Open a File</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ShowFile-Read-a-File.html#ShowFile-Read-a-File" accesskey="4">ShowFile Read a File</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ShowFile-Close-a-File.html#ShowFile-Close-a-File" accesskey="5">ShowFile Close a File</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="close_0028_0029-Within-finally.html#close_0028_0029-Within-finally" accesskey="6">close() Within finally</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+
+</body>
+</html>

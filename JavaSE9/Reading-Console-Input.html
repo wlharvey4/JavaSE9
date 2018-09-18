@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Reading Console Input (About Java SE 9)</title>
+
+<meta name="description" content="Reading Console Input (About Java SE 9)">
+<meta name="keywords" content="Reading Console Input (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="I_002fO.html#I_002fO" rel="up" title="I/O">
+<link href="Reading-Characters.html#Reading-Characters" rel="next" title="Reading Characters">
+<link href="Predefined-Streams.html#Predefined-Streams" rel="prev" title="Predefined Streams">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Reading-Console-Input"></a>
+<div class="header">
+<p>
+Next: <a href="Writing-Console-Output.html#Writing-Console-Output" accesskey="n" rel="next">Writing Console Output</a>, Previous: <a href="I_002fO-Basics.html#I_002fO-Basics" accesskey="p" rel="prev">I/O Basics</a>, Up: <a href="I_002fO.html#I_002fO" accesskey="u" rel="up">I/O</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Reading-Console-Input-1"></a>
+<h3 class="section">7.2 Reading Console Input</h3>
+<a name="index-Reading-Console-Input"></a>
+<a name="index-console-input_002c-reading"></a>
+<a name="index-internationalization_002c-character-streams-1"></a>
+<a name="index-character_002dbased-stream"></a>
+<a name="index-stream_002c-character_002dbased"></a>
+
+<p>For commercial applications, the preferred method of reading console input is
+to use a character-oriented stream.  This makes your program easier to
+internationalize and maintain.
+</p>
+<a name="System_002ein-Wrapped-in-BufferedReader"></a>
+<h4 class="subheading"><code>System.in</code> Wrapped in <samp>BufferedReader</samp></h4>
+<a name="index-System_002ein"></a>
+<a name="index-BufferedReader"></a>
+<a name="index-Reader-abstract-class-1"></a>
+<a name="index-InputStreamReader-concrete-subclass"></a>
+<a name="index-InputStream"></a>
+
+<p>Console input is accomplished by reading from <code>System.in</code>  To obtain a
+character-based stream that is attached to the console, wrap <code>System.in</code>
+in a <samp>BufferedReader</samp> object.  <samp>BufferedReader</samp> supports a buffered
+input stream.  A commonly-used constructor is:
+</p>
+<div class="display">
+<pre class="display">BufferedReader(Reader <i>inputReader</i>)
+</pre></div>
+
+
+<p>Here, <i>inputReader</i> is the stream that is linked to the instance
+of <samp>BufferedReader</samp> that is being created.  <samp>Reader</samp> is the
+abstract class.  One of its concrete subclasses is <samp>InputStreamReader</samp>,
+which converts bytes to characters.  To obtain a <samp>InputStreamReader</samp>
+object that is linked to <code>System.in</code>, use the following constructor:
+</p>
+<div class="display">
+<pre class="display">InputStreamReader(InputStream <i>inputStream</i>)
+</pre></div>
+
+<p>Because <code>System.in</code> refers to an object of type <samp>InputStream</samp>, it
+can be used for <i>inputStream</i>.  Putting it all together, the following
+line of code creates a <samp>BufferedReader</samp> that is connected to the
+keyboard:
+</p>
+<div class="example">
+<pre class="example">BufferedReader br = new BufferedReader(
+  new InputStreamReader(System.in));
+</pre></div>
+
+<p>After this statement executes, <code>br</code> is a character-based
+  stream that is linked to the console through <code>System.in</code>.  
+</p>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Reading-Characters.html#Reading-Characters" accesskey="1">Reading Characters</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Reading-Strings.html#Reading-Strings" accesskey="2">Reading Strings</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+
+</body>
+</html>

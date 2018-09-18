@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>FileInputStream and FileOutputStream (About Java SE 9)</title>
+
+<meta name="description" content="FileInputStream and FileOutputStream (About Java SE 9)">
+<meta name="keywords" content="FileInputStream and FileOutputStream (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Reading-and-Writing-Files.html#Reading-and-Writing-Files" rel="up" title="Reading and Writing Files">
+<link href="Demonstration-Reading-From-a-File.html#Demonstration-Reading-From-a-File" rel="next" title="Demonstration Reading From a File">
+<link href="Reading-and-Writing-Files.html#Reading-and-Writing-Files" rel="prev" title="Reading and Writing Files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="FileInputStream-and-FileOutputStream"></a>
+<div class="header">
+<p>
+Next: <a href="Demonstration-Reading-From-a-File.html#Demonstration-Reading-From-a-File" accesskey="n" rel="next">Demonstration Reading From a File</a>, Up: <a href="Reading-and-Writing-Files.html#Reading-and-Writing-Files" accesskey="u" rel="up">Reading and Writing Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="FileInputStream-and-FileOutputStream-1"></a>
+<h4 class="subsection">7.5.1 <samp>FileInputStream</samp> and <samp>FileOutputStream</samp></h4>
+<a name="index-FileInputStream"></a>
+<a name="index-FileOutputStream"></a>
+
+<p>Two of the most often-used stream classes are:
+</p>
+<ul>
+<li> <samp>FileInputStream</samp>
+</li><li> <samp>FielOutputStream</samp>
+</li></ul>
+
+<p>which create byte streams linked to files.
+</p>
+<a name="Open-a-File"></a>
+<h4 class="subheading">Open a File</h4>
+<a name="index-file_002c-open"></a>
+
+<p>To open a file, create an object of one of these clases, specifying the name
+of the file as an argument to the constructor.  We will use the following
+constructors:
+</p>
+<div class="display">
+<pre class="display">FileInputStream(String <i>fileName</i> throws FileNotFoundException
+FileOutputStream(String <i>fileName</i> throws FileNotFoundException
+</pre></div>
+
+<p>Note that when an output file is opened, any preexisting file by the sam name
+is destroyed.
+</p>
+<a name="Close-a-File"></a>
+<h4 class="subheading">Close a File</h4>
+<a name="index-file_002c-close"></a>
+<a name="index-close_0028_0029"></a>
+
+<p>When you are done with a file, you must close it.  This is done by calling
+the <code>close()</code> method, which is implemented by both
+<samp>FileInputStream</samp> and <samp>FileOutputStream</samp>.
+</p>
+<div class="display">
+<pre class="display">void close() throws IOException
+</pre></div>
+
+<p>Closing a file releases the system resources allocated to the
+file.  Failure to close a file can result in &ldquo;memory leaks&rdquo; because of
+unused resources remaining allocated.
+</p>
+<a name="AutoClosable-Interface"></a>
+<h4 class="subheading"><samp>AutoClosable Interface</samp></h4>
+<a name="index-AutoClosable-interface"></a>
+
+<p>Beginning with JDK 7, the <code>close()</code> method is specified by the
+<samp>AutoCloseable</samp> interface in <samp>java.lang</samp>.  <samp>AutoCloseable</samp> is
+inherited by the <samp>Closable</samp> interface in <samp>java.io</samp>.  Both
+interfaces are implemented by the stream classes, including
+<samp>FileInputStream</samp> and <samp>FileOutputStream</samp>.
+</p>
+<a name="Try-With-Resources"></a>
+<h4 class="subheading">Try With Resources</h4>
+
+<p>There are two basic approaches you can use to close a file.  The first is the
+traditional approach, in which <code>close()</code> is called explicitly when the
+file is no longer needed.  This is the approach used by all versions of Java
+prior to JDK 7.
+</p>
+<p>The second is to use the <code>try-with-resources</code> statement added by JDK 7,
+which automatically closes a file when it is no longer needed.  In this
+approach, no explicit call to <samp>close()</samp> is executed.
+</p>
+<a name="Reading-From-A-File"></a>
+<h4 class="subheading">Reading From A File</h4>
+<a name="index-file_002c-read-from"></a>
+<a name="index-read_0028_0029"></a>
+
+<p>To read from a file, you can use a version of <code>read()</code> that is defined
+within <samp>FileInputStream</samp>.
+</p>
+<div class="display">
+<pre class="display">int read() throws IOException
+</pre></div>
+
+<p>Each time that it is called, it reads a single byte from the file
+and returns the byte as an integer value.  <code>read()</code> returns -1 when an
+attempt is made to read at the end of the stream.
+</p>
+<a name="Writing-to-a-File"></a>
+<h4 class="subheading">Writing to a File</h4>
+<a name="index-write-to-a-file"></a>
+<a name="index-file_002c-write-to"></a>
+<a name="index-write_0028_0029_002c-FileOutputStream-class"></a>
+
+<p>To write to a file, you can use the <code>write()</code> method defined by
+<samp>FileOutputStream</samp>.  Its simplest form is:
+</p>
+<div class="display">
+<pre class="display">void write(int <i>byteval</i> throws IOException
+</pre></div>
+
+<p>This method writes the byte specified by <i>byteval</i> to the file.  Although
+<i>byteval</i> is declared as an integer, only the low-order eight bits are
+written to th file.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Demonstration-Reading-From-a-File.html#Demonstration-Reading-From-a-File" accesskey="n" rel="next">Demonstration Reading From a File</a>, Up: <a href="Reading-and-Writing-Files.html#Reading-and-Writing-Files" accesskey="u" rel="up">Reading and Writing Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

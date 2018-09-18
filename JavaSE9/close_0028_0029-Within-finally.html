@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>close() Within finally (About Java SE 9)</title>
+
+<meta name="description" content="close() Within finally (About Java SE 9)">
+<meta name="keywords" content="close() Within finally (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Demonstration-Reading-From-a-File.html#Demonstration-Reading-From-a-File" rel="up" title="Demonstration Reading From a File">
+<link href="Demonstration-Reading-From-File-with-Single-try.html#Demonstration-Reading-From-File-with-Single-try" rel="next" title="Demonstration Reading From File with Single try">
+<link href="ShowFile-Close-a-File.html#ShowFile-Close-a-File" rel="prev" title="ShowFile Close a File">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="close_0028_0029-Within-finally"></a>
+<div class="header">
+<p>
+Previous: <a href="ShowFile-Close-a-File.html#ShowFile-Close-a-File" accesskey="p" rel="prev">ShowFile Close a File</a>, Up: <a href="Demonstration-Reading-From-a-File.html#Demonstration-Reading-From-a-File" accesskey="u" rel="up">Demonstration Reading From a File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="close_0028_0029-Within-finally-Block"></a>
+<h4 class="subsubsection">7.5.2.6 <code>close()</code> Within <code>finally</code> Block</h4>
+<a name="index-close_0028_0029-Within-finally"></a>
+
+<p>Although the preceding example closes the file stream after the file is read,
+there is a variation that is often useful.  The variation is to call
+<code>close()</code> within a <code>finally</code> block.  In this approach, all of the
+methods that access the file are contained within a <code>try</code> block, and the
+<code>finally</code> block is used to close the file.  This way, no matter how the
+<code>try</code> block terminates, the file is closed.
+</p>
+<p>One advantage tothis approach in general is that if the code that accesses a
+file terminates because of some non-I/O related exception, the file is still
+closed by the <code>finally</code> block.
+</p>
+<p>Here is how the <code>try</code> block that reads the file can be recode:
+</p>
+<a name="ShowFileAlt_002djava"></a><a name="index-_003cShowFile-Initial-Comments_003e_002c-use-1"></a>
+<a name="index-_003cImport-java_002eio_003e_002c-use-4"></a>
+<a name="index-_003cShowFile-Instance-Variable-Declarations_003e_002c-use-1"></a>
+<a name="index-_003cShowFile-Open-a-File_003e_002c-use-1"></a>
+<a name="index-_003cShowFileAlt-Read-a-File_003e_002c-use"></a>
+<a name="index-_003cShowFile-Close-a-File_003e_002c-use-1"></a>
+<a name="index-_007bShowFileAlt_002ejava_007d_002c-definition"></a>
+<p><span class="roman">{<samp>ShowFileAlt.java</samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example"><span class="roman">&lt;<i>ShowFile Initial Comments</i>&gt;</span>
+<span class="roman">&lt;<i>Import java.io</i>&gt;</span>
+class ShowFileAlt {
+  public static void main (String[] args) {
+    <span class="roman">&lt;<i>ShowFile Instance Variable Declarations</i>&gt;</span>
+    <span class="roman">&lt;<i>ShowFile Open a File</i>&gt;</span>
+    <span class="roman">&lt;<i>ShowFileAlt Read a File</i>&gt;</span>
+    <span class="roman">&lt;<i>ShowFile Close a File</i>&gt;</span>
+  }
+}
+
+</pre></div>
+
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>Import java.io</i>&gt;</span></td><td width="65%">See <a href="Import-java_002eio.html#Import_002djava_002dio">Import-java-io</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFile Close a File</i>&gt;</span></td><td width="65%">See <a href="ShowFile-Close-a-File.html#ShowFile_002dClose_002da_002dFile">ShowFile-Close-a-File</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFile Initial Comments</i>&gt;</span></td><td width="65%">See <a href="ShowFile-Initial-Comments.html#ShowFile_002dInitial_002dComments">ShowFile-Initial-Comments</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFile Instance Variable Declarations</i>&gt;</span></td><td width="65%">See <a href="ShowFile-Instance-Variable-Declarations.html#ShowFile_002dInstance_002dVariable_002dDeclarations">ShowFile-Instance-Variable-Declarations</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFile Open a File</i>&gt;</span></td><td width="65%">See <a href="ShowFile-Open-a-File.html#ShowFile_002dOpen_002da_002dFile">ShowFile-Open-a-File</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFileAlt Read a File</i>&gt;</span></td><td width="65%">See <a href="#ShowFileAlt_002dRead_002da_002dFile">ShowFileAlt-Read-a-File</a>.</td></tr>
+</table>
+
+<a name="ShowFileAlt-Read-a-File"></a>
+<h4 class="subsubheading">ShowFileAlt Read a File</h4>
+
+<a name="ShowFileAlt_002dRead_002da_002dFile"></a><a name="index-_003cShowFileAlt-Read-a-File_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>ShowFileAlt Read a File</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">try {
+  do {
+    i = fin.read();
+    if (i != -1) System.out.print ((char) i);
+  } while (i != -1);
+} catch (IOException e) {
+  System.out.println(&quot;Error Reading File.&quot;);
+} finally {
+  // Close the file on the way out of the block.
+  try {
+    fin.close();
+  } catch (IOException e) {
+    System.out.println (&quot;Error Closing File.&quot;);
+  }
+}
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">{<samp>ShowFileAlt.java</samp>}</span>; see its first definition at <a href="#ShowFileAlt_002djava">ShowFileAlt-java</a>.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="ShowFile-Close-a-File.html#ShowFile-Close-a-File" accesskey="p" rel="prev">ShowFile Close a File</a>, Up: <a href="Demonstration-Reading-From-a-File.html#Demonstration-Reading-From-a-File" accesskey="u" rel="up">Demonstration Reading From a File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>I/O (About Java SE 9)</title>
+
+<meta name="description" content="I/O (About Java SE 9)">
+<meta name="keywords" content="I/O (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="I_002fO-Basics.html#I_002fO-Basics" rel="next" title="I/O Basics">
+<link href="Private-Interface-Methods.html#Private-Interface-Methods" rel="prev" title="Private Interface Methods">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="I_002fO"></a>
+<div class="header">
+<p>
+Next: <a href="Generics.html#Generics" accesskey="n" rel="next">Generics</a>, Previous: <a href="Interfaces.html#Interfaces" accesskey="p" rel="prev">Interfaces</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="I_002fO-1"></a>
+<h2 class="chapter">7 I/O</h2>
+<a name="index-I_002fO"></a>
+<a name="index-java_002eio"></a>
+<a name="index-input_002foutput-system"></a>
+<a name="index-try_002dwith_002dresources"></a>
+<a name="index-volative"></a>
+<a name="index-instanceof"></a>
+<a name="index-native"></a>
+<a name="index-strictfp"></a>
+<a name="index-assert"></a>
+
+<p>This chapter introduces <samp>java.io</samp>, which supports Java&rsquo;s basic
+input/output system, including file I/O.  Support for I/O comes from Java&rsquo;s
+core API libraries, not from language keywords.  In this chapter the
+foundation of this subsystem is introduced so that you can see how it fits
+into the larger context of the Java programming and execution environment.
+</p>
+<p>This chapter also looks at the <code>try-with-resources</code> statement and
+several more Java keywords:
+</p>
+<ul>
+<li> <code>volatile</code>
+</li><li> <code>instanceof</code>
+</li><li> <code>native</code>
+</li><li> <code>strictfp</code>
+</li><li> <code>assert</code>
+</li></ul>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="I_002fO-Basics.html#I_002fO-Basics" accesskey="1">I/O Basics</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Reading-Console-Input.html#Reading-Console-Input" accesskey="2">Reading Console Input</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Writing-Console-Output.html#Writing-Console-Output" accesskey="3">Writing Console Output</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="PrintWriter-Class.html#PrintWriter-Class" accesskey="4">PrintWriter Class</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Reading-and-Writing-Files.html#Reading-and-Writing-Files" accesskey="5">Reading and Writing Files</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Automatically-Closing-Files.html#Automatically-Closing-Files" accesskey="6">Automatically Closing Files</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="transient-and-volatile-Modifiers.html#transient-and-volatile-Modifiers" accesskey="7">transient and volatile Modifiers</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Using-instanceof.html#Using-instanceof" accesskey="8">Using instanceof</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="strictfp.html#strictfp" accesskey="9">strictfp</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Native-Methods.html#Native-Methods">Native Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Using-assert.html#Using-assert">Using assert</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Static-Import.html#Static-Import">Static Import</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Overloaded-Constructors-with-this.html#Overloaded-Constructors-with-this">Overloaded Constructors with this</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Compact-API-Profiles.html#Compact-API-Profiles">Compact API Profiles</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+
+</body>
+</html>
