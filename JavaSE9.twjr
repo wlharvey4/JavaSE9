@@ -3770,11 +3770,248 @@ try {
 @
 
 
-
 @c -----------------------------------------------------------------------------
 
 @node Automatically Closing Files
 @section Automatically Closing Files
+@cindex @code{try-with-resources}
+@cindex automatic resource management
+@cindex ARM
+
+JDK 7 added a feature that offers another way to manage resources,such as
+file streams, by automating the closing process.  This feature, sometimes
+referred to as @dfn{automatic resource management}, or @acronym{ARM} for
+short, is based on an expanded version of the @code{try} statement.  This
+form of @code{try} is called the @code{try-with-resources} statement.
+The principal advantage of automatic resource management is that it prevents
+situations in which a file (or other resource) is inadvertently not released
+after it is no longer needed.
+
+Here is its general form:
+
+@float GeneralForm,AutomaticResourceManagement
+@display
+try (@ii{resource-specification}) @{
+  // use the resource
+@}
+@end display
+@caption{General Form Automatic Resource Management}
+@end float
+
+Typically, @ii{resource-specification} is a statement that declares and
+initializes, such as a file stream.  It consists of a variable declaration in
+which the variable is initialized with a reference to the object begin
+managed.  When the @code{try} block ends, the resource is automatically
+released.  In the case of a file, this means that the file is automatically
+closed.  This form of @code{try} can also include @code{catch} and
+@code{finally} clauses.  A resource declared in the @code{try} statement is
+implicitly @code{final}.  This means that you can't assign to the resource
+after it has been created.  The scope of the resource is limited to the
+@code{try-with-resources} statement.
+
+Beginning with JDK 9, it is also possible for the resource specification of
+the @code{try} to consist of a variable that has been declared and
+initialized earlier in the program.  However, that variable must be
+effectively final, which means that it has not been assigned a new value
+after being given its initial value.
+
+@subheading @file{AutoCloseable} Interface
+
+The @code{try-with-resources} statement can be used only with those
+resources that implement the @file{AutoCloseable} interface defined by
+@file{java.lang}.  This interface defines the @code{close()} method.
+@file{AutoCloseable} is inherited by the @file{Closeable} interface in
+@file{java.io}.  Both interfaces are implmented by the stream classes.  Thus,
+@code{try-with-resources} can be used when working with streams,
+including file streams.
+
+@subheading Multiple Resources
+@cindex @code{try-with-resources} multiple resources
+
+You can manage more than one resource within a single @code{try} statement.
+Simply separate each resource specification with a semicolon.
+
+
+@c .....................................
+
+@node Demonstration of Automatically Closing a File
+@subsection Demonstration of Automatically Closing a File
+
+Here is a reworked verion of the @file{ShowFile} program using
+@code{try-with-resources}.
+
+@(ShowFileTryWR.java@)=
+@<ShowFileTryWR Initial Comments@>
+@<Import java.io@>
+class ShowFileTryWR {
+  public static void main (String[] args) {
+    @<ShowFileTryWR Instance Variable Declaration@>
+    @<ShowFileTryWR Check CL Args@> @<Number 1@> @<ShowFileTryWR Check CL Args End@>
+    @<ShowFileTryWR Open a File TryWR@>
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node ShowFileTryWR Initial Comments
+@subsubsection Initial Comments
+
+@<ShowFileTryWR Initial Comments@>=
+/* This version of teh ShowFile program uses a try-with-resources
+   statement to automatically close a file after it is no longer needed.
+ */
+
+@
+
+@c _____________________________________
+
+@node ShowFileTryWR Instance Variable Declarations
+@subsubsection Instance Variable Declaration
+
+@<ShowFileTryWR Instance Variable Declaration@>=
+int i;
+
+@
+
+@c _____________________________________
+
+@node ShowFileTryWR Check CL Args
+@subsubsection Check CL Args
+
+@<ShowFileTryWR Check CL Args@>=
+// First, confirm that a filename has been specified.
+if (args.length !=
+@
+
+@<ShowFileTryWR Check CL Args End@>=
+) {
+  System.out.println("Usage: ShowFile filename");
+  return;
+}
+
+@
+
+@<Number 1@>=
+1
+@
+
+@c _____________________________________
+
+@node ShowFileTryWR Open a File TryWR
+@subsubsection Open a File TryWR
+
+@cartouche
+Pay special attention to how the file is opened within the @code{try}
+statement.  The resource-specification portion of the @code{try} declares a
+@file{FileInputStream} called @code{fin}, which is then assigned a reference
+to the file opened by its constructor.  Therefore, here, the variable
+@code{fin} is local to the @code{try} block, being created when the
+@code{try} is entered.  When the @code{try} is left, the stream associated
+with @code{fin} is automatically closed by an implicit call to
+@code{close()}.  Since you don't call @code{close()} explicitly, you can't
+forget to close the file.  This is a key advantage of using
+@code{try-with-resources}.
+@end cartouche
+
+@ifinfo
+@noindent ================================================================================
+@end ifinfo
+
+
+@<ShowFileTryWR Open a File TryWR@>=
+/* The following code uses a try-with-resources statement to open
+   a file and then automatically close it when the try block is left. */
+
+try (FileInputStream fin = new FileInputStream(args[0])) {
+
+  do {
+    i = fin.read();
+    if (i != -1) System.out.print((char) i);
+  } while (i != -1);
+
+} catch (FileNotFoundException e) {
+  System.out.println("File Not Found.");
+
+} catch (IOException e) {
+  System.out.println("An I/O Error Occurred.");
+}
+
+@
+
+@c .....................................
+
+@node Demonstration of Multiple Resources
+@subsection Demonstration of Multiple Resources
+
+The following program shows an example of handling multiple resources in a
+single @code{try} statement.  It reworks the @code{CopyFile} program shown
+earlier so that it uses a single @code{try-with-resources} statement to
+manage both @code{fin} and @code{fout}.
+
+@(CopyFileMultTryWR.java@)=
+@<CopyFileMultTryWR Initial Comments@>
+@<Import java.io@>
+class CopyFileMultTryWR {
+  public static void main (String[] args) throws IOException {
+    @<ShowFileTryWR Instance Variable Declaration@>
+    @<ShowFileTryWR Check CL Args@> @<Number 2@> @<ShowFileTryWR Check CL Args End@>
+    @<CopyFileMultTryWR Manage Two Files@>
+  }
+}
+
+@
+
+@<Number 2@>=
+2
+@
+
+@c _____________________________________
+
+@node CopyFileMultTryWR Initial Comments
+@subsubsection CopyFileMultTryWR Initial Comments
+
+@<CopyFileMultTryWR Initial Comments@>=
+/* A version of CopyFile that uses try-with-resources.
+   It demonstrates two resources (in this case files) being
+   managed by a single try statement
+ */
+
+@
+
+@c _____________________________________
+
+@node CopyFileMultTryWR Manage Two Files
+@subsubsection CopyFileMultTryWR Manage Two Files
+
+@cartouche
+Note how the input and output files are opened within the @code{try} block.
+After this block ends, both @code{fin} and @code{fout} will have been
+closed.  This code is much shorter.  The ability to streamline source code is
+a side-benefit of automatic resouce management.
+@end cartouche
+
+@ifinfo
+@noindent ================================================================================
+@end ifinfo
+
+
+@<CopyFileMultTryWR Manage Two Files@>=
+// Open and manage two files via the try statement.
+try (FileInputStream fin = new FileInputStream(args[0]);
+     FileOutputStream fout = new FileOutputStream(args[1])) {
+
+  do {
+    i = fin.read();
+    if (i != -1) fout.write(i);
+  } while (i != -1);
+
+} catch (IOException e) {
+  System.out.println("I/O Error: " + e);
+}
+
+@
 
 
 @c -----------------------------------------------------------------------------

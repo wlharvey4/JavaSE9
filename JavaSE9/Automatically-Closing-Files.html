@@ -14,7 +14,7 @@
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="I_002fO.html#I_002fO" rel="up" title="I/O">
-<link href="transient-and-volatile-Modifiers.html#transient-and-volatile-Modifiers" rel="next" title="transient and volatile Modifiers">
+<link href="Demonstration-of-Automatically-Closing-a-File.html#Demonstration-of-Automatically-Closing-a-File" rel="next" title="Demonstration of Automatically Closing a File">
 <link href="CopyFile-Copy-a-File.html#CopyFile-Copy-a-File" rel="prev" title="CopyFile Copy a File">
 <style type="text/css">
 <!--
@@ -56,9 +56,78 @@ Next: <a href="transient-and-volatile-Modifiers.html#transient-and-volatile-Modi
 <hr>
 <a name="Automatically-Closing-Files-1"></a>
 <h3 class="section">7.6 Automatically Closing Files</h3>
+<a name="index-try_002dwith_002dresources-1"></a>
+<a name="index-automatic-resource-management"></a>
+<a name="index-ARM"></a>
+
+<p>JDK 7 added a feature that offers another way to manage resources,such as
+file streams, by automating the closing process.  This feature, sometimes
+referred to as <em>automatic resource management</em>, or <acronym>ARM</acronym> for
+short, is based on an expanded version of the <code>try</code> statement.  This
+form of <code>try</code> is called the <code>try-with-resources</code> statement.
+The principal advantage of automatic resource management is that it prevents
+situations in which a file (or other resource) is inadvertently not released
+after it is no longer needed.
+</p>
+<p>Here is its general form:
+</p>
+<div class="float"><a name="AutomaticResourceManagement"></a>
+<div class="display">
+<pre class="display">try (<i>resource-specification</i>) {
+  // use the resource
+}
+</pre></div>
+
+<div class="float-caption"><p><strong>GeneralForm 7.1: </strong>General Form Automatic Resource Management</p></div></div>
+<p>Typically, <i>resource-specification</i> is a statement that declares and
+initializes, such as a file stream.  It consists of a variable declaration in
+which the variable is initialized with a reference to the object begin
+managed.  When the <code>try</code> block ends, the resource is automatically
+released.  In the case of a file, this means that the file is automatically
+closed.  This form of <code>try</code> can also include <code>catch</code> and
+<code>finally</code> clauses.  A resource declared in the <code>try</code> statement is
+implicitly <code>final</code>.  This means that you can&rsquo;t assign to the resource
+after it has been created.  The scope of the resource is limited to the
+<code>try-with-resources</code> statement.
+</p>
+<p>Beginning with JDK 9, it is also possible for the resource specification of
+the <code>try</code> to consist of a variable that has been declared and
+initialized earlier in the program.  However, that variable must be
+effectively final, which means that it has not been assigned a new value
+after being given its initial value.
+</p>
+<a name="AutoCloseable-Interface"></a>
+<h4 class="subheading"><samp>AutoCloseable</samp> Interface</h4>
+
+<p>The <code>try-with-resources</code> statement can be used only with those
+resources that implement the <samp>AutoCloseable</samp> interface defined by
+<samp>java.lang</samp>.  This interface defines the <code>close()</code> method.
+<samp>AutoCloseable</samp> is inherited by the <samp>Closeable</samp> interface in
+<samp>java.io</samp>.  Both interfaces are implmented by the stream classes.  Thus,
+<code>try-with-resources</code> can be used when working with streams,
+including file streams.
+</p>
+<a name="Multiple-Resources"></a>
+<h4 class="subheading">Multiple Resources</h4>
+<a name="index-try_002dwith_002dresources-multiple-resources"></a>
+
+<p>You can manage more than one resource within a single <code>try</code> statement.
+Simply separate each resource specification with a semicolon.
+</p>
 
 
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Demonstration-of-Automatically-Closing-a-File.html#Demonstration-of-Automatically-Closing-a-File" accesskey="1">Demonstration of Automatically Closing a File</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Demonstration-of-Multiple-Resources.html#Demonstration-of-Multiple-Resources" accesskey="2">Demonstration of Multiple Resources</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
 
+<hr>
+<div class="header">
+<p>
+Next: <a href="transient-and-volatile-Modifiers.html#transient-and-volatile-Modifiers" accesskey="n" rel="next">transient and volatile Modifiers</a>, Previous: <a href="Reading-and-Writing-Files.html#Reading-and-Writing-Files" accesskey="p" rel="prev">Reading and Writing Files</a>, Up: <a href="I_002fO.html#I_002fO" accesskey="u" rel="up">I/O</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

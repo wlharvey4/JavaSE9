@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Demonstration of Multiple Resources (About Java SE 9)</title>
+
+<meta name="description" content="Demonstration of Multiple Resources (About Java SE 9)">
+<meta name="keywords" content="Demonstration of Multiple Resources (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Automatically-Closing-Files.html#Automatically-Closing-Files" rel="up" title="Automatically Closing Files">
+<link href="CopyFileMultTryWR-Initial-Comments.html#CopyFileMultTryWR-Initial-Comments" rel="next" title="CopyFileMultTryWR Initial Comments">
+<link href="ShowFileTryWR-Open-a-File-TryWR.html#ShowFileTryWR-Open-a-File-TryWR" rel="prev" title="ShowFileTryWR Open a File TryWR">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Demonstration-of-Multiple-Resources"></a>
+<div class="header">
+<p>
+Previous: <a href="Demonstration-of-Automatically-Closing-a-File.html#Demonstration-of-Automatically-Closing-a-File" accesskey="p" rel="prev">Demonstration of Automatically Closing a File</a>, Up: <a href="Automatically-Closing-Files.html#Automatically-Closing-Files" accesskey="u" rel="up">Automatically Closing Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Demonstration-of-Multiple-Resources-1"></a>
+<h4 class="subsection">7.6.2 Demonstration of Multiple Resources</h4>
+
+<p>The following program shows an example of handling multiple resources in a
+single <code>try</code> statement.  It reworks the <code>CopyFile</code> program shown
+earlier so that it uses a single <code>try-with-resources</code> statement to
+manage both <code>fin</code> and <code>fout</code>.
+</p>
+<a name="CopyFileMultTryWR_002djava"></a><a name="index-_003cCopyFileMultTryWR-Initial-Comments_003e_002c-use"></a>
+<a name="index-_003cImport-java_002eio_003e_002c-use-8"></a>
+<a name="index-_003cShowFileTryWR-Instance-Variable-Declaration_003e_002c-use-1"></a>
+<a name="index-_003cShowFileTryWR-Check-CL-Args_003e_002c-use-1"></a>
+<a name="index-_003cNumber-2_003e_002c-use"></a>
+<a name="index-_003cShowFileTryWR-Check-CL-Args-End_003e_002c-use-1"></a>
+<a name="index-_003cCopyFileMultTryWR-Manage-Two-Files_003e_002c-use"></a>
+<a name="index-_007bCopyFileMultTryWR_002ejava_007d_002c-definition"></a>
+<p><span class="roman">{<samp>CopyFileMultTryWR.java</samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example"><span class="roman">&lt;<i>CopyFileMultTryWR Initial Comments</i>&gt;</span>
+<span class="roman">&lt;<i>Import java.io</i>&gt;</span>
+class CopyFileMultTryWR {
+  public static void main (String[] args) throws IOException {
+    <span class="roman">&lt;<i>ShowFileTryWR Instance Variable Declaration</i>&gt;</span>
+    <span class="roman">&lt;<i>ShowFileTryWR Check CL Args</i>&gt;</span> <span class="roman">&lt;<i>Number 2</i>&gt;</span> <span class="roman">&lt;<i>ShowFileTryWR Check CL Args End</i>&gt;</span>
+    <span class="roman">&lt;<i>CopyFileMultTryWR Manage Two Files</i>&gt;</span>
+  }
+}
+
+</pre></div>
+
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>CopyFileMultTryWR Initial Comments</i>&gt;</span></td><td width="65%">See <a href="CopyFileMultTryWR-Initial-Comments.html#CopyFileMultTryWR_002dInitial_002dComments">CopyFileMultTryWR-Initial-Comments</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>CopyFileMultTryWR Manage Two Files</i>&gt;</span></td><td width="65%">See <a href="CopyFileMultTryWR-Manage-Two-Files.html#CopyFileMultTryWR_002dManage_002dTwo_002dFiles">CopyFileMultTryWR-Manage-Two-Files</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Import java.io</i>&gt;</span></td><td width="65%">See <a href="Import-java_002eio.html#Import_002djava_002dio">Import-java-io</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Number 2</i>&gt;</span></td><td width="65%">See <a href="#Number_002d2">Number-2</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFileTryWR Check CL Args</i>&gt;</span></td><td width="65%">See <a href="ShowFileTryWR-Check-CL-Args.html#ShowFileTryWR_002dCheck_002dCL_002dArgs">ShowFileTryWR-Check-CL-Args</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFileTryWR Check CL Args End</i>&gt;</span></td><td width="65%">See <a href="ShowFileTryWR-Check-CL-Args.html#ShowFileTryWR_002dCheck_002dCL_002dArgs_002dEnd">ShowFileTryWR-Check-CL-Args-End</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ShowFileTryWR Instance Variable Declaration</i>&gt;</span></td><td width="65%">See <a href="ShowFileTryWR-Instance-Variable-Declarations.html#ShowFileTryWR_002dInstance_002dVariable_002dDeclaration">ShowFileTryWR-Instance-Variable-Declaration</a>.</td></tr>
+</table>
+
+<a name="Number_002d2"></a><a name="index-_003cNumber-2_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Number 2</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">2
+</pre></div>
+
+<p>This chunk is called by <span class="roman">{<samp>CopyFileMultTryWR.java</samp>}</span>; see its first definition at <a href="#CopyFileMultTryWR_002djava">CopyFileMultTryWR-java</a>.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="CopyFileMultTryWR-Initial-Comments.html#CopyFileMultTryWR-Initial-Comments" accesskey="1">CopyFileMultTryWR Initial Comments</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CopyFileMultTryWR-Manage-Two-Files.html#CopyFileMultTryWR-Manage-Two-Files" accesskey="2">CopyFileMultTryWR Manage Two Files</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+
+</body>
+</html>
