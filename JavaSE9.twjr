@@ -5593,7 +5593,7 @@ hierarchies.@footnote{The @file{Path} interface and @file{Files} class, part
 of the @acronym{NIO} system, offer a powerful alternative to @file{File}. 
 @xref{NIO}.}
 
-@subheading File and Directories in Java
+@subheading Files and Directories in Java
 @cindex files
 @cindex directories
 @cindex @code{list()} method for directories
@@ -5635,12 +5635,16 @@ File f2 = new File("/", "autoexec.bat");
 File f3 = new File(f1, "autoexec.bat");
 @end example
 
-@subheading @file{File} Properties
-@cindex @file{File} properties
+@c .....................................
+
+@node File Methods
+@subsection @file{File} Methods
+@cindex @file{File} methods
 
 @file{File} defines many methods that obtain the standard properties of a
 @file{File} object.
 
+@float Table,@file{File}-Methods
 @table @code
 @item getName()
 returns the name of the file
@@ -5657,14 +5661,71 @@ returns whether the file is writeable/readable
 @item isDirectory()
 returns whether the file is a directory
 @item isFile()
-returns whether the file is a regular file
+returns whether the file is a regular file (@code{true}) or a
+non-file (@code{false}) such as directory, device drivers, named
+pipes, etc.
 @item isAbsolute()
-returns whether the file is an absolute path
+returns whether the file is an absolute path (@code{true}) or a
+relative path (@code{false})
 @item lastModified()
 returns the modification date and time
 @item length()
 returns the file's size
 @end table
+@caption{@file{File} Property Methods}
+@end float
+
+@c .....................................
+
+@node File Utility Methods
+@subsection @file{File} Utility Methods
+@cindex @file{File} utility methods
+
+@float Table,@file{File}-Utility-Methods
+@table @code
+@item renameTo()
+boolean renameTo(File @ii{newName}); returns @code{true} upon success
+or @code{false} if the file cannot be renamed
+@item delete()
+boolean delete(); deletes a file or directory (if the directory is
+empty); returns @code{true} if it successfully deletes or @code{false}
+if the file or directory cannot be removed;
+@item deleteOnExit()
+removes the file associated with the invoking object when the Java
+Virtual Machines terminates
+@item getFreeSpace()
+returns the number of free bytes of storage (as a @code{long})
+available on the partition associated with the invoking object
+@item getTotalSpace()
+returns the stoarage capacity (as a @code{long}) of the partition
+associated with the invoking object
+@item getUsableSpace()
+returns the number of usable free bytes of storage (as a @code{long})
+available on the partition associated with the invoking object
+@item isHidden()
+returns @code{true} if the invoking file is hidden, or @code{false}
+otherwise 
+@item setLastModifiedTime()
+sets the time stamp on the invoking file to that specified by the
+arguement (@code{long} @ii{millisec}), which is the number of
+milliseconds from January 1, 1970, UTC
+@item setReadOnly()
+sets the invoking to read-only; returns @code{true} on success
+@item readable()
+@itemx writeable()
+@itemx executable()
+
+@item compareTo()
+because @file{File} implements the @file{Comparable} interface
+@item toPath()
+returns a @file{Path} object that represents the file encapsulated by
+the invoking @file{File} object; (in other words, @code{toPath()}
+converts a @file{File} into a @file{Path});@footnote{@code{toPath()}
+forms a bridge between the older @file{File} class and the newer
+@file{Path} interface; @xref{NIO}.}
+@end table
+@caption{File Utility Methods}
+@end float
 
 
 @c .....................................
@@ -5672,6 +5733,115 @@ returns the file's size
 @node Directories
 @subsection Directories
 @cindex Directories
+@cindex @code{list()}
+
+A @dfn{directory} is a @file{File} that contains a list of other files
+and directories.  When you create a @file{File} object that is a
+directory, the @code{isDirectory()} method will return true.  In this
+case, you can call @code{list()} on that object to extract the list of
+other files and directories inside.  It has two forms.  Here is one:
+
+@float GeneralForm,Directory-List
+@display
+String[] list()
+@end display
+@caption{Obtaining a list of files in a directory}
+@end float
+
+
+@c .....................................
+
+@node Examine Directory Contents
+@subsection Using @code{list()} to Examine Directory Contents
+@cindex directory contents, examine using @code{list()}
+
+This program illustrates how to use @code{list()} to examine the
+contents of a directory.
+
+@(DirList.java@)=
+@<Import java.io.File@>
+class DirList {
+  public static void main(String[] args) {
+    @<DirList Instance Variable Declarations@>
+    @<DirList Examine Directory Contents@>
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node Import java.io.File
+@subsubsection Import @file{java.io.File}
+@cindex import @file{java.io.File}
+
+@<Import java.io.File@>=
+import java.io.File;
+
+@
+
+@c _____________________________________
+
+@node DirList Instance Variable Declarations
+@subsubsection DirList Instance Variable Declarations
+
+@<DirList Instance Variable Declarations@>=
+@<DirList Obtain Directory From Command-Line Args@>
+String dirname = args[0];
+File f1 = new File(dirname);
+
+@
+
+@c _____________________________________
+
+@node DirList Examine Directory Contents
+@subsubsection DirList Examine Directory Contents
+
+@<DirList Examine Directory Contents@>=
+if (f1.isDirectory()) {
+  System.out.println("Directory of " + dirname);
+
+  String s[] = f1.list();
+
+  @<DirList Examine Directory Contents For-Loop@>
+
+} else {
+  System.out.println(dirname + " is not a directory");
+}
+
+@
+
+@c _____________________________________
+
+@node Examine Directory Contents For-Loop
+@subsubsection Examine Directory Contents For-Loop
+
+@<DirList Examine Directory Contents For-Loop@>=
+for (int i = 0; i < s.length; i++) {
+  File f = new File(dirname + "/" + s[i]);
+
+  if (f.isDirectory()) {
+    System.out.println(s[i] + " is a directory");
+  } else {
+    System.out.println(s[i] + " is a file");
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node DirList Obtain Directory From Command-Line Args
+@subsubsection DirList Obtain Directory From Command-Line Args
+
+@<DirList Obtain Directory From Command-Line Args@>=
+if (args.length != 1) {
+  System.out.println("Usage: java DirList <directory>");
+  return;
+}
+
+@
+
 
 @c .....................................
 
