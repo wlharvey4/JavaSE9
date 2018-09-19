@@ -3,19 +3,19 @@
 <!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>The String Class (About Java SE 9)</title>
+<title>Makefile MAKEPDF (About Java SE 9)</title>
 
-<meta name="description" content="The String Class (About Java SE 9)">
-<meta name="keywords" content="The String Class (About Java SE 9)">
+<meta name="description" content="Makefile MAKEPDF (About Java SE 9)">
+<meta name="keywords" content="Makefile MAKEPDF (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Methods-and-Classes.html#Methods-and-Classes" rel="up" title="Methods and Classes">
-<link href="Command_002dLine-Arguments.html#Command_002dLine-Arguments" rel="next" title="Command-Line Arguments">
-<link href="Nested-and-Inner-Classes.html#Nested-and-Inner-Classes" rel="prev" title="Nested and Inner Classes">
+<link href="Makefile-PDF.html#Makefile-PDF" rel="up" title="Makefile PDF">
+<link href="Makefile-OPENPDF.html#Makefile-OPENPDF" rel="next" title="Makefile OPENPDF">
+<link href="Makefile-PDF.html#Makefile-PDF" rel="prev" title="Makefile PDF">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -48,17 +48,33 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<a name="The-String-Class"></a>
+<a name="Makefile-MAKEPDF"></a>
 <div class="header">
 <p>
-Next: <a href="Command_002dLine-Arguments.html#Command_002dLine-Arguments" accesskey="n" rel="next">Command-Line Arguments</a>, Previous: <a href="Nested-and-Inner-Classes.html#Nested-and-Inner-Classes" accesskey="p" rel="prev">Nested and Inner Classes</a>, Up: <a href="Methods-and-Classes.html#Methods-and-Classes" accesskey="u" rel="up">Methods and Classes</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Up: <a href="Makefile-PDF.html#Makefile-PDF" accesskey="u" rel="up">Makefile PDF</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<a name="The-String-Class-1"></a>
-<h3 class="section">3.11 The <code>String</code> Class</h3>
-<a name="index-String-Class"></a>
-<a name="index-class-String"></a>
+<a name="Makefile-MAKEPDF-1"></a>
+<h4 class="appendixsubsec">A.5.1 Makefile MAKEPDF</h4>
+<a name="index-Makefile-MAKEPDF"></a>
 
+<a name="Makefile_002dMAKEPDF"></a><a name="index-_003cMakefile-MAKEPDF_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Makefile MAKEPDF</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">.PHONY : makepdf
+makepdf : ${FILENAME}.pdf
+
+${FILENAME}.pdf : ${FILENAME}.texi
+    pdftexi2dvi ${FILENAME}.texi
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Makefile PDF</i>&gt;</span>; see its first definition at <a href="Makefile-PDF.html#Makefile_002dPDF">Makefile-PDF</a>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Makefile-OPENPDF.html#Makefile-OPENPDF" accesskey="1">Makefile OPENPDF</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
 
 
 

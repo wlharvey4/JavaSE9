@@ -9,7 +9,7 @@
 <meta name="keywords" content="The Makefile (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
+<meta name="Generator" content="makeinfo">
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
@@ -61,22 +61,31 @@ Next: <a href="Code-Chunk-Summaries.html#Code-Chunk-Summaries" accesskey="n" rel
 <a name="Makefile"></a><a name="index-_003cMakefile-CONSTANTS_003e_002c-use"></a>
 <a name="index-_003cMakefile-DEFAULTS_003e_002c-use"></a>
 <a name="index-_003cMakefile-TANGLE-WEAVE_003e_002c-use"></a>
-<a name="index-_003cMakefile-CLEAN_003e_002c-use"></a>
+<a name="index-_003cMakefile-PDF_003e_002c-use"></a>
+<a name="index-_003cMakefile-HTML_003e_002c-use"></a>
+<a name="index-_003cMakefile-CLEAN-Targets_003e_002c-use"></a>
+<a name="index-_003cMakefile-MAKEFILE-Target_003e_002c-use"></a>
 <a name="index-_007bMakefile_007d_002c-definition"></a>
 <p><span class="roman">{<samp>Makefile</samp>}</span> &equiv;
 </p><div class="example">
 <pre class="example"><span class="roman">&lt;<i>Makefile CONSTANTS</i>&gt;</span>
 <span class="roman">&lt;<i>Makefile DEFAULTS</i>&gt;</span>
 <span class="roman">&lt;<i>Makefile TANGLE WEAVE</i>&gt;</span>
-<span class="roman">&lt;<i>Makefile CLEAN</i>&gt;</span>
+<span class="roman">&lt;<i>Makefile PDF</i>&gt;</span>
+<span class="roman">&lt;<i>Makefile HTML</i>&gt;</span>
+<span class="roman">&lt;<i>Makefile CLEAN Targets</i>&gt;</span>
+<span class="roman">&lt;<i>Makefile MAKEFILE Target</i>&gt;</span>
 </pre></div>
 
 <p>The following table lists called chunk definition points.
 </p><table>
 <thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
-<tr><td width="35%"><span class="roman">&lt;<i>Makefile CLEAN</i>&gt;</span></td><td width="65%">See <a href="Makefile-Clean.html#Makefile_002dCLEAN">Makefile-CLEAN</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Makefile CLEAN Targets</i>&gt;</span></td><td width="65%">See <a href="Makefile-Clean-Targets.html#Makefile_002dCLEAN_002dTargets">Makefile-CLEAN-Targets</a>.</td></tr>
 <tr><td width="35%"><span class="roman">&lt;<i>Makefile CONSTANTS</i>&gt;</span></td><td width="65%">See <a href="Makefile-Constants.html#Makefile_002dCONSTANTS">Makefile-CONSTANTS</a>.</td></tr>
 <tr><td width="35%"><span class="roman">&lt;<i>Makefile DEFAULTS</i>&gt;</span></td><td width="65%">See <a href="Makefile-Defaults.html#Makefile_002dDEFAULTS">Makefile-DEFAULTS</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Makefile HTML</i>&gt;</span></td><td width="65%">See <a href="Makefile-HTML.html#Makefile_002dHTML">Makefile-HTML</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Makefile MAKEFILE Target</i>&gt;</span></td><td width="65%">See <a href="Make-the-Makefile.html#Makefile_002dMAKEFILE_002dTarget">Makefile-MAKEFILE-Target</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Makefile PDF</i>&gt;</span></td><td width="65%">See <a href="Makefile-PDF.html#Makefile_002dPDF">Makefile-PDF</a>.</td></tr>
 <tr><td width="35%"><span class="roman">&lt;<i>Makefile TANGLE WEAVE</i>&gt;</span></td><td width="65%">See <a href="Makefile-Tangle-Weave.html#Makefile_002dTANGLE_002dWEAVE">Makefile-TANGLE-WEAVE</a>.</td></tr>
 </table>
 
@@ -85,9 +94,15 @@ Next: <a href="Code-Chunk-Summaries.html#Code-Chunk-Summaries" accesskey="n" rel
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="Makefile-Defaults.html#Makefile-Defaults" accesskey="2">Makefile Defaults</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Makefile-Tangle-Weave.html#Makefile-Tangle-Weave" accesskey="3">Makefile Tangle Weave</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="Make-the-Makefile.html#Make-the-Makefile" accesskey="3">Make the Makefile</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Makefile-Clean.html#Makefile-Clean" accesskey="4">Makefile Clean</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="Makefile-Tangle-Weave.html#Makefile-Tangle-Weave" accesskey="4">Makefile Tangle Weave</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Makefile-PDF.html#Makefile-PDF" accesskey="5">Makefile PDF</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Makefile-HTML.html#Makefile-HTML" accesskey="6">Makefile HTML</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Makefile-Clean-Targets.html#Makefile-Clean-Targets" accesskey="7">Makefile Clean Targets</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 

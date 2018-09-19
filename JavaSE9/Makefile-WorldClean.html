@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Makefile WorldClean (About Java SE 9)</title>
+
+<meta name="description" content="Makefile WorldClean (About Java SE 9)">
+<meta name="keywords" content="Makefile WorldClean (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Makefile-Clean-Targets.html#Makefile-Clean-Targets" rel="up" title="Makefile Clean Targets">
+<link href="Code-Chunk-Summaries.html#Code-Chunk-Summaries" rel="next" title="Code Chunk Summaries">
+<link href="Makefile-DistClean.html#Makefile-DistClean" rel="prev" title="Makefile DistClean">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Makefile-WorldClean"></a>
+<div class="header">
+<p>
+Previous: <a href="Makefile-DistClean.html#Makefile-DistClean" accesskey="p" rel="prev">Makefile DistClean</a>, Up: <a href="Makefile-Clean-Targets.html#Makefile-Clean-Targets" accesskey="u" rel="up">Makefile Clean Targets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Makefile-WorldClean-1"></a>
+<h4 class="appendixsubsec">A.7.3 Makefile WorldClean</h4>
+<a name="index-Makefile-WorldClean"></a>
+
+<a name="Makefile_002dWORLDCLEAN"></a><a name="index-_003cMakefile-WORLDCLEAN_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Makefile WORLDCLEAN</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">.PHONY: worldclean
+worldclean :
+    for file in ${ROOT}/*; do \
+      [ \
+        $${file} != &quot;${ROOT}/${FILENAME}.twjr&quot; -a \
+        $$file != &quot;${ROOT}/Makefile&quot; -a \
+        $$file != &quot;.git&quot; \
+      ] \
+      &amp;&amp; rm -rfv &quot;$${file}&quot; || :; \
+    done
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">&lt;<i>Makefile CLEAN Targets</i>&gt;</span>; see its first definition at <a href="Makefile-Clean-Targets.html#Makefile_002dCLEAN_002dTargets">Makefile-CLEAN-Targets</a>.
+</p>
+
+
+
+</body>
+</html>

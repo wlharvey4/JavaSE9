@@ -9,12 +9,12 @@
 <meta name="keywords" content="File (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
+<meta name="Generator" content="makeinfo">
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="java_002eio-Input-Output.html#java_002eio-Input-Output" rel="up" title="java.io Input Output">
-<link href="Directories.html#Directories" rel="next" title="Directories">
+<link href="Input_002fOutput-java_002eio.html#Input_002fOutput-java_002eio" rel="up" title="Input/Output java.io">
+<link href="File-Methods.html#File-Methods" rel="next" title="File Methods">
 <link href="I_002fO-Interfaces.html#I_002fO-Interfaces" rel="prev" title="I/O Interfaces">
 <style type="text/css">
 <!--
@@ -51,7 +51,7 @@ ul.no-bullet {list-style: none}
 <a name="File"></a>
 <div class="header">
 <p>
-Next: <a href="AutoCloseable-Closeable-Flushable.html#AutoCloseable-Closeable-Flushable" accesskey="n" rel="next">AutoCloseable Closeable Flushable</a>, Previous: <a href="I_002fO-Classes-and-Interfaces.html#I_002fO-Classes-and-Interfaces" accesskey="p" rel="prev">I/O Classes and Interfaces</a>, Up: <a href="java_002eio-Input-Output.html#java_002eio-Input-Output" accesskey="u" rel="up">java.io Input Output</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="AutoCloseable-Closeable-Flushable.html#AutoCloseable-Closeable-Flushable" accesskey="n" rel="next">AutoCloseable Closeable Flushable</a>, Previous: <a href="I_002fO-Classes-and-Interfaces.html#I_002fO-Classes-and-Interfaces" accesskey="p" rel="prev">I/O Classes and Interfaces</a>, Up: <a href="Input_002fOutput-java_002eio.html#Input_002fOutput-java_002eio" accesskey="u" rel="up">Input/Output java.io</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="File-1"></a>
@@ -67,8 +67,8 @@ manipulate the information associated wiht a disk file, such as the
 permissions, time, date, and directory path, and to navigate subdirectory
 hierarchies.<a name="DOCF3" href="#FOOT3"><sup>3</sup></a>
 </p>
-<a name="File-and-Directories-in-Java"></a>
-<h4 class="subheading">File and Directories in Java</h4>
+<a name="Files-and-Directories-in-Java"></a>
+<h4 class="subheading">Files and Directories in Java</h4>
 <a name="index-files"></a>
 <a name="index-directories"></a>
 <a name="index-list_0028_0029-method-for-directories"></a>
@@ -108,35 +108,23 @@ File f2 = new File(&quot;/&quot;, &quot;autoexec.bat&quot;);
 File f3 = new File(f1, &quot;autoexec.bat&quot;);
 </pre></div>
 
-<a name="File-Properties"></a>
-<h4 class="subheading"><samp>File</samp> Properties</h4>
-<a name="index-File-properties"></a>
-
-<p><samp>File</samp> defines many methods that obtain the standard properties of a
-<samp>File</samp> object.
-</p>
-<dl compact="compact">
-<dt><code>getName()</code></dt>
-<dd><p>returns the name of the file
-</p></dd>
-<dt><code>getParent()</code></dt>
-<dd><p>returns the name of the parent directory
-</p></dd>
-<dt><code>exists()</code></dt>
-<dd><p>returns <code>true</code> if the file exists, <code>false</code> if it does not
-</p></dd>
-</dl>
-
-
 
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Directories.html#Directories" accesskey="1">Directories</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="File-Methods.html#File-Methods" accesskey="1">File Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="FilenameFilter.html#FilenameFilter" accesskey="2">FilenameFilter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="File-Utility-Methods.html#File-Utility-Methods" accesskey="2">File Utility Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="listFiles_0028_0029-Alternative.html#listFiles_0028_0029-Alternative" accesskey="3">listFiles() Alternative</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="Directories.html#Directories" accesskey="3">Directories</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Creating-Directories.html#Creating-Directories" accesskey="4">Creating Directories</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="Examine-Directory-Contents.html#Examine-Directory-Contents" accesskey="4">Examine Directory Contents</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FilenameFilter.html#FilenameFilter" accesskey="5">FilenameFilter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Example-Using-FilenameFilter-Interface.html#Example-Using-FilenameFilter-Interface" accesskey="6">Example Using FilenameFilter Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="listFiles_0028_0029-Alternative.html#listFiles_0028_0029-Alternative" accesskey="7">listFiles() Alternative</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Creating-Directories.html#Creating-Directories" accesskey="8">Creating Directories</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -152,7 +140,7 @@ See section <a href="NIO.html#NIO">NIO</a>.</p>
 <hr>
 <div class="header">
 <p>
-Next: <a href="AutoCloseable-Closeable-Flushable.html#AutoCloseable-Closeable-Flushable" accesskey="n" rel="next">AutoCloseable Closeable Flushable</a>, Previous: <a href="I_002fO-Classes-and-Interfaces.html#I_002fO-Classes-and-Interfaces" accesskey="p" rel="prev">I/O Classes and Interfaces</a>, Up: <a href="java_002eio-Input-Output.html#java_002eio-Input-Output" accesskey="u" rel="up">java.io Input Output</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="AutoCloseable-Closeable-Flushable.html#AutoCloseable-Closeable-Flushable" accesskey="n" rel="next">AutoCloseable Closeable Flushable</a>, Previous: <a href="I_002fO-Classes-and-Interfaces.html#I_002fO-Classes-and-Interfaces" accesskey="p" rel="prev">I/O Classes and Interfaces</a>, Up: <a href="Input_002fOutput-java_002eio.html#Input_002fOutput-java_002eio" accesskey="u" rel="up">Input/Output java.io</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

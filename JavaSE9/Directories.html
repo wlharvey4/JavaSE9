@@ -9,13 +9,13 @@
 <meta name="keywords" content="Directories (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
+<meta name="Generator" content="makeinfo">
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="File.html#File" rel="up" title="File">
-<link href="FilenameFilter.html#FilenameFilter" rel="next" title="FilenameFilter">
-<link href="File.html#File" rel="prev" title="File">
+<link href="Examine-Directory-Contents.html#Examine-Directory-Contents" rel="next" title="Examine Directory Contents">
+<link href="File-Utility-Methods.html#File-Utility-Methods" rel="prev" title="File Utility Methods">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -51,12 +51,29 @@ ul.no-bullet {list-style: none}
 <a name="Directories"></a>
 <div class="header">
 <p>
-Next: <a href="FilenameFilter.html#FilenameFilter" accesskey="n" rel="next">FilenameFilter</a>, Up: <a href="File.html#File" accesskey="u" rel="up">File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Examine-Directory-Contents.html#Examine-Directory-Contents" accesskey="n" rel="next">Examine Directory Contents</a>, Previous: <a href="File-Utility-Methods.html#File-Utility-Methods" accesskey="p" rel="prev">File Utility Methods</a>, Up: <a href="File.html#File" accesskey="u" rel="up">File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="Directories-1"></a>
-<h4 class="subsection">15.2.1 Directories</h4>
+<h4 class="subsection">15.2.3 Directories</h4>
 <a name="index-Directories"></a>
+<a name="index-list_0028_0029"></a>
+
+<p>A <em>directory</em> is a <samp>File</samp> that contains a list of other files
+and directories.  When you create a <samp>File</samp> object that is a
+directory, the <code>isDirectory()</code> method will return true.  In this
+case, you can call <code>list()</code> on that object to extract the list of
+other files and directories inside.  It has two forms.  Here is the more
+general form:
+</p>
+<div class="float"><a name="Directory_002dList"></a>
+<dl>
+<dt><a name="index-list-on-File"></a>Method on File:<br> <em>String[]</em><br> <strong>list</strong> <em>()</em></dt>
+<dd><p><code>list()</code> is used to extract the list of other files and directories
+inside the calling File object
+</p></dd></dl>
+
+<div class="float-caption"><p><strong>GeneralForm 15.1: </strong>Obtaining a list of files in a directory</p></div></div>
 
 
 

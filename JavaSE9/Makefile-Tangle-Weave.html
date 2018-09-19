@@ -9,13 +9,13 @@
 <meta name="keywords" content="Makefile Tangle Weave (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
+<meta name="Generator" content="makeinfo">
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="The-Makefile.html#The-Makefile" rel="up" title="The Makefile">
-<link href="Makefile-Clean.html#Makefile-Clean" rel="next" title="Makefile Clean">
-<link href="Makefile-Defaults.html#Makefile-Defaults" rel="prev" title="Makefile Defaults">
+<link href="Makefile-PDF.html#Makefile-PDF" rel="next" title="Makefile PDF">
+<link href="Make-the-Makefile.html#Make-the-Makefile" rel="prev" title="Make the Makefile">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -51,25 +51,28 @@ ul.no-bullet {list-style: none}
 <a name="Makefile-Tangle-Weave"></a>
 <div class="header">
 <p>
-Next: <a href="Makefile-Clean.html#Makefile-Clean" accesskey="n" rel="next">Makefile Clean</a>, Previous: <a href="Makefile-Defaults.html#Makefile-Defaults" accesskey="p" rel="prev">Makefile Defaults</a>, Up: <a href="The-Makefile.html#The-Makefile" accesskey="u" rel="up">The Makefile</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Makefile-PDF.html#Makefile-PDF" accesskey="n" rel="next">Makefile PDF</a>, Previous: <a href="Make-the-Makefile.html#Make-the-Makefile" accesskey="p" rel="prev">Make the Makefile</a>, Up: <a href="The-Makefile.html#The-Makefile" accesskey="u" rel="up">The Makefile</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="Makefile-Tangle-Weave-Targets"></a>
-<h3 class="appendixsec">A.3 Makefile Tangle Weave Targets</h3>
+<h3 class="appendixsec">A.4 Makefile Tangle Weave Targets</h3>
 <a name="index-Makefile-Tangle"></a>
 <a name="index-Makefiel-Weave"></a>
 
 <a name="Makefile_002dTANGLE_002dWEAVE"></a><a name="index-_003cMakefile-TANGLE-WEAVE_003e_002c-definition"></a>
 <p><span class="roman">&lt;<i>Makefile TANGLE WEAVE</i>&gt;</span> &equiv;
 </p><div class="example">
-<pre class="example">.PHONY: tangle weave jrtangle jrweave
+<pre class="example">.PHONY: tangle weave jrtangle jrweave texi
+
 tangle: jrtangle
 weave: jrweave
 
 jrtangle: $(FILENAME).twjr
     jrtangle $(FILENAME).twjr
 
-jrweave: $(FILENAME).texi
+jrweave: texi
+
+texi: $(FILENAME).texi
 
 $(FILENAME).texi: $(FILENAME).twjr
     jrweave $(FILENAME).twjr &gt; $(FILENAME).texi

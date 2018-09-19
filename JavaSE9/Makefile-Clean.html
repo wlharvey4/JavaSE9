@@ -9,13 +9,13 @@
 <meta name="keywords" content="Makefile Clean (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
+<meta name="Generator" content="makeinfo">
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="The-Makefile.html#The-Makefile" rel="up" title="The Makefile">
-<link href="Code-Chunk-Summaries.html#Code-Chunk-Summaries" rel="next" title="Code Chunk Summaries">
-<link href="Makefile-Tangle-Weave.html#Makefile-Tangle-Weave" rel="prev" title="Makefile Tangle Weave">
+<link href="Makefile-Clean-Targets.html#Makefile-Clean-Targets" rel="up" title="Makefile Clean Targets">
+<link href="Makefile-DistClean.html#Makefile-DistClean" rel="next" title="Makefile DistClean">
+<link href="Makefile-Clean-Targets.html#Makefile-Clean-Targets" rel="prev" title="Makefile Clean Targets">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -51,12 +51,12 @@ ul.no-bullet {list-style: none}
 <a name="Makefile-Clean"></a>
 <div class="header">
 <p>
-Previous: <a href="Makefile-Tangle-Weave.html#Makefile-Tangle-Weave" accesskey="p" rel="prev">Makefile Tangle Weave</a>, Up: <a href="The-Makefile.html#The-Makefile" accesskey="u" rel="up">The Makefile</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Makefile-DistClean.html#Makefile-DistClean" accesskey="n" rel="next">Makefile DistClean</a>, Up: <a href="Makefile-Clean-Targets.html#Makefile-Clean-Targets" accesskey="u" rel="up">Makefile Clean Targets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<a name="Makefile-Clean-Targets"></a>
-<h3 class="appendixsec">A.4 Makefile Clean Targets</h3>
-<a name="index-Makefile-Clean-targets"></a>
+<a name="Makefile-Clean-1"></a>
+<h4 class="appendixsubsec">A.7.1 Makefile Clean</h4>
+<a name="index-Makefile-Clean"></a>
 
 <a name="Makefile_002dCLEAN"></a><a name="index-_003cMakefile-CLEAN_003e_002c-definition"></a>
 <p><span class="roman">&lt;<i>Makefile CLEAN</i>&gt;</span> &equiv;
@@ -64,11 +64,11 @@ Previous: <a href="Makefile-Tangle-Weave.html#Makefile-Tangle-Weave" accesskey="
 <pre class="example">.PHONY: clean
 clean:
     rm -f *~
-    rm -f $(FILENAME).???
+    rm -f $(FILENAME).??
 
 </pre></div>
 
-<p>This chunk is called by <span class="roman">{<samp>Makefile</samp>}</span>; see its first definition at <a href="The-Makefile.html#Makefile">Makefile</a>.
+<p>This chunk is called by <span class="roman">&lt;<i>Makefile CLEAN Targets</i>&gt;</span>; see its first definition at <a href="Makefile-Clean-Targets.html#Makefile_002dCLEAN_002dTargets">Makefile-CLEAN-Targets</a>.
 </p>
 
 

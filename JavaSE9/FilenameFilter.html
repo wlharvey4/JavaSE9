@@ -9,13 +9,13 @@
 <meta name="keywords" content="FilenameFilter (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
+<meta name="Generator" content="makeinfo">
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="File.html#File" rel="up" title="File">
-<link href="listFiles_0028_0029-Alternative.html#listFiles_0028_0029-Alternative" rel="next" title="listFiles() Alternative">
-<link href="Directories.html#Directories" rel="prev" title="Directories">
+<link href="Example-Using-FilenameFilter-Interface.html#Example-Using-FilenameFilter-Interface" rel="next" title="Example Using FilenameFilter Interface">
+<link href="DirList-Obtain-Directory-From-Command_002dLine-Args.html#DirList-Obtain-Directory-From-Command_002dLine-Args" rel="prev" title="DirList Obtain Directory From Command-Line Args">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -51,14 +51,43 @@ ul.no-bullet {list-style: none}
 <a name="FilenameFilter"></a>
 <div class="header">
 <p>
-Next: <a href="listFiles_0028_0029-Alternative.html#listFiles_0028_0029-Alternative" accesskey="n" rel="next">listFiles() Alternative</a>, Previous: <a href="Directories.html#Directories" accesskey="p" rel="prev">Directories</a>, Up: <a href="File.html#File" accesskey="u" rel="up">File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Example-Using-FilenameFilter-Interface.html#Example-Using-FilenameFilter-Interface" accesskey="n" rel="next">Example Using FilenameFilter Interface</a>, Previous: <a href="Examine-Directory-Contents.html#Examine-Directory-Contents" accesskey="p" rel="prev">Examine Directory Contents</a>, Up: <a href="File.html#File" accesskey="u" rel="up">File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="Using-FilenameFilter"></a>
-<h4 class="subsection">15.2.2 Using <samp>FilenameFilter</samp></h4>
+<h4 class="subsection">15.2.5 Using <samp>FilenameFilter</samp></h4>
 <a name="index-FilenameFilter"></a>
+<a name="index-filter-directory-contents"></a>
+<a name="index-FilenameFilter-interface"></a>
+<a name="index-accept_0028_0029"></a>
 
+<p>You can limit the number of files returned by the <code>list()</code> method to
+include only those files that match a certain filename pattern, or
+<em>filter</em>.  To do this, use a second form of list:
+</p>
+<div class="float"><a name="Directory_002dList_002dWith_002dFilter"></a>
+<dl>
+<dt><a name="index-list-on-File-1"></a>Method on File:<br> <em>String[]</em><br> <strong>list</strong> <em>(FilenameFilter <var>FFObj</var>)</em></dt>
+<dd><p>Returns an array of String filenames found in the directory named by the
+calling File object
+</p></dd></dl>
 
+<div class="float-caption"><p><strong>GeneralForm 15.2: </strong>Obtaining a filtered list of files in a directory</p></div></div>
+<p>Here, <i>FFObj</i> is an object of a class that implements the
+<samp>FilenameFilter</samp> interface.  This interface defines a single method,
+<code>accept()</code>, whcih is called once for each file in a list.  It&rsquo;s general
+form is given here:
+</p>
+<div class="float"><a name="FilenameFilter_002eAccept"></a>
+<dl>
+<dt><a name="index-accept-on-FilenameFilter"></a>Method on FilenameFilter:<br> <em>boolean</em><br> <strong>accept</strong> <em>(File <var>directory</var>, String <var>filename</var>)</em></dt>
+<dd><p>The <code>accept()</code> method returns <code>true</code> for files in the directory
+specified by the <var>directory</var> that should be included in the list (that
+is, those that match the <var>filename</var> argument) and returns <code>false</code>
+for those files that should be excluded.
+</p></dd></dl>
+
+<div class="float-caption"><p><strong>GeneralForm 15.3: </strong><code>accept()</code> Form to be used with <code>list()</code></p></div></div>
 
 
 

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Makefile HTML (About Java SE 9)</title>
+
+<meta name="description" content="Makefile HTML (About Java SE 9)">
+<meta name="keywords" content="Makefile HTML (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Makefile.html#The-Makefile" rel="up" title="The Makefile">
+<link href="Makefile-Clean-Targets.html#Makefile-Clean-Targets" rel="next" title="Makefile Clean Targets">
+<link href="Makefile-OPENPDF.html#Makefile-OPENPDF" rel="prev" title="Makefile OPENPDF">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Makefile-HTML"></a>
+<div class="header">
+<p>
+Next: <a href="Makefile-Clean-Targets.html#Makefile-Clean-Targets" accesskey="n" rel="next">Makefile Clean Targets</a>, Previous: <a href="Makefile-PDF.html#Makefile-PDF" accesskey="p" rel="prev">Makefile PDF</a>, Up: <a href="The-Makefile.html#The-Makefile" accesskey="u" rel="up">The Makefile</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Makefile-HTML-1"></a>
+<h3 class="appendixsec">A.6 Makefile HTML</h3>
+<a name="index-Makefile-HTML"></a>
+
+<a name="Makefile_002dHTML"></a><a name="index-_003cMakefile-HTML_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>Makefile HTML</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">.PHONY: html
+html : ${FILENAME}.texi
+    makeinfo --html ${FILENAME}.texi
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">{<samp>Makefile</samp>}</span>; see its first definition at <a href="The-Makefile.html#Makefile">Makefile</a>.
+</p>
+
+
+
+</body>
+</html>

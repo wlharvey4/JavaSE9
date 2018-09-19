@@ -25,7 +25,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.2.3
+@set VERSION 0.2.4
 
 @iftex
 @set DOCUMENT book
@@ -2633,7 +2633,7 @@ programming.
 Java does, however, provide strong, flexible support for I/O as it relates to
 files and networks.  Java's I/O system is cohesive and consistent.  A general
 overview of I/O is presented here.  A detailed description is found in
-chapters describing the Java Library: @xref{java.io Input Output} and
+chapters describing the Java Library: @xref{Input/Output java.io} and
 @xref{NIO}.  
 
 
@@ -5442,8 +5442,8 @@ class.  They are commonly referred to as @dfn{type wrappers}.
 
 @c *****************************************************************************
 
-@node  java.io Input Output
-@chapter @file{java.io} --- Input/Output
+@node  Input/Output java.io
+@chapter Input/Output --- @file{java.io}
 @cindex @file{java.io}
 @cindex @file{java.nio}
 @cindex stream
@@ -5723,6 +5723,11 @@ the invoking @file{File} object; (in other words, @code{toPath()}
 converts a @file{File} into a @file{Path});@footnote{@code{toPath()}
 forms a bridge between the older @file{File} class and the newer
 @file{Path} interface; @xref{NIO}.}
+@item mkdir()
+@itemx mkdirs()
+the first creates a directory, returning @code{true} on success and @code{false} on
+failure; use the second to create a directory for which no path exists; it
+creates both a directory and all the parents of the directory;
 @end table
 @caption{File Utility Methods}
 @end float
@@ -5739,12 +5744,14 @@ A @dfn{directory} is a @file{File} that contains a list of other files
 and directories.  When you create a @file{File} object that is a
 directory, the @code{isDirectory()} method will return true.  In this
 case, you can call @code{list()} on that object to extract the list of
-other files and directories inside.  It has two forms.  Here is one:
+other files and directories inside.  It has two forms.  Here is the more
+general form:
 
 @float GeneralForm,Directory-List
-@display
-String[] list()
-@end display
+@deftypemethod File String[] list ()
+@code{list()} is used to extract the list of other files and directories
+inside the calling File object
+@end deftypemethod
 @caption{Obtaining a list of files in a directory}
 @end float
 
@@ -5801,7 +5808,7 @@ File f1 = new File(dirname);
 if (f1.isDirectory()) {
   System.out.println("Directory of " + dirname);
 
-  String s[] = f1.list();
+  String[] s = f1.list();
 
   @<DirList Examine Directory Contents For-Loop@>
 
@@ -5848,12 +5855,179 @@ if (args.length != 1) {
 @node FilenameFilter
 @subsection Using @file{FilenameFilter}
 @cindex @file{FilenameFilter}
+@cindex filter directory contents
+@cindex @file{FilenameFilter} interface
+@cindex @code{accept()}
+
+You can limit the number of files returned by the @code{list()} method to
+include only those files that match a certain filename pattern, or
+@dfn{filter}.  To do this, use a second form of list:
+
+@float GeneralForm,Directory-List-With-Filter
+@deftypemethod File String[] list (FilenameFilter @var{FFObj})
+Returns an array of String filenames found in the directory named by the
+calling File object
+@end deftypemethod
+@caption{Obtaining a filtered list of files in a directory}
+@end float
+
+Here, @ii{FFObj} is an object of a class that implements the
+@file{FilenameFilter} interface.  This interface defines a single method,
+@code{accept()}, whcih is called once for each file in a list.  It's general
+form is given here:
+
+@float GeneralForm,FilenameFilter.Accept
+@deftypemethod FilenameFilter boolean accept (File @var{directory}, String @var{filename})
+The @code{accept()} method returns @code{true} for files in the directory
+specified by the @var{directory} that should be included in the list (that
+is, those that match the @var{filename} argument) and returns @code{false}
+for those files that should be excluded.
+@end deftypemethod
+@caption{@code{accept()} Form to be used with @code{list()}}
+@end float
+
+@node Example Using FilenameFilter Interface
+@subsection Example Program Using FilenameFilter Interface
+
+The @file{OnlyExt} class implements @file{FilenameFilter} by defining an
+@code{accept()} method, which will be used by a variation of the preceding
+program listing the contents of a directory to filter the directory listing.
+
+@subsubheading OnlyExt Class
+
+@(OnlyExt.java@)=
+@<Import java.io@>
+public class OnlyExt implements FilenameFilter {
+  @<OnlyExt Instance Variable Declarations@>
+  @<OnlyExt Constructor@>
+  @<OnlyExt Accept Method Implementation@>
+}
+
+@
+
+@subsubheading DirListOnly Class
+
+This class now @code{list()}s the directory contents by including the
+@file{FilenameFilter} object from @file{OnlyExt}.
+
+@(DirListOnly@)=
+@<Import java.io@>
+class DirListOnly {
+  public static void main(String[] args) {
+    @<DirList Obtain Directory From Command-Line Args@>
+    @<DirListOnly FilenameFilter Object@>
+    @<DirListOnly FilenameFilter Object List@>
+    @<DirListOnly Print List@>
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node DirListOnly FilenameFilter Object
+@subsubsection DirListOnly FilenameFilter Object
+
+@<DirListOnly FilenameFilter Object@>=
+FilenameFilter only = new OnlyExt("html");
+
+@
+
+@c _____________________________________
+
+@node DirListOnly FilenameFilter Object List
+@subsubsection DirListOnly FilenameFilter Object List
+
+Recallthe corresopnding line in the @file{DirList} program:
+@xref{DirList Examine Directory Contents}.
+
+@<DirListOnly FilenameFilter Object List@>=
+String[] s = f1.list(only);
+
+@
+
+@c _____________________________________
+
+@node DirListOnly Print List
+@subsubsection DirListOnly Print List
+
+@<DirListOnly Print List@>=
+for (int i = 0; i < s.length; i++) {
+  System.out.println(s[i]);
+}
+
+@
+
+@c _____________________________________
+
+@node OnlyExt Instance Variable Declarations
+@subsubsection OnlyExt Instance Variable Declarations
+
+@<OnlyExt Instance Variable Declarations@>=
+String ext;
+
+@
+
+@c _____________________________________
+
+@node OnlyExt Constructor
+@subsubsection OnlyExt Constructor
+
+@<OnlyExt Constructor@>=
+public OnlyExt(String ext) {
+  this.ext = "." + ext;
+}
+
+@
+
+@c _____________________________________
+
+@node OnlyExt Accept Method Implementation
+@subsubsection OnlyEct Accept Method Implementation
+
+@<OnlyExt Accept Method Implementation@>=
+public boolean accept(File dir, String name) {
+  return name.endsWith(ext);
+}
+
+@
+
 
 @c .....................................
 
 @node listFiles() Alternative
 @subsection @code{listFiles()} Alternative
 @cindex @code{listFiles()} Alternative
+
+There is a variation to the @code{list()} method, called @code{listFiles()},
+that might be useful.
+
+@float GeneralForm,listFiles
+@deftypemethod File File[] listFiles ()
+@deftypemethodx File File[] listFiles (FilenameFilter @var{FFOjb})
+@deftypemethodx File File[] listFiles (FileFilter @var{FOjb})
+These methods return the file list as an array of @file{File} objects instead
+of Strings.  The first method returns all files, and the second returns those
+files that satisfy the specified @file{FilenameFilter}.  The third version of
+@code{listFiles()} returns those files with path names that satisfy the
+specified @file{FileFilter}.  @file{FileFilter} defines only a single method,
+@code{accept()}, whcih is called once for each file in a list.  Its general
+form is shown below (@pxref{FileFilter-accept()}).
+@end deftypemethod
+@caption{@file{File.listFiles()} Form}
+@end float
+
+@subheading FileFilter.accept()
+@cindex @file{FileFilter}.@code{accept()} method
+
+@float GeneralForm,FileFilter-accept()
+@deftypemethod FileFilter boolean accept (File @var{path})
+Called once for each file in a list; it returns @code{true} for files that
+should be included in the list (that is, those that match the @var{path}
+argument) and @code{false} for those that should be excluded.
+@end deftypemethod
+@caption{FileFilter.accept() Method}
+@end float
 
 @c .....................................
 
@@ -6045,7 +6219,7 @@ if (args.length != 1) {
 @FIXME{Relativize ROOT}
 
 @<Makefile CONSTANTS@>=
-ROOT := /usr/local/dev/programming/Java
+ROOT := /usr/local/dev/programming/Java/JavaSE9
 FILENAME := JavaSE9
 AUX := {aux,cps,fns,log,toc}
 @
@@ -6179,8 +6353,12 @@ distclean : clean
 @<Makefile WORLDCLEAN@>=
 .PHONY: worldclean
 worldclean :
-	for file in ${ROOT}/*; \
-	do [ $${file} != "${ROOT}/${FILENAME}.twjr" -a $$file != "${ROOT}/Makefile" ] \
+	for file in ${ROOT}/*; do \
+	  [ \
+	    $${file} != "${ROOT}/${FILENAME}.twjr" -a \
+	    $$file != "${ROOT}/Makefile" -a \
+	    $$file != ".git" \
+	  ] \
 	  && rm -rfv "$${file}" || :; \
 	done
 

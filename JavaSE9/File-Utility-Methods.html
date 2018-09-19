@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>File Utility Methods (About Java SE 9)</title>
+
+<meta name="description" content="File Utility Methods (About Java SE 9)">
+<meta name="keywords" content="File Utility Methods (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="File.html#File" rel="up" title="File">
+<link href="Directories.html#Directories" rel="next" title="Directories">
+<link href="File-Methods.html#File-Methods" rel="prev" title="File Methods">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="File-Utility-Methods"></a>
+<div class="header">
+<p>
+Next: <a href="Directories.html#Directories" accesskey="n" rel="next">Directories</a>, Previous: <a href="File-Methods.html#File-Methods" accesskey="p" rel="prev">File Methods</a>, Up: <a href="File.html#File" accesskey="u" rel="up">File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="File-Utility-Methods-1"></a>
+<h4 class="subsection">15.2.2 <samp>File</samp> Utility Methods</h4>
+<a name="index-File-utility-methods"></a>
+
+<div class="float"><a name="File_002dUtility_002dMethods"></a>
+<dl compact="compact">
+<dt><code>renameTo()</code></dt>
+<dd><p>boolean renameTo(File <i>newName</i>); returns <code>true</code> upon success
+or <code>false</code> if the file cannot be renamed
+</p></dd>
+<dt><code>delete()</code></dt>
+<dd><p>boolean delete(); deletes a file or directory (if the directory is
+empty); returns <code>true</code> if it successfully deletes or <code>false</code>
+if the file or directory cannot be removed;
+</p></dd>
+<dt><code>deleteOnExit()</code></dt>
+<dd><p>removes the file associated with the invoking object when the Java
+Virtual Machines terminates
+</p></dd>
+<dt><code>getFreeSpace()</code></dt>
+<dd><p>returns the number of free bytes of storage (as a <code>long</code>)
+available on the partition associated with the invoking object
+</p></dd>
+<dt><code>getTotalSpace()</code></dt>
+<dd><p>returns the stoarage capacity (as a <code>long</code>) of the partition
+associated with the invoking object
+</p></dd>
+<dt><code>getUsableSpace()</code></dt>
+<dd><p>returns the number of usable free bytes of storage (as a <code>long</code>)
+available on the partition associated with the invoking object
+</p></dd>
+<dt><code>isHidden()</code></dt>
+<dd><p>returns <code>true</code> if the invoking file is hidden, or <code>false</code>
+otherwise 
+</p></dd>
+<dt><code>setLastModifiedTime()</code></dt>
+<dd><p>sets the time stamp on the invoking file to that specified by the
+arguement (<code>long</code> <i>millisec</i>), which is the number of
+milliseconds from January 1, 1970, UTC
+</p></dd>
+<dt><code>setReadOnly()</code></dt>
+<dd><p>sets the invoking to read-only; returns <code>true</code> on success
+</p></dd>
+<dt><code>readable()</code></dt>
+<dt><code>writeable()</code></dt>
+<dt><code>executable()</code></dt>
+<dt><code>compareTo()</code></dt>
+<dd><p>because <samp>File</samp> implements the <samp>Comparable</samp> interface
+</p></dd>
+<dt><code>toPath()</code></dt>
+<dd><p>returns a <samp>Path</samp> object that represents the file encapsulated by
+the invoking <samp>File</samp> object; (in other words, <code>toPath()</code>
+converts a <samp>File</samp> into a <samp>Path</samp>);<a name="DOCF4" href="#FOOT4"><sup>4</sup></a>
+</p></dd>
+<dt><code>mkdir()</code></dt>
+<dt><code>mkdirs()</code></dt>
+<dd><p>the first creates a directory, returning <code>true</code> on success and <code>false</code> on
+failure; use the second to create a directory for which no path exists; it
+creates both a directory and all the parents of the directory;
+</p></dd>
+</dl>
+
+<div class="float-caption"><p><strong>Table 15.2: </strong>File Utility Methods</p></div></div>
+
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT4" href="#DOCF4">(4)</a></h3>
+<p><code>toPath()</code>
+forms a bridge between the older <samp>File</samp> class and the newer
+<samp>Path</samp> interface; See section <a href="NIO.html#NIO">NIO</a>.</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Directories.html#Directories" accesskey="n" rel="next">Directories</a>, Previous: <a href="File-Methods.html#File-Methods" accesskey="p" rel="prev">File Methods</a>, Up: <a href="File.html#File" accesskey="u" rel="up">File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

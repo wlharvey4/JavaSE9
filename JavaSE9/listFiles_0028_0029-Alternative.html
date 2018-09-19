@@ -9,13 +9,13 @@
 <meta name="keywords" content="listFiles() Alternative (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
+<meta name="Generator" content="makeinfo">
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="File.html#File" rel="up" title="File">
 <link href="Creating-Directories.html#Creating-Directories" rel="next" title="Creating Directories">
-<link href="FilenameFilter.html#FilenameFilter" rel="prev" title="FilenameFilter">
+<link href="OnlyExt-Accept-Method-Implementation.html#OnlyExt-Accept-Method-Implementation" rel="prev" title="OnlyExt Accept Method Implementation">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -51,13 +51,44 @@ ul.no-bullet {list-style: none}
 <a name="listFiles_0028_0029-Alternative"></a>
 <div class="header">
 <p>
-Next: <a href="Creating-Directories.html#Creating-Directories" accesskey="n" rel="next">Creating Directories</a>, Previous: <a href="FilenameFilter.html#FilenameFilter" accesskey="p" rel="prev">FilenameFilter</a>, Up: <a href="File.html#File" accesskey="u" rel="up">File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Creating-Directories.html#Creating-Directories" accesskey="n" rel="next">Creating Directories</a>, Previous: <a href="Example-Using-FilenameFilter-Interface.html#Example-Using-FilenameFilter-Interface" accesskey="p" rel="prev">Example Using FilenameFilter Interface</a>, Up: <a href="File.html#File" accesskey="u" rel="up">File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="listFiles_0028_0029-Alternative-1"></a>
-<h4 class="subsection">15.2.3 <code>listFiles()</code> Alternative</h4>
+<h4 class="subsection">15.2.7 <code>listFiles()</code> Alternative</h4>
 <a name="index-listFiles_0028_0029-Alternative"></a>
 
+<p>There is a variation to the <code>list()</code> method, called <code>listFiles()</code>,
+that might be useful.
+</p>
+<div class="float"><a name="listFiles"></a>
+<dl>
+<dt><a name="index-listFiles-on-File"></a>Method on File:<br> <em>File[]</em><br> <strong>listFiles</strong> <em>()</em></dt>
+<dt><a name="index-listFiles-on-File-1"></a>Method on File:<br> <em>File[]</em><br> <strong>listFiles</strong> <em>(FilenameFilter <var>FFOjb</var>)</em></dt>
+<dt><a name="index-listFiles-on-File-2"></a>Method on File:<br> <em>File[]</em><br> <strong>listFiles</strong> <em>(FileFilter <var>FOjb</var>)</em></dt>
+<dd><p>These methods return the file list as an array of <samp>File</samp> objects instead
+of Strings.  The first method returns all files, and the second returns those
+files that satisfy the specified <samp>FilenameFilter</samp>.  The third version of
+<code>listFiles()</code> returns those files with path names that satisfy the
+specified <samp>FileFilter</samp>.  <samp>FileFilter</samp> defines only a single method,
+<code>accept()</code>, whcih is called once for each file in a list.  Its general
+form is shown below (see <a href="#FileFilter_002daccept_0028_0029">GeneralForm 15.5</a>).
+</p></dd></dl>
+
+<div class="float-caption"><p><strong>GeneralForm 15.4: </strong><samp>File.listFiles()</samp> Form</p></div></div>
+<a name="FileFilter_002eaccept_0028_0029"></a>
+<h4 class="subheading">FileFilter.accept()</h4>
+<a name="index-FileFilter_002eaccept_0028_0029-method"></a>
+
+<div class="float"><a name="FileFilter_002daccept_0028_0029"></a>
+<dl>
+<dt><a name="index-accept-on-FileFilter"></a>Method on FileFilter:<br> <em>boolean</em><br> <strong>accept</strong> <em>(File <var>path</var>)</em></dt>
+<dd><p>Called once for each file in a list; it returns <code>true</code> for files that
+should be included in the list (that is, those that match the <var>path</var>
+argument) and <code>false</code> for those that should be excluded.
+</p></dd></dl>
+
+<div class="float-caption"><p><strong>GeneralForm 15.5: </strong>FileFilter.accept() Method</p></div></div>
 
 
 
