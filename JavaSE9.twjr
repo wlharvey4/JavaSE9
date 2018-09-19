@@ -25,7 +25,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.2.2
+@set VERSION 0.2.3
 
 @iftex
 @set DOCUMENT book
@@ -6032,16 +6032,22 @@ if (args.length != 1) {
 @<Makefile CONSTANTS@>
 @<Makefile DEFAULTS@>
 @<Makefile TANGLE WEAVE@>
-@<Makefile CLEAN@>
+@<Makefile PDF@>
+@<Makefile HTML@>
+@<Makefile CLEAN Targets@>
+@<Makefile MAKEFILE Target@>
 @
 
 @node Makefile Constants
 @appendixsec Makefile Constants
 @cindex Constants
 
-@<Makefile CONSTANTS@>=
-FILENAME := JavaSE9
+@FIXME{Relativize ROOT}
 
+@<Makefile CONSTANTS@>=
+ROOT := /usr/local/dev/programming/Java
+FILENAME := JavaSE9
+AUX := {aux,cps,fns,log,toc}
 @
 
 @node Makefile Defaults
@@ -6054,34 +6060,129 @@ all: tangle weave
 
 @
 
+@node Make the Makefile
+@appendixsec Make the Makefile
+@cindex Make the Makefile
+
+@<Makefile MAKEFILE Target@>=
+
+.PHONY : makefile
+makefile : jrtangle worldclean
+
+@
+
 @node Makefile Tangle Weave
 @appendixsec Makefile Tangle Weave Targets
 @cindex Makefile Tangle
 @cindex Makefiel Weave
 
 @<Makefile TANGLE WEAVE@>=
-.PHONY: tangle weave jrtangle jrweave
+.PHONY: tangle weave jrtangle jrweave texi
+
 tangle: jrtangle
 weave: jrweave
 
 jrtangle: $(FILENAME).twjr
 	jrtangle $(FILENAME).twjr
 
-jrweave: $(FILENAME).texi
+jrweave: texi
+
+texi: $(FILENAME).texi
 
 $(FILENAME).texi: $(FILENAME).twjr
 	jrweave $(FILENAME).twjr > $(FILENAME).texi
 @
 
-@node Makefile Clean
+@node Makefile PDF
+@appendixsec Makefile PDF
+@cindex Makefile PDF
+
+@<Makefile PDF@>=
+@<Makefile MAKEPDF@>
+@<Makefile OPENPDF@>
+
+@
+
+@node Makefile MAKEPDF
+@appendixsubsec Makefile MAKEPDF
+@cindex Makefile MAKEPDF
+
+@<Makefile MAKEPDF@>=
+.PHONY : makepdf
+makepdf : ${FILENAME}.pdf
+
+${FILENAME}.pdf : ${FILENAME}.texi
+	pdftexi2dvi ${FILENAME}.texi
+
+@
+
+@node Makefile OPENPDF
+@appendixsubsubsec Makefile OPENPDF
+@cindex Makefile OPENPDF
+
+@<Makefile OPENPDF@>=
+.PHONY : pdf
+pdf : makepdf
+	open ${FILENAME}.pdf
+
+@
+
+@node Makefile HTML
+@appendixsec Makefile HTML
+@cindex Makefile HTML
+
+@<Makefile HTML@>=
+.PHONY: html
+html : ${FILENAME}.texi
+	makeinfo --html ${FILENAME}.texi
+
+@
+
+@node Makefile Clean Targets
 @appendixsec Makefile Clean Targets
 @cindex Makefile Clean targets
+
+@<Makefile CLEAN Targets@>=
+@<Makefile CLEAN@>
+@<Makefile DISTCLEAN@>
+@<Makefile WORLDCLEAN@>
+
+@
+
+@node Makefile Clean 
+@appendixsubsec Makefile Clean
+@cindex Makefile Clean
 
 @<Makefile CLEAN@>=
 .PHONY: clean
 clean:
 	rm -f *~
-	rm -f $(FILENAME).???
+	rm -f $(FILENAME).??
+
+@
+
+@node Makefile DistClean
+@appendixsubsec Makefile DistClean
+@cindex Makefile DistClean
+
+@<Makefile DISTCLEAN@>=
+.PHONY : distclean
+distclean : clean
+	rm -fv ${FILENAME}.${AUX}
+
+@
+
+@node Makefile WorldClean
+@appendixsubsec Makefile WorldClean
+@cindex Makefile WorldClean
+
+@<Makefile WORLDCLEAN@>=
+.PHONY: worldclean
+worldclean :
+	for file in ${ROOT}/*; \
+	do [ $${file} != "${ROOT}/${FILENAME}.twjr" -a $$file != "${ROOT}/Makefile" ] \
+	  && rm -rfv "$${file}" || :; \
+	done
 
 @
 
