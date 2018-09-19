@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>File (About Java SE 9)</title>
+
+<meta name="description" content="File (About Java SE 9)">
+<meta name="keywords" content="File (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2any">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="java_002eio-Input-Output.html#java_002eio-Input-Output" rel="up" title="java.io Input Output">
+<link href="Directories.html#Directories" rel="next" title="Directories">
+<link href="I_002fO-Interfaces.html#I_002fO-Interfaces" rel="prev" title="I/O Interfaces">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="File"></a>
+<div class="header">
+<p>
+Next: <a href="AutoCloseable-Closeable-Flushable.html#AutoCloseable-Closeable-Flushable" accesskey="n" rel="next">AutoCloseable Closeable Flushable</a>, Previous: <a href="I_002fO-Classes-and-Interfaces.html#I_002fO-Classes-and-Interfaces" accesskey="p" rel="prev">I/O Classes and Interfaces</a>, Up: <a href="java_002eio-Input-Output.html#java_002eio-Input-Output" accesskey="u" rel="up">java.io Input Output</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="File-1"></a>
+<h3 class="section">15.2 File</h3>
+<a name="index-File-class"></a>
+<a name="index-file-properties"></a>
+
+<p>The <samp>File</samp> class does not operate on streams.  It deals directly with
+files and the file system.  The <samp>File</samp> class does not specify how
+information is retrieved from or stored in files; rather, it describes the
+properties of a file itself.  A <samp>File</samp> object is used to obtain or
+manipulate the information associated wiht a disk file, such as the
+permissions, time, date, and directory path, and to navigate subdirectory
+hierarchies.<a name="DOCF3" href="#FOOT3"><sup>3</sup></a>
+</p>
+<a name="File-and-Directories-in-Java"></a>
+<h4 class="subheading">File and Directories in Java</h4>
+<a name="index-files"></a>
+<a name="index-directories"></a>
+<a name="index-list_0028_0029-method-for-directories"></a>
+
+<p>Files are a primary source and destination for data within programs.  Files
+are a central resource for storing persistent and shared information.  A
+directory in Java is treated simply as a <samp>File</samp> with one additional
+property &mdash; a list of filenames that can be examined by the <code>list()</code>
+method.
+</p>
+<a name="Constructors-Used-to-Create-File-Objects"></a>
+<h4 class="subheading">Constructors Used to Create <samp>File</samp> Objects</h4>
+<a name="index-File-constructors"></a>
+
+<ul>
+<li> File(String <i>directoryPath</i>)
+</li><li> File(String <i>directoryPath</i>, String <i>filename</i>)
+</li><li> File(File <i>dirObj</i>, String <i>filename</i>)
+</li><li> File(URI <i>uriObj</i>)
+</li></ul>
+
+<p><i>dirObj</i> is a <samp>File</samp> object that specifies a directory, while
+<i>uriObj</i> is a <samp>URI</samp> object that describes a file.
+</p>
+<a name="Examples-Creating-Files-and-Directories"></a>
+<h4 class="subheading">Examples Creating Files and Directories</h4>
+
+<p>The following example creates three files.  The first <samp>File</samp> object is
+constructed with a directory path as the only argument.  The second includes
+two arguments &mdash; the path and the filename.  The third includes the file
+path assigned to <code>f1</code> and a filename; <code>f3</code> refers to the same file
+as <code>f2</code>.
+</p>
+<div class="example">
+<pre class="example">File f1 = new File(&quot;/&quot;);
+File f2 = new File(&quot;/&quot;, &quot;autoexec.bat&quot;);
+File f3 = new File(f1, &quot;autoexec.bat&quot;);
+</pre></div>
+
+<a name="File-Properties"></a>
+<h4 class="subheading"><samp>File</samp> Properties</h4>
+<a name="index-File-properties"></a>
+
+<p><samp>File</samp> defines many methods that obtain the standard properties of a
+<samp>File</samp> object.
+</p>
+<dl compact="compact">
+<dt><code>getName()</code></dt>
+<dd><p>returns the name of the file
+</p></dd>
+<dt><code>getParent()</code></dt>
+<dd><p>returns the name of the parent directory
+</p></dd>
+<dt><code>exists()</code></dt>
+<dd><p>returns <code>true</code> if the file exists, <code>false</code> if it does not
+</p></dd>
+</dl>
+
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Directories.html#Directories" accesskey="1">Directories</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FilenameFilter.html#FilenameFilter" accesskey="2">FilenameFilter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="listFiles_0028_0029-Alternative.html#listFiles_0028_0029-Alternative" accesskey="3">listFiles() Alternative</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Creating-Directories.html#Creating-Directories" accesskey="4">Creating Directories</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT3" href="#DOCF3">(3)</a></h3>
+<p>The <samp>Path</samp> interface and <samp>Files</samp> class, part
+of the <acronym>NIO</acronym> system, offer a powerful alternative to <samp>File</samp>. 
+See section <a href="NIO.html#NIO">NIO</a>.</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="AutoCloseable-Closeable-Flushable.html#AutoCloseable-Closeable-Flushable" accesskey="n" rel="next">AutoCloseable Closeable Flushable</a>, Previous: <a href="I_002fO-Classes-and-Interfaces.html#I_002fO-Classes-and-Interfaces" accesskey="p" rel="prev">I/O Classes and Interfaces</a>, Up: <a href="java_002eio-Input-Output.html#java_002eio-Input-Output" accesskey="u" rel="up">java.io Input Output</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -25,7 +25,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.2.1
+@set VERSION 0.2.2
 
 @iftex
 @set DOCUMENT book
@@ -2633,7 +2633,7 @@ programming.
 Java does, however, provide strong, flexible support for I/O as it relates to
 files and networks.  Java's I/O system is cohesive and consistent.  A general
 overview of I/O is presented here.  A detailed description is found in
-chapters describing the Java Library: @xref{java io Input Output} and
+chapters describing the Java Library: @xref{java.io Input Output} and
 @xref{NIO}.  
 
 
@@ -5422,29 +5422,376 @@ class.  They are commonly referred to as @dfn{type wrappers}.
 @node Numbers to from String
 @subsection Converting Numbers to and from String
 
+
+
+
+@c *****************************************************************************
+
 @node java util Collections
 @chapter @file{java.util} --- Part 1: The Collections Framework
 @cindex @file{java.util} Collections Framework
+
+
+
+@c *****************************************************************************
 
 @node java util Utility Classes
 @chapter @file{java.util} --- Part 2: Utility Classes
 @cindex @file{java.util} Utility Classes
 
-@node  java io Input Output
+
+@c *****************************************************************************
+
+@node  java.io Input Output
 @chapter @file{java.io} --- Input/Output
 @cindex @file{java.io}
+@cindex @file{java.nio}
+@cindex stream
+@cindex NIO
+
+This chapter explores @file{java.io}, which provides support for I/O
+operations.  Data is retrieved from an @emph{input} source.  The results of a
+program are sent to an @emph{output} destination.  In Java, these sources or
+destinations are defined very broadly.  Although physically different, these
+devices are all handled by the same abstraction: the @dfn{stream}.  An I/O
+stream is a logical entity that either produces or consumes information.  An
+I/O stream is linked to a physical device by the Java I/O system.  All I/O
+streams behave in the same manner, even if the phyiscal devices they are
+linked to differ.
+
+Beginning with version 1.4, a second I/O system was added to Java, called
+@acronym{NIO} (which meant New I/O).  @acronym{NIO} is packaged in
+@file{java.nio} and its subpackages.  The @acronym{NIO} is described in
+@ref{NIO}.  
+
+
+@c -----------------------------------------------------------------------------
+
+@node I/O Classes and Interfaces
+@section I/O Classes and Interfaces
+@cindex I/O Classes and Interfaces
+
+@c .....................................
+
+@node I/O Classes
+@subsection I/O Classes Defined by @file{java.io}
+@cindex I/O Classes, @file{java.io}
+
+@itemize
+@item
+BufferedInputStream / BufferedOutputStream
+@item
+BufferedReader / Buffered Writer
+@item
+ByteArrayInputStream / ByteArrayOutputStream
+@item
+CharArrayReader / CharArrayWriter
+@item
+Console
+@item
+DataInputStream / DataOutputStream
+@item
+File
+@item
+FileDescriptor
+@item
+FileInputStream / FileOutputStream
+@item
+FilePermission
+@item
+FileReader / FileWriter
+@item
+FilterInputStream / FilterOutputStream
+@item
+FilterReader / FilterWriter
+@item
+InputStream / OutputStream
+@item
+InputStreamReader / OutputStreamWriter
+@item
+LineNumberReader
+@item
+ObjectInputFilter.Config
+@item
+ObjectInputStream / ObjectOutputStream
+@item
+ObjectInputStream.GetField / ObjectOutputStream.PutField
+@item
+ObjectStreamClass
+@item
+ObjectStreamField
+@item
+PipedInputStream / PipedOutputStream
+@item
+PipedReader / PipedWriter
+@item
+PrintStream / PrintWriter
+@item
+PushbackInputStream / PusbbackReader
+@item
+RandomAccessFile
+@item
+Reader / Writer
+@item
+SequenceInputStream
+@item
+SerializablePermission
+@item
+StreamTokenizer
+@item
+StringReader / StringWriter
+@end itemize
+
+@c .....................................
+
+@node I/O Interfaces
+@subsection I/O Interfaces Defined by @file{java.io}
+@cindex I/O Interfaces, @file{java.io}
+
+@itemize
+@item
+Closeable
+@item
+DataInput / DataOutput
+@item
+Externalize
+@item
+FileFilter
+@item
+FilenameFilter
+@item
+Flushable
+@item
+ObjectInput / ObjectOutput
+@item
+ObjectInputFilter
+@item
+ObjectInputFilter.FilterInfo
+@item
+ObjectInputValidation
+@item
+ObjectStreamConstants
+@item
+Serializable
+@end itemize
+
+
+@c -----------------------------------------------------------------------------
+
+@node File
+@section File
+@cindex File class
+@cindex file properties
+
+The @file{File} class does not operate on streams.  It deals directly with
+files and the file system.  The @file{File} class does not specify how
+information is retrieved from or stored in files; rather, it describes the
+properties of a file itself.  A @file{File} object is used to obtain or
+manipulate the information associated wiht a disk file, such as the
+permissions, time, date, and directory path, and to navigate subdirectory
+hierarchies.@footnote{The @file{Path} interface and @file{Files} class, part
+of the @acronym{NIO} system, offer a powerful alternative to @file{File}. 
+@xref{NIO}.}
+
+@subheading File and Directories in Java
+@cindex files
+@cindex directories
+@cindex @code{list()} method for directories
+
+Files are a primary source and destination for data within programs.  Files
+are a central resource for storing persistent and shared information.  A
+directory in Java is treated simply as a @file{File} with one additional
+property --- a list of filenames that can be examined by the @code{list()}
+method.
+
+@subheading Constructors Used to Create @file{File} Objects
+@cindex @file{File} constructors
+
+@itemize
+@item
+File(String @ii{directoryPath})
+@item
+File(String @ii{directoryPath}, String @ii{filename})
+@item
+File(File @ii{dirObj}, String @ii{filename})
+@item
+File(URI @ii{uriObj})
+@end itemize
+
+@ii{dirObj} is a @file{File} object that specifies a directory, while
+@ii{uriObj} is a @file{URI} object that describes a file.
+
+@subheading Examples Creating Files and Directories
+
+The following example creates three files.  The first @file{File} object is
+constructed with a directory path as the only argument.  The second includes
+two arguments --- the path and the filename.  The third includes the file
+path assigned to @code{f1} and a filename; @code{f3} refers to the same file
+as @code{f2}.
+
+@example
+File f1 = new File("/");
+File f2 = new File("/", "autoexec.bat");
+File f3 = new File(f1, "autoexec.bat");
+@end example
+
+@subheading @file{File} Properties
+@cindex @file{File} properties
+
+@file{File} defines many methods that obtain the standard properties of a
+@file{File} object.
+
+@table @code
+@item getName()
+returns the name of the file
+@item getParent()
+returns the name of the parent directory
+@item getPath()
+@itemx getAbsolutePath()
+returns the path
+@item exists()
+returns @code{true} if the file exists, @code{false} if it does not
+@item canWrite()
+@itemx canRead()
+returns whether the file is writeable/readable
+@item isDirectory()
+returns whether the file is a directory
+@item isFile()
+returns whether the file is a regular file
+@item isAbsolute()
+returns whether the file is an absolute path
+@item lastModified()
+returns the modification date and time
+@item length()
+returns the file's size
+@end table
+
+
+@c .....................................
+
+@node Directories
+@subsection Directories
+@cindex Directories
+
+@c .....................................
+
+@node FilenameFilter
+@subsection Using @file{FilenameFilter}
+@cindex @file{FilenameFilter}
+
+@c .....................................
+
+@node listFiles() Alternative
+@subsection @code{listFiles()} Alternative
+@cindex @code{listFiles()} Alternative
+
+@c .....................................
+
+@node Creating Directories
+@subsection Creating Directories
+@cindex Creating Directories
+@cindex directories, creating
+
+
+
+
+@c -----------------------------------------------------------------------------
+
+@node AutoCloseable Closeable Flushable
+@section The @file{AutoCloseable}, @file{Closeable}, and @file{Flushable} Interfaces
+@cindex @file{AutoCloseable}
+@cindex @file{Closeable}
+@cindex @file{Flushable}
+
+
+@c -----------------------------------------------------------------------------
+
+@node I/O Exceptions
+@section I/O Exceptions
+@cindex I/O Exceptions
+@cindex Exceptions, I/O
+
+
+@c -----------------------------------------------------------------------------
+
+@node Closing a Stream
+@section Two Ways to Close a Stream
+@cindex closing a stream
+
+
+@c -----------------------------------------------------------------------------
+
+@node Stream Classes
+@section The Stream Classes
+@cindex Stream Classes
+
+
+@c -----------------------------------------------------------------------------
+
+@node Byte Streams
+@section The Byte Streams
+@cindex Byte Streams
+
+
+@c -----------------------------------------------------------------------------
+
+@node Character Streams
+@section The Character Streams
+@cindex Character Streams
+
+
+@c -----------------------------------------------------------------------------
+
+@node Console Class
+@section The Console Class
+@cindex Console Class
+
+
+@c -----------------------------------------------------------------------------
+
+@node Serialization
+@section Serialization
+@cindex Serialization
+
+
+@c -----------------------------------------------------------------------------
+
+@node Stream Benefits
+@section Stream Benefits
+@cindex Stream Benefits
+
+
+
+
+
+
+
+
+@c *****************************************************************************
 
 @node NIO
 @chapter NIO
 @cindex NIO
 
+
+
+@c *****************************************************************************
+
 @node Networking
 @chapter Networking
 @cindex Networking
 
+
+
+@c *****************************************************************************
+
 @node Event Handling
 @chapter Event Handling
 @cindex Event Handling
+
+
+
+@c *****************************************************************************
 
 @node AWT
 @chapter AWT: Working with Windows, Graphics, and Text
@@ -5453,31 +5800,59 @@ class.  They are commonly referred to as @dfn{type wrappers}.
 @cindex Graphics
 @cindex Text
 
+
+
+@c *****************************************************************************
+
 @node AWT Controls
 @chapter Using AWT Controls, Layout Managers, and Menus
 @cindex AWT Controls
 @cindex AWT Layout Managers, Menus
 
+
+
+@c *****************************************************************************
+
 @node Images
 @chapter Images
 @cindex Images
 
+
+
+@c *****************************************************************************
+
 @node Concurrency
 @chapter The Concurrency Utilities
 @cindex Concurrency Utilities
+
+
+
+@c *****************************************************************************
 
 @node Streams API
 @chapter The Stream API
 @cindex Stream API
 @cindex API, Stream
 
+
+
+@c *****************************************************************************
+
 @node Regular Expressions
 @chapter Regular Expressions and Other Packages
 @cindex Regular Expressions
 
+
+
+@c *****************************************************************************
+
 @node Swing
 @chapter Introducinvg Swing
 @cindex Swing
+
+
+
+@c *****************************************************************************
 
 @node The Makefile
 @appendix The Makefile
