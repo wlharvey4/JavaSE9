@@ -2605,33 +2605,13 @@ default methods use a common piece of code, thus avoiding code duplication.
 @cindex @file{java.io}
 @cindex input/output system
 @cindex @code{try-with-resources}
-@cindex @code{volative}
-@cindex @code{instanceof}
-@cindex @code{native}
-@cindex @code{strictfp}
-@cindex @code{assert}
 
 This chapter introduces @file{java.io}, which supports Java's basic
 input/output system, including file I/O.  Support for I/O comes from Java's
 core API libraries, not from language keywords.  In this chapter the
 foundation of this subsystem is introduced so that you can see how it fits
 into the larger context of the Java programming and execution environment.
-
-This chapter also looks at the @code{try-with-resources} statement and
-several more Java keywords:
-
-@itemize
-@item
-@code{volatile}
-@item
-@code{instanceof}
-@item
-@code{native}
-@item
-@code{strictfp}
-@item
-@code{assert}
-@end itemize
+This chapter also looks at the @code{try-with-resources} statement.
 
 @c -----------------------------------------------------------------------------
 
@@ -4014,6 +3994,35 @@ try (FileInputStream fin = new FileInputStream(args[0]);
 @
 
 
+
+@c *****************************************************************************
+
+@node Miscellaneous Java Keywords
+@chapter Miscellaneous Java Keywords
+@cindex @code{volative}
+@cindex @code{instanceof}
+@cindex @code{native}
+@cindex @code{strictfp}
+@cindex @code{assert}
+
+This chapter looks at several more Java keywords:
+
+
+@itemize
+@item
+@code{volatile}
+@item
+@code{instanceof}
+@item
+@code{native}
+@item
+@code{strictfp}
+@item
+@code{assert}
+@end itemize
+
+
+
 @c -----------------------------------------------------------------------------
 
 @node transient and volatile Modifiers
@@ -4060,9 +4069,6 @@ try (FileInputStream fin = new FileInputStream(args[0]);
 
 @node Compact API Profiles
 @section Compact API Profiles
-
-
-
 
 
 
