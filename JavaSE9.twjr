@@ -6185,7 +6185,34 @@ easier-to-maintain source code.
 @node Stream Classes
 @section The Stream Classes
 @cindex Stream Classes
+@cindex I/O abstract classes
+@cindex @file{InputStream} abstract class
+@cindex @file{OutputStream} abstract class
+@cindex @file{Reader} abstract class
+@cindex @file{Writer} abstract class
 
+Java's stream-based I/O is built upon four abstract classes:
+
+@itemize
+
+@item Byte Streams
+@itemize
+@item @file{InputStream}
+@item @file{OutputStream}
+@end itemize
+
+@item Character Streams
+@itemize
+@item @file{Reader}
+@item @file{Writer}
+@end itemize
+
+@end itemize
+
+@noindent The top-level classes define the basic functionality common to all
+stream classes.  In general, you should use the character stream classes when
+working with characters or strings and use the byte stream classes when
+working with bytes or other binary objects.
 
 @c -----------------------------------------------------------------------------
 
@@ -6193,12 +6220,165 @@ easier-to-maintain source code.
 @section The Byte Streams
 @cindex Byte Streams
 
+@c .....................................
+
+@node InputStream
+@subsection @file{InputStream}
+@cindex @file{InputStream}
+
+@c .....................................
+
+@node OutputStream
+@subsection @file{OutputStream}
+@cindex @file{OutputStream}
+
+@c .....................................
+
+@node FileInputStream
+@subsection @file{FileInputStream}
+@cindex @file{FileInputStream}
+
+@c .....................................
+
+@node FileOutputStream
+@subsection @file{FileOutputStream}
+@cindex @file{FileOutputStream}
+
+@c .....................................
+
+@node ByteArrayInputStream
+@subsection @file{ByteArrayInputStream}
+@cindex @file{ByteArrayInputStream}
+
+@c .....................................
+
+@node ByteArrayOutputStream
+@subsection @file{ByteArrayOutputStream}
+@cindex @file{ByteArrayOutputStream}
+
+@c .....................................
+
+@node Filtered Byte Streams
+@subsection Filtered Byte Streams
+@cindex Byte Streams, filtered
+@cindex filtered byte streams
+
+@c .....................................
+
+@node Buffered Byte Streams
+@subsection Buffered Byte Streams
+@cindex Buffered Byte Streams
+@cindex Byte Streams, buffered
+
+@c _____________________________________
+
+@node BufferedInputStream
+@subsubsection @file{BufferedInputStream}
+@cindex @file{BufferedInputStream}
+
+@c _____________________________________
+
+@node BufferedOutputStream
+@subsubsection @file{BufferedOutputStream}
+@cindex @file{BufferedOutputStream}
+
+@c _____________________________________
+
+@node PushbackInputStream
+@subsubsection @file{PushbackInputStream}
+@cindex @file{PushbackInputStream}
+
+@c .....................................
+
+@node SequenceInputStream
+@subsection @file{SequenceInputStream}
+@cindex @file{SequenceInputStream}
+
+@c .....................................
+
+@node PrintStream
+@subsection @file{PrintStream}
+@cindex @file{PrintStream}
+
+@c .....................................
+
+@node DataOutputStream DataInputStream
+@subsection @file{DataOutputStream} and @file{DataInputStream}
+@cindex @file{DataOutputStream}
+@cindex @file{DataInputStream}
+
+@c .....................................
+
+@node RandomAccessFile
+@subsection @file{RandomAccessFile}
+@cindex @file{RandomAccessFile}
+
 
 @c -----------------------------------------------------------------------------
 
 @node Character Streams
 @section The Character Streams
 @cindex Character Streams
+
+@c .....................................
+
+@node Reader
+@subsection @file{Reader}
+@cindex @file{Reader}
+
+@c .....................................
+
+@node Writer
+@subsection @file{Writer}
+@cindex @file{Wrtier}
+
+@c .....................................
+
+@node FileReader
+@subsection @file{FileReader}
+@cindex @file{FileReader}
+
+@c .....................................
+
+@node FileWriter
+@subsection @file{FileWriter}
+@cindex @file{FileWriter}
+
+@c .....................................
+
+@node CharArrayReader
+@subsection @file{CharArrayReader}
+@cindex @file{CharArrayReader}
+
+@c .....................................
+
+@node CharArrayWriter
+@subsection @file{CharArrayWriter}
+@cindex @file{CharArrayWriter}
+
+@c .....................................
+
+@node BufferedReader
+@subsection @file{BufferedReader}
+@cindex @file{BufferedReader}
+
+@c .....................................
+
+@node BufferedWriter
+@subsection @file{BufferedWriter}
+@cindex @file{BufferedWriter}
+
+@c .....................................
+
+@node PushbackReader
+@subsection @file{PushbackReader}
+@cindex @file{PushbackReader}
+
+@c .....................................
+
+@node PrintWriter
+@subsection @file{PrintWriter}
+@cindex @file{PrintWriter}
 
 
 @c -----------------------------------------------------------------------------
@@ -6213,6 +6393,48 @@ easier-to-maintain source code.
 @node Serialization
 @section Serialization
 @cindex Serialization
+
+@c .....................................
+
+@node Serializable
+@subsection @file{Serializable}
+@cindex @file{Serializable}
+
+@c .....................................
+
+@node Externalize
+@subsection @file{Externalize}
+@cindex @file{Externalize}
+
+@c .....................................
+
+@node ObjectOutput
+@subsection @file{ObjectOutput}
+@cindex @file{ObjectOutput}
+
+@c .....................................
+
+@node ObjectOutputStream
+@subsection @file{ObjectOutputStream}
+@cindex @file{ObjectOutputStream}
+
+@c .....................................
+
+@node ObjectInput
+@subsection @file{ObjectInput}
+@cindex @file{ObjectInput}
+
+@c .....................................
+
+@node ObjectInputStream
+@subsection @file{ObjectInputStream}
+@cindex @file{ObjectInputStream}
+
+@c .....................................
+
+@node Serializable Example
+@subsection A Serializable Example
+@cindex serializable example
 
 
 @c -----------------------------------------------------------------------------

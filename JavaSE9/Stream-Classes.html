@@ -57,8 +57,34 @@ Next: <a href="Byte-Streams.html#Byte-Streams" accesskey="n" rel="next">Byte Str
 <a name="The-Stream-Classes"></a>
 <h3 class="section">15.6 The Stream Classes</h3>
 <a name="index-Stream-Classes"></a>
+<a name="index-I_002fO-abstract-classes"></a>
+<a name="index-InputStream-abstract-class"></a>
+<a name="index-OutputStream-abstract-class"></a>
+<a name="index-Reader-abstract-class-2"></a>
+<a name="index-Writer-abstract-class-1"></a>
 
+<p>Java&rsquo;s stream-based I/O is built upon four abstract classes:
+</p>
+<ul>
+<li> Byte Streams
+<ul>
+<li> <samp>InputStream</samp>
+</li><li> <samp>OutputStream</samp>
+</li></ul>
 
+</li><li> Character Streams
+<ul>
+<li> <samp>Reader</samp>
+</li><li> <samp>Writer</samp>
+</li></ul>
+
+</li></ul>
+
+<p>The top-level classes define the basic functionality common to all
+stream classes.  In general, you should use the character stream classes when
+working with characters or strings and use the byte stream classes when
+working with bytes or other binary objects.
+</p>
 
 
 

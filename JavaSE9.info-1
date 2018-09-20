@@ -391,6 +391,50 @@ DirListOnly Class
 * OnlyExt Constructor::
 * OnlyExt Accept Method Implementation::
 
+The Byte Streams
+
+* InputStream::
+* OutputStream::
+* FileInputStream::
+* FileOutputStream::
+* ByteArrayInputStream::
+* ByteArrayOutputStream::
+* Filtered Byte Streams::
+* Buffered Byte Streams::
+* SequenceInputStream::
+* PrintStream::
+* DataOutputStream DataInputStream::
+* RandomAccessFile::
+
+Buffered Byte Streams
+
+* BufferedInputStream::
+* BufferedOutputStream::
+* PushbackInputStream::
+
+The Character Streams
+
+* Reader::
+* Writer::
+* FileReader::
+* FileWriter::
+* CharArrayReader::
+* CharArrayWriter::
+* BufferedReader::
+* BufferedWriter::
+* PushbackReader::
+* PrintWriter::
+
+Serialization
+
+* Serializable::
+* Externalize::
+* ObjectOutput::
+* ObjectOutputStream::
+* ObjectInput::
+* ObjectInputStream::
+* Serializable Example::
+
 The Makefile
 
 * Makefile Constants::
@@ -6660,17 +6704,216 @@ File: JavaSE9.info,  Node: Stream Classes,  Next: Byte Streams,  Prev: Closing a
 15.6 The Stream Classes
 =======================
 
+Java's stream-based I/O is built upon four abstract classes:
+
+   * Byte Streams
+        * 'InputStream'
+        * 'OutputStream'
+
+   * Character Streams
+        * 'Reader'
+        * 'Writer'
+
+The top-level classes define the basic functionality common to all
+stream classes.  In general, you should use the character stream
+classes when working with characters or strings and use the byte
+stream classes when working with bytes or other binary objects.
+
 
 File: JavaSE9.info,  Node: Byte Streams,  Next: Character Streams,  Prev: Stream Classes,  Up: Input/Output java.io
 
 15.7 The Byte Streams
 =====================
 
+* Menu:
+
+* InputStream::
+* OutputStream::
+* FileInputStream::
+* FileOutputStream::
+* ByteArrayInputStream::
+* ByteArrayOutputStream::
+* Filtered Byte Streams::
+* Buffered Byte Streams::
+* SequenceInputStream::
+* PrintStream::
+* DataOutputStream DataInputStream::
+* RandomAccessFile::
+
+
+File: JavaSE9.info,  Node: InputStream,  Next: OutputStream,  Up: Byte Streams
+
+15.7.1 'InputStream'
+--------------------
+
+
+File: JavaSE9.info,  Node: OutputStream,  Next: FileInputStream,  Prev: InputStream,  Up: Byte Streams
+
+15.7.2 'OutputStream'
+---------------------
+
+
+File: JavaSE9.info,  Node: FileInputStream,  Next: FileOutputStream,  Prev: OutputStream,  Up: Byte Streams
+
+15.7.3 'FileInputStream'
+------------------------
+
+
+File: JavaSE9.info,  Node: FileOutputStream,  Next: ByteArrayInputStream,  Prev: FileInputStream,  Up: Byte Streams
+
+15.7.4 'FileOutputStream'
+-------------------------
+
+
+File: JavaSE9.info,  Node: ByteArrayInputStream,  Next: ByteArrayOutputStream,  Prev: FileOutputStream,  Up: Byte Streams
+
+15.7.5 'ByteArrayInputStream'
+-----------------------------
+
+
+File: JavaSE9.info,  Node: ByteArrayOutputStream,  Next: Filtered Byte Streams,  Prev: ByteArrayInputStream,  Up: Byte Streams
+
+15.7.6 'ByteArrayOutputStream'
+------------------------------
+
+
+File: JavaSE9.info,  Node: Filtered Byte Streams,  Next: Buffered Byte Streams,  Prev: ByteArrayOutputStream,  Up: Byte Streams
+
+15.7.7 Filtered Byte Streams
+----------------------------
+
+
+File: JavaSE9.info,  Node: Buffered Byte Streams,  Next: SequenceInputStream,  Prev: Filtered Byte Streams,  Up: Byte Streams
+
+15.7.8 Buffered Byte Streams
+----------------------------
+
+* Menu:
+
+* BufferedInputStream::
+* BufferedOutputStream::
+* PushbackInputStream::
+
+
+File: JavaSE9.info,  Node: BufferedInputStream,  Next: BufferedOutputStream,  Up: Buffered Byte Streams
+
+15.7.8.1 'BufferedInputStream'
+..............................
+
+
+File: JavaSE9.info,  Node: BufferedOutputStream,  Next: PushbackInputStream,  Prev: BufferedInputStream,  Up: Buffered Byte Streams
+
+15.7.8.2 'BufferedOutputStream'
+...............................
+
+
+File: JavaSE9.info,  Node: PushbackInputStream,  Prev: BufferedOutputStream,  Up: Buffered Byte Streams
+
+15.7.8.3 'PushbackInputStream'
+..............................
+
+
+File: JavaSE9.info,  Node: SequenceInputStream,  Next: PrintStream,  Prev: Buffered Byte Streams,  Up: Byte Streams
+
+15.7.9 'SequenceInputStream'
+----------------------------
+
+
+File: JavaSE9.info,  Node: PrintStream,  Next: DataOutputStream DataInputStream,  Prev: SequenceInputStream,  Up: Byte Streams
+
+15.7.10 'PrintStream'
+---------------------
+
+
+File: JavaSE9.info,  Node: DataOutputStream DataInputStream,  Next: RandomAccessFile,  Prev: PrintStream,  Up: Byte Streams
+
+15.7.11 'DataOutputStream' and 'DataInputStream'
+------------------------------------------------
+
+
+File: JavaSE9.info,  Node: RandomAccessFile,  Prev: DataOutputStream DataInputStream,  Up: Byte Streams
+
+15.7.12 'RandomAccessFile'
+--------------------------
+
 
 File: JavaSE9.info,  Node: Character Streams,  Next: Console Class,  Prev: Byte Streams,  Up: Input/Output java.io
 
 15.8 The Character Streams
 ==========================
+
+* Menu:
+
+* Reader::
+* Writer::
+* FileReader::
+* FileWriter::
+* CharArrayReader::
+* CharArrayWriter::
+* BufferedReader::
+* BufferedWriter::
+* PushbackReader::
+* PrintWriter::
+
+
+File: JavaSE9.info,  Node: Reader,  Next: Writer,  Up: Character Streams
+
+15.8.1 'Reader'
+---------------
+
+
+File: JavaSE9.info,  Node: Writer,  Next: FileReader,  Prev: Reader,  Up: Character Streams
+
+15.8.2 'Writer'
+---------------
+
+
+File: JavaSE9.info,  Node: FileReader,  Next: FileWriter,  Prev: Writer,  Up: Character Streams
+
+15.8.3 'FileReader'
+-------------------
+
+
+File: JavaSE9.info,  Node: FileWriter,  Next: CharArrayReader,  Prev: FileReader,  Up: Character Streams
+
+15.8.4 'FileWriter'
+-------------------
+
+
+File: JavaSE9.info,  Node: CharArrayReader,  Next: CharArrayWriter,  Prev: FileWriter,  Up: Character Streams
+
+15.8.5 'CharArrayReader'
+------------------------
+
+
+File: JavaSE9.info,  Node: CharArrayWriter,  Next: BufferedReader,  Prev: CharArrayReader,  Up: Character Streams
+
+15.8.6 'CharArrayWriter'
+------------------------
+
+
+File: JavaSE9.info,  Node: BufferedReader,  Next: BufferedWriter,  Prev: CharArrayWriter,  Up: Character Streams
+
+15.8.7 'BufferedReader'
+-----------------------
+
+
+File: JavaSE9.info,  Node: BufferedWriter,  Next: PushbackReader,  Prev: BufferedReader,  Up: Character Streams
+
+15.8.8 'BufferedWriter'
+-----------------------
+
+
+File: JavaSE9.info,  Node: PushbackReader,  Next: PrintWriter,  Prev: BufferedWriter,  Up: Character Streams
+
+15.8.9 'PushbackReader'
+-----------------------
+
+
+File: JavaSE9.info,  Node: PrintWriter,  Prev: PushbackReader,  Up: Character Streams
+
+15.8.10 'PrintWriter'
+---------------------
 
 
 File: JavaSE9.info,  Node: Console Class,  Next: Serialization,  Prev: Character Streams,  Up: Input/Output java.io
@@ -6683,6 +6926,58 @@ File: JavaSE9.info,  Node: Serialization,  Next: Stream Benefits,  Prev: Console
 
 15.10 Serialization
 ===================
+
+* Menu:
+
+* Serializable::
+* Externalize::
+* ObjectOutput::
+* ObjectOutputStream::
+* ObjectInput::
+* ObjectInputStream::
+* Serializable Example::
+
+
+File: JavaSE9.info,  Node: Serializable,  Next: Externalize,  Up: Serialization
+
+15.10.1 'Serializable'
+----------------------
+
+
+File: JavaSE9.info,  Node: Externalize,  Next: ObjectOutput,  Prev: Serializable,  Up: Serialization
+
+15.10.2 'Externalize'
+---------------------
+
+
+File: JavaSE9.info,  Node: ObjectOutput,  Next: ObjectOutputStream,  Prev: Externalize,  Up: Serialization
+
+15.10.3 'ObjectOutput'
+----------------------
+
+
+File: JavaSE9.info,  Node: ObjectOutputStream,  Next: ObjectInput,  Prev: ObjectOutput,  Up: Serialization
+
+15.10.4 'ObjectOutputStream'
+----------------------------
+
+
+File: JavaSE9.info,  Node: ObjectInput,  Next: ObjectInputStream,  Prev: ObjectOutputStream,  Up: Serialization
+
+15.10.5 'ObjectInput'
+---------------------
+
+
+File: JavaSE9.info,  Node: ObjectInputStream,  Next: Serializable Example,  Prev: ObjectInput,  Up: Serialization
+
+15.10.6 'ObjectInputStream'
+---------------------------
+
+
+File: JavaSE9.info,  Node: Serializable Example,  Prev: ObjectInputStream,  Up: Serialization
+
+15.10.7 A Serializable Example
+------------------------------
 
 
 File: JavaSE9.info,  Node: Stream Benefits,  Prev: Serialization,  Up: Input/Output java.io
@@ -8397,18 +8692,34 @@ Index
 * BRReadLines Enter Lines:               BRReadLines Enter Lines.
                                                             (line   6)
 * BRReadLines.java:                      Reading Strings.   (line  16)
+* Buffered Byte Streams:                 Buffered Byte Streams.
+                                                            (line   6)
+* BufferedInputStream:                   BufferedInputStream.
+                                                            (line   5)
+* BufferedOutputStream:                  BufferedOutputStream.
+                                                            (line   5)
 * BufferedReader:                        Reading Console Input.
                                                             (line  13)
+* BufferedReader <1>:                    BufferedReader.    (line   5)
+* BufferedWriter:                        BufferedWriter.    (line   5)
 * Byte Stream Class:                     Byte Stream Class. (line   6)
-* Byte Streams:                          Byte Streams.      (line   5)
+* Byte Streams:                          Byte Streams.      (line   6)
+* Byte Streams, buffered:                Buffered Byte Streams.
+                                                            (line   6)
 * Byte Streams, definition:              Byte Streams Character Streams.
                                                             (line   6)
+* Byte Streams, filtered:                Filtered Byte Streams.
+                                                            (line   6)
+* ByteArrayInputStream:                  ByteArrayInputStream.
+                                                            (line   5)
+* ByteArrayOutputStream:                 ByteArrayOutputStream.
+                                                            (line   5)
 * casts, eliminated in generics:         Type Safety.       (line   6)
 * casts, generics, automatic, implicit:  What are Generics. (line   6)
 * catch exception:                       I/O Exceptions.    (line   6)
 * Character Stream Class:                Character Stream Class.
                                                             (line   6)
-* Character Streams:                     Character Streams. (line   5)
+* Character Streams:                     Character Streams. (line   6)
 * Character Streams, definition:         Byte Streams Character Streams.
                                                             (line   6)
 * character streams, Unicode:            Character Stream Class.
@@ -8419,6 +8730,8 @@ Index
                                                             (line   6)
 * characters, reading:                   Reading Characters.
                                                             (line   6)
+* CharArrayReader:                       CharArrayReader.   (line   5)
+* CharArrayWriter:                       CharArrayWriter.   (line   5)
 * charAT():                              String Class.      (line  33)
 * Class:                                 Class Gen<T>.      (line 107)
 * Class fundamentals:                    Class Fundamentals.
@@ -8468,6 +8781,10 @@ Index
                                                             (line   6)
 * creating generic method:               Generic Methods.   (line   6)
 * data type, enumeration:                Enumerations.      (line   6)
+* DataInputStream:                       DataOutputStream DataInputStream.
+                                                            (line   5)
+* DataOutputStream:                      DataOutputStream DataInputStream.
+                                                            (line   6)
 * default access level:                  Access Control.    (line  28)
 * default method, interface, motivation: Default Interface Methods.
                                                             (line  15)
@@ -8550,6 +8867,7 @@ Index
                                                             (line   6)
 * extents, with interfaces:              Extending Interfaces.
                                                             (line   6)
+* Externalize:                           Externalize.       (line   5)
 * File class:                            File.              (line   6)
 * File constructors:                     File.              (line  26)
 * File methods:                          File Methods.      (line   6)
@@ -8568,15 +8886,21 @@ Index
                                                             (line  33)
 * FileInputStream:                       FileInputStream and FileOutputStream.
                                                             (line   6)
+* FileInputStream <1>:                   FileInputStream.   (line   5)
 * FilenameFilter:                        FilenameFilter.    (line   6)
 * FilenameFilter interface:              FilenameFilter.    (line   6)
 * FileNotFoundException:                 I/O Exceptions.    (line   6)
 * FileOutputStream:                      FileInputStream and FileOutputStream.
                                                             (line   6)
+* FileOutputStream <1>:                  FileOutputStream.  (line   5)
+* FileReader:                            FileReader.        (line   5)
 * files:                                 File.              (line  17)
 * Files, Reading and Writing:            Reading and Writing Files.
                                                             (line   6)
+* FileWriter:                            FileWriter.        (line   5)
 * filter directory contents:             FilenameFilter.    (line   6)
+* filtered byte streams:                 Filtered Byte Streams.
+                                                            (line   5)
 * final Keyword:                         final Keyword.     (line   6)
 * final to prevent inheritance:          final to Prevent Inheritance.
                                                             (line   6)
@@ -8664,6 +8988,7 @@ Index
 * hierarchy, multilevel, creating:       Multilevel Hierarchy.
                                                             (line   6)
 * I/O:                                   I/O.               (line   6)
+* I/O abstract classes:                  Stream Classes.    (line   6)
 * I/O Basics:                            I/O Basics.        (line   6)
 * I/O Classes and Interfaces:            I/O Classes and Interfaces.
                                                             (line   6)
@@ -8704,6 +9029,8 @@ Index
 * input/output system:                   I/O.               (line   6)
 * InputStream:                           Reading Console Input.
                                                             (line  13)
+* InputStream <1>:                       InputStream.       (line   5)
+* InputStream abstract class:            Stream Classes.    (line   6)
 * InputStreamReader concrete subclass:   Reading Console Input.
                                                             (line  13)
 * instance variables:                    General Form.      (line  32)
@@ -8873,6 +9200,11 @@ Index
 * Object type:                           What are Generics. (line   6)
 * object, class:                         Class Fundamentals.
                                                             (line   6)
+* ObjectInput:                           ObjectInput.       (line   5)
+* ObjectInputStream:                     ObjectInputStream. (line   5)
+* ObjectOutput:                          ObjectOutput.      (line   5)
+* ObjectOutputStream:                    ObjectOutputStream.
+                                                            (line   5)
 * objects as parameters:                 Objects as Parameters.
                                                             (line   6)
 * objects, declaring:                    Declaring Objects. (line   6)
@@ -8886,6 +9218,8 @@ Index
 * out:                                   Predefined Streams.
                                                             (line   6)
 * output stream:                         Streams.           (line   6)
+* OutputStream:                          OutputStream.      (line   5)
+* OutputStream abstract class:           Stream Classes.    (line   6)
 * OutputStream as byte stream abstract class: Writing Console Output.
                                                             (line   6)
 * overload versus override:              Method Overriding. (line   6)
@@ -8944,8 +9278,10 @@ Index
                                                             (line   6)
 * println(), from PrintStream:           Writing Console Output.
                                                             (line   6)
+* PrintStream:                           PrintStream.       (line   5)
 * PrintStream as byte stream:            Writing Console Output.
                                                             (line   6)
+* PrintWriter:                           PrintWriter.       (line   5)
 * PrintWriter Class, character-based stream: PrintWriter Class.
                                                             (line   6)
 * PrintWriter constructor:               PrinterWriter Constructors.
@@ -8955,6 +9291,10 @@ Index
                                                             (line   6)
 * protected access modifier:             Access Control.    (line  28)
 * public access modifier:                Access Control.    (line  28)
+* PushbackInputStream:                   PushbackInputStream.
+                                                            (line   5)
+* PushbackReader:                        PushbackReader.    (line   5)
+* RandomAccessFile:                      RandomAccessFile.  (line   5)
 * read():                                FileInputStream and FileOutputStream.
                                                             (line  63)
 * read(), from BufferedReader:           Reading Characters.
@@ -8962,10 +9302,12 @@ Index
 * read(), InputStream abstract class:    Byte Stream Class. (line  58)
 * read(), Reader:                        Character Stream Class.
                                                             (line  55)
+* Reader:                                Reader.            (line   5)
 * Reader abstract class:                 Character Stream Class.
                                                             (line   6)
 * Reader abstract class <1>:             Reading Console Input.
                                                             (line  13)
+* Reader abstract class <2>:             Stream Classes.    (line   6)
 * reading characters:                    Reading Characters.
                                                             (line   6)
 * Reading Console Input:                 Reading Console Input.
@@ -8985,7 +9327,12 @@ Index
 * run-time system, finding packages:     Classpath.         (line   6)
 * self-typed constants:                  Enumeration Basics.
                                                             (line  15)
-* Serialization:                         Serialization.     (line   5)
+* SequenceInputStream:                   SequenceInputStream.
+                                                            (line   5)
+* Serializable:                          Serializable.      (line   5)
+* serializable example:                  Serializable Example.
+                                                            (line   5)
+* Serialization:                         Serialization.     (line   6)
 * Stack Class:                           Stack Class.       (line   6)
 * Stack class, improved:                 Improved Stack Class.
                                                             (line   6)
@@ -9009,7 +9356,7 @@ Index
 * Stream Class, Byte:                    Byte Stream Class. (line   6)
 * Stream Class, Character:               Character Stream Class.
                                                             (line   6)
-* Stream Classes:                        Stream Classes.    (line   5)
+* Stream Classes:                        Stream Classes.    (line   6)
 * stream closing using try-with-resources: Closing a Stream.
                                                             (line  32)
 * stream closing, traditional approach:  Closing a Stream.  (line   6)
@@ -9123,6 +9470,8 @@ Index
                                                             (line  55)
 * Writer abstract class:                 Character Stream Class.
                                                             (line   6)
+* Writer abstract class <1>:             Stream Classes.    (line   6)
 * Writing Console Output:                Writing Console Output.
                                                             (line   6)
+* Wrtier:                                Writer.            (line   5)
 
