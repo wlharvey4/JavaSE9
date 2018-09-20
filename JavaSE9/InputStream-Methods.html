@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>InputStream Methods (About Java SE 9)</title>
+
+<meta name="description" content="InputStream Methods (About Java SE 9)">
+<meta name="keywords" content="InputStream Methods (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="InputStream.html#InputStream" rel="up" title="InputStream">
+<link href="OutputStream.html#OutputStream" rel="next" title="OutputStream">
+<link href="InputStream.html#InputStream" rel="prev" title="InputStream">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="InputStream-Methods"></a>
+<div class="header">
+<p>
+Up: <a href="InputStream.html#InputStream" accesskey="u" rel="up">InputStream</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="InputStream-Methods-1"></a>
+<h4 class="subsubsection">15.7.1.1 <samp>InputStream</samp> Methods</h4>
+<a name="index-InputStream-methods"></a>
+
+<div class="float"><a name="InputStreamMethods"></a>
+<dl compact="compact">
+<dt><b>int available()</b></dt>
+<dd><p>Returns the number of bytes of input currently available for reading
+</p></dd>
+<dt><b>void close()</b></dt>
+<dd><p>Closes the input source.  Further read attempts will generate an
+<samp>IOException</samp>.
+</p></dd>
+<dt><b>void mark(int <i>numBytes</i>)</b></dt>
+<dd><p>Places a mark at the current point in the input stream that will remain valid
+until <i>numBytes</i> bytes are read.
+</p></dd>
+<dt><b>boolean markSupported()</b></dt>
+<dd><p>Returns <code>true</code> if <code>mark()</code> / <code>reset()</code> are supported by the
+invoking stream.
+</p></dd>
+<dt><b>int read()</b></dt>
+<dd><p>Returns an integer representation of the next available byte of input.
+<code>-1</code> is returned when an attempt is made to read at the end of the
+stream.  
+</p></dd>
+<dt><b>int read(byte <i>buffere[]</i>)</b></dt>
+<dd><p>Attempts to read up to <i>buffer.length</i> bytes into <i>buffer</i> and returns
+the actual number of bytes that were successfully read.  <code>-1</code> is
+returned when an attempt is made to read at the end of the stream.
+</p></dd>
+<dt><b>int read(byte <i>buffer[]</i>, int <i>offset</i>, int <i>numBytes</i>)</b></dt>
+<dd><p>Attempts to read up to <i>numBytes</i> bytes into <i>buffer</i> starting at
+<i>buffer[offset]</i>, returning the numnber of bytes successfully read.
+<code>-1</code> is returned when an attempt is made to read at the end of the
+stream.  
+</p></dd>
+<dt><b>byte[] readAllBytes()</b></dt>
+<dd><p>Beginning at the current position, reads to the end of the stream, returning
+a byte array that holds the input.  (Added by JDK 9.)
+</p></dd>
+<dt><b>int readNBytes(byte <i>buffer[]</i>, int <i>offset</i>, int <i>numBytes</i>)</b></dt>
+<dd><p>Attempts to read up to <i>numBytes</i> bytes into <i>buffer</i> starting at
+<i>buffer[offset]</i>, returning the number of types successfully read.  (Added
+by JDK 9.)
+</p></dd>
+<dt><b>void reset()</b></dt>
+<dd><p>Resets the input pointer to the previously set mark.
+</p></dd>
+<dt><b>long skip(long <i>numBytes</i>)</b></dt>
+<dd><p>Ignores (that is, skips) <i>numBytes</i> bytes of input, returning the number
+of bytes actually ignored.
+</p></dd>
+<dt><b>long transferTo(OutputStream <i>strm</i>)</b></dt>
+<dd><p>Copies the bytes in teh invoking stream into <i>strm</i>, returning the number
+of bytes copies.  (Added by JDK 9.)
+</p></dd>
+</dl>
+
+<div class="float-caption"><p><strong>Table 15.3: </strong>The Methods Defined by <samp>InputStream</samp></p></div></div>
+
+
+<hr>
+<div class="header">
+<p>
+Up: <a href="InputStream.html#InputStream" accesskey="u" rel="up">InputStream</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

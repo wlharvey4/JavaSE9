@@ -6219,6 +6219,13 @@ working with bytes or other binary objects.
 @node Byte Streams
 @section The Byte Streams
 @cindex Byte Streams
+@cindex byte-oriented I/O
+@cindex I/O, byte-oriented
+
+The byte stream classes provide an environment for handling byte-oriented
+I/O.  A byte stream can be used with any type of object, including binary
+data.  The byte streams are topped by @file{InputStream} and
+@file{OutputStream}.  
 
 @c .....................................
 
@@ -6226,17 +6233,119 @@ working with bytes or other binary objects.
 @subsection @file{InputStream}
 @cindex @file{InputStream}
 
+@file{InputStream} is an abstract class that defines Java's model of
+streaming byte input.  It implements the @file{AutoCloseable} and
+@file{Closeable} interfaces.  Most of the methods in this class will throw an
+@file{IOException} when an I/O error occurs.@footnote{The exceptions are
+@code{mark()} and @code{markSupported()}.}
+
+@c _____________________________________
+
+@node InputStream Methods
+@subsubsection @file{InputStream} Methods
+@cindex @file{InputStream} methods
+
+@float Table,InputStreamMethods
+@table @b
+@item int available()
+Returns the number of bytes of input currently available for reading
+@item void close()
+Closes the input source.  Further read attempts will generate an
+@file{IOException}.
+@item void mark(int @ii{numBytes})
+Places a mark at the current point in the input stream that will remain valid
+until @ii{numBytes} bytes are read.
+@item boolean markSupported()
+Returns @code{true} if @code{mark()} / @code{reset()} are supported by the
+invoking stream.
+@item int read()
+Returns an integer representation of the next available byte of input.
+@code{-1} is returned when an attempt is made to read at the end of the
+stream.  
+@item int read(byte @ii{buffere[]})
+Attempts to read up to @ii{buffer.length} bytes into @ii{buffer} and returns
+the actual number of bytes that were successfully read.  @code{-1} is
+returned when an attempt is made to read at the end of the stream.
+@item int read(byte @ii{buffer[]}, int @ii{offset}, int @ii{numBytes})
+Attempts to read up to @ii{numBytes} bytes into @ii{buffer} starting at
+@ii{buffer[offset]}, returning the numnber of bytes successfully read.
+@code{-1} is returned when an attempt is made to read at the end of the
+stream.  
+@item byte[] readAllBytes()
+Beginning at the current position, reads to the end of the stream, returning
+a byte array that holds the input.  (Added by JDK 9.)
+@item int readNBytes(byte @ii{buffer[]}, int @ii{offset}, int @ii{numBytes})
+Attempts to read up to @ii{numBytes} bytes into @ii{buffer} starting at
+@ii{buffer[offset]}, returning the number of types successfully read.  (Added
+by JDK 9.)
+@item void reset()
+Resets the input pointer to the previously set mark.
+@item long skip(long @ii{numBytes})
+Ignores (that is, skips) @ii{numBytes} bytes of input, returning the number
+of bytes actually ignored.
+@item long transferTo(OutputStream @i{strm})
+Copies the bytes in teh invoking stream into @ii{strm}, returning the number
+of bytes copies.  (Added by JDK 9.)
+@end table
+@caption{The Methods Defined by @file{InputStream}}
+@end float
+
+
 @c .....................................
 
 @node OutputStream
 @subsection @file{OutputStream}
 @cindex @file{OutputStream}
 
+@file{OutputStream} is an abstract class that defines streaming byte output.
+It implements @file{AutoCloseable}, @file{Closeable}, and @file{Flushable}
+interfaces.  Most of the methods defined by this class return @code{void} and
+throw an @file{IOException} in the case of I/O errors.
+
+@c _____________________________________
+
+@node OutputStream Methods
+@subsubsection @file{OutputStream} Methods
+@cindex @file{OutputStream} Methods
+
+@float Table,OutputStreamMethods
+@table @b
+@item void close()
+Closes the output stream.  Further write attempts will generate an
+@file{IOException}.  
+@item void flush()
+Finalizes the output state so that any buffers are cleared (it flushes the
+output buffers).
+@item void write(int @ii{b})
+Writes a single byte to an output stream.  Note that the parameter is an
+@code{int}, which allows you to call @code{write()} with an expression
+without having to cast it back to @code{byte}.
+@item void write(byte @ii{buffer[]})
+Writes a complete array of bytes to an output stream.
+@item void write(byte @ii{buffer[]}, int @ii{offset}, int @ii{numBytes})
+Writes a subrange of @ii{numBytes} bytes from the array @ii{buffer},
+beginning at @ii{buffer[offset]}.
+@end table
+@caption{The Methods Defined by @file{OutputStream}}
+@end float
+
 @c .....................................
 
 @node FileInputStream
 @subsection @file{FileInputStream}
 @cindex @file{FileInputStream}
+@cindex constructors for @file{FileInputStream}
+@cindex @file{FileNotFoundException}
+
+The @file{FileInputStream} class creates an @file{InputStream} that you can
+use to read bytes from a file.  Two commonly used constructors are:
+
+@display
+FileInputStream(String @ii{filePath})
+FileInputStream(File @ii{fileObj})
+@end display
+
+Either can throw a @file{FileNotFoundException}.
 
 @c .....................................
 

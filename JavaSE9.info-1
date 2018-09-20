@@ -406,6 +406,14 @@ The Byte Streams
 * DataOutputStream DataInputStream::
 * RandomAccessFile::
 
+'InputStream'
+
+* InputStream Methods::
+
+'OutputStream'
+
+* OutputStream Methods::
+
 Buffered Byte Streams
 
 * BufferedInputStream::
@@ -6725,6 +6733,11 @@ File: JavaSE9.info,  Node: Byte Streams,  Next: Character Streams,  Prev: Stream
 15.7 The Byte Streams
 =====================
 
+The byte stream classes provide an environment for handling
+byte-oriented I/O. A byte stream can be used with any type of object,
+including binary data.  The byte streams are topped by 'InputStream'
+and 'OutputStream'.
+
 * Menu:
 
 * InputStream::
@@ -6746,17 +6759,122 @@ File: JavaSE9.info,  Node: InputStream,  Next: OutputStream,  Up: Byte Streams
 15.7.1 'InputStream'
 --------------------
 
+'InputStream' is an abstract class that defines Java's model of
+streaming byte input.  It implements the 'AutoCloseable' and
+'Closeable' interfaces.  Most of the methods in this class will throw
+an 'IOException' when an I/O error occurs.(1)
+
+* Menu:
+
+* InputStream Methods::
+
+   ---------- Footnotes ----------
+
+   (1) The exceptions are 'mark()' and 'markSupported()'.
+
+
+File: JavaSE9.info,  Node: InputStream Methods,  Up: InputStream
+
+15.7.1.1 'InputStream' Methods
+..............................
+
+int available()
+     Returns the number of bytes of input currently available for
+     reading
+void close()
+     Closes the input source.  Further read attempts will generate an
+     'IOException'.
+void mark(int numBytes)
+     Places a mark at the current point in the input stream that will
+     remain valid until numBytes bytes are read.
+boolean markSupported()
+     Returns 'true' if 'mark()' / 'reset()' are supported by the
+     invoking stream.
+int read()
+     Returns an integer representation of the next available byte of
+     input.  '-1' is returned when an attempt is made to read at the
+     end of the stream.
+int read(byte buffere[])
+     Attempts to read up to buffer.length bytes into buffer and
+     returns the actual number of bytes that were successfully read.
+     '-1' is returned when an attempt is made to read at the end of
+     the stream.
+int read(byte buffer[], int offset, int numBytes)
+     Attempts to read up to numBytes bytes into buffer starting at
+     buffer[offset], returning the numnber of bytes successfully read.
+     '-1' is returned when an attempt is made to read at the end of
+     the stream.
+byte[] readAllBytes()
+     Beginning at the current position, reads to the end of the
+     stream, returning a byte array that holds the input.  (Added by
+     JDK 9.)
+int readNBytes(byte buffer[], int offset, int numBytes)
+     Attempts to read up to numBytes bytes into buffer starting at
+     buffer[offset], returning the number of types successfully read.
+     (Added by JDK 9.)
+void reset()
+     Resets the input pointer to the previously set mark.
+long skip(long numBytes)
+     Ignores (that is, skips) numBytes bytes of input, returning the
+     number of bytes actually ignored.
+long transferTo(OutputStream strm)
+     Copies the bytes in teh invoking stream into strm, returning the
+     number of bytes copies.  (Added by JDK 9.)
+
+Table 15.3: The Methods Defined by 'InputStream'
+
 
 File: JavaSE9.info,  Node: OutputStream,  Next: FileInputStream,  Prev: InputStream,  Up: Byte Streams
 
 15.7.2 'OutputStream'
 ---------------------
 
+'OutputStream' is an abstract class that defines streaming byte
+output.  It implements 'AutoCloseable', 'Closeable', and 'Flushable'
+interfaces.  Most of the methods defined by this class return 'void'
+and throw an 'IOException' in the case of I/O errors.
+
+* Menu:
+
+* OutputStream Methods::
+
+
+File: JavaSE9.info,  Node: OutputStream Methods,  Up: OutputStream
+
+15.7.2.1 'OutputStream' Methods
+...............................
+
+void close()
+     Closes the output stream.  Further write attempts will generate
+     an 'IOException'.
+void flush()
+     Finalizes the output state so that any buffers are cleared (it
+     flushes the output buffers).
+void write(int b)
+     Writes a single byte to an output stream.  Note that the
+     parameter is an 'int', which allows you to call 'write()' with an
+     expression without having to cast it back to 'byte'.
+void write(byte buffer[])
+     Writes a complete array of bytes to an output stream.
+void write(byte buffer[], int offset, int numBytes)
+     Writes a subrange of numBytes bytes from the array buffer,
+     beginning at buffer[offset].
+
+Table 15.4: The Methods Defined by 'OutputStream'
+
 
 File: JavaSE9.info,  Node: FileInputStream,  Next: FileOutputStream,  Prev: OutputStream,  Up: Byte Streams
 
 15.7.3 'FileInputStream'
 ------------------------
+
+The 'FileInputStream' class creates an 'InputStream' that you can use
+to read bytes from a file.  Two commonly used constructors are:
+
+     FileInputStream(String filePath)
+     FileInputStream(File fileObj)
+
+   Either can throw a 'FileNotFoundException'.
 
 
 File: JavaSE9.info,  Node: FileOutputStream,  Next: ByteArrayInputStream,  Prev: FileInputStream,  Up: Byte Streams
@@ -8117,6 +8235,8 @@ List of Tables
 * Table 7.2: CharacterStreamClasses.     The Character Stream I/O ...
 * Table 15.1: 'File'-Methods.            'File' Property Methods
 * Table 15.2: 'File'-Utility-Methods.    File Utility Methods
+* Table 15.3: InputStreamMethods.        The Methods Defined by ...
+* Table 15.4: OutputStreamMethods.       The Methods Defined by ...
 
 
 File: JavaSE9.info,  Node: List of General Forms,  Next: Bibliography,  Prev: List of Tables,  Up: Top
@@ -8710,6 +8830,7 @@ Index
                                                             (line   6)
 * Byte Streams, filtered:                Filtered Byte Streams.
                                                             (line   6)
+* byte-oriented I/O:                     Byte Streams.      (line   6)
 * ByteArrayInputStream:                  ByteArrayInputStream.
                                                             (line   5)
 * ByteArrayOutputStream:                 ByteArrayOutputStream.
@@ -8774,6 +8895,7 @@ Index
                                                             (line   6)
 * constructor:                           Declaring Objects. (line   6)
 * Constructors:                          Constructors.      (line   6)
+* constructors for FileInputStream:      FileInputStream.   (line   6)
 * constructors, overloading:             Overloading Constructors.
                                                             (line   6)
 * containers, packages as:               Packages.          (line   6)
@@ -8886,10 +9008,11 @@ Index
                                                             (line  33)
 * FileInputStream:                       FileInputStream and FileOutputStream.
                                                             (line   6)
-* FileInputStream <1>:                   FileInputStream.   (line   5)
+* FileInputStream <1>:                   FileInputStream.   (line   6)
 * FilenameFilter:                        FilenameFilter.    (line   6)
 * FilenameFilter interface:              FilenameFilter.    (line   6)
 * FileNotFoundException:                 I/O Exceptions.    (line   6)
+* FileNotFoundException <1>:             FileInputStream.   (line   6)
 * FileOutputStream:                      FileInputStream and FileOutputStream.
                                                             (line   6)
 * FileOutputStream <1>:                  FileOutputStream.  (line   5)
@@ -8995,6 +9118,7 @@ Index
 * I/O Classes, java.io:                  I/O Classes.       (line   6)
 * I/O Exceptions:                        I/O Exceptions.    (line   6)
 * I/O Interfaces, java.io:               I/O Interfaces.    (line   6)
+* I/O, byte-oriented:                    Byte Streams.      (line   6)
 * Images:                                Images.            (line   5)
 * implements clause:                     Implementing Interfaces.
                                                             (line   6)
@@ -9029,8 +9153,10 @@ Index
 * input/output system:                   I/O.               (line   6)
 * InputStream:                           Reading Console Input.
                                                             (line  13)
-* InputStream <1>:                       InputStream.       (line   5)
+* InputStream <1>:                       InputStream.       (line   6)
 * InputStream abstract class:            Stream Classes.    (line   6)
+* InputStream methods:                   InputStream Methods.
+                                                            (line   6)
 * InputStreamReader concrete subclass:   Reading Console Input.
                                                             (line  13)
 * instance variables:                    General Form.      (line  32)
@@ -9218,9 +9344,11 @@ Index
 * out:                                   Predefined Streams.
                                                             (line   6)
 * output stream:                         Streams.           (line   6)
-* OutputStream:                          OutputStream.      (line   5)
+* OutputStream:                          OutputStream.      (line   6)
 * OutputStream abstract class:           Stream Classes.    (line   6)
 * OutputStream as byte stream abstract class: Writing Console Output.
+                                                            (line   6)
+* OutputStream Methods:                  OutputStream Methods.
                                                             (line   6)
 * overload versus override:              Method Overriding. (line   6)
 * overload, overloaded:                  Overloading Methods.

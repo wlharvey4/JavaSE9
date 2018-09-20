@@ -15,7 +15,7 @@
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Byte-Streams.html#Byte-Streams" rel="up" title="Byte Streams">
 <link href="FileOutputStream.html#FileOutputStream" rel="next" title="FileOutputStream">
-<link href="OutputStream.html#OutputStream" rel="prev" title="OutputStream">
+<link href="OutputStream-Methods.html#OutputStream-Methods" rel="prev" title="OutputStream Methods">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -57,7 +57,19 @@ Next: <a href="FileOutputStream.html#FileOutputStream" accesskey="n" rel="next">
 <a name="FileInputStream-1"></a>
 <h4 class="subsection">15.7.3 <samp>FileInputStream</samp></h4>
 <a name="index-FileInputStream-1"></a>
+<a name="index-constructors-for-FileInputStream"></a>
+<a name="index-FileNotFoundException-1"></a>
 
+<p>The <samp>FileInputStream</samp> class creates an <samp>InputStream</samp> that you can
+use to read bytes from a file.  Two commonly used constructors are:
+</p>
+<div class="display">
+<pre class="display">FileInputStream(String <i>filePath</i>)
+FileInputStream(File <i>fileObj</i>)
+</pre></div>
+
+<p>Either can throw a <samp>FileNotFoundException</samp>.
+</p>
 
 
 

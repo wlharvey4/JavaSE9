@@ -14,7 +14,7 @@
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Byte-Streams.html#Byte-Streams" rel="up" title="Byte Streams">
-<link href="OutputStream.html#OutputStream" rel="next" title="OutputStream">
+<link href="InputStream-Methods.html#InputStream-Methods" rel="next" title="InputStream Methods">
 <link href="Byte-Streams.html#Byte-Streams" rel="prev" title="Byte Streams">
 <style type="text/css">
 <!--
@@ -58,7 +58,25 @@ Next: <a href="OutputStream.html#OutputStream" accesskey="n" rel="next">OutputSt
 <h4 class="subsection">15.7.1 <samp>InputStream</samp></h4>
 <a name="index-InputStream-1"></a>
 
+<p><samp>InputStream</samp> is an abstract class that defines Java&rsquo;s model of
+streaming byte input.  It implements the <samp>AutoCloseable</samp> and
+<samp>Closeable</samp> interfaces.  Most of the methods in this class will throw an
+<samp>IOException</samp> when an I/O error occurs.<a name="DOCF5" href="#FOOT5"><sup>5</sup></a>
+</p>
 
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="InputStream-Methods.html#InputStream-Methods" accesskey="1">InputStream Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT5" href="#DOCF5">(5)</a></h3>
+<p>The exceptions are
+<code>mark()</code> and <code>markSupported()</code>.</p>
+</div>
 
 
 
