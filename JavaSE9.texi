@@ -43,7 +43,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.2.4
+@set VERSION 0.2.5
 
 @iftex
 @set DOCUMENT book
@@ -565,7 +565,7 @@ Input/Output --- @file{java.io}
 
 * I/O Classes and Interfaces::
 * File::
-* AutoCloseable Closeable Flushable::
+* AutoCloseable Closeable Flushable Interfaces::
 * I/O Exceptions::
 * Closing a Stream::
 * Stream Classes::
@@ -4703,10 +4703,10 @@ by using a @file{PrintWriter} in the simple programs, however.
 @section Reading and Writing Files
 @cindex Files, Reading and Writing
 
-Java provides a number of class and methods that allow you to read and write
-files.  The purpose of this section is to introduce the basic techniques that
-read from and write to a file.  Although byte streams are used, these
-techniques can be adapted to the character-based streams.
+Java provides a number of classes and methods that allow you to read and
+write files.  The purpose of this section is to introduce the basic
+techniques that read from and write to a file.  Although byte streams are
+used, these techniques can be adapted to the character-based streams.
 
 @.....................................
 
@@ -4728,7 +4728,7 @@ Two of the most often-used stream classes are:
 @item
 @file{FileInputStream}
 @item
-@file{FielOutputStream}
+@file{FileOutputStream}
 @end itemize
 
 @noindent which create byte streams linked to files.
@@ -4741,12 +4741,12 @@ of the file as an argument to the constructor.  We will use the following
 constructors:
 
 @display
-FileInputStream(String @ii{fileName} throws FileNotFoundException
-FileOutputStream(String @ii{fileName} throws FileNotFoundException
+FileInputStream(String @ii{fileName}) throws FileNotFoundException
+FileOutputStream(String @ii{fileName}) throws FileNotFoundException
 @end display
 
-Note that when an output file is opened, any preexisting file by the sam name
-is destroyed.
+Note that when an output file is opened, any preexisting file by the same
+name is destroyed.
 
 @subheading Close a File
 @cindex file, close
@@ -7954,7 +7954,7 @@ Beginning with version 1.4, a second I/O system was added to Java, called
 @menu
 * I/O Classes and Interfaces::
 * File::
-* AutoCloseable Closeable Flushable::
+* AutoCloseable Closeable Flushable Interfaces::
 * I/O Exceptions::
 * Closing a Stream::
 * Stream Classes::
@@ -8812,12 +8812,17 @@ argument) and @code{false} for those that should be excluded.
 @cindex Creating Directories
 @cindex directories, creating
 
-
+@itemize
+@item
+boolean mkdir()
+@item
+boolen mkdirs()
+@end itemize
 
 
 @c -----------------------------------------------------------------------------
 
-@node AutoCloseable Closeable Flushable
+@node AutoCloseable Closeable Flushable Interfaces
 @section The @file{AutoCloseable}, @file{Closeable}, and @file{Flushable} Interfaces
 @cindex @file{AutoCloseable}
 @cindex @file{Closeable}
@@ -8830,6 +8835,30 @@ argument) and @code{false} for those that should be excluded.
 @section I/O Exceptions
 @cindex I/O Exceptions
 @cindex Exceptions, I/O
+@cindex @file{IOException}
+@cindex @file{FileNotFoundException}
+@cindex @code{catch} exception
+
+@subheading @file{IOException} and @file{FileNotFoundException}
+
+Two exceptions play an important role in I/O handling.  The first is
+@file{IOException}.  If an I/O error occurs, an @file{IOException} is
+thrown.  In many cases, if a file cannot be opened, a
+@file{FileNotFoundException} is thrown.  @file{FileNotFoundException} is a
+subclass of @file{IOException}, so both can be caught with a single
+@code{catch} that catches @file{IOException}.  You might find it useful to
+@code{catch} each exception separately.
+
+@subheading @file{SecurityException}
+@file{SecurityException}
+
+Another exception class that could occur during I/O is
+@file{SecurityException}.  In situations in which a security manager is
+present, several of the file classes will throw a @file{SecurityException} if
+a security violation occurs when attempting to open a file.  By default,
+application run via @file{java} do not use a security manager.  Other
+applications could generate a @file{SecurityExcpetion}, which will need to be
+handled.  
 
 
 @c -----------------------------------------------------------------------------
@@ -8837,6 +8866,94 @@ argument) and @code{false} for those that should be excluded.
 @node Closing a Stream
 @section Two Ways to Close a Stream
 @cindex closing a stream
+@cindex @code{close()}
+@cindex stream closing, traditional approach
+@cindex @code{finally} used to close a stream
+
+In general, a stream must be closed when it is no longer needed.  Failure to
+do so can lead to memory leaks and resource starvation.
+
+@subheading Traditional Method with @code{close()} in @code{finally}
+
+Beginning with JDK 7, there are two basic ways in which you can close a
+stream.  The first is to explicitly call @code{close()} on the stream.  This
+is the traditional approach that has been used since the original release of
+Java.  With this approach, @code{close()} is typically called within a
+@code{finally} block.  
+
+@float GeneralForm,CloseStreamWithClose
+@display
+try @{
+  open and access file @dots{}
+@} catch (@ii{IOException}) @{
+   handle @ii{IOException} @dots{}
+@} finally @{
+   close the file @dots{}
+@}
+@end display
+@caption{Simplified skeleton for traditional approach to close a stream}
+@shortcaption{Traditional Stream Close}
+@end float
+
+@subheading @code{try-with-resources} Statement
+@cindex @code{try-with-resources}
+@cindex stream closing using @code{try-with-resources}
+@cindex JDK 7, @code{try-with-resource}
+
+The second approach to closing a stream is to automate the process by using
+the @code{try-with-resources} statement added by JDK 7.  The
+@code{try-with-resources} is an enhanced form of @code{try} with the
+following form:
+
+@float GeneralForm,TryWithResourcesClose
+@display
+try (@ii{resource-specification}) @{
+  use the resource @dots{}
+@}
+@end display
+@caption{Closing a file using @code{try-with-resources} Statement}
+@shortcaption{@code{try-with-resources} Stream Close}
+@end float
+
+Typically, @emph{resource-specification} is a statement or statements that
+declare and initialize a resource, such as a file or other stream-related
+resource.  It consists of a variable declaration in which the variable is
+initialized with a reference to the object being managed.  When the
+@code{try} block ends, the resource is automatically released.  In the case
+of a file, the file is automatically closed (there is no need to call
+@code{close()}.
+
+@subheading @code{try-with-resources} Under JDK 9
+@cindex JDK 9, @code{try-with-resources}
+
+Beginning with JDK 9, it is also possible for the resource specification of
+the @code{try} to consist of a variable that has been declared and
+initialized earlier in the program.  However, that variable must be
+effectively @code{final}, which means that it has not been assigned a new
+value after being given its initial value.
+
+Here are three key points about @code{try-with-resources} statement:
+
+@itemize
+@item
+Resources must be objects of classes the implement @file{AutoCloseable}
+interface 
+@item
+A resource declared in @code{try} is @emph{implicitly} @code{final}, while a
+resource declared outside the @code{try} must be @emph{effectively}
+@code{final}.  
+@item
+More than one resource can be handled by separating each declaration with a
+semicolon.
+@end itemize
+
+@subheading Principal Advantages to using @code{try-with-resources}
+
+A principal advantage of @code{try-with-resources} is that the resource is
+closed automatically when the @code{try} block ends.  Thus, it is not
+possible to forget to close a stream.  Another advantage is that the
+@code{try-with-resources} approach typically results in shorter, clear,
+easier-to-maintain source code.
 
 
 @c -----------------------------------------------------------------------------

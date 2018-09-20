@@ -57,9 +57,101 @@ Next: <a href="Stream-Classes.html#Stream-Classes" accesskey="n" rel="next">Stre
 <a name="Two-Ways-to-Close-a-Stream"></a>
 <h3 class="section">15.5 Two Ways to Close a Stream</h3>
 <a name="index-closing-a-stream"></a>
+<a name="index-close_0028_0029-1"></a>
+<a name="index-stream-closing_002c-traditional-approach"></a>
+<a name="index-finally-used-to-close-a-stream"></a>
+
+<p>In general, a stream must be closed when it is no longer needed.  Failure to
+do so can lead to memory leaks and resource starvation.
+</p>
+<a name="Traditional-Method-with-close_0028_0029-in-finally"></a>
+<h4 class="subheading">Traditional Method with <code>close()</code> in <code>finally</code></h4>
+
+<p>Beginning with JDK 7, there are two basic ways in which you can close a
+stream.  The first is to explicitly call <code>close()</code> on the stream.  This
+is the traditional approach that has been used since the original release of
+Java.  With this approach, <code>close()</code> is typically called within a
+<code>finally</code> block.  
+</p>
+<div class="float"><a name="CloseStreamWithClose"></a>
+<div class="display">
+<pre class="display">try {
+  open and access file &hellip;
+} catch (<i>IOException</i>) {
+   handle <i>IOException</i> &hellip;
+} finally {
+   close the file &hellip;
+}
+</pre></div>
 
 
+<div class="float-caption"><p><strong>GeneralForm 15.6: </strong>Simplified skeleton for traditional approach to close a stream</p></div></div>
+<a name="try_002dwith_002dresources-Statement"></a>
+<h4 class="subheading"><code>try-with-resources</code> Statement</h4>
+<a name="index-try_002dwith_002dresources-2"></a>
+<a name="index-stream-closing-using-try_002dwith_002dresources"></a>
+<a name="index-JDK-7_002c-try_002dwith_002dresource"></a>
 
+<p>The second approach to closing a stream is to automate the process by using
+the <code>try-with-resources</code> statement added by JDK 7.  The
+<code>try-with-resources</code> is an enhanced form of <code>try</code> with the
+following form:
+</p>
+<div class="float"><a name="TryWithResourcesClose"></a>
+<div class="display">
+<pre class="display">try (<i>resource-specification</i>) {
+  use the resource &hellip;
+}
+</pre></div>
+
+
+<div class="float-caption"><p><strong>GeneralForm 15.7: </strong>Closing a file using <code>try-with-resources</code> Statement</p></div></div>
+<p>Typically, <em>resource-specification</em> is a statement or statements that
+declare and initialize a resource, such as a file or other stream-related
+resource.  It consists of a variable declaration in which the variable is
+initialized with a reference to the object being managed.  When the
+<code>try</code> block ends, the resource is automatically released.  In the case
+of a file, the file is automatically closed (there is no need to call
+<code>close()</code>.
+</p>
+<a name="try_002dwith_002dresources-Under-JDK-9"></a>
+<h4 class="subheading"><code>try-with-resources</code> Under JDK 9</h4>
+<a name="index-JDK-9_002c-try_002dwith_002dresources"></a>
+
+<p>Beginning with JDK 9, it is also possible for the resource specification of
+the <code>try</code> to consist of a variable that has been declared and
+initialized earlier in the program.  However, that variable must be
+effectively <code>final</code>, which means that it has not been assigned a new
+value after being given its initial value.
+</p>
+<p>Here are three key points about <code>try-with-resources</code> statement:
+</p>
+<ul>
+<li> Resources must be objects of classes the implement <samp>AutoCloseable</samp>
+interface 
+</li><li> A resource declared in <code>try</code> is <em>implicitly</em> <code>final</code>, while a
+resource declared outside the <code>try</code> must be <em>effectively</em>
+<code>final</code>.  
+</li><li> More than one resource can be handled by separating each declaration with a
+semicolon.
+</li></ul>
+
+<a name="Principal-Advantages-to-using-try_002dwith_002dresources"></a>
+<h4 class="subheading">Principal Advantages to using <code>try-with-resources</code></h4>
+
+<p>A principal advantage of <code>try-with-resources</code> is that the resource is
+closed automatically when the <code>try</code> block ends.  Thus, it is not
+possible to forget to close a stream.  Another advantage is that the
+<code>try-with-resources</code> approach typically results in shorter, clear,
+easier-to-maintain source code.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Stream-Classes.html#Stream-Classes" accesskey="n" rel="next">Stream Classes</a>, Previous: <a href="I_002fO-Exceptions.html#I_002fO-Exceptions" accesskey="p" rel="prev">I/O Exceptions</a>, Up: <a href="Input_002fOutput-java_002eio.html#Input_002fOutput-java_002eio" accesskey="u" rel="up">Input/Output java.io</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

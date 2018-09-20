@@ -348,7 +348,7 @@ Input/Output -- 'java.io'
 
 * I/O Classes and Interfaces::
 * File::
-* AutoCloseable Closeable Flushable::
+* AutoCloseable Closeable Flushable Interfaces::
 * I/O Exceptions::
 * Closing a Stream::
 * Stream Classes::
@@ -3490,11 +3490,11 @@ File: JavaSE9.info,  Node: Reading and Writing Files,  Next: Automatically Closi
 7.5 Reading and Writing Files
 =============================
 
-Java provides a number of class and methods that allow you to read and
-write files.  The purpose of this section is to introduce the basic
-techniques that read from and write to a file.  Although byte streams
-are used, these techniques can be adapted to the character-based
-streams.
+Java provides a number of classes and methods that allow you to read
+and write files.  The purpose of this section is to introduce the
+basic techniques that read from and write to a file.  Although byte
+streams are used, these techniques can be adapted to the
+character-based streams.
 
    .....................................
 
@@ -3514,7 +3514,7 @@ File: JavaSE9.info,  Node: FileInputStream and FileOutputStream,  Next: Demonstr
 Two of the most often-used stream classes are:
 
    * 'FileInputStream'
-   * 'FielOutputStream'
+   * 'FileOutputStream'
 
 which create byte streams linked to files.
 
@@ -3525,11 +3525,11 @@ To open a file, create an object of one of these clases, specifying
 the name of the file as an argument to the constructor.  We will use
 the following constructors:
 
-     FileInputStream(String fileName throws FileNotFoundException
-     FileOutputStream(String fileName throws FileNotFoundException
+     FileInputStream(String fileName) throws FileNotFoundException
+     FileOutputStream(String fileName) throws FileNotFoundException
 
    Note that when an output file is opened, any preexisting file by
-the sam name is destroyed.
+the same name is destroyed.
 
 Close a File
 ------------
@@ -5904,7 +5904,7 @@ its subpackages.  The NIO is described in *note NIO::.
 
 * I/O Classes and Interfaces::
 * File::
-* AutoCloseable Closeable Flushable::
+* AutoCloseable Closeable Flushable Interfaces::
 * I/O Exceptions::
 * Closing a Stream::
 * Stream Classes::
@@ -5983,7 +5983,7 @@ File: JavaSE9.info,  Node: I/O Interfaces,  Prev: I/O Classes,  Up: I/O Classes 
    * Serializable
 
 
-File: JavaSE9.info,  Node: File,  Next: AutoCloseable Closeable Flushable,  Prev: I/O Classes and Interfaces,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: File,  Next: AutoCloseable Closeable Flushable Interfaces,  Prev: I/O Classes and Interfaces,  Up: Input/Output java.io
 
 15.2 File
 =========
@@ -6537,23 +6537,122 @@ File: JavaSE9.info,  Node: Creating Directories,  Prev: listFiles() Alternative,
 15.2.8 Creating Directories
 ---------------------------
 
+   * boolean mkdir()
+   * boolen mkdirs()
+
 
-File: JavaSE9.info,  Node: AutoCloseable Closeable Flushable,  Next: I/O Exceptions,  Prev: File,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: AutoCloseable Closeable Flushable Interfaces,  Next: I/O Exceptions,  Prev: File,  Up: Input/Output java.io
 
 15.3 The 'AutoCloseable', 'Closeable', and 'Flushable' Interfaces
 =================================================================
 
 
-File: JavaSE9.info,  Node: I/O Exceptions,  Next: Closing a Stream,  Prev: AutoCloseable Closeable Flushable,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: I/O Exceptions,  Next: Closing a Stream,  Prev: AutoCloseable Closeable Flushable Interfaces,  Up: Input/Output java.io
 
 15.4 I/O Exceptions
 ===================
+
+'IOException' and 'FileNotFoundException'
+-----------------------------------------
+
+Two exceptions play an important role in I/O handling.  The first is
+'IOException'.  If an I/O error occurs, an 'IOException' is thrown.
+In many cases, if a file cannot be opened, a 'FileNotFoundException'
+is thrown.  'FileNotFoundException' is a subclass of 'IOException', so
+both can be caught with a single 'catch' that catches 'IOException'.
+You might find it useful to 'catch' each exception separately.
+
+'SecurityException'
+-------------------
+
+'SecurityException'
+
+   Another exception class that could occur during I/O is
+'SecurityException'.  In situations in which a security manager is
+present, several of the file classes will throw a 'SecurityException'
+if a security violation occurs when attempting to open a file.  By
+default, application run via 'java' do not use a security manager.
+Other applications could generate a 'SecurityExcpetion', which will
+need to be handled.
 
 
 File: JavaSE9.info,  Node: Closing a Stream,  Next: Stream Classes,  Prev: I/O Exceptions,  Up: Input/Output java.io
 
 15.5 Two Ways to Close a Stream
 ===============================
+
+In general, a stream must be closed when it is no longer needed.
+Failure to do so can lead to memory leaks and resource starvation.
+
+Traditional Method with 'close()' in 'finally'
+----------------------------------------------
+
+Beginning with JDK 7, there are two basic ways in which you can close
+a stream.  The first is to explicitly call 'close()' on the stream.
+This is the traditional approach that has been used since the original
+release of Java.  With this approach, 'close()' is typically called
+within a 'finally' block.
+
+     try {
+       open and access file ...
+     } catch (IOException) {
+        handle IOException ...
+     } finally {
+        close the file ...
+     }
+
+GeneralForm 15.6: Simplified skeleton for traditional approach to
+close a stream
+
+'try-with-resources' Statement
+------------------------------
+
+The second approach to closing a stream is to automate the process by
+using the 'try-with-resources' statement added by JDK 7.  The
+'try-with-resources' is an enhanced form of 'try' with the following
+form:
+
+     try (resource-specification) {
+       use the resource ...
+     }
+
+GeneralForm 15.7: Closing a file using 'try-with-resources' Statement
+
+   Typically, _resource-specification_ is a statement or statements
+that declare and initialize a resource, such as a file or other
+stream-related resource.  It consists of a variable declaration in
+which the variable is initialized with a reference to the object being
+managed.  When the 'try' block ends, the resource is automatically
+released.  In the case of a file, the file is automatically closed
+(there is no need to call 'close()'.
+
+'try-with-resources' Under JDK 9
+--------------------------------
+
+Beginning with JDK 9, it is also possible for the resource
+specification of the 'try' to consist of a variable that has been
+declared and initialized earlier in the program.  However, that
+variable must be effectively 'final', which means that it has not been
+assigned a new value after being given its initial value.
+
+   Here are three key points about 'try-with-resources' statement:
+
+   * Resources must be objects of classes the implement
+     'AutoCloseable' interface
+   * A resource declared in 'try' is _implicitly_ 'final', while a
+     resource declared outside the 'try' must be _effectively_
+     'final'.
+   * More than one resource can be handled by separating each
+     declaration with a semicolon.
+
+Principal Advantages to using 'try-with-resources'
+--------------------------------------------------
+
+A principal advantage of 'try-with-resources' is that the resource is
+closed automatically when the 'try' block ends.  Thus, it is not
+possible to forget to close a stream.  Another advantage is that the
+'try-with-resources' approach typically results in shorter, clear,
+easier-to-maintain source code.
 
 
 File: JavaSE9.info,  Node: Stream Classes,  Next: Byte Streams,  Prev: Closing a Stream,  Up: Input/Output java.io
@@ -7761,6 +7860,9 @@ List of General Forms
                                          'accept()' Form to be ...
 * GeneralForm 15.4: listFiles.           'File.listFiles()' Form
 * GeneralForm 15.5: FileFilter-accept(). FileFilter.accept() Method
+* GeneralForm 15.6: CloseStreamWithClose.Traditional Stream Close
+* GeneralForm 15.7: TryWithResourcesClose.
+                                         'try-with-resources' ...
 
 
 File: JavaSE9.info,  Node: Bibliography,  Next: Concept Index,  Prev: List of General Forms,  Up: Top
@@ -8268,7 +8370,7 @@ Index
                                                             (line  46)
 * AutoClosable interface:                FileInputStream and FileOutputStream.
                                                             (line  42)
-* AutoCloseable:                         AutoCloseable Closeable Flushable.
+* AutoCloseable:                         AutoCloseable Closeable Flushable Interfaces.
                                                             (line   6)
 * automatic resource management:         Automatically Closing Files.
                                                             (line   6)
@@ -8303,6 +8405,7 @@ Index
                                                             (line   6)
 * casts, eliminated in generics:         Type Safety.       (line   6)
 * casts, generics, automatic, implicit:  What are Generics. (line   6)
+* catch exception:                       I/O Exceptions.    (line   6)
 * Character Stream Class:                Character Stream Class.
                                                             (line   6)
 * Character Streams:                     Character Streams. (line   5)
@@ -8334,11 +8437,12 @@ Index
 * CLASSPATH -classpath:                  Classpath.         (line   6)
 * close():                               FileInputStream and FileOutputStream.
                                                             (line  29)
+* close() <1>:                           Closing a Stream.  (line   6)
 * close() Within finally:                close() Within finally.
                                                             (line   6)
-* Closeable:                             AutoCloseable Closeable Flushable.
+* Closeable:                             AutoCloseable Closeable Flushable Interfaces.
                                                             (line   6)
-* closing a stream:                      Closing a Stream.  (line   5)
+* closing a stream:                      Closing a Stream.  (line   6)
 * Collections Framework:                 Generics.          (line   6)
 * collections, generics:                 Generics.          (line   6)
 * collisions, prevention:                Packages.          (line   6)
@@ -8377,7 +8481,7 @@ Index
 * directories:                           File.              (line  17)
 * Directories:                           Directories.       (line   6)
 * directories, creating:                 Creating Directories.
-                                                            (line   5)
+                                                            (line   6)
 * directory contents, examine using list(): Examine Directory Contents.
                                                             (line   6)
 * dispatch through an interface:         Interface References.
@@ -8437,7 +8541,7 @@ Index
                                                             (line   6)
 * exceptions for I/O errors:             Demonstration Writing to a File.
                                                             (line   6)
-* Exceptions, I/O:                       I/O Exceptions.    (line   5)
+* Exceptions, I/O:                       I/O Exceptions.    (line   6)
 * exposure of code:                      Packages Intro.    (line   6)
 * extending interfaces:                  Extending Interfaces.
                                                             (line   6)
@@ -8466,6 +8570,7 @@ Index
                                                             (line   6)
 * FilenameFilter:                        FilenameFilter.    (line   6)
 * FilenameFilter interface:              FilenameFilter.    (line   6)
+* FileNotFoundException:                 I/O Exceptions.    (line   6)
 * FileOutputStream:                      FileInputStream and FileOutputStream.
                                                             (line   6)
 * files:                                 File.              (line  17)
@@ -8480,8 +8585,9 @@ Index
 * final with inheritance:                final with Inheritance.
                                                             (line   6)
 * final, traditional enums:              Enumerations.      (line   6)
+* finally used to close a stream:        Closing a Stream.  (line   6)
 * finding packages:                      Classpath.         (line   6)
-* Flushable:                             AutoCloseable Closeable Flushable.
+* Flushable:                             AutoCloseable Closeable Flushable Interfaces.
                                                             (line   5)
 * flushing:                              PrinterWriter Constructors.
                                                             (line   6)
@@ -8660,6 +8766,7 @@ Index
 * introduction to Java SE 9:             Java SE 9 Introduction.
                                                             (line   5)
 * Introduction to Packages (section):    Packages Intro.    (line   6)
+* IOException:                           I/O Exceptions.    (line   6)
 * iteration, iterative:                  Recursion.         (line   6)
 * J2SE 5.0:                              Generics.          (line   6)
 * Java I/O system:                       Streams.           (line   6)
@@ -8680,6 +8787,7 @@ Index
 * java.util Utility Classes:             java util Utility Classes.
                                                             (line   5)
 * JDK 5:                                 Enumerations.      (line   6)
+* JDK 7, try-with-resource:              Closing a Stream.  (line  32)
 * JDK 8, default method in interface:    Default Interface Methods.
                                                             (line   6)
 * JDK 8, static interface method:        Interface Static Methods.
@@ -8687,6 +8795,7 @@ Index
 * JDK 9, package part of module:         Classpath.         (line   6)
 * JDK 9, private interface method:       Private Interface Methods.
                                                             (line   6)
+* JDK 9, try-with-resources:             Closing a Stream.  (line  54)
 * keyword extends:                       Inheritance Basics.
                                                             (line   6)
 * keyword final:                         final Keyword.     (line   6)
@@ -8901,6 +9010,9 @@ Index
 * Stream Class, Character:               Character Stream Class.
                                                             (line   6)
 * Stream Classes:                        Stream Classes.    (line   5)
+* stream closing using try-with-resources: Closing a Stream.
+                                                            (line  32)
+* stream closing, traditional approach:  Closing a Stream.  (line   6)
 * stream definition:                     Streams.           (line   6)
 * stream variables, predefined:          Predefined Streams.
                                                             (line   6)
@@ -8952,6 +9064,7 @@ Index
 * try-with-resources:                    I/O.               (line   6)
 * try-with-resources <1>:                Automatically Closing Files.
                                                             (line   6)
+* try-with-resources <2>:                Closing a Stream.  (line  32)
 * try-with-resources multiple resources: Automatically Closing Files.
                                                             (line  54)
 * type abstraction, generics:            Generics.          (line   6)

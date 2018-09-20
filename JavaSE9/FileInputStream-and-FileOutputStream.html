@@ -63,7 +63,7 @@ Next: <a href="Demonstration-Reading-From-a-File.html#Demonstration-Reading-From
 </p>
 <ul>
 <li> <samp>FileInputStream</samp>
-</li><li> <samp>FielOutputStream</samp>
+</li><li> <samp>FileOutputStream</samp>
 </li></ul>
 
 <p>which create byte streams linked to files.
@@ -77,12 +77,12 @@ of the file as an argument to the constructor.  We will use the following
 constructors:
 </p>
 <div class="display">
-<pre class="display">FileInputStream(String <i>fileName</i> throws FileNotFoundException
-FileOutputStream(String <i>fileName</i> throws FileNotFoundException
+<pre class="display">FileInputStream(String <i>fileName</i>) throws FileNotFoundException
+FileOutputStream(String <i>fileName</i>) throws FileNotFoundException
 </pre></div>
 
-<p>Note that when an output file is opened, any preexisting file by the sam name
-is destroyed.
+<p>Note that when an output file is opened, any preexisting file by the same
+name is destroyed.
 </p>
 <a name="Close-a-File"></a>
 <h4 class="subheading">Close a File</h4>
