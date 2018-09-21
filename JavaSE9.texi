@@ -674,7 +674,7 @@ Buffered Reader Demo
 Serialization
 
 * Serializable::
-* Externalize::
+* Externalizable::
 * ObjectOutput::
 * ObjectOutputStream::
 * ObjectInput::
@@ -10284,12 +10284,29 @@ BufferedWriter (Writer @ii{outputStream}, int @ii{bufSize})
 @node Serialization
 @section Serialization
 @cindex Serialization
+@cindex directed graph
+
+@dfn{Serialization} is the process of writing the state of an object to a
+byte stream.  This is useful when you want to save the state of your program
+to a persistent storage area, such as a file.  At a later time, you may
+restore these objects by using the process of deserialization.
+
+Assume that an object to be serialized has references to other objects,
+which, in turn, have references to still more objects.  This set of objects
+and the relationships among them form a directed graph.  There may also be
+circular references within this object graph.  Objects may also contain
+references to themselves.  The object serialization and deserialization
+facilities have been designed to work correctly in these scenarios.  If you
+attempt to serialize an object at the top of an object graph, all of the
+other referenced objects are recurseively located and serialized.  Similarly,
+during the process of deserialization, all of these objects and their
+references are correctly restored.
 
 @c .....................................
 
 @menu
 * Serializable::
-* Externalize::
+* Externalizable::
 * ObjectOutput::
 * ObjectOutputStream::
 * ObjectInput::
@@ -10299,13 +10316,40 @@ BufferedWriter (Writer @ii{outputStream}, int @ii{bufSize})
 
 @node Serializable
 @subsection @file{Serializable}
-@cindex @file{Serializable}
+@cindex @file{Serializable} interface
+@cindex @code{transient} variable, not serialized
+@cindex @code{static} variable, not serialized
+
+Only an object that implements the @file{Serializable} interface can be saved
+and restored by the serialization facilities.  The @file{Serializable}
+interface defines no members.  It is simply used to indicate that a class may
+be serialized.  If a class is serializable, all of its subclasses are also
+serializable.
+
+Variables that are declared as @code{transient} are not saved by the
+serialization facilities.  Also @code{static} variables are not saved.
 
 @c .....................................
 
-@node Externalize
-@subsection @file{Externalize}
-@cindex @file{Externalize}
+@node Externalizable
+@subsection @file{Externalizable}
+@cindex @file{Externalizable}
+@cindex @code{readExternal()}
+@cindex @code{writeExternal()}
+
+The Java facilities for serialization and deserialization have been designed
+so that much of the work to save and restore the state of an object occurs
+automatically.  However, there are cases in which the programmer may need to
+have control over these processes.  The @file{Externalizable} interface is
+designed for these sitautions.
+
+The @file{Externalizable} interface defines these two methods:
+
+@display
+void readExternal (ObjectInput @ii{inStream}) throws IOException, ClassNotFoundException
+void writeExternal (ObjectOutput @ii{outStream} throws IOException
+@end display
+
 
 @c .....................................
 

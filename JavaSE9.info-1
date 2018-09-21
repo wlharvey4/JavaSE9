@@ -457,7 +457,7 @@ Buffered Reader Demo
 Serialization
 
 * Serializable::
-* Externalize::
+* Externalizable::
 * ObjectOutput::
 * ObjectOutputStream::
 * ObjectInput::
@@ -7690,10 +7690,28 @@ File: JavaSE9.info,  Node: Serialization,  Next: Stream Benefits,  Prev: Console
 15.10 Serialization
 ===================
 
+"Serialization" is the process of writing the state of an object to a
+byte stream.  This is useful when you want to save the state of your
+program to a persistent storage area, such as a file.  At a later
+time, you may restore these objects by using the process of
+deserialization.
+
+   Assume that an object to be serialized has references to other
+objects, which, in turn, have references to still more objects.  This
+set of objects and the relationships among them form a directed graph.
+There may also be circular references within this object graph.
+Objects may also contain references to themselves.  The object
+serialization and deserialization facilities have been designed to
+work correctly in these scenarios.  If you attempt to serialize an
+object at the top of an object graph, all of the other referenced
+objects are recurseively located and serialized.  Similarly, during
+the process of deserialization, all of these objects and their
+references are correctly restored.
+
 * Menu:
 
 * Serializable::
-* Externalize::
+* Externalizable::
 * ObjectOutput::
 * ObjectOutputStream::
 * ObjectInput::
@@ -7701,19 +7719,39 @@ File: JavaSE9.info,  Node: Serialization,  Next: Stream Benefits,  Prev: Console
 * Serializable Example::
 
 
-File: JavaSE9.info,  Node: Serializable,  Next: Externalize,  Up: Serialization
+File: JavaSE9.info,  Node: Serializable,  Next: Externalizable,  Up: Serialization
 
 15.10.1 'Serializable'
 ----------------------
 
-
-File: JavaSE9.info,  Node: Externalize,  Next: ObjectOutput,  Prev: Serializable,  Up: Serialization
+Only an object that implements the 'Serializable' interface can be
+saved and restored by the serialization facilities.  The
+'Serializable' interface defines no members.  It is simply used to
+indicate that a class may be serialized.  If a class is serializable,
+all of its subclasses are also serializable.
 
-15.10.2 'Externalize'
----------------------
+   Variables that are declared as 'transient' are not saved by the
+serialization facilities.  Also 'static' variables are not saved.
 
 
-File: JavaSE9.info,  Node: ObjectOutput,  Next: ObjectOutputStream,  Prev: Externalize,  Up: Serialization
+File: JavaSE9.info,  Node: Externalizable,  Next: ObjectOutput,  Prev: Serializable,  Up: Serialization
+
+15.10.2 'Externalizable'
+------------------------
+
+The Java facilities for serialization and deserialization have been
+designed so that much of the work to save and restore the state of an
+object occurs automatically.  However, there are cases in which the
+programmer may need to have control over these processes.  The
+'Externalizable' interface is designed for these sitautions.
+
+   The 'Externalizable' interface defines these two methods:
+
+     void readExternal (ObjectInput inStream) throws IOException, ClassNotFoundException
+     void writeExternal (ObjectOutput outStream throws IOException
+
+
+File: JavaSE9.info,  Node: ObjectOutput,  Next: ObjectOutputStream,  Prev: Externalizable,  Up: Serialization
 
 15.10.3 'ObjectOutput'
 ----------------------

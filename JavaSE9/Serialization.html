@@ -57,12 +57,29 @@ Next: <a href="Stream-Benefits.html#Stream-Benefits" accesskey="n" rel="next">St
 <a name="Serialization-1"></a>
 <h3 class="section">15.10 Serialization</h3>
 <a name="index-Serialization"></a>
+<a name="index-directed-graph"></a>
 
+<p><em>Serialization</em> is the process of writing the state of an object to a
+byte stream.  This is useful when you want to save the state of your program
+to a persistent storage area, such as a file.  At a later time, you may
+restore these objects by using the process of deserialization.
+</p>
+<p>Assume that an object to be serialized has references to other objects,
+which, in turn, have references to still more objects.  This set of objects
+and the relationships among them form a directed graph.  There may also be
+circular references within this object graph.  Objects may also contain
+references to themselves.  The object serialization and deserialization
+facilities have been designed to work correctly in these scenarios.  If you
+attempt to serialize an object at the top of an object graph, all of the
+other referenced objects are recurseively located and serialized.  Similarly,
+during the process of deserialization, all of these objects and their
+references are correctly restored.
+</p>
 
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="Serializable.html#Serializable" accesskey="1">Serializable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Externalize.html#Externalize" accesskey="2">Externalize</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="Externalizable.html#Externalizable" accesskey="2">Externalizable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="ObjectOutput.html#ObjectOutput" accesskey="3">ObjectOutput</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>

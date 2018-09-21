@@ -3,10 +3,10 @@
 <!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Serializable (About Java SE 9)</title>
+<title>Externalizable (About Java SE 9)</title>
 
-<meta name="description" content="Serializable (About Java SE 9)">
-<meta name="keywords" content="Serializable (About Java SE 9)">
+<meta name="description" content="Externalizable (About Java SE 9)">
+<meta name="keywords" content="Externalizable (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -14,8 +14,8 @@
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Serialization.html#Serialization" rel="up" title="Serialization">
-<link href="Externalizable.html#Externalizable" rel="next" title="Externalizable">
-<link href="Serialization.html#Serialization" rel="prev" title="Serialization">
+<link href="ObjectOutput.html#ObjectOutput" rel="next" title="ObjectOutput">
+<link href="Serializable.html#Serializable" rel="prev" title="Serializable">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -48,27 +48,32 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<a name="Serializable"></a>
+<a name="Externalizable"></a>
 <div class="header">
 <p>
-Next: <a href="Externalizable.html#Externalizable" accesskey="n" rel="next">Externalizable</a>, Up: <a href="Serialization.html#Serialization" accesskey="u" rel="up">Serialization</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="ObjectOutput.html#ObjectOutput" accesskey="n" rel="next">ObjectOutput</a>, Previous: <a href="Serializable.html#Serializable" accesskey="p" rel="prev">Serializable</a>, Up: <a href="Serialization.html#Serialization" accesskey="u" rel="up">Serialization</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<a name="Serializable-1"></a>
-<h4 class="subsection">15.10.1 <samp>Serializable</samp></h4>
-<a name="index-Serializable-interface"></a>
-<a name="index-transient-variable_002c-not-serialized"></a>
-<a name="index-static-variable_002c-not-serialized"></a>
+<a name="Externalizable-1"></a>
+<h4 class="subsection">15.10.2 <samp>Externalizable</samp></h4>
+<a name="index-Externalizable"></a>
+<a name="index-readExternal_0028_0029"></a>
+<a name="index-writeExternal_0028_0029"></a>
 
-<p>Only an object that implements the <samp>Serializable</samp> interface can be saved
-and restored by the serialization facilities.  The <samp>Serializable</samp>
-interface defines no members.  It is simply used to indicate that a class may
-be serialized.  If a class is serializable, all of its subclasses are also
-serializable.
+<p>The Java facilities for serialization and deserialization have been designed
+so that much of the work to save and restore the state of an object occurs
+automatically.  However, there are cases in which the programmer may need to
+have control over these processes.  The <samp>Externalizable</samp> interface is
+designed for these sitautions.
 </p>
-<p>Variables that are declared as <code>transient</code> are not saved by the
-serialization facilities.  Also <code>static</code> variables are not saved.
+<p>The <samp>Externalizable</samp> interface defines these two methods:
 </p>
+<div class="display">
+<pre class="display">void readExternal (ObjectInput <i>inStream</i>) throws IOException, ClassNotFoundException
+void writeExternal (ObjectOutput <i>outStream</i> throws IOException
+</pre></div>
+
+
 
 
 
