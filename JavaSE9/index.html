@@ -137,6 +137,8 @@ Next: <a href="Java-SE-9-Introduction.html#Java-SE-9-Introduction" accesskey="n"
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="Regular-Expressions.html#Regular-Expressions">Regular Expressions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Reflection.html#Reflection">Reflection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
 <tr><td align="left" valign="top">&bull; <a href="Swing.html#Swing">Swing</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="The-Makefile.html#The-Makefile">The Makefile</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
@@ -875,6 +877,34 @@ Serialization
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
+Drawbacks of Reflection
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="java_002elang_002ereflect-Package.html#java_002elang_002ereflect-Package">java.lang.reflect Package</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Classes-and-Reflection.html#Classes-and-Reflection">Classes and Reflection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Classes and Reflection
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Retrieving-Class-Objects.html#Retrieving-Class-Objects">Retrieving Class Objects</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Retrieving Class Objects
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Object_002egetClass_0028_0029.html#Object_002egetClass_0028_0029">Object.getClass()</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="_002eclass-Syntax.html#g_t_002eclass-Syntax">.class Syntax</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods.html#Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods">Class.forName() and Class.getName() Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="TYPE-Field-for-Primitive-Wrappers.html#TYPE-Field-for-Primitive-Wrappers">TYPE Field for Primitive Wrappers</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Methods-that-Return-Classes.html#Methods-that-Return-Classes">Methods that Return Classes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
 The Makefile
 
 </pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Makefile-Constants.html#Makefile-Constants">Makefile Constants</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
@@ -958,8 +988,9 @@ Code Chunk Summaries
 <li><a name="stoc-Images-1" href="#toc-Images-1">21 Images</a></li>
 <li><a name="stoc-The-Concurrency-Utilities" href="#toc-The-Concurrency-Utilities">22 The Concurrency Utilities</a></li>
 <li><a name="stoc-The-Stream-API" href="#toc-The-Stream-API">23 The Stream API</a></li>
-<li><a name="stoc-Regular-Expressions-and-Other-Packages" href="#toc-Regular-Expressions-and-Other-Packages">24 Regular Expressions and Other Packages</a></li>
-<li><a name="stoc-Introducinvg-Swing" href="#toc-Introducinvg-Swing">25 Introducinvg Swing</a></li>
+<li><a name="stoc-Regular-Expressions-1" href="#toc-Regular-Expressions-1">24 Regular Expressions</a></li>
+<li><a name="stoc-Reflection-1" href="#toc-Reflection-1">25 Reflection</a></li>
+<li><a name="stoc-Introducinvg-Swing" href="#toc-Introducinvg-Swing">26 Introducinvg Swing</a></li>
 </ul></li>
 <li><a name="stoc-The-Makefile-1" href="#toc-The-Makefile-1">Appendix A The Makefile</a></li>
 <li><a name="stoc-Code-Chunk-Summaries-1" href="#toc-Code-Chunk-Summaries-1">Appendix B Code Chunk Summaries</a></li>
@@ -1364,8 +1395,23 @@ Code Chunk Summaries
   <li><a name="toc-Images-1" href="Images.html#Images">21 Images</a></li>
   <li><a name="toc-The-Concurrency-Utilities" href="Concurrency.html#Concurrency">22 The Concurrency Utilities</a></li>
   <li><a name="toc-The-Stream-API" href="Streams-API.html#Streams-API">23 The Stream API</a></li>
-  <li><a name="toc-Regular-Expressions-and-Other-Packages" href="Regular-Expressions.html#Regular-Expressions">24 Regular Expressions and Other Packages</a></li>
-  <li><a name="toc-Introducinvg-Swing" href="Swing.html#Swing">25 Introducinvg Swing</a></li>
+  <li><a name="toc-Regular-Expressions-1" href="Regular-Expressions.html#Regular-Expressions">24 Regular Expressions</a></li>
+  <li><a name="toc-Reflection-1" href="Reflection.html#Reflection">25 Reflection</a>
+  <ul class="no-bullet">
+    <li><a name="toc-java_002elang_002ereflect-Package-1" href="java_002elang_002ereflect-Package.html#java_002elang_002ereflect-Package">25.1 <samp>java.lang.reflect</samp> Package</a></li>
+    <li><a name="toc-Classes-and-Reflection-1" href="Classes-and-Reflection.html#Classes-and-Reflection">25.2 Classes and Reflection</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Retrieving-Class-Objects-1" href="Retrieving-Class-Objects.html#Retrieving-Class-Objects">25.2.1 Retrieving Class Objects</a>
+      <ul class="no-bullet">
+        <li><a name="toc-Object_002egetClass_0028_0029-1" href="Object_002egetClass_0028_0029.html#Object_002egetClass_0028_0029">25.2.1.1 <code>Object.getClass()</code></a></li>
+        <li><a name="toc-The-_002eclass-Syntax" href="_002eclass-Syntax.html#g_t_002eclass-Syntax">25.2.1.2 The <code>.class</code> Syntax</a></li>
+        <li><a name="toc-Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods-1" href="Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods.html#Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods">25.2.1.3 <code>Class.forName()</code> and <code>Class.getName()</code> Methods</a></li>
+        <li><a name="toc-TYPE-Field-for-Primitive-Type-Wrappers" href="TYPE-Field-for-Primitive-Wrappers.html#TYPE-Field-for-Primitive-Wrappers">25.2.1.4 TYPE Field for Primitive Type Wrappers</a></li>
+        <li><a name="toc-Methods-that-Return-Classes-1" href="Methods-that-Return-Classes.html#Methods-that-Return-Classes">25.2.1.5 Methods that Return Classes</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-Introducinvg-Swing" href="Swing.html#Swing">26 Introducinvg Swing</a></li>
 </ul></li>
   <li><a name="toc-The-Makefile-1" href="The-Makefile.html#The-Makefile">Appendix A The Makefile</a>
   <ul class="no-bullet">

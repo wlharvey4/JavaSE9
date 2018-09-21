@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Methods that Return Classes (About Java SE 9)</title>
+
+<meta name="description" content="Methods that Return Classes (About Java SE 9)">
+<meta name="keywords" content="Methods that Return Classes (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Retrieving-Class-Objects.html#Retrieving-Class-Objects" rel="up" title="Retrieving Class Objects">
+<link href="Swing.html#Swing" rel="next" title="Swing">
+<link href="TYPE-Field-for-Primitive-Wrappers.html#TYPE-Field-for-Primitive-Wrappers" rel="prev" title="TYPE Field for Primitive Wrappers">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Methods-that-Return-Classes"></a>
+<div class="header">
+<p>
+Previous: <a href="TYPE-Field-for-Primitive-Wrappers.html#TYPE-Field-for-Primitive-Wrappers" accesskey="p" rel="prev">TYPE Field for Primitive Wrappers</a>, Up: <a href="Retrieving-Class-Objects.html#Retrieving-Class-Objects" accesskey="u" rel="up">Retrieving Class Objects</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Methods-that-Return-Classes-1"></a>
+<h4 class="subsubsection">25.2.1.5 Methods that Return Classes</h4>
+
+<p>There are several <samp>Reflection</samp> APIs which return classes, but these may
+only be accessed if a <samp>Class</samp> has already been obtained, either directly
+or indirectly.
+</p>
+<a name="Class_002egetSuperClass_0028_0029"></a>
+<h4 class="subsubheading"><code>Class.getSuperClass()</code></h4>
+<a name="index-getSuperClass_0028_0029"></a>
+
+<p>Returns the super class for the given class.
+</p>
+<div class="example">
+<pre class="example">Class c = javax.swing.JButton.class.getSuperclass();
+</pre></div>
+
+<a name="Class_002egetClasses_0028_0029"></a>
+<h4 class="subsubheading"><code>Class.getClasses()</code></h4>
+<a name="index-Class_002egetClasses_0028_0029"></a>
+
+<p>Returns all the public classes, interfaces, and enums that are members of the
+class including inherited members.
+</p>
+<div class="example">
+<pre class="example">Class&lt;?&gt;[] c = Character.class.getClasses();
+</pre></div>
+
+<a name="Class_002egetDeclaredClasses_0028_0029"></a>
+<h4 class="subsubheading"><code>Class.getDeclaredClasses()</code></h4>
+<a name="index-getDeclaredClasses_0028_0029"></a>
+
+<p>Returns all of the classes interfaces, and enums that are explicitly declared
+in this class.
+</p>
+<div class="example">
+<pre class="example">Class&lt;?&gt;[] c = Character.class.getDeclaredClasses();
+</pre></div>
+
+<a name="Class_002egetDeclaringClass_0028_0029"></a>
+<h4 class="subsubheading"><code>Class.getDeclaringClass()</code></h4>
+<a name="index-getDeclaringClass_0028_0029"></a>
+
+<div class="display">
+<pre class="display">java.lang.reflect.Field.getDeclaringClass()
+java.lang.reflect.Method.getDeclaringClass()
+java.lang.reflect.Constructor.getDeclaringClass()
+</pre></div>
+
+<p>Returns the <samp>Class</samp> in which these members were
+declared. <samp>Anonymous Class Declarations</samp> will not have a declaring class
+but will have an enclosing class.
+</p>
+<div class="example">
+<pre class="example">import java.lang.reflect.Field;
+
+Field f = System.class.getField(&quot;out&quot;);
+Class c = f.getDeclaringClass();
+</pre></div>
+
+<p>The field out is declared in <samp>System</samp>.
+</p>
+<div class="example">
+<pre class="example">public class MyClass {
+    static Object o = new Object() {
+        public void m() {}
+    };
+    static Class&lt;c&gt; = o.getClass().getEnclosingClass();
+}
+</pre></div>
+
+<p>The declaring class of the anonymous class defined by <code>o</code> is <code>null</code>
+</p>
+<a name="Class_002egetEnclosingClass_0028_0029"></a>
+<h4 class="subsubheading"><code>Class.getEnclosingClass()</code></h4>
+<a name="index-getEnclosingClass_0028_0029"></a>
+
+<p>Returns the immediately enclosing class of the class.
+</p>
+<div class="example">
+<pre class="example">Class c = Thread.State.class().getEnclosingClass();
+</pre></div>
+
+<p>The enclosing class of the enum <samp>Thread.State</samp> is <samp>Thread</samp>.
+</p>
+<div class="example">
+<pre class="example">public class MyClass {
+    static Object o = new Object() {
+        public void m() {} 
+    };
+    static Class&lt;c&gt; = o.getClass().getEnclosingClass();
+}
+</pre></div>
+
+<p>The anonymous class defined by <code>o</code> is enclosed by <code>MyClass</code>.
+</p>
+
+
+
+
+
+</body>
+</html>

@@ -43,7 +43,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.2.6
+@set VERSION 0.2.7
 
 @iftex
 @set DOCUMENT book
@@ -251,6 +251,7 @@ This file documents @value{TITLE}.
 * Concurrency::
 * Streams API::
 * Regular Expressions::
+* Reflection::
 * Swing::
 * The Makefile::
 * Code Chunk Summaries::
@@ -680,6 +681,23 @@ Serialization
 * ObjectInput::
 * ObjectInputStream::
 * Serializable Example::
+
+Drawbacks of Reflection
+
+* java.lang.reflect Package::
+* Classes and Reflection::
+
+Classes and Reflection
+
+* Retrieving Class Objects::
+
+Retrieving Class Objects
+
+* Object.getClass()::
+* .class Syntax::
+* Class.forName() and Class.getName() Methods::
+* TYPE Field for Primitive Wrappers::
+* Methods that Return Classes::
 
 The Makefile
 
@@ -1842,7 +1860,7 @@ that other non-static members of the outer class do.
 
 An instance of an inner class can be created only in the context of its
 enclosing class.  The Java compiler will report an error otherwise.  In
-general, an inner class instance is often creaed by code wihtin its enclosing
+general, an inner class instance is often creaed by code within its enclosing
 scope.
 
 It is possible to define inner classes within any block scope, including
@@ -8166,7 +8184,7 @@ The @file{File} class does not operate on streams.  It deals directly with
 files and the file system.  The @file{File} class does not specify how
 information is retrieved from or stored in files; rather, it describes the
 properties of a file itself.  A @file{File} object is used to obtain or
-manipulate the information associated wiht a disk file, such as the
+manipulate the information associated with a disk file, such as the
 permissions, time, date, and directory path, and to navigate subdirectory
 hierarchies.@footnote{The @file{Path} interface and @file{Files} class, part
 of the @acronym{NIO} system, offer a powerful alternative to @file{File}. 
@@ -10467,9 +10485,394 @@ void writeExternal (ObjectOutput @ii{outStream} throws IOException
 @c *****************************************************************************
 
 @node Regular Expressions
-@chapter Regular Expressions and Other Packages
+@chapter Regular Expressions
 @cindex Regular Expressions
 
+
+
+@c *****************************************************************************
+
+@node Reflection
+@chapter Reflection
+@cindex Reflection
+@cindex @file{java.lang.reflect} package
+@cindex @file{Class}
+@cindex JDK 9
+@cindex @file{java.base} module
+
+@dfn{Reflection} is the ability of software to analyze or modify itself at
+runtime rather than at compile time.  This is provided by the
+@file{java.lang.reflect} package and elements in @file{Class}.  Beginning
+with JDK 9, @file{java.lang.reflect} is part of the @file{java.base} module.
+Reflection allows you to analyze a software component and describe its
+capabilities dynamcically at run-time rather than at compile time.  For
+example, by using reflection, you can determine what methods, constructors,
+and fields a class supports.
+
+@heading Drawbacks of Reflection
+
+Because reflection is dynamic, the java virtual machine is unable to make
+certain optimizations and could therefor run slower.  Also, since reflection
+allows code to perform operations that would be illegal in non-reflective
+code, such as accessing private fields and methods, the use of reflection can
+result in unexpected behavior.  Reflection breaks abstractions.
+
+@c -----------------------------------------------------------------------------
+
+@menu
+* java.lang.reflect Package::
+* Classes and Reflection::
+@end menu
+
+@node java.lang.reflect Package
+@section @file{java.lang.reflect} Package
+@cindex @file{java.lang.reflect} Package
+@cindex @file{Member} interface
+
+The package @file{java.lang.reflect} includes several interfaces.  Of special
+interest is @file{Member}, which defines methods that allow you to get
+information abouta field, constructor, or method of a class.  There are also
+ten classes in this package.
+
+@subheading Classes Defined in @file{java.lang.reflect}
+
+@float Table,java-lang-reflect-Classes
+@table @b
+@item AccessibleObject
+Allows you to bypass the default access control checks
+@item Array
+Allows you to dynamically create and manipulate arrays
+@item Constructor
+Provides information about a constructor
+@item Executable
+An abstract superclass extended by @file{Member} and @file{Constructor}
+@item Field
+Provides information about a field
+@item Method
+Provides information about a method
+@item Modifier
+Provides information about class and member access modifiers
+@item Parameter
+Provides information about parameters
+@item Proxy
+Supports dynamic proxy classes
+@item ReflectPermission
+Allows reflection of private or protected members of a class
+@end table
+@caption{Classes Defined in @file{java.lang.reflect}}
+@end float
+
+
+
+@c -----------------------------------------------------------------------------
+
+@node Classes and Reflection
+@section Classes and Reflection
+@cindex Classes and Reflection
+@cindex @file{java.lang.Class}
+
+For every type of object, the Java virtual machine instantiates an immutable
+instance of @file{java.lang.Class} which provides methods to examine the
+runtime properties of the object including its members and type information.
+
+@file{Class} also provides the ability to create new classes and objects.
+Most importantly, it is the entry point for all of the Reflective APIs.
+
+
+@c .....................................
+
+@menu
+* Retrieving Class Objects::
+@end menu
+
+@node Retrieving Class Objects
+@subsection Retrieving Class Objects
+@cindex @file{java.lang.Class}
+@cindex @file{Class}
+
+The entry point for all reflection operations is @file{java.lang.Class}.
+None of the classes in @file{java.lang.reflect} have public constructors.
+@footnote{with the exception of @file{java.lang.reflect.ReflectPermission}.}
+To get to these classes, it is necessary to invoke appropriate methods on
+@file{Class}.  There are several ways to get a @file{Class} depending on
+whether the code has access to an object, the name of the class, a type, or
+an existing @file{Class}.
+
+@c _____________________________________
+
+@menu
+* Object.getClass()::
+* .class Syntax::
+* Class.forName() and Class.getName() Methods::
+* TYPE Field for Primitive Wrappers::
+* Methods that Return Classes::
+@end menu
+
+@node Object.getClass()
+@subsubsection @code{Object.getClass()}
+@cindex @code{Object.getClass()}
+
+If an instance of an object is available, then the simplest way to get its
+@file{Class} is to invoke @code{Object.getClass()}.
+
+@subsubheading String.getClass()
+
+@example
+Class c = "foo".getClass();
+@end example
+
+@noindent returns the @file{Class} for @file{String};
+
+@subsubheading System.console.getClass()
+
+@example
+Class c = System.console().getClass();
+@end example
+
+@noindent
+returns the @file{Class} corresponding to @file{java.io.Console}.
+@footnote{There is a unique console associated with the virtual machine which
+is returned by the @code{static} method @code{System.console()}.}
+
+@subsubheading Enum.getClass()
+
+@example
+enum E @{ A, B @}
+Class c  = A.getClass();
+@end example
+
+@noindent
+@file{A} is an instance of the @code{enum} @file{E}; thus, @code{getClass()}
+returns the @file{Class} corresponding to the enumeration type @file{E}.
+
+@subsubheading Array.getClass()
+
+Since arrays are @file{Object}s, it is possible to invoke @code{getClass()}
+on an instance of an array.  The returned @file{Class} corresponds to an
+array with component type @code{byte}.
+
+@example
+import java.util.HashSet;
+import java.util.Set;
+
+Set<String> s = new HashSet<String>();
+Class c = s.getClass();
+@end example
+
+@file{java.util.Set} is an interface to an object of type
+@file{java.util.HashSet}.  The value returned by @code{getClass()} is the
+class corresponding to @file{java.util.HashSet}.
+
+@c _____________________________________
+
+@node .class Syntax
+@subsubsection The @code{.class} Syntax
+@cindex @code{.class} syntax
+
+If the type is available, but there is no instance, then it is possible to
+obtain a @file{Class} by appending @code{.class} to the name of the type.
+This is also the easiest way to obtain the @file{Class} for a primitive type.
+
+@subsubheading Primitive.class
+
+@example
+boolean b;
+Class c = b.getClass();	 // compile-time error
+Class c = boolean.class; // correct
+@end example
+
+@noindent
+The statement @samp{boolean.getClass()} would produce a compile-time error
+because a @code{boolean} is a primitive type and cannot be dereferenced.  The
+@code{.class} syntax returns the @file{Class} corresponding to the type
+@code{boolean}.
+
+@subsubheading Type.class
+
+@example
+Class c = java.io.PrintStream.class;
+@end example
+
+@noindent
+The variable @code{c} will be the @file{Class} corresponding to the type
+@file{java.io.PrintStream}.
+
+@subsubheading Multi-dimensional Array
+
+@example
+Class c = int[][].class;
+@end example
+
+@noindent
+The @code{.class} syntax may be used to retrieve a @file{Class} corresonding
+to a multi-dimensional array of a given type.
+
+@c _____________________________________
+
+@node Class.forName() and Class.getName() Methods
+@subsubsection @code{Class.forName()} and @code{Class.getName()} Methods
+@cindex @code{Class.forName()}
+@cindex @code{Class.getName()}
+@cindex fully-qualified name and reflection
+
+If the fully-qualified name of a class is available, it is possible to get
+the corresponding @file{Class} using the @code{static} method
+@code{Class.forName()}.  This cannot be used for primitive types.
+
+The syntax for names of array classes is described by @code{Class.getName()}.
+This syntax is applicable to references and primitive types.
+
+@subsubheading @code{forName()}
+
+@example
+Class c = Class.forName("com.duke.MyLocalServiceProvider");
+@end example
+
+@noindent
+This statement will create a class from the given fully-qualified name.
+
+@subsubheading @code{getName()}
+
+@FIXME{should these be @code{getName()} instead of @code{forName()}}?
+
+@example
+Class cDoubleArray = Class.forName("[D");
+Class cStringArray = Class.forName("[[Ljava.lang.String;");
+@end example
+
+@noindent
+The variable @code{cDoubleArray} will contain the @code{Class} corresponding
+to an array of primitive type @code{double} (i.e., the same as
+@code{double[].class}.  The @code{cStringArray} variable will contain the
+@code{Class} corresponding to a two-dimensional array of @code{String} (i.e.,
+identical to String[][].class).
+
+@c _____________________________________
+
+@node TYPE Field for Primitive Wrappers
+@subsubsection TYPE Field for Primitive Type Wrappers
+@cindex TYPE field for primitive type wrappers
+
+The @code{.class} syntax is a more convenient and the preferred way to obtain
+the @file{Class} for a primitive type; however, there is another way to
+acquire the @file{Class}.  Each of the primitive types and @code{void} has a
+wrapper class in @file{java.lang} that is used for boxing of primitive types
+to reference types.  Each wrapper class contains a field name @code{TYPE}
+which is equal to the @code{Class} for the primitive type being wrapped.
+
+@subsubheading Wrapper TYPE for Primitive
+
+@example
+Class c = Double.TYPE;
+@end example
+
+@noindent
+There is a class @file{java.lang.Double} which is used to wrap the primitive
+type @code{double} whenever an @file{Object} is required.  The value of
+@code{Double.TYPE} is identical to that of @code{double.class}.
+
+@subsubheading Wrapper TYPE for void
+
+@example
+Class c = Void.TYPE;
+@end example
+
+@code{Void.TYPE} is identical to @code{void.class}.  
+
+@c _____________________________________
+
+@node Methods that Return Classes
+@subsubsection Methods that Return Classes
+
+There are several @file{Reflection} APIs which return classes, but these may
+only be accessed if a @file{Class} has already been obtained, either directly
+or indirectly.
+
+@subsubheading @code{Class.getSuperClass()}
+@cindex @code{getSuperClass()}
+
+Returns the super class for the given class.
+
+@example
+Class c = javax.swing.JButton.class.getSuperclass();
+@end example
+
+@subsubheading @code{Class.getClasses()}
+@cindex @code{Class.getClasses()}
+
+Returns all the public classes, interfaces, and enums that are members of the
+class including inherited members.
+
+@example
+Class<?>[] c = Character.class.getClasses();
+@end example
+
+@subsubheading @code{Class.getDeclaredClasses()}
+@cindex @code{getDeclaredClasses()}
+
+Returns all of the classes interfaces, and enums that are explicitly declared
+in this class.
+
+@example
+Class<?>[] c = Character.class.getDeclaredClasses();
+@end example
+
+@subsubheading @code{Class.getDeclaringClass()}
+@cindex @code{getDeclaringClass()}
+
+@display
+java.lang.reflect.Field.getDeclaringClass()
+java.lang.reflect.Method.getDeclaringClass()
+java.lang.reflect.Constructor.getDeclaringClass()
+@end display
+
+@noindent
+Returns the @file{Class} in which these members were
+declared. @file{Anonymous Class Declarations} will not have a declaring class
+but will have an enclosing class.
+
+@example
+import java.lang.reflect.Field;
+
+Field f = System.class.getField("out");
+Class c = f.getDeclaringClass();
+@end example
+
+@noindent The field out is declared in @file{System}.
+
+@example
+public class MyClass @{
+    static Object o = new Object() @{
+        public void m() @{@}
+    @};
+    static Class<c> = o.getClass().getEnclosingClass();
+@}
+@end example
+
+The declaring class of the anonymous class defined by @code{o} is @code{null}
+
+@subsubheading @code{Class.getEnclosingClass()}
+@cindex @code{getEnclosingClass()}
+
+Returns the immediately enclosing class of the class.
+
+@example
+Class c = Thread.State.class().getEnclosingClass();
+@end example
+
+@noindent
+The enclosing class of the enum @file{Thread.State} is @file{Thread}.
+
+@example
+public class MyClass @{
+    static Object o = new Object() @{
+        public void m() @{@} 
+    @};
+    static Class<c> = o.getClass().getEnclosingClass();
+@}
+@end example
+
+The anonymous class defined by @code{o} is enclosed by @code{MyClass}.
 
 
 @c *****************************************************************************

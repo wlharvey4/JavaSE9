@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Retrieving Class Objects (About Java SE 9)</title>
+
+<meta name="description" content="Retrieving Class Objects (About Java SE 9)">
+<meta name="keywords" content="Retrieving Class Objects (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Classes-and-Reflection.html#Classes-and-Reflection" rel="up" title="Classes and Reflection">
+<link href="Object_002egetClass_0028_0029.html#Object_002egetClass_0028_0029" rel="next" title="Object.getClass()">
+<link href="Classes-and-Reflection.html#Classes-and-Reflection" rel="prev" title="Classes and Reflection">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Retrieving-Class-Objects"></a>
+<div class="header">
+<p>
+Up: <a href="Classes-and-Reflection.html#Classes-and-Reflection" accesskey="u" rel="up">Classes and Reflection</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Retrieving-Class-Objects-1"></a>
+<h4 class="subsection">25.2.1 Retrieving Class Objects</h4>
+<a name="index-java_002elang_002eClass-1"></a>
+<a name="index-Class-2"></a>
+
+<p>The entry point for all reflection operations is <samp>java.lang.Class</samp>.
+None of the classes in <samp>java.lang.reflect</samp> have public constructors.
+<a name="DOCF6" href="#FOOT6"><sup>6</sup></a>
+To get to these classes, it is necessary to invoke appropriate methods on
+<samp>Class</samp>.  There are several ways to get a <samp>Class</samp> depending on
+whether the code has access to an object, the name of the class, a type, or
+an existing <samp>Class</samp>.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Object_002egetClass_0028_0029.html#Object_002egetClass_0028_0029" accesskey="1">Object.getClass()</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="_002eclass-Syntax.html#g_t_002eclass-Syntax" accesskey="2">.class Syntax</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods.html#Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods" accesskey="3">Class.forName() and Class.getName() Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="TYPE-Field-for-Primitive-Wrappers.html#TYPE-Field-for-Primitive-Wrappers" accesskey="4">TYPE Field for Primitive Wrappers</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Methods-that-Return-Classes.html#Methods-that-Return-Classes" accesskey="5">Methods that Return Classes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT6" href="#DOCF6">(6)</a></h3>
+<p>with the exception of <samp>java.lang.reflect.ReflectPermission</samp>.</p>
+</div>
+
+
+
+</body>
+</html>

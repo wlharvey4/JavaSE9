@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>TYPE Field for Primitive Wrappers (About Java SE 9)</title>
+
+<meta name="description" content="TYPE Field for Primitive Wrappers (About Java SE 9)">
+<meta name="keywords" content="TYPE Field for Primitive Wrappers (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Retrieving-Class-Objects.html#Retrieving-Class-Objects" rel="up" title="Retrieving Class Objects">
+<link href="Methods-that-Return-Classes.html#Methods-that-Return-Classes" rel="next" title="Methods that Return Classes">
+<link href="Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods.html#Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods" rel="prev" title="Class.forName() and Class.getName() Methods">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="TYPE-Field-for-Primitive-Wrappers"></a>
+<div class="header">
+<p>
+Next: <a href="Methods-that-Return-Classes.html#Methods-that-Return-Classes" accesskey="n" rel="next">Methods that Return Classes</a>, Previous: <a href="Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods.html#Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods" accesskey="p" rel="prev">Class.forName() and Class.getName() Methods</a>, Up: <a href="Retrieving-Class-Objects.html#Retrieving-Class-Objects" accesskey="u" rel="up">Retrieving Class Objects</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="TYPE-Field-for-Primitive-Type-Wrappers"></a>
+<h4 class="subsubsection">25.2.1.4 TYPE Field for Primitive Type Wrappers</h4>
+<a name="index-TYPE-field-for-primitive-type-wrappers"></a>
+
+<p>The <code>.class</code> syntax is a more convenient and the preferred way to obtain
+the <samp>Class</samp> for a primitive type; however, there is another way to
+acquire the <samp>Class</samp>.  Each of the primitive types and <code>void</code> has a
+wrapper class in <samp>java.lang</samp> that is used for boxing of primitive types
+to reference types.  Each wrapper class contains a field name <code>TYPE</code>
+which is equal to the <code>Class</code> for the primitive type being wrapped.
+</p>
+<a name="Wrapper-TYPE-for-Primitive"></a>
+<h4 class="subsubheading">Wrapper TYPE for Primitive</h4>
+
+<div class="example">
+<pre class="example">Class c = Double.TYPE;
+</pre></div>
+
+<p>There is a class <samp>java.lang.Double</samp> which is used to wrap the primitive
+type <code>double</code> whenever an <samp>Object</samp> is required.  The value of
+<code>Double.TYPE</code> is identical to that of <code>double.class</code>.
+</p>
+<a name="Wrapper-TYPE-for-void"></a>
+<h4 class="subsubheading">Wrapper TYPE for void</h4>
+
+<div class="example">
+<pre class="example">Class c = Void.TYPE;
+</pre></div>
+
+<p><code>Void.TYPE</code> is identical to <code>void.class</code>.  
+</p>
+
+
+
+
+</body>
+</html>

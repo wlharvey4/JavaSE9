@@ -35,6 +35,7 @@ This file documents Outline Covering Java SE 9.
 * Concurrency::
 * Streams API::
 * Regular Expressions::
+* Reflection::
 * Swing::
 * The Makefile::
 * Code Chunk Summaries::
@@ -463,6 +464,23 @@ Serialization
 * ObjectInput::
 * ObjectInputStream::
 * Serializable Example::
+
+Drawbacks of Reflection
+
+* java.lang.reflect Package::
+* Classes and Reflection::
+
+Classes and Reflection
+
+* Retrieving Class Objects::
+
+Retrieving Class Objects
+
+* Object.getClass()::
+* .class Syntax::
+* Class.forName() and Class.getName() Methods::
+* TYPE Field for Primitive Wrappers::
+* Methods that Return Classes::
 
 The Makefile
 
@@ -1360,7 +1378,7 @@ class do.
    An instance of an inner class can be created only in the context of
 its enclosing class.  The Java compiler will report an error
 otherwise.  In general, an inner class instance is often creaed by
-code wihtin its enclosing scope.
+code within its enclosing scope.
 
    It is possible to define inner classes within any block scope,
 including within the block defined by a method or even within the body
@@ -6068,7 +6086,7 @@ The 'File' class does not operate on streams.  It deals directly with
 files and the file system.  The 'File' class does not specify how
 information is retrieved from or stored in files; rather, it describes
 the properties of a file itself.  A 'File' object is used to obtain or
-manipulate the information associated wiht a disk file, such as the
+manipulate the information associated with a disk file, such as the
 permissions, time, date, and directory path, and to navigate
 subdirectory hierarchies.(1)
 
@@ -7835,15 +7853,363 @@ File: JavaSE9.info,  Node: Streams API,  Next: Regular Expressions,  Prev: Concu
 *****************
 
 
-File: JavaSE9.info,  Node: Regular Expressions,  Next: Swing,  Prev: Streams API,  Up: Top
+File: JavaSE9.info,  Node: Regular Expressions,  Next: Reflection,  Prev: Streams API,  Up: Top
 
-24 Regular Expressions and Other Packages
-*****************************************
+24 Regular Expressions
+**********************
 
 
-File: JavaSE9.info,  Node: Swing,  Next: The Makefile,  Prev: Regular Expressions,  Up: Top
+File: JavaSE9.info,  Node: Reflection,  Next: Swing,  Prev: Regular Expressions,  Up: Top
 
-25 Introducinvg Swing
+25 Reflection
+*************
+
+"Reflection" is the ability of software to analyze or modify itself at
+runtime rather than at compile time.  This is provided by the
+'java.lang.reflect' package and elements in 'Class'.  Beginning with
+JDK 9, 'java.lang.reflect' is part of the 'java.base' module.
+Reflection allows you to analyze a software component and describe its
+capabilities dynamcically at run-time rather than at compile time.
+For example, by using reflection, you can determine what methods,
+constructors, and fields a class supports.
+
+Drawbacks of Reflection
+=======================
+
+Because reflection is dynamic, the java virtual machine is unable to
+make certain optimizations and could therefor run slower.  Also, since
+reflection allows code to perform operations that would be illegal in
+non-reflective code, such as accessing private fields and methods, the
+use of reflection can result in unexpected behavior.  Reflection
+breaks abstractions.
+
+* Menu:
+
+* java.lang.reflect Package::
+* Classes and Reflection::
+
+
+File: JavaSE9.info,  Node: java.lang.reflect Package,  Next: Classes and Reflection,  Up: Reflection
+
+25.1 'java.lang.reflect' Package
+================================
+
+The package 'java.lang.reflect' includes several interfaces.  Of
+special interest is 'Member', which defines methods that allow you to
+get information abouta field, constructor, or method of a class.
+There are also ten classes in this package.
+
+Classes Defined in 'java.lang.reflect'
+--------------------------------------
+
+AccessibleObject
+     Allows you to bypass the default access control checks
+Array
+     Allows you to dynamically create and manipulate arrays
+Constructor
+     Provides information about a constructor
+Executable
+     An abstract superclass extended by 'Member' and 'Constructor'
+Field
+     Provides information about a field
+Method
+     Provides information about a method
+Modifier
+     Provides information about class and member access modifiers
+Parameter
+     Provides information about parameters
+Proxy
+     Supports dynamic proxy classes
+ReflectPermission
+     Allows reflection of private or protected members of a class
+
+Table 25.1: Classes Defined in 'java.lang.reflect'
+
+
+File: JavaSE9.info,  Node: Classes and Reflection,  Prev: java.lang.reflect Package,  Up: Reflection
+
+25.2 Classes and Reflection
+===========================
+
+For every type of object, the Java virtual machine instantiates an
+immutable instance of 'java.lang.Class' which provides methods to
+examine the runtime properties of the object including its members and
+type information.
+
+   'Class' also provides the ability to create new classes and
+objects.  Most importantly, it is the entry point for all of the
+Reflective APIs.
+
+* Menu:
+
+* Retrieving Class Objects::
+
+
+File: JavaSE9.info,  Node: Retrieving Class Objects,  Up: Classes and Reflection
+
+25.2.1 Retrieving Class Objects
+-------------------------------
+
+The entry point for all reflection operations is 'java.lang.Class'.
+None of the classes in 'java.lang.reflect' have public constructors.
+(1) To get to these classes, it is necessary to invoke appropriate
+methods on 'Class'.  There are several ways to get a 'Class' depending
+on whether the code has access to an object, the name of the class, a
+type, or an existing 'Class'.
+
+* Menu:
+
+* Object.getClass()::
+* .class Syntax::
+* Class.forName() and Class.getName() Methods::
+* TYPE Field for Primitive Wrappers::
+* Methods that Return Classes::
+
+   ---------- Footnotes ----------
+
+   (1) with the exception of 'java.lang.reflect.ReflectPermission'.
+
+
+File: JavaSE9.info,  Node: Object.getClass(),  Next: .class Syntax,  Up: Retrieving Class Objects
+
+25.2.1.1 'Object.getClass()'
+............................
+
+If an instance of an object is available, then the simplest way to get
+its 'Class' is to invoke 'Object.getClass()'.
+
+String.getClass()
+.................
+
+     Class c = "foo".getClass();
+
+returns the 'Class' for 'String';
+
+System.console.getClass()
+.........................
+
+     Class c = System.console().getClass();
+
+returns the 'Class' corresponding to 'java.io.Console'.  (1)
+
+Enum.getClass()
+...............
+
+     enum E { A, B }
+     Class c  = A.getClass();
+
+'A' is an instance of the 'enum' 'E'; thus, 'getClass()' returns the
+'Class' corresponding to the enumeration type 'E'.
+
+Array.getClass()
+................
+
+Since arrays are 'Object's, it is possible to invoke 'getClass()' on
+an instance of an array.  The returned 'Class' corresponds to an array
+with component type 'byte'.
+
+     import java.util.HashSet;
+     import java.util.Set;
+
+     Set<String> s = new HashSet<String>();
+     Class c = s.getClass();
+
+   'java.util.Set' is an interface to an object of type
+'java.util.HashSet'.  The value returned by 'getClass()' is the class
+corresponding to 'java.util.HashSet'.
+
+   ---------- Footnotes ----------
+
+   (1) There is a unique console associated with the virtual machine
+which is returned by the 'static' method 'System.console()'.
+
+
+File: JavaSE9.info,  Node: .class Syntax,  Next: Class.forName() and Class.getName() Methods,  Prev: Object.getClass(),  Up: Retrieving Class Objects
+
+25.2.1.2 The '.class' Syntax
+............................
+
+If the type is available, but there is no instance, then it is
+possible to obtain a 'Class' by appending '.class' to the name of the
+type.  This is also the easiest way to obtain the 'Class' for a
+primitive type.
+
+Primitive.class
+...............
+
+     boolean b;
+     Class c = b.getClass();	 // compile-time error
+     Class c = boolean.class; // correct
+
+The statement 'boolean.getClass()' would produce a compile-time error
+because a 'boolean' is a primitive type and cannot be dereferenced.
+The '.class' syntax returns the 'Class' corresponding to the type
+'boolean'.
+
+Type.class
+..........
+
+     Class c = java.io.PrintStream.class;
+
+The variable 'c' will be the 'Class' corresponding to the type
+'java.io.PrintStream'.
+
+Multi-dimensional Array
+.......................
+
+     Class c = int[][].class;
+
+The '.class' syntax may be used to retrieve a 'Class' corresonding to
+a multi-dimensional array of a given type.
+
+
+File: JavaSE9.info,  Node: Class.forName() and Class.getName() Methods,  Next: TYPE Field for Primitive Wrappers,  Prev: .class Syntax,  Up: Retrieving Class Objects
+
+25.2.1.3 'Class.forName()' and 'Class.getName()' Methods
+........................................................
+
+If the fully-qualified name of a class is available, it is possible to
+get the corresponding 'Class' using the 'static' method
+'Class.forName()'.  This cannot be used for primitive types.
+
+   The syntax for names of array classes is described by
+'Class.getName()'.  This syntax is applicable to references and
+primitive types.
+
+'forName()'
+...........
+
+     Class c = Class.forName("com.duke.MyLocalServiceProvider");
+
+This statement will create a class from the given fully-qualified
+name.
+
+'getName()'
+...........
+
+*FIXME*: should these be 'getName()' instead of 'forName()'?
+
+     Class cDoubleArray = Class.forName("[D");
+     Class cStringArray = Class.forName("[[Ljava.lang.String;");
+
+The variable 'cDoubleArray' will contain the 'Class' corresponding to
+an array of primitive type 'double' (i.e., the same as
+'double[].class'.  The 'cStringArray' variable will contain the
+'Class' corresponding to a two-dimensional array of 'String' (i.e.,
+identical to String[][].class).
+
+
+File: JavaSE9.info,  Node: TYPE Field for Primitive Wrappers,  Next: Methods that Return Classes,  Prev: Class.forName() and Class.getName() Methods,  Up: Retrieving Class Objects
+
+25.2.1.4 TYPE Field for Primitive Type Wrappers
+...............................................
+
+The '.class' syntax is a more convenient and the preferred way to
+obtain the 'Class' for a primitive type; however, there is another way
+to acquire the 'Class'.  Each of the primitive types and 'void' has a
+wrapper class in 'java.lang' that is used for boxing of primitive
+types to reference types.  Each wrapper class contains a field name
+'TYPE' which is equal to the 'Class' for the primitive type being
+wrapped.
+
+Wrapper TYPE for Primitive
+..........................
+
+     Class c = Double.TYPE;
+
+There is a class 'java.lang.Double' which is used to wrap the
+primitive type 'double' whenever an 'Object' is required.  The value
+of 'Double.TYPE' is identical to that of 'double.class'.
+
+Wrapper TYPE for void
+.....................
+
+     Class c = Void.TYPE;
+
+   'Void.TYPE' is identical to 'void.class'.
+
+
+File: JavaSE9.info,  Node: Methods that Return Classes,  Prev: TYPE Field for Primitive Wrappers,  Up: Retrieving Class Objects
+
+25.2.1.5 Methods that Return Classes
+....................................
+
+There are several 'Reflection' APIs which return classes, but these
+may only be accessed if a 'Class' has already been obtained, either
+directly or indirectly.
+
+'Class.getSuperClass()'
+.......................
+
+Returns the super class for the given class.
+
+     Class c = javax.swing.JButton.class.getSuperclass();
+
+'Class.getClasses()'
+....................
+
+Returns all the public classes, interfaces, and enums that are members
+of the class including inherited members.
+
+     Class<?>[] c = Character.class.getClasses();
+
+'Class.getDeclaredClasses()'
+............................
+
+Returns all of the classes interfaces, and enums that are explicitly
+declared in this class.
+
+     Class<?>[] c = Character.class.getDeclaredClasses();
+
+'Class.getDeclaringClass()'
+...........................
+
+     java.lang.reflect.Field.getDeclaringClass()
+     java.lang.reflect.Method.getDeclaringClass()
+     java.lang.reflect.Constructor.getDeclaringClass()
+
+Returns the 'Class' in which these members were declared.  'Anonymous
+Class Declarations' will not have a declaring class but will have an
+enclosing class.
+
+     import java.lang.reflect.Field;
+
+     Field f = System.class.getField("out");
+     Class c = f.getDeclaringClass();
+
+The field out is declared in 'System'.
+
+     public class MyClass {
+         static Object o = new Object() {
+             public void m() {}
+         };
+         static Class<c> = o.getClass().getEnclosingClass();
+     }
+
+   The declaring class of the anonymous class defined by 'o' is 'null'
+
+'Class.getEnclosingClass()'
+...........................
+
+Returns the immediately enclosing class of the class.
+
+     Class c = Thread.State.class().getEnclosingClass();
+
+The enclosing class of the enum 'Thread.State' is 'Thread'.
+
+     public class MyClass {
+         static Object o = new Object() {
+             public void m() {}
+         };
+         static Class<c> = o.getClass().getEnclosingClass();
+     }
+
+   The anonymous class defined by 'o' is enclosed by 'MyClass'.
+
+
+File: JavaSE9.info,  Node: Swing,  Next: The Makefile,  Prev: Reflection,  Up: Top
+
+26 Introducinvg Swing
 *********************
 
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Reflection (About Java SE 9)</title>
+
+<meta name="description" content="Reflection (About Java SE 9)">
+<meta name="keywords" content="Reflection (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="java_002elang_002ereflect-Package.html#java_002elang_002ereflect-Package" rel="next" title="java.lang.reflect Package">
+<link href="Regular-Expressions.html#Regular-Expressions" rel="prev" title="Regular Expressions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Reflection"></a>
+<div class="header">
+<p>
+Next: <a href="Swing.html#Swing" accesskey="n" rel="next">Swing</a>, Previous: <a href="Regular-Expressions.html#Regular-Expressions" accesskey="p" rel="prev">Regular Expressions</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Reflection-1"></a>
+<h2 class="chapter">25 Reflection</h2>
+<a name="index-Reflection"></a>
+<a name="index-java_002elang_002ereflect-package"></a>
+<a name="index-Class-1"></a>
+<a name="index-JDK-9"></a>
+<a name="index-java_002ebase-module"></a>
+
+<p><em>Reflection</em> is the ability of software to analyze or modify itself at
+runtime rather than at compile time.  This is provided by the
+<samp>java.lang.reflect</samp> package and elements in <samp>Class</samp>.  Beginning
+with JDK 9, <samp>java.lang.reflect</samp> is part of the <samp>java.base</samp> module.
+Reflection allows you to analyze a software component and describe its
+capabilities dynamcically at run-time rather than at compile time.  For
+example, by using reflection, you can determine what methods, constructors,
+and fields a class supports.
+</p>
+<a name="Drawbacks-of-Reflection"></a>
+<h3 class="heading">Drawbacks of Reflection</h3>
+
+<p>Because reflection is dynamic, the java virtual machine is unable to make
+certain optimizations and could therefor run slower.  Also, since reflection
+allows code to perform operations that would be illegal in non-reflective
+code, such as accessing private fields and methods, the use of reflection can
+result in unexpected behavior.  Reflection breaks abstractions.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="java_002elang_002ereflect-Package.html#java_002elang_002ereflect-Package" accesskey="1">java.lang.reflect Package</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Classes-and-Reflection.html#Classes-and-Reflection" accesskey="2">Classes and Reflection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+
+</body>
+</html>
