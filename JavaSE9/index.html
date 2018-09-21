@@ -883,6 +883,10 @@ Drawbacks of Reflection
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="Classes-and-Reflection.html#Classes-and-Reflection">Classes and Reflection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Members-and-Reflection.html#Members-and-Reflection">Members and Reflection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Arays-and-Enumerated-Types-and-Reflection.html#Arays-and-Enumerated-Types-and-Reflection">Arays and Enumerated Types and Reflection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
 Classes and Reflection
@@ -902,6 +906,50 @@ Retrieving Class Objects
 <tr><td align="left" valign="top">&bull; <a href="TYPE-Field-for-Primitive-Wrappers.html#TYPE-Field-for-Primitive-Wrappers">TYPE Field for Primitive Wrappers</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="Methods-that-Return-Classes.html#Methods-that-Return-Classes">Methods that Return Classes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Note about Members and the Specification
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="reflect-Field.html#reflect-Field">reflect Field</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="reflect-Method.html#reflect-Method">reflect Method</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="reflect-Constructor.html#reflect-Constructor">reflect Constructor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+<samp>reflect.Constructor</samp>
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Finding-Constructors.html#Finding-Constructors">Finding Constructors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Constructor-Modifiers.html#Constructor-Modifiers">Constructor Modifiers</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Creating-New-Class-Instances.html#Creating-New-Class-Instances">Creating New Class Instances</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Arrays and Enumerate Types and Reflection
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Arrays-and-Reflection.html#Arrays-and-Reflection">Arrays and Reflection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Enumerate-Types-and-Reflection.html#Enumerate-Types-and-Reflection">Enumerate Types and Reflection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Arrays and Reflection
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Identifying-Array-Types.html#Identifying-Array-Types">Identifying Array Types</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Creating-New-Arrays.html#Creating-New-Arrays">Creating New Arrays</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Getting-and-Setting-Arrays.html#Getting-and-Setting-Arrays">Getting and Setting Arrays</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Enumerated Types and Reflection
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="Enumerated-Types-Reflection.html#Enumerated-Types-Reflection">Enumerated Types Reflection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
@@ -1408,6 +1456,30 @@ Code Chunk Summaries
         <li><a name="toc-Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods-1" href="Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods.html#Class_002eforName_0028_0029-and-Class_002egetName_0028_0029-Methods">25.2.1.3 <code>Class.forName()</code> and <code>Class.getName()</code> Methods</a></li>
         <li><a name="toc-TYPE-Field-for-Primitive-Type-Wrappers" href="TYPE-Field-for-Primitive-Wrappers.html#TYPE-Field-for-Primitive-Wrappers">25.2.1.4 TYPE Field for Primitive Type Wrappers</a></li>
         <li><a name="toc-Methods-that-Return-Classes-1" href="Methods-that-Return-Classes.html#Methods-that-Return-Classes">25.2.1.5 Methods that Return Classes</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a name="toc-Members-and-Reflection-1" href="Members-and-Reflection.html#Members-and-Reflection">25.3 Members and Reflection</a>
+    <ul class="no-bullet">
+      <li><a name="toc-reflect_002eField" href="reflect-Field.html#reflect-Field">25.3.1 <samp>reflect.Field</samp></a></li>
+      <li><a name="toc-reflect_002eMethod" href="reflect-Method.html#reflect-Method">25.3.2 <samp>reflect.Method</samp></a></li>
+      <li><a name="toc-reflect_002eConstructor" href="reflect-Constructor.html#reflect-Constructor">25.3.3 <samp>reflect.Constructor</samp></a>
+      <ul class="no-bullet">
+        <li><a name="toc-Finding-Constructors-1" href="Finding-Constructors.html#Finding-Constructors">25.3.3.1 Finding Constructors</a></li>
+        <li><a name="toc-Retrieving-and-Parsing-Constructor-Modifiers" href="Constructor-Modifiers.html#Constructor-Modifiers">25.3.3.2 Retrieving and Parsing Constructor Modifiers</a></li>
+        <li><a name="toc-Creating-New-Class-Instances-1" href="Creating-New-Class-Instances.html#Creating-New-Class-Instances">25.3.3.3 Creating New Class Instances</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a name="toc-Arrays-and-Enumerate-Types-and-Reflection" href="Arays-and-Enumerated-Types-and-Reflection.html#Arays-and-Enumerated-Types-and-Reflection">25.4 Arrays and Enumerate Types and Reflection</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Arrays-and-Reflection-1" href="Arrays-and-Reflection.html#Arrays-and-Reflection">25.4.1 Arrays and Reflection</a>
+      <ul class="no-bullet">
+        <li><a name="toc-Identifying-Array-Types-1" href="Identifying-Array-Types.html#Identifying-Array-Types">25.4.1.1 Identifying Array Types</a></li>
+        <li><a name="toc-Creating-New-Arrays-1" href="Creating-New-Arrays.html#Creating-New-Arrays">25.4.1.2 Creating New Arrays</a></li>
+        <li><a name="toc-Getting-and-Setting-Arrays-and-Their-Components" href="Getting-and-Setting-Arrays.html#Getting-and-Setting-Arrays">25.4.1.3 Getting and Setting Arrays and Their Components</a></li>
+      </ul></li>
+      <li><a name="toc-Enumerated-Types-and-Reflection" href="Enumerate-Types-and-Reflection.html#Enumerate-Types-and-Reflection">25.4.2 Enumerated Types and Reflection</a>
+      <ul class="no-bullet">
+        <li><a name="toc-Enumerated-Types-in-Reflection" href="Enumerated-Types-Reflection.html#Enumerated-Types-Reflection">25.4.2.1 Enumerated Types in Reflection</a></li>
       </ul></li>
     </ul></li>
   </ul></li>

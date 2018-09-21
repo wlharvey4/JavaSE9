@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Enumerated Types Reflection (About Java SE 9)</title>
+
+<meta name="description" content="Enumerated Types Reflection (About Java SE 9)">
+<meta name="keywords" content="Enumerated Types Reflection (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Enumerate-Types-and-Reflection.html#Enumerate-Types-and-Reflection" rel="up" title="Enumerate Types and Reflection">
+<link href="Swing.html#Swing" rel="next" title="Swing">
+<link href="Enumerate-Types-and-Reflection.html#Enumerate-Types-and-Reflection" rel="prev" title="Enumerate Types and Reflection">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Enumerated-Types-Reflection"></a>
+<div class="header">
+<p>
+Up: <a href="Enumerate-Types-and-Reflection.html#Enumerate-Types-and-Reflection" accesskey="u" rel="up">Enumerate Types and Reflection</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Enumerated-Types-in-Reflection"></a>
+<h4 class="subsubsection">25.4.2.1 Enumerated Types in Reflection</h4>
+<a name="index-enumerate-types_002c-reflection"></a>
+<a name="index-Class_002eisEnum_0028_0029-1"></a>
+<a name="index-Class_002egetEnumConstants_0028_0029-1"></a>
+<a name="index-java_002elang_002ereflect_002eField_002eisEnumConstant_0028_0029-1"></a>
+
+<p>An <em>enum</em> is a language construct that is used to define type-safe
+enumerations which can be used when a fixed set of named values is desired.
+All <code>enums</code> implicitly extend <samp>java.lang.Enum</samp>.  <code>Enums</code> may
+contain one or more <code>enum</code> constants, which define unique instances of
+the <code>enum</code> type.  An <code>enum</code> declaration defines an <code>enum</code> type
+which is very similar to a class in that it may have members such as fields,
+methods, and constructors (with some restrictions).
+</p>
+<p>Since <code>enums</code> are classes, reflection has no need to define an explicit
+java.lang.reflect.Enum class.  The only Reflection APIs that are specific to
+<code>enums</code> are <code>Class.isEnum()</code>, <code>Class.getEnumConstants()</code>, and
+<code>java.lang.reflect.Field.isEnumConstant()</code>.  Most reflective operations
+involving <code>enums</code> are the same as any other class or member.  For
+example, <code>enum</code> constants are implemented as <code>public static final</code>
+fields on the <code>enum</code>.  The following sections show how to use
+<samp>Class</samp> and <samp>java.lang.reflect.Field</samp> with <code>enums</code>.
+</p>
+<a name="Examining-Enums"></a>
+<h4 class="subsubheading">Examining Enums</h4>
+
+<p>Illustrates how to retrieve an enum&rsquo;s constants and any other fields,
+constructors, and methods
+</p>
+<p>Reflection provides three enum-specific APIs:
+</p>
+<dl compact="compact">
+<dt><code>Class.isEnum()</code></dt>
+<dd><p>Indicates whether this class represents an enum type
+</p></dd>
+<dt><code>Class.getEnumConstants()</code></dt>
+<dd><p>Retrieves the list of enum constants defined by the enum in the order they&rsquo;re declared
+</p></dd>
+<dt><code>java.lang.reflect.Field.isEnumConstant()</code></dt>
+<dd><p>Indicates whether this field represents an element of an enumerated type
+</p></dd>
+</dl>
+
+<p>Sometimes it is necessary to dynamically retrieve the list of enum constants;
+in non-reflective code this is accomplished by invoking the implicitly
+declared static method <code>values()</code> on the enum.  If an instance of an
+<code>enum</code> type is not available the only way to get a list of the possible
+values is to invoke <code>Class.getEnumConstants()</code> since it is impossible
+to instantiate an <code>enum</code> type.
+</p>
+<a name="Getting-and-Setting-Fields-with-Enum-Types"></a>
+<h4 class="subsubheading">Getting and Setting Fields with Enum Types</h4>
+
+<p>Shows how to set and get fields with an enum constant value
+</p>
+<p>Fields which store <code>enums</code> are set and retrieved as any other reference
+type, using <code>Field.set()</code> and <code>Field.get()</code>. For more information
+on accessing fields, see the Fields section.  See section <a href="reflect-Field.html#reflect-Field"><samp>reflect.Field</samp></a>
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Up: <a href="Enumerate-Types-and-Reflection.html#Enumerate-Types-and-Reflection" accesskey="u" rel="up">Enumerate Types and Reflection</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

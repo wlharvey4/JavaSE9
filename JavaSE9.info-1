@@ -469,6 +469,8 @@ Drawbacks of Reflection
 
 * java.lang.reflect Package::
 * Classes and Reflection::
+* Members and Reflection::
+* Arays and Enumerated Types and Reflection::
 
 Classes and Reflection
 
@@ -481,6 +483,33 @@ Retrieving Class Objects
 * Class.forName() and Class.getName() Methods::
 * TYPE Field for Primitive Wrappers::
 * Methods that Return Classes::
+
+Note about Members and the Specification
+
+* reflect Field::
+* reflect Method::
+* reflect Constructor::
+
+'reflect.Constructor'
+
+* Finding Constructors::
+* Constructor Modifiers::
+* Creating New Class Instances::
+
+Arrays and Enumerate Types and Reflection
+
+* Arrays and Reflection::
+* Enumerate Types and Reflection::
+
+Arrays and Reflection
+
+* Identifying Array Types::
+* Creating New Arrays::
+* Getting and Setting Arrays::
+
+Enumerated Types and Reflection
+
+* Enumerated Types Reflection::
 
 The Makefile
 
@@ -7887,6 +7916,8 @@ breaks abstractions.
 
 * java.lang.reflect Package::
 * Classes and Reflection::
+* Members and Reflection::
+* Arays and Enumerated Types and Reflection::
 
 
 File: JavaSE9.info,  Node: java.lang.reflect Package,  Next: Classes and Reflection,  Up: Reflection
@@ -7926,7 +7957,7 @@ ReflectPermission
 Table 25.1: Classes Defined in 'java.lang.reflect'
 
 
-File: JavaSE9.info,  Node: Classes and Reflection,  Prev: java.lang.reflect Package,  Up: Reflection
+File: JavaSE9.info,  Node: Classes and Reflection,  Next: Members and Reflection,  Prev: java.lang.reflect Package,  Up: Reflection
 
 25.2 Classes and Reflection
 ===========================
@@ -8205,6 +8236,289 @@ The enclosing class of the enum 'Thread.State' is 'Thread'.
      }
 
    The anonymous class defined by 'o' is enclosed by 'MyClass'.
+
+
+File: JavaSE9.info,  Node: Members and Reflection,  Next: Arays and Enumerated Types and Reflection,  Prev: Classes and Reflection,  Up: Reflection
+
+25.3 Members and Reflection
+===========================
+
+Reflection defines an interface 'java.lang.reflect.Member' which is
+implemented by
+
+   * 'java.lang.reflect.Field',
+   * 'java.lang.reflect.Method', and
+   * 'java.lang.reflect.Constructor'.
+
+   For each member, the lesson will describe the associated APIs to
+retrieve declaration and type information, any operations unique to
+the member (for example, setting the value of a field or invoking a
+method), and commonly encountered errors.  Each concept will be
+illustrated with code samples and related output which approximate
+some expected reflection uses.
+
+Note about Members and the Specification
+----------------------------------------
+
+According to The Java Language Specification, Java SE 7 Edition, the
+"members of a class" are the inherited components of the class body
+including fields, methods, nested classes, interfaces, and enumerated
+types.  Since constructors are not inherited, they are not members.
+This differs from the implementing classes of
+'java.lang.reflect.Member'.
+
+* Menu:
+
+* reflect Field::
+* reflect Method::
+* reflect Constructor::
+
+
+File: JavaSE9.info,  Node: reflect Field,  Next: reflect Method,  Up: Members and Reflection
+
+25.3.1 'reflect.Field'
+----------------------
+
+Fields have a type and a value.  The 'java.lang.reflect.Field' class
+provides methods for accessing type information and setting and
+getting values of a field on a given object.
+
+
+File: JavaSE9.info,  Node: reflect Method,  Next: reflect Constructor,  Prev: reflect Field,  Up: Members and Reflection
+
+25.3.2 'reflect.Method'
+-----------------------
+
+Methods have return values, parameters, and may throw exceptions.  The
+'java.lang.reflect.Method' class provides methods for obtaining the
+type information for the parameters and return value.  It may also be
+used to invoke methods on a given object.
+
+
+File: JavaSE9.info,  Node: reflect Constructor,  Prev: reflect Method,  Up: Members and Reflection
+
+25.3.3 'reflect.Constructor'
+----------------------------
+
+The Reflection APIs for constructors are defined in
+'java.lang.reflect.Constructor' and are similar to those for methods,
+with two major exceptions: first, constructors have no return values;
+second, the invocation of a constructor creates a new instance of an
+object for a given class.
+
+* Menu:
+
+* Finding Constructors::
+* Constructor Modifiers::
+* Creating New Class Instances::
+
+
+File: JavaSE9.info,  Node: Finding Constructors,  Next: Constructor Modifiers,  Up: reflect Constructor
+
+25.3.3.1 Finding Constructors
+.............................
+
+A constructor declaration includes the name, modifiers, parameters,
+and list of throwable exceptions.  The 'java.lang.reflect.Constructor'
+class provides a way to obtain this information.
+
+
+File: JavaSE9.info,  Node: Constructor Modifiers,  Next: Creating New Class Instances,  Prev: Finding Constructors,  Up: reflect Constructor
+
+25.3.3.2 Retrieving and Parsing Constructor Modifiers
+.....................................................
+
+Because of the role of constructors in the language, fewer modifiers
+are meaningful than for methods:
+
+   * Access modifiers:
+        * 'public',
+        * 'protected', and
+        * 'private'
+   * Annotations
+
+
+File: JavaSE9.info,  Node: Creating New Class Instances,  Prev: Constructor Modifiers,  Up: reflect Constructor
+
+25.3.3.3 Creating New Class Instances
+.....................................
+
+There are two reflective methods for creating instances of classes:
+
+  1. 'java.lang.reflect.Constructor.newInstance()' and
+  2. 'Class.newInstance()'.
+
+   The former is preferred and is thus used in these examples because:
+
+   * 'Class.newInstance()' can only invoke the zero-argument
+     constructor, while 'Constructor.newInstance()' may invoke any
+     constructor, regardless of the number of parameters.
+   * 'Class.newInstance()' throws any exception thrown by the
+     constructor, regardless of whether it is checked or unchecked.
+     'Constructor.newInstance()' always wraps the thrown exception
+     with an 'InvocationTargetException'.
+   * 'Class.newInstance()' requires that the constructor be visible;
+     'Constructor.newInstance()' may invoke private constructors under
+     certain circumstances.
+
+
+File: JavaSE9.info,  Node: Arays and Enumerated Types and Reflection,  Prev: Members and Reflection,  Up: Reflection
+
+25.4 Arrays and Enumerate Types and Reflection
+==============================================
+
+From the Java virtual machine's perspective, arrays and enumerated
+types (or 'enums') are just classes.  Many of the methods in 'Class'
+may be used on them.  Reflection provides a few specific APIs for
+arrays and enums.  This lesson uses a series of code samples to
+describe how to distinguish each of these objects from other classes
+and operate on them.  Various errors are also be examined.
+
+* Menu:
+
+* Arrays and Reflection::
+* Enumerate Types and Reflection::
+
+
+File: JavaSE9.info,  Node: Arrays and Reflection,  Next: Enumerate Types and Reflection,  Up: Arays and Enumerated Types and Reflection
+
+25.4.1 Arrays and Reflection
+----------------------------
+
+Arrays have a component type and a length (which is not part of the
+type).  Arrays may be maniuplated either in their entirety or
+component by component.  Reflection provides the
+'java.lang.reflect.Array' class for the latter purpose.
+
+* Menu:
+
+* Identifying Array Types::
+* Creating New Arrays::
+* Getting and Setting Arrays::
+
+
+File: JavaSE9.info,  Node: Identifying Array Types,  Next: Creating New Arrays,  Up: Arrays and Reflection
+
+25.4.1.1 Identifying Array Types
+................................
+
+Array types may be identified by invoking 'Class.isArray()'.  To
+obtain a 'Class' use one of the methods described in *note Retrieving
+Class Objects:: section.
+
+
+File: JavaSE9.info,  Node: Creating New Arrays,  Next: Getting and Setting Arrays,  Prev: Identifying Array Types,  Up: Arrays and Reflection
+
+25.4.1.2 Creating New Arrays
+............................
+
+Just as in non-reflective code, reflection supports the ability to
+dynamically create arrays of arbitrary type and dimensions via
+'java.lang.reflect.Array.newInstance()'.  Consider ArrayCreator, a
+basic interpreter capable of dynamically creating arrays.  The syntax
+that will be parsed is as follows:
+
+     fully_qualified_class_name variable_name[] =
+     	{ val1, val2, val3, ... }
+
+
+File: JavaSE9.info,  Node: Getting and Setting Arrays,  Prev: Creating New Arrays,  Up: Arrays and Reflection
+
+25.4.1.3 Getting and Setting Arrays and Their Components
+........................................................
+
+Just as in non-reflective code, an array field may be set or retrieved
+in its entirety or component by component.  To set the entire array at
+once, use 'java.lang.reflect.Field.set(Object obj, Object value)'.  To
+retrieve the entire array, use 'Field.get(Object)'.  Individual
+components can be set or retrieved using methods in
+'java.lang.reflect.Array'.
+
+   'Array' provides methods of the form 'setFoo()' and 'getFoo()' for
+setting and getting components of any primitive type.  For example,
+the component of an int array may be set with 'Array.setInt(Object
+array, int index, int value)' and may be retrieved with
+'Array.getInt(Object array, int index)'.
+
+Setting a Field of Type Array
+.............................
+
+Accessing Elements of a Multidimensional Array
+..............................................
+
+
+File: JavaSE9.info,  Node: Enumerate Types and Reflection,  Prev: Arrays and Reflection,  Up: Arays and Enumerated Types and Reflection
+
+25.4.2 Enumerated Types and Reflection
+--------------------------------------
+
+Enums are treated very much like ordinary classes in reflection code.
+'Class.isEnum()' tells whether a 'Class' represents an enum.
+'Class.getEnumConstants()' retrieves the enum constants defined in an
+enum.  'java.lang.reflect.Field.isEnumConstant()' indicates whether a
+field is an enumerated type.
+
+* Menu:
+
+* Enumerated Types Reflection::
+
+
+File: JavaSE9.info,  Node: Enumerated Types Reflection,  Up: Enumerate Types and Reflection
+
+25.4.2.1 Enumerated Types in Reflection
+.......................................
+
+An "enum" is a language construct that is used to define type-safe
+enumerations which can be used when a fixed set of named values is
+desired.  All 'enums' implicitly extend 'java.lang.Enum'.  'Enums' may
+contain one or more 'enum' constants, which define unique instances of
+the 'enum' type.  An 'enum' declaration defines an 'enum' type which
+is very similar to a class in that it may have members such as fields,
+methods, and constructors (with some restrictions).
+
+   Since 'enums' are classes, reflection has no need to define an
+explicit java.lang.reflect.Enum class.  The only Reflection APIs that
+are specific to 'enums' are 'Class.isEnum()',
+'Class.getEnumConstants()', and
+'java.lang.reflect.Field.isEnumConstant()'.  Most reflective
+operations involving 'enums' are the same as any other class or
+member.  For example, 'enum' constants are implemented as 'public
+static final' fields on the 'enum'.  The following sections show how
+to use 'Class' and 'java.lang.reflect.Field' with 'enums'.
+
+Examining Enums
+...............
+
+Illustrates how to retrieve an enum's constants and any other fields,
+constructors, and methods
+
+   Reflection provides three enum-specific APIs:
+
+'Class.isEnum()'
+     Indicates whether this class represents an enum type
+'Class.getEnumConstants()'
+     Retrieves the list of enum constants defined by the enum in the
+     order they're declared
+'java.lang.reflect.Field.isEnumConstant()'
+     Indicates whether this field represents an element of an
+     enumerated type
+
+   Sometimes it is necessary to dynamically retrieve the list of enum
+constants; in non-reflective code this is accomplished by invoking the
+implicitly declared static method 'values()' on the enum.  If an
+instance of an 'enum' type is not available the only way to get a list
+of the possible values is to invoke 'Class.getEnumConstants()' since
+it is impossible to instantiate an 'enum' type.
+
+Getting and Setting Fields with Enum Types
+..........................................
+
+Shows how to set and get fields with an enum constant value
+
+   Fields which store 'enums' are set and retrieved as any other
+reference type, using 'Field.set()' and 'Field.get()'.  For more
+information on accessing fields, see the Fields section.  *Note
+reflect Field::
 
 
 File: JavaSE9.info,  Node: Swing,  Next: The Makefile,  Prev: Reflection,  Up: Top
@@ -8819,574 +9133,4 @@ B.2 Code Chunk Definitions
 <Two Instance Variables Declarations>
      This chunk is defined in *note
      Two-Instance-Variables-Declarations::.
-
-
-File: JavaSE9.info,  Node: Code Chunk References,  Prev: Code Chunk Definitions,  Up: Code Chunk Summaries
-
-B.3 Code Chunk References
-=========================
-
-<AbstractAreas Abstract Area Method Declaration >
-
-     This chunk is called by <AbstractAreas Abstract Class Figure >;
-     see its first definition at *note
-     AbstractAreas-Abstract-Class-Figure-::.
-<AbstractAreas Abstract Class Figure >
-
-     This chunk is called by {'AbstractAreas.java '}; see its first
-     definition at *note AbstractAreas-java-::.
-<AbstractAreas Main Class >
-
-     This chunk is called by {'AbstractAreas.java '}; see its first
-     definition at *note AbstractAreas-java-::.
-<AbstractAreas Main Method Declaration >
-
-     This chunk is called by <AbstractAreas Main Class >; see its
-     first definition at *note AbstractAreas-Main-Class-::.
-<BRRead BufferedReader Constructor>
-
-     This chunk is called by {'BRRead.java'}; see its first definition
-     at *note BRRead-java::.
-<BRRead Enter Characters>
-
-     This chunk is called by {'BRRead.java'}; see its first definition
-     at *note BRRead-java::.
-<BRReadLines BufferedReader Constructor>
-
-     This chunk is called by {'BRReadLines.java'}; see its first
-     definition at *note BRReadLines-java::.
-<BRReadLines Enter Lines>
-
-     This chunk is called by {'BRReadLines.java'}; see its first
-     definition at *note BRReadLines-java::.
-<BufferedInputStreamDemo Buffer>
-
-     This chunk is called by <BufferedInputStreamDemo Instance
-     Variables>; see its first definition at *note
-     BufferedInputStreamDemo-Instance-Variables::.
-<BufferedInputStreamDemo ByteArrayInputStream>
-
-     This chunk is called by <BufferedInputStreamDemo Instance
-     Variables>; see its first definition at *note
-     BufferedInputStreamDemo-Instance-Variables::.
-<BufferedInputStreamDemo Instance Variables>
-
-     This chunk is called by {'BufferedInputStreamDemo.java'}; see its
-     first definition at *note BufferedInputStreamDemo-java::.
-<BufferedInputStreamDemo String>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     <BufferedInputStreamDemo  See
-     Instance Variables>       *note BufferedInputStreamDemo-Instance-Variables::.
-     <BufferedReaderDemo       See
-     Instance Variables>       *note BufferedReaderDemo-Instance-Variables::.
-<BufferedInputStreamDemo Switch on Character>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     <BufferedInputStreamDemo  See
-     While Loop>               *note BufferedInputStreamDemo-While-Loop::.
-     <BufferedReaderDemo       See
-     TryWithResources          *note BufferedReaderDemo-TryWithResources-BufferedReader::.
-     BufferedReader>
-<BufferedInputStreamDemo TryWithResources BufferedInputStream>
-
-     This chunk is called by {'BufferedInputStreamDemo.java'}; see its
-     first definition at *note BufferedInputStreamDemo-java::.
-<BufferedInputStreamDemo Utility Variables>
-
-     This chunk is called by <BufferedInputStreamDemo Instance
-     Variables>; see its first definition at *note
-     BufferedInputStreamDemo-Instance-Variables::.
-<BufferedInputStreamDemo While Loop>
-
-     This chunk is called by <BufferedInputStreamDemo TryWithResources
-     BufferedInputStream>; see its first definition at *note
-     BufferedInputStreamDemo-TryWithResources-BufferedInputStream::.
-<BufferedReaderDemo Buffer>
-
-     This chunk is called by <BufferedReaderDemo Instance Variables>;
-     see its first definition at *note
-     BufferedReaderDemo-Instance-Variables::.
-<BufferedReaderDemo Instance Variables>
-
-     This chunk is called by {'BufferedReaderDemo.java'}; see its
-     first definition at *note BufferedReaderDemo-java::.
-<BufferedReaderDemo TryWithResources BufferedReader>
-
-     This chunk is called by {'BufferedReaderDemo.java'}; see its
-     first definition at *note BufferedReaderDemo-java::.
-<Call Overridden Methods One By One >
-
-     This chunk is called by <FindAreas Main Method Declaration >; see
-     its first definition at *note
-     FindAreas-Main-Method-Declaration-::.
-<Call Overridden Methods One By One Except Figure >
-
-     This chunk is called by <AbstractAreas Main Method Declaration >;
-     see its first definition at *note
-     AbstractAreas-Main-Method-Declaration-::.
-<Catch IOException>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'BufferedInputStreamDemo.java'}See *note BufferedInputStreamDemo-java::.
-     {'BufferedReaderDemo.java'}See *note BufferedReaderDemo-java::.
-     {'FileReaderDemo.java'}   See *note FileReaderDemo-java::.
-<Class Declaration>
-
-     This chunk is called by <Class TwoGen>; see its first definition
-     at *note Class-TwoGen::.
-<Class Gen>
-
-     This chunk is called by {'SimpleGenerics.java'}; see its first
-     definition at *note SimpleGenerics-java::.
-<Class GenDemo>
-
-     This chunk is called by {'SimpleGenerics.java'}; see its first
-     definition at *note SimpleGenerics-java::.
-<Class SimpGen>
-
-     This chunk is called by {'TwoTypeParameters.java'}; see its first
-     definition at *note TwoTypeParameters-java::.
-<Class TwoGen>
-
-     This chunk is called by {'TwoTypeParameters.java'}; see its first
-     definition at *note TwoTypeParameters-java::.
-<Constructor of Two Parameters>
-
-     This chunk is called by <Class TwoGen>; see its first definition
-     at *note Class-TwoGen::.
-<Constructor taking parameter of Type T>
-
-     This chunk is called by <Class Gen>; see its first definition at
-     *note Class-Gen::.
-<CopyFile Check For 2 Files>
-
-     This chunk is called by {'CopyFile.java'}; see its first
-     definition at *note CopyFile-java::.
-<CopyFile Copy a File>
-
-     This chunk is called by {'CopyFile.java'}; see its first
-     definition at *note CopyFile-java::.
-<CopyFile Initial Comments>
-
-     This chunk is called by {'CopyFile.java'}; see its first
-     definition at *note CopyFile-java::.
-<CopyFile Instance Variable Declarations>
-
-     This chunk is called by {'CopyFile.java'}; see its first
-     definition at *note CopyFile-java::.
-<CopyFileMultTryWR Initial Comments>
-
-     This chunk is called by {'CopyFileMultTryWR.java'}; see its first
-     definition at *note CopyFileMultTryWR-java::.
-<CopyFileMultTryWR Manage Two Files>
-
-     This chunk is called by {'CopyFileMultTryWR.java'}; see its first
-     definition at *note CopyFileMultTryWR-java::.
-<Create Basic Figure Objects >
-
-     This chunk is called by <FindAreas Main Method Declaration >; see
-     its first definition at *note
-     FindAreas-Main-Method-Declaration-::.
-<Create Basic Figure Objects Except Figure >
-
-     This chunk is called by <AbstractAreas Main Method Declaration >;
-     see its first definition at *note
-     AbstractAreas-Main-Method-Declaration-::.
-<Create Basic Figure Reference Variable >
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     <AbstractAreas Main       See
-     Method Declaration >      *note AbstractAreas-Main-Method-Declaration-::.
-     <FindAreas Main Method    See
-     Declaration >             *note FindAreas-Main-Method-Declaration-::.
-<Create a Gen object for Integers>
-
-     This chunk is called by <Class GenDemo>; see its first definition
-     at *note Class-GenDemo::.
-<Create a Gen object for Strings>
-
-     This chunk is called by <Class GenDemo>; see its first definition
-     at *note Class-GenDemo::.
-<DirList Examine Directory Contents>
-
-     This chunk is called by {'DirList.java'}; see its first
-     definition at *note DirList-java::.
-<DirList Examine Directory Contents For-Loop>
-
-     This chunk is called by <DirList Examine Directory Contents>; see
-     its first definition at *note
-     DirList-Examine-Directory-Contents::.
-<DirList Instance Variable Declarations>
-
-     This chunk is called by {'DirList.java'}; see its first
-     definition at *note DirList-java::.
-<DirList Obtain Directory From Command-Line Args>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     <DirList Instance         See
-     Variable Declarations>    *note DirList-Instance-Variable-Declarations::.
-     {'DirListOnly'}           See *note DirListOnly::.
-<DirListOnly FilenameFilter Object>
-
-     This chunk is called by {'DirListOnly'}; see its first definition
-     at *note DirListOnly::.
-<DirListOnly FilenameFilter Object List>
-
-     This chunk is called by {'DirListOnly'}; see its first definition
-     at *note DirListOnly::.
-<DirListOnly Print List>
-
-     This chunk is called by {'DirListOnly'}; see its first definition
-     at *note DirListOnly::.
-<Figure Area Method Declaration >
-
-     This chunk is called by <FindAreas SuperClass Figure >; see its
-     first definition at *note FindAreas-SuperClass-Figure-::.
-<Figure Constructor >
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     <AbstractAreas Abstract   See
-     Class Figure >            *note AbstractAreas-Abstract-Class-Figure-::.
-     <FindAreas SuperClass     See *note FindAreas-SuperClass-Figure-::.
-     Figure >
-<Figure Instance Variable Declarations >
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     <AbstractAreas Abstract   See
-     Class Figure >            *note AbstractAreas-Abstract-Class-Figure-::.
-     <FindAreas SuperClass     See *note FindAreas-SuperClass-Figure-::.
-     Figure >
-<FileReaderDemo TryWithResources FileReader>
-
-     This chunk is called by {'FileReaderDemo.java'}; see its first
-     definition at *note FileReaderDemo-java::.
-<FindAreas Main Class >
-
-     This chunk is called by {'FindAreas.java '}; see its first
-     definition at *note FindAreas-java-::.
-<FindAreas Main Method Declaration >
-
-     This chunk is called by <FindAreas Main Class >; see its first
-     definition at *note FindAreas-Main-Class-::.
-<FindAreas SubClass Rectangle >
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'AbstractAreas.java '}   See *note AbstractAreas-java-::.
-     {'FindAreas.java '}       See *note FindAreas-java-::.
-<FindAreas SubClass Triangle >
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'AbstractAreas.java '}   See *note AbstractAreas-java-::.
-     {'FindAreas.java '}       See *note FindAreas-java-::.
-<FindAreas SuperClass Figure >
-
-     This chunk is called by {'FindAreas.java '}; see its first
-     definition at *note FindAreas-java-::.
-<GenMethDemo Main>
-
-     This chunk is called by {'GenMethDemo.java'}; see its first
-     definition at *note GenMethDemo-java::.
-<Get Value>
-
-     This chunk is called by <Create a Gen object for Integers>; see
-     its first definition at *note Create-a-Gen-object-for-Integers::.
-<Import java.io>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'BRRead.java'}           See *note BRRead-java::.
-     {'BRReadLines.java'}      See *note BRReadLines-java::.
-     {'BufferedInputStreamDemo.java'}See *note BufferedInputStreamDemo-java::.
-     {'BufferedReaderDemo.java'}See *note BufferedReaderDemo-java::.
-     {'CopyFile.java'}         See *note CopyFile-java::.
-     {'CopyFileMultTryWR.java'}See *note CopyFileMultTryWR-java::.
-     {'DirListOnly'}           See *note DirListOnly::.
-     {'FileReaderDemo.java'}   See *note FileReaderDemo-java::.
-     {'OnlyExt.java'}          See *note OnlyExt-java::.
-     {'PrinterWriterDemo.java'}See *note PrinterWriterDemo-java::.
-     {'ShowFile.java'}         See *note ShowFile-java::.
-     {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
-     {'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
-     {'ShowFileTryWR.java'}    See *note ShowFileTryWR-java::.
-<Import java.io.File>
-
-     This chunk is called by {'DirList.java'}; see its first
-     definition at *note DirList-java::.
-<Instance Methods Show and Get>
-
-     This chunk is called by <Class TwoGen>; see its first definition
-     at *note Class-TwoGen::.
-<Instance Variable ob of Type T>
-
-     This chunk is called by <Class Gen>; see its first definition at
-     *note Class-Gen::.
-<Integer Type Parameter>
-
-     This chunk is called by <Create a Gen object for Integers>; see
-     its first definition at *note Create-a-Gen-object-for-Integers::.
-<Makefile CLEAN>
-
-     This chunk is called by <Makefile CLEAN Targets>; see its first
-     definition at *note Makefile-CLEAN-Targets::.
-<Makefile CLEAN Targets>
-
-     This chunk is called by {'Makefile'}; see its first definition at
-     *note Makefile::.
-<Makefile CONSTANTS>
-
-     This chunk is called by {'Makefile'}; see its first definition at
-     *note Makefile::.
-<Makefile DEFAULTS>
-
-     This chunk is called by {'Makefile'}; see its first definition at
-     *note Makefile::.
-<Makefile DISTCLEAN>
-
-     This chunk is called by <Makefile CLEAN Targets>; see its first
-     definition at *note Makefile-CLEAN-Targets::.
-<Makefile HTML>
-
-     This chunk is called by {'Makefile'}; see its first definition at
-     *note Makefile::.
-<Makefile MAKEFILE Target>
-
-     This chunk is called by {'Makefile'}; see its first definition at
-     *note Makefile::.
-<Makefile MAKEPDF>
-
-     This chunk is called by <Makefile PDF>; see its first definition
-     at *note Makefile-PDF::.
-<Makefile OPENPDF>
-
-     This chunk is called by <Makefile PDF>; see its first definition
-     at *note Makefile-PDF::.
-<Makefile PDF>
-
-     This chunk is called by {'Makefile'}; see its first definition at
-     *note Makefile::.
-<Makefile TANGLE WEAVE>
-
-     This chunk is called by {'Makefile'}; see its first definition at
-     *note Makefile::.
-<Makefile WORLDCLEAN>
-
-     This chunk is called by <Makefile CLEAN Targets>; see its first
-     definition at *note Makefile-CLEAN-Targets::.
-<Method returning object of type T>
-
-     This chunk is called by <Class Gen>; see its first definition at
-     *note Class-Gen::.
-<Method showing type of T>
-
-     This chunk is called by <Class Gen>; see its first definition at
-     *note Class-Gen::.
-<Number 1>
-
-     This chunk is called by {'ShowFileTryWR.java'}; see its first
-     definition at *note ShowFileTryWR-java::.
-<Number 2>
-
-     This chunk is called by {'CopyFileMultTryWR.java'}; see its first
-     definition at *note CopyFileMultTryWR-java::.
-<OnlyExt Accept Method Implementation>
-
-     This chunk is called by {'OnlyExt.java'}; see its first
-     definition at *note OnlyExt-java::.
-<OnlyExt Constructor>
-
-     This chunk is called by {'OnlyExt.java'}; see its first
-     definition at *note OnlyExt-java::.
-<OnlyExt Instance Variable Declarations>
-
-     This chunk is called by {'OnlyExt.java'}; see its first
-     definition at *note OnlyExt-java::.
-<PrintWriterDemo PrintWriter Constructor>
-
-     This chunk is called by {'PrinterWriterDemo.java'}; see its first
-     definition at *note PrinterWriterDemo-java::.
-<PrintWriterDemo Printing To Console>
-
-     This chunk is called by {'PrinterWriterDemo.java'}; see its first
-     definition at *note PrinterWriterDemo-java::.
-<Rectangle Area Method Declaration >
-
-     This chunk is called by <FindAreas SubClass Rectangle >; see its
-     first definition at *note FindAreas-SubClass-Rectangle-::.
-<Rectangle Constructor >
-
-     This chunk is called by <FindAreas SubClass Rectangle >; see its
-     first definition at *note FindAreas-SubClass-Rectangle-::.
-<Reference to Integer Instance>
-
-     This chunk is called by <Create a Gen object for Integers>; see
-     its first definition at *note Create-a-Gen-object-for-Integers::.
-<Show Type>
-
-     This chunk is called by <Create a Gen object for Integers>; see
-     its first definition at *note Create-a-Gen-object-for-Integers::.
-<ShowFile Close a File>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'ShowFile.java'}         See *note ShowFile-java::.
-     {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
-<ShowFile Initial Comments>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'ShowFile.java'}         See *note ShowFile-java::.
-     {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
-     {'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
-<ShowFile Instance Variable Declarations>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'ShowFile.java'}         See *note ShowFile-java::.
-     {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
-     {'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
-<ShowFile Open a File>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'ShowFile.java'}         See *note ShowFile-java::.
-     {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
-     {'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
-<ShowFile Read a File>
-
-     This chunk is called by {'ShowFile.java'}; see its first
-     definition at *note ShowFile-java::.
-<ShowFileAlt Read a File>
-
-     This chunk is called by {'ShowFileAlt.java'}; see its first
-     definition at *note ShowFileAlt-java::.
-<ShowFileSingleTry Additional Initial Comment>
-
-     This chunk is called by {'ShowFileSingleTry'}; see its first
-     definition at *note ShowFileSingleTry::.
-<ShowFileSingleTry Read a File>
-
-     This chunk is called by {'ShowFileSingleTry'}; see its first
-     definition at *note ShowFileSingleTry::.
-<ShowFileTryWR Check CL Args>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'CopyFileMultTryWR.java'}See *note CopyFileMultTryWR-java::.
-     {'ShowFileTryWR.java'}    See *note ShowFileTryWR-java::.
-<ShowFileTryWR Check CL Args End>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'CopyFileMultTryWR.java'}See *note CopyFileMultTryWR-java::.
-     {'ShowFileTryWR.java'}    See *note ShowFileTryWR-java::.
-<ShowFileTryWR Initial Comments>
-
-     This chunk is called by {'ShowFileTryWR.java'}; see its first
-     definition at *note ShowFileTryWR-java::.
-<ShowFileTryWR Instance Variable Declaration>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'CopyFileMultTryWR.java'}See *note CopyFileMultTryWR-java::.
-     {'ShowFileTryWR.java'}    See *note ShowFileTryWR-java::.
-<ShowFileTryWR Open a File TryWR>
-
-     This chunk is called by {'ShowFileTryWR.java'}; see its first
-     definition at *note ShowFileTryWR-java::.
-<Stack Constructor>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'Stack.java'}            See *note Stack-java::.
-     {'StackImproved.java'}    See *note StackImproved-java::.
-<Stack Instance Methods>
-
-     This chunk is called by the following chunks:
-
-     Chunk name                First definition point
-     -------------------------------------------------------------------------
-     {'Stack.java'}            See *note Stack-java::.
-     {'StackImproved.java'}    See *note StackImproved-java::.
-<Stack Instance Variables>
-
-     This chunk is called by {'Stack.java'}; see its first definition
-     at *note Stack-java::.
-<Stack Pop>
-
-     This chunk is called by <Stack Instance Methods>; see its first
-     definition at *note Stack-Instance-Methods::.
-<Stack Private Instance Variables>
-
-     This chunk is called by {'StackImproved.java'}; see its first
-     definition at *note StackImproved-java::.
-<Stack Push>
-
-     This chunk is called by <Stack Instance Methods>; see its first
-     definition at *note Stack-Instance-Methods::.
-<Static Method isIn>
-
-     This chunk is called by {'GenMethDemo.java'}; see its first
-     definition at *note GenMethDemo-java::.
-<TestStack Main Method>
-
-     This chunk is called by {'TestStack.java'}; see its first
-     definition at *note TestStack-java::.
-<Triangle Area Method Declaration >
-
-     This chunk is called by <FindAreas SubClass Triangle >; see its
-     first definition at *note FindAreas-SubClass-Triangle-::.
-<Triangle Constructor >
-
-     This chunk is called by <FindAreas SubClass Triangle >; see its
-     first definition at *note FindAreas-SubClass-Triangle-::.
-<Two Instance Variables Declarations>
-
-     This chunk is called by <Class TwoGen>; see its first definition
-     at *note Class-TwoGen::.
 

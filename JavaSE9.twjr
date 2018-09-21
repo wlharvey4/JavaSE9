@@ -7602,6 +7602,285 @@ public class MyClass @{
 The anonymous class defined by @code{o} is enclosed by @code{MyClass}.
 
 
+
+@c -----------------------------------------------------------------------------
+
+@node Members and Reflection
+@section Members and Reflection
+@cindex Members and Reflection
+@cindex @file{java.lang.reflect.Member} interface
+
+Reflection defines an interface @file{java.lang.reflect.Member} which is implemented
+by
+
+@itemize
+@item @file{java.lang.reflect.Field}, 
+@item @file{java.lang.reflect.Method}, and
+@item @file{java.lang.reflect.Constructor}.
+@end itemize
+
+For each member, the lesson will describe the associated APIs to retrieve
+declaration and type information, any operations unique to the member (for
+example, setting the value of a field or invoking a method), and commonly
+encountered errors. Each concept will be illustrated with code samples and
+related output which approximate some expected reflection uses.
+
+@subheading Note about Members and the Specification
+
+According to The Java Language Specification, Java SE 7 Edition, the
+@dfn{members of a class} are the inherited components of the class body
+including fields, methods, nested classes, interfaces, and enumerated
+types. Since constructors are not inherited, they are not members. This
+differs from the implementing classes of @file{java.lang.reflect.Member}.
+
+@c .....................................
+
+@node reflect Field
+@subsection @file{reflect.Field}
+@cindex Fields, reflection
+@cindex @file{java.lang.reflect.Field} class
+
+Fields have a type and a value. The @file{java.lang.reflect.Field} class
+provides methods for accessing type information and setting and getting
+values of a field on a given object.
+
+@c .....................................
+
+@node reflect Method
+@subsection @file{reflect.Method}
+@cindex Methods, reflection
+@cindex @file{java.lang.reflect.Method} class
+
+Methods have return values, parameters, and may throw exceptions. The
+@file{java.lang.reflect.Method} class provides methods for obtaining the type
+information for the parameters and return value. It may also be used to
+invoke methods on a given object.
+
+@c .....................................
+
+@node reflect Constructor
+@subsection @file{reflect.Constructor}
+@cindex Constructor, reflection
+@cindex @file{java.lang.reflect.Constructor}
+
+The Reflection APIs for constructors are defined in
+@file{java.lang.reflect.Constructor} and are similar to those for methods,
+with two major exceptions: first, constructors have no return values; second,
+the invocation of a constructor creates a new instance of an object for a
+given class.
+
+@c _____________________________________
+
+@node Finding Constructors
+@subsubsection Finding Constructors
+@cindex constructors, finding
+@cindex @file{java.lang.reflect.Constructor}
+
+A constructor declaration includes the name, modifiers, parameters, and list
+of throwable exceptions. The @file{java.lang.reflect.Constructor} class provides a
+way to obtain this information.
+
+@c _____________________________________
+
+@node Constructor Modifiers
+@subsubsection Retrieving and Parsing Constructor Modifiers
+@cindex constructor modifiers, retrieving and parsing
+
+Because of the role of constructors in the language, fewer modifiers are
+meaningful than for methods:
+
+@itemize
+@item Access modifiers:
+@itemize
+@item @code{public},
+@item @code{protected}, and
+@item @code{private}
+@end itemize
+@item Annotations
+@end itemize
+
+@c _____________________________________
+
+@node Creating New Class Instances
+@subsubsection Creating New Class Instances
+@cindex class instance, creating new
+
+There are two reflective methods for creating instances of classes:
+
+@enumerate
+@item @code{java.lang.reflect.Constructor.newInstance()} and
+@item @code{Class.newInstance()}.
+@end enumerate
+
+The former is preferred and is thus used in these examples because:
+
+@itemize
+@item
+@code{Class.newInstance()} can only invoke the zero-argument constructor,
+while @code{Constructor.newInstance()} may invoke any constructor, regardless
+of the number of parameters.
+@item
+@code{Class.newInstance()} throws any exception thrown by the constructor,
+regardless of whether it is checked or unchecked.
+@code{Constructor.newInstance()} always wraps the thrown exception with an
+@file{InvocationTargetException}.
+@item
+@code{Class.newInstance()} requires that the constructor be visible;
+@code{Constructor.newInstance()} may invoke private constructors under
+certain circumstances.
+@end itemize
+
+
+@c -----------------------------------------------------------------------------
+
+@node Arays and Enumerated Types and Reflection
+@section Arrays and Enumerate Types and Reflection
+@cindex Arrays, reflection
+@cindex Enumerate types, reflection
+
+From the Java virtual machine's perspective, arrays and enumerated types (or
+@code{enums}) are just classes.  Many of the methods in @file{Class} may be
+used on them.  Reflection provides a few specific APIs for arrays and
+enums.  This lesson uses a series of code samples to describe how to
+distinguish each of these objects from other classes and operate on
+them.  Various errors are also be examined.
+
+@c .....................................
+
+@node Arrays and Reflection
+@subsection Arrays and Reflection
+@cindex Arrays, reflection
+@cindex @file{java.lang.reflect.Array}
+
+Arrays have a component type and a length (which is not part of the
+type). Arrays may be maniuplated either in their entirety or component by
+component. Reflection provides the @file{java.lang.reflect.Array} class for
+the latter purpose.
+
+@c _____________________________________
+
+@node Identifying Array Types
+@subsubsection Identifying Array Types
+
+Array types may be identified by invoking @code{Class.isArray()}. To obtain a
+@file{Class} use one of the methods described in @ref{Retrieving Class
+Objects} section.
+
+@c _____________________________________
+
+@node Creating New Arrays
+@subsubsection Creating New Arrays
+@cindex arrays, creating new
+
+Just as in non-reflective code, reflection supports the ability to
+dynamically create arrays of arbitrary type and dimensions via
+@code{java.lang.reflect.Array.newInstance()}. Consider ArrayCreator, a basic
+interpreter capable of dynamically creating arrays. The syntax that will be
+parsed is as follows:
+
+@example
+fully_qualified_class_name variable_name[] =
+	@{ val1, val2, val3, ... @}
+@end example
+
+@c _____________________________________
+
+@node Getting and Setting Arrays
+@subsubsection Getting and Setting Arrays and Their Components
+@cindex arrays, getting and setting
+@cindex @code{java.lang.reflect.Field.set()}
+@cindex @code{Field.get(Object)}
+@cindex @file{java.lang.reflect.Array}
+
+Just as in non-reflective code, an array field may be set or retrieved in its
+entirety or component by component. To set the entire array at once, use
+@code{java.lang.reflect.Field.set(Object obj, Object value)}. To retrieve the
+entire array, use @code{Field.get(Object)}. Individual components can be set
+or retrieved using methods in @file{java.lang.reflect.Array}.
+
+@file{Array} provides methods of the form @code{setFoo()} and @code{getFoo()}
+for setting and getting components of any primitive type.  For example, the
+component of an int array may be set with @samp{Array.setInt(Object array,
+int index, int value)} and may be retrieved with @samp{Array.getInt(Object
+array, int index)}.
+
+@subsubheading Setting a Field of Type Array
+
+@subsubheading Accessing Elements of a Multidimensional Array
+
+@c .....................................
+
+@node Enumerate Types and Reflection
+@subsection Enumerated Types and Reflection
+@cindex Enumerated types, refelction
+@cindex @code{Class.isEnum()}
+@cindex @code{Class.getEnumConstants()}
+@cindex @code{java.lang.reflect.Field.isEnumConstant()}
+
+Enums are treated very much like ordinary classes in reflection code.
+@code{Class.isEnum()} tells whether a @file{Class} represents an enum.
+@code{Class.getEnumConstants()} retrieves the enum constants defined in an
+enum.  @code{java.lang.reflect.Field.isEnumConstant()} indicates whether a
+field is an enumerated type.
+
+@c _____________________________________
+
+@node Enumerated Types Reflection
+@subsubsection Enumerated Types in Reflection
+@cindex enumerate types, reflection
+@cindex @code{Class.isEnum()}
+@cindex @code{Class.getEnumConstants()}
+@cindex @code{java.lang.reflect.Field.isEnumConstant()}
+
+An @dfn{enum} is a language construct that is used to define type-safe
+enumerations which can be used when a fixed set of named values is desired.
+All @code{enums} implicitly extend @file{java.lang.Enum}.  @code{Enums} may
+contain one or more @code{enum} constants, which define unique instances of
+the @code{enum} type.  An @code{enum} declaration defines an @code{enum} type
+which is very similar to a class in that it may have members such as fields,
+methods, and constructors (with some restrictions).
+
+Since @code{enums} are classes, reflection has no need to define an explicit
+java.lang.reflect.Enum class.  The only Reflection APIs that are specific to
+@code{enums} are @code{Class.isEnum()}, @code{Class.getEnumConstants()}, and
+@code{java.lang.reflect.Field.isEnumConstant()}.  Most reflective operations
+involving @code{enums} are the same as any other class or member.  For
+example, @code{enum} constants are implemented as @code{public static final}
+fields on the @code{enum}.  The following sections show how to use
+@file{Class} and @file{java.lang.reflect.Field} with @code{enums}.
+
+@subsubheading Examining Enums
+
+Illustrates how to retrieve an enum's constants and any other fields,
+constructors, and methods
+
+Reflection provides three enum-specific APIs:
+
+@table @code
+@item Class.isEnum()
+Indicates whether this class represents an enum type
+@item Class.getEnumConstants()
+Retrieves the list of enum constants defined by the enum in the order they're declared
+@item java.lang.reflect.Field.isEnumConstant()
+Indicates whether this field represents an element of an enumerated type
+@end table
+
+Sometimes it is necessary to dynamically retrieve the list of enum constants;
+in non-reflective code this is accomplished by invoking the implicitly
+declared static method @code{values()} on the enum.  If an instance of an
+@code{enum} type is not available the only way to get a list of the possible
+values is to invoke @code{Class.getEnumConstants()} since it is impossible
+to instantiate an @code{enum} type.
+
+@subsubheading Getting and Setting Fields with Enum Types
+
+Shows how to set and get fields with an enum constant value
+
+Fields which store @code{enums} are set and retrieved as any other reference
+type, using @code{Field.set()} and @code{Field.get()}. For more information
+on accessing fields, see the Fields section.  @xref{reflect Field}
+
+
 @c *****************************************************************************
 
 @node Swing
