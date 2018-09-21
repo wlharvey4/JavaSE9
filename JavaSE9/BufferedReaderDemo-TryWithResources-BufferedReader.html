@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>BufferedReaderDemo TryWithResources BufferedReader (About Java SE 9)</title>
+
+<meta name="description" content="BufferedReaderDemo TryWithResources BufferedReader (About Java SE 9)">
+<meta name="keywords" content="BufferedReaderDemo TryWithResources BufferedReader (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Buffered-Reader-Demo.html#Buffered-Reader-Demo" rel="up" title="Buffered Reader Demo">
+<link href="BufferedWriter.html#BufferedWriter" rel="next" title="BufferedWriter">
+<link href="BufferedReaderDemo-Buffer.html#BufferedReaderDemo-Buffer" rel="prev" title="BufferedReaderDemo Buffer">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="BufferedReaderDemo-TryWithResources-BufferedReader"></a>
+<div class="header">
+<p>
+Previous: <a href="BufferedReaderDemo-Buffer.html#BufferedReaderDemo-Buffer" accesskey="p" rel="prev">BufferedReaderDemo Buffer</a>, Up: <a href="Buffered-Reader-Demo.html#Buffered-Reader-Demo" accesskey="u" rel="up">Buffered Reader Demo</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="BufferedReaderDemo-TryWithResources-BufferedReader-1"></a>
+<h4 class="subsubsection">15.8.8.3 BufferedReaderDemo TryWithResources BufferedReader</h4>
+
+<table class="cartouche" border="1"><tr><td>
+<p>Notice that the Switch code is identical to the byte stream example.
+</p></td></tr></table>
+
+
+<a name="BufferedReaderDemo_002dTryWithResources_002dBufferedReader"></a><a name="index-_003cBufferedInputStreamDemo-Switch-on-Character_003e_002c-use-1"></a>
+<a name="index-_003cBufferedReaderDemo-TryWithResources-BufferedReader_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>BufferedReaderDemo TryWithResources BufferedReader</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">try ( BufferedReader f = new BufferedReader(in) ) {
+  while ( (c = f.read()) != -1 ) {
+    <span class="roman">&lt;<i>BufferedInputStreamDemo Switch on Character</i>&gt;</span>
+  }
+}
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">{<samp>BufferedReaderDemo.java</samp>}</span>; see its first definition at <a href="Buffered-Reader-Demo.html#BufferedReaderDemo_002djava">BufferedReaderDemo-java</a>.
+</p>
+<p>The called chunk <span class="roman">&lt;<i>BufferedInputStreamDemo Switch on Character</i>&gt;</span> is first defined at
+<a href="BufferedInputStreamDemo-Switch-on-Character.html#BufferedInputStreamDemo_002dSwitch_002don_002dCharacter">BufferedInputStreamDemo-Switch-on-Character</a>.
+</p>
+
+
+
+
+</body>
+</html>

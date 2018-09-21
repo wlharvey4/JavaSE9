@@ -14,7 +14,7 @@
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Character-Streams.html#Character-Streams" rel="up" title="Character Streams">
-<link href="FileWriter.html#FileWriter" rel="next" title="FileWriter">
+<link href="FileReaderDemo-TryWithResources-FileReader.html#FileReaderDemo-TryWithResources-FileReader" rel="next" title="FileReaderDemo TryWithResources FileReader">
 <link href="Writer.html#Writer" rel="prev" title="Writer">
 <style type="text/css">
 <!--
@@ -57,7 +57,59 @@ Next: <a href="FileWriter.html#FileWriter" accesskey="n" rel="next">FileWriter</
 <a name="FileReader-1"></a>
 <h4 class="subsection">15.8.3 <samp>FileReader</samp></h4>
 <a name="index-FileReader"></a>
+<a name="index-FileReader-constructors"></a>
 
+<p>The <samp>FileReader</samp> class creates a <samp>Reader</samp> that you can use to read
+the contents of a file.  Two commonly used constructors are:
+</p>
+<div class="display">
+<pre class="display">FileReader (String <i>filePath</i>)
+FileReader (File <i>fileObj</i>)
+</pre></div>
+
+<p>Either can throw a <samp>FileNotFoundException</samp>.
+</p>
+<a name="Example-Reading-Lines-From-a-File"></a>
+<h4 class="subsubheading">Example Reading Lines From a File</h4>
+
+<table class="cartouche" border="1"><tr><td>
+<p>This example shows how to read lines from a file and display them on the
+standard output device.  It reads its own source file, which must be in the
+current directory.
+</p></td></tr></table>
+
+
+<a name="FileReaderDemo_002djava"></a><a name="index-_003cImport-java_002eio_003e_002c-use-12"></a>
+<a name="index-_003cFileReaderDemo-TryWithResources-FileReader_003e_002c-use"></a>
+<a name="index-_003cCatch-IOException_003e_002c-use-1"></a>
+<a name="index-_007bFileReaderDemo_002ejava_007d_002c-definition"></a>
+<p><span class="roman">{<samp>FileReaderDemo.java</samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example"><span class="roman">&lt;<i>Import java.io</i>&gt;</span>
+class FileReaderDemo {
+  public static void main (String[] args) {
+    <span class="roman">&lt;<i>FileReaderDemo TryWithResources FileReader</i>&gt;</span>
+    <span class="roman">&lt;<i>Catch IOException</i>&gt;</span>
+  }
+}
+
+</pre></div>
+
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>Catch IOException</i>&gt;</span></td><td width="65%">See <a href="Catch-IOException.html#Catch_002dIOException">Catch-IOException</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>FileReaderDemo TryWithResources FileReader</i>&gt;</span></td><td width="65%">See <a href="FileReaderDemo-TryWithResources-FileReader.html#FileReaderDemo_002dTryWithResources_002dFileReader">FileReaderDemo-TryWithResources-FileReader</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Import java.io</i>&gt;</span></td><td width="65%">See <a href="Import-java_002eio.html#Import_002djava_002dio">Import-java-io</a>.</td></tr>
+</table>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="FileReaderDemo-TryWithResources-FileReader.html#FileReaderDemo-TryWithResources-FileReader" accesskey="1">FileReaderDemo TryWithResources FileReader</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Catch-IOException.html#Catch-IOException" accesskey="2">Catch IOException</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
 
 
 

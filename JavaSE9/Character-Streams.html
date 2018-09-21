@@ -57,7 +57,26 @@ Next: <a href="Console-Class.html#Console-Class" accesskey="n" rel="next">Consol
 <a name="The-Character-Streams"></a>
 <h3 class="section">15.8 The Character Streams</h3>
 <a name="index-Character-Streams"></a>
+<a name="index-Unicode-characters"></a>
+<a name="index-Reader-abstract-class-3"></a>
+<a name="index-Writer-abstract-class-2"></a>
 
+<p>While th byte stream classes provide sufficient functionality to handle any
+type of I/O operation, they cannot work directly with Unicode characters.
+Since one of the purposes of Java is to support the &ldquo;write once, run
+anywhere&rdquo; philosophy, it was necessary to include direction I/O support for
+characters.  In this section, several of the character I/O classes are
+discussed.
+</p>
+<p>At the top of the character stream hierarchies are the
+</p>
+<ul>
+<li> <samp>Reader</samp>
+</li><li> <samp>Writer</samp>
+</li></ul>
+
+<p>abstract classes.
+</p>
 
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="Reader.html#Reader" accesskey="1">Reader</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
@@ -74,9 +93,11 @@ Next: <a href="Console-Class.html#Console-Class" accesskey="n" rel="next">Consol
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="BufferedReader.html#BufferedReader" accesskey="7">BufferedReader</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="BufferedWriter.html#BufferedWriter" accesskey="8">BufferedWriter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="Buffered-Reader-Demo.html#Buffered-Reader-Demo" accesskey="8">Buffered Reader Demo</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="PushbackReader.html#PushbackReader" accesskey="9">PushbackReader</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="BufferedWriter.html#BufferedWriter" accesskey="9">BufferedWriter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="PushbackReader.html#PushbackReader">PushbackReader</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="PrintWriter.html#PrintWriter">PrintWriter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>

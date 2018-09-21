@@ -25,7 +25,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.2.5
+@set VERSION 0.2.6
 
 @iftex
 @set DOCUMENT book
@@ -6371,6 +6371,29 @@ Either can throw a @file{FileNotFoundException}.
 @subsection Filtered Byte Streams
 @cindex Byte Streams, filtered
 @cindex filtered byte streams
+@cindex @file{FilterInputStream}
+@cindex @file{FilterOutputStream}
+
+@dfn{Filtered streams} are simply wrappers around underlying input or output
+streams that transparently provide some extended level of functionality.
+These streams are typcially accessed by methods that are expecting a generic
+stream, which is a superclass of the filtered streams.  Typical extensions
+are buffering, character translation, and raw data translation. The filtered
+byte streams are:
+
+@itemize
+@item
+@file{FilterInputStream}
+@item
+@file{FilterOutputStream}
+@end itemize
+
+@noindent Their constructors are:
+
+@display
+FilterOutputStream (OutputStream @ii{os})
+FilterInputStream (InputStream @ii{is})
+@end display
 
 @c .....................................
 
@@ -6378,12 +6401,209 @@ Either can throw a @file{FileNotFoundException}.
 @subsection Buffered Byte Streams
 @cindex Buffered Byte Streams
 @cindex Byte Streams, buffered
+@cindex buffered stream
+@cindex @file{BufferedInputStream}
+@cindex @file{BufferedOutputStream}
+@cindex @file{PushbackInputStream}
+
+For the byte-oriented streams, a @dfn{buffered stream} extends a filtered
+stream class by attaching a memory buffer to the I/O stream.  This buffer
+allows Java to do I/O operations on more than a byte at a time, thereby
+improving performance.  Because the buffer is available, skipping, marking,
+and resetting of the stream become possible.  The buffered byte stream
+classes are:
+
+@itemize
+@item
+@file{BufferedInputStream}
+@item
+@file{BufferedOutputStream}
+@item
+@file{PushbackInputStream}
+@end itemize
 
 @c _____________________________________
 
 @node BufferedInputStream
 @subsubsection @file{BufferedInputStream}
 @cindex @file{BufferedInputStream}
+@cindex @file{BufferedInputStream} constructors
+
+Java's @file{BufferedInputStream} class allows you to ``wrap'' any
+@file{InputStream} into a buffered stream to improve performance.
+@file{BufferedInputStream} has two constructors:
+
+@display
+BufferedInputStream (InputStream @ii{inputStream})
+BufferedInputStream (InputStream @ii{inputStream}, int @ii{bufSize})
+@end display
+
+The first form creates a buffered stream using a default buffer size.  In the
+second, the size of the buffer is passed in @ii{bufSize}.  Use of sizes that
+are multiples of a memory page, a disk block, and son, can have a significant
+positive impact on performance.  A good guess for a size is around 8,192
+bytes, and attaching even a rather small buffer to an I/O stream is always a
+good idea.  That way, the low-level system can read blocks of data from the
+disk or network and store the results in your buffer.  Thus, even if you are
+reading the data a byte at a time out of the @file{InputStream}, you will be
+manipulating fast memory most of the time.
+
+Buffering an input stream provides the foundation required to support moving
+backward in the stream of the available buffer.  Beyond the @code{read()} and
+@code{skip()} methods implemented in any @file{InputStream},
+@file{BufferedInputStream} also supports the @code{mark()} and @code{reset()}
+methods.  This support is reflected by the
+@code{BufferedInputStream.markSupported()} returning @code{true}.
+
+@c _____________________________________
+
+@node Buffered Input Example
+@subsubsection Buffered Input Example
+
+@cartouche
+The following example contrives a situation where we can use @code{mark()} to
+remember where we are in an input stream and later use @code{reset()} to get
+back there.  This example is parsing a stream for the HTML entity reference
+for the ``copyright'' symbol.  Such a reference begins with an ampersand
+(@kbd{&}) and ends with a semicolon (@kbd{;}) without any intervening
+whitespace.  The sample input has two ampersands to show the case where the
+@code{reset()} happens and where it does not.
+@end cartouche
+
+@ifinfo
+@noindent=============================================================================
+@end ifinfo
+
+@(BufferedInputStreamDemo.java@)=
+@<Import java.io@>
+class BufferedInputStreamDemo {
+  public static void main(String[] args) {
+
+    @<BufferedInputStreamDemo Instance Variables@>
+
+    @<BufferedInputStreamDemo TryWithResources BufferedInputStream@>
+    @<Catch IOException@>
+
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo Instance Variables
+@subsubsection BufferedInputStreamDemo Instance Variables
+@<BufferedInputStreamDemo Instance Variables@>=
+@<BufferedInputStreamDemo String@>
+@<BufferedInputStreamDemo Buffer@>
+@<BufferedInputStreamDemo ByteArrayInputStream@>
+@<BufferedInputStreamDemo Utility Variables@>
+@
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo TryWithResources BufferedInputStream
+@subsubsection BufferedInputStreamDemo TryWithResources BufferedInputStream
+
+@<BufferedInputStreamDemo TryWithResources BufferedInputStream@>=
+try (BufferedInputStream f = new BufferedInputStream(in)) {
+
+  @<BufferedInputStreamDemo While Loop@>
+
+}
+
+@
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo While Loop
+@subsubsection BufferedInputStreamDemo While Loop
+
+@<BufferedInputStreamDemo While Loop@>=
+while ( (c = f.read()) != -1 ) {
+
+   @<BufferedInputStreamDemo Switch on Character@>
+  
+}
+
+@
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo Switch on Character
+@subsubsection BufferedInputStreamDemo Switch on Character
+
+@<BufferedInputStreamDemo Switch on Character@>=
+switch (c) {
+  case '&':
+    if (!marked) {
+      f.mark(32);
+      marked = true;
+    } else marked = false;
+    break;
+
+  case ';':
+    if (marked) {
+      marked = false;
+      System.out.print("(c)");
+    } else System.out.print( (char) c);
+    break;
+
+  case ' ':
+    if (marked) {
+      marked = false;
+      f.reset();
+      System.out.print("&");
+    } else System.out.print( (char) c);
+    break;
+
+  default:
+    if (!marked) System.out.print( (char) c);
+    break;
+}
+
+@
+
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo String Into Buffer
+@subsubsection BufferedInputStreamDemo String Into Buffer
+
+@<BufferedInputStreamDemo String@>=
+String s = "This is a &copy; copyright symbol " + "but this is &copy not.\n"
+@
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo Buffer
+@subsubsection BufferedInputStreamDemo Buffer
+
+@<BufferedInputStreamDemo Buffer@>=
+byte buf[] = s.getBytes();
+
+@
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo ByteArrayInputStream
+@subsubsection BufferedInputStreamDemo ByteArrayInputStream
+
+@<BufferedInputStreamDemo ByteArrayInputStream@>=
+ByteArrayInputStream in = new ByteArrayInputStream(buf);
+
+@
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo Utility Variables
+@subsubsection BufferedInputStreamDemo Utility Variables
+
+@<BufferedInputStreamDemo Utility Variables@>=
+int c;
+boolean marked = false;
+
+@
 
 @c _____________________________________
 
@@ -6428,6 +6648,27 @@ Either can throw a @file{FileNotFoundException}.
 @node Character Streams
 @section The Character Streams
 @cindex Character Streams
+@cindex Unicode characters
+@cindex @file{Reader} abstract class
+@cindex @file{Writer} abstract class
+
+While th byte stream classes provide sufficient functionality to handle any
+type of I/O operation, they cannot work directly with Unicode characters.
+Since one of the purposes of Java is to support the ``write once, run
+anywhere'' philosophy, it was necessary to include direction I/O support for
+characters.  In this section, several of the character I/O classes are
+discussed.
+
+At the top of the character stream hierarchies are the
+
+@itemize
+@item
+@file{Reader}
+@item
+@file{Writer}
+@end itemize
+
+@noindent abstract classes.
 
 @c .....................................
 
@@ -6435,23 +6676,194 @@ Either can throw a @file{FileNotFoundException}.
 @subsection @file{Reader}
 @cindex @file{Reader}
 
+@file{Reader} is an abstact class that defines Java's model of streaming
+character input.  It implements the @file{AutoCloseable}, @file{Closeable},
+and @file{Readable} interfaces.  All of the methods in this class (except
+@code{markSupported()}) will throw an @file{IOException} on error
+conditions.
+
+@subsubheading Reader Methods
+@cindex @file{Reader} Methods
+
+@float Table,ReaderMethods
+@table @b
+@item abstract void close()
+Closes the input source.  Further read attempts will general an
+@file{IOException}.  
+@item void mark(int @ii{numChars})
+Places a mark at the current point in the input stream that will remain valid
+until @ii{numChars} characters are read.
+@item boolean markSupported()
+Returns @code{true} if @code{mark()}/@code{reset()} are supported on this
+stream.
+@item int read(char @ii{buffer[]})
+Attempts to read up to @ii{buffer.length} characters into @ii{buffer} and
+returns the actual number of characters that were successfully read.
+@code{-1} is returned when an attempt is made to read at the end of the
+stream.
+@item int read(CharBuffer @ii{buffer})
+Attempts to read characters into @ii{buffer} and returns the actual number of
+characters that were successfully read.  @code{-1} is returned when an
+attempt is made to read at the end of the stream.
+@item abstract int read(char @ii{buffer[]}, int @ii{offset}, int @ii{numChars})
+Attempts to read up to @ii{numChars} characters into @ii{buffer} starting at
+@ii{buffer[offset]}, returning the number of characters successfully read.
+@code{-1} is returned whn an attempt is made to read at the end of the
+stream. 
+@item boolean read()
+Returns @code{true} if the next input request will not wait.  Otherwise, it
+returns @code{false}.
+@item void reset()
+Resets the input pointer to the previously set mark.
+@item long skip(long @ii{numChars})
+Skips over @ii{numChars} characters of input, returning the number of
+characters actually skipped.
+@end table
+@caption{The Methods Defined by @file{Reader}}
+@end float
+
 @c .....................................
 
 @node Writer
 @subsection @file{Writer}
 @cindex @file{Wrtier}
 
+@file{Writer} is an abstract class that defines streaming character output.
+It implements the @file{AutoCloseable}, @file{Closeable}, @file{Flushable},
+and @file{Appendable} interfaces.  All of the methods in this class throw an
+@file{IOException} in the case of errors.
+
+@subsubheading @file{Writer} Methods
+@cindex @file{Writer} Methods
+
+@float Table,WriterMethods
+@table @b
+@item Writer append(char @ii{ch})
+Appends @ii{ch} tot he end of the invoking output stream.  Returns a
+reference to the invoking stream.
+@item Writer append(CharSequence @ii{chars})
+Appends @ii{chars} to the end of the invoking output stream.  Returns a
+reference to the invoking stream.
+@item Writer append(CharSequence @ii{chars}, int @ii{begin}, int @ii{end})
+Appends the subrange of @ii{chars} specified by @ii{begin} and @ii{end} - 1
+to the end of the invoking output stream.  Returns a refernce to the invoking
+stream.  
+@item abstract void close()
+Closes the output stream.  Further write attempts will generate an
+@file{IOException}. 
+@item abstract void flush()
+Finalizes the output state so that any buffers are cleared (it flushes the
+output buffers).
+@item void write(int @ii{ch})
+Writes a single character to the invoking output stream.  The parameter is an
+@code{int}, whcih allows you to call @code{write()} with an expression
+without have to case it back to @code{char}.  However, only the low-order 16
+bits are written.
+@item void write(char @ii{buffer[]})
+Writes a complete array of characters to the invoking output stream.
+@item abstract void(char @ii{buffer[]}, int @ii{offset}, int @ii{numChars})
+Writes a subrange of @ii{numChars} characters from the array @ii{buffer},
+beginning at @ii{buffer[offset]} to the invoking output stream.
+@item void write(String @ii{str})
+Writes @ii{str} to the invoking output stream.
+@item void write(String @ii{str}, int @ii{offset}, int @ii{numChars})
+Writes a subrange of @ii{numChars} characters from the string @ii{str},
+beginning at the specified @ii{offset}
+@end table
+@caption{The Methods Defined by Writer}
+@end float
+
 @c .....................................
 
 @node FileReader
 @subsection @file{FileReader}
 @cindex @file{FileReader}
+@cindex @file{FileReader} constructors
+
+The @file{FileReader} class creates a @file{Reader} that you can use to read
+the contents of a file.  Two commonly used constructors are:
+
+@display
+FileReader (String @ii{filePath})
+FileReader (File @ii{fileObj})
+@end display
+
+Either can throw a @file{FileNotFoundException}.
+
+@subsubheading Example Reading Lines From a File
+
+@cartouche
+This example shows how to read lines from a file and display them on the
+standard output device.  It reads its own source file, which must be in the
+current directory.
+@end cartouche
+
+@ifinfo
+@noindent=========================================================================
+@end ifinfo
+
+@(FileReaderDemo.java@)=
+@<Import java.io@>
+class FileReaderDemo {
+  public static void main (String[] args) {
+    @<FileReaderDemo TryWithResources FileReader@>
+    @<Catch IOException@>
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node FileReaderDemo TryWithResources FileReader
+@subsubsection FileReaderDemo TryWtihResources FileReader
+
+@<FileReaderDemo TryWithResources FileReader@>=
+try (FileReader fr = new FileReader("FileReaderDemo.java")) {
+  int c;
+
+  while ((c = fr.read()) != -1)
+    System.out.print((char) c);
+}
+
+@
+
+@c _____________________________________
+
+@node Catch IOException
+@subsubsection Catch IOException
+
+@<Catch IOException@>=
+catch (IOException e) {
+  System.out.println("I/O Error: " + e);
+}
+
+@
 
 @c .....................................
 
 @node FileWriter
 @subsection @file{FileWriter}
 @cindex @file{FileWriter}
+@cindex @file{FileWriter} constructors
+
+@file{FileWriter} creates a @file{Writer} that you can use to write to a
+file.  Four commonly used constructors are:
+
+@display
+FileWriter (String @ii{filePath})
+FileWriter (String @ii{filePath}, boolean @ii{append})
+FileWriter (File @ii{fileObj})
+FileWriter (File @ii{fileObj}, boolean @ii{append})
+@end display
+
+@noindent They can all throw an @file{IOException}.  If @ii{append} is
+@code{true}, then output is appended to the end of the file.  Creation of a
+@file{FileWriter} is not dependent on the file already existing.
+@file{FileWriter} will create the file before opening it for output when you
+create the object.  In the case where you attept to open a read-only file,
+an @file{IOException} will be thrown.
+
 
 @c .....................................
 
@@ -6470,12 +6882,154 @@ Either can throw a @file{FileNotFoundException}.
 @node BufferedReader
 @subsection @file{BufferedReader}
 @cindex @file{BufferedReader}
+@cindex @file{BufferedReader} constructors
+@cindex stream, move backwards in
+@cindex @code{BufferedReader.lines()} method
+@cindex @code{lines()} method
+@cindex @file{Stream} reference
+@cindex @file{Streams} API
+
+@file{BufferedReader} improves performance by buffering input.  It has two
+constructors:
+
+@display
+BufferedReader (Reader @ii{inputStream})
+BufferedReader (Reader @ii{inputStream}, int @ii{bufSize})
+@end display
+
+The first form creates a buffered character stream using a default buffer
+size.  In the second, the size of the buffer is passed in @ii{bufSize}.
+Closing a @file{BufferedReader} also causes the underlying stream specified
+by @ii{inputStream} to be closed.
+
+Buffering an input character stream provides the foundation required to
+support moving backward in the stream within the available buffer.  To
+support this, @file{BufferedReader} implements the @code{mark()} and
+@code{reset()} methods, and @code{BufferedReader.markSupported()} returns
+@code{true}.
+
+JDK 8 added a new method to @file{BufferedReader} called @code{lines()}.  It
+returns a @file{Stream} reference to the sequence of lines read by the
+reader.  (@file{Stream} is part of the stream API discussed in @ref{Streams
+API}.  
+
+@c .....................................
+
+@node Buffered Reader Demo
+@subsection Buffered Reader Demo
+
+@cartouche
+This example reworks the @file{BufferedInputStream} example (@pxref{Buffered
+Input Example}) so that it uses a @file{BufferedReader} character stream
+rather than a buffered byte stream.  It uses the @code{mark()} and
+@code{reset()} methods to parse a stream for the HTML-entity reference for
+the copyright symbol.  Such a reference begins with an ampersand (@kbd{&})
+and ends with a semicolon (@kbd{;}) without any intervening whitespace.  The
+sample has two ampersands to show the case where the @code{reset()} happens
+and where it does not.
+@end cartouche
+
+@ifinfo
+@noindent =============================================================================
+@end ifinfo
+
+@(BufferedReaderDemo.java@)=
+@<Import java.io@>
+class BufferedReaderDemo {
+  public static void main (String[] args) throws IOException {
+
+    @<BufferedReaderDemo Instance Variables@>
+
+    @<BufferedReaderDemo TryWithResources BufferedReader@>
+    @<Catch IOException@>
+
+  }
+}
+
+@
+
+@c _____________________________________
+
+@node BufferedReaderDemo Instance Variables
+@subsubsection BufferedReaderDemo Instance Variables
+
+@cartouche
+The String is copied directly from the prior implementation.
+@end cartouche
+
+@ifinfo
+@noindent=========================================================================
+@end ifinfo
+
+@<BufferedReaderDemo Instance Variables@>=
+@<BufferedInputStreamDemo String@>
+@<BufferedReaderDemo Buffer@>
+
+@
+
+@c _____________________________________
+
+@node BufferedReaderDemo Buffer
+@subsubsection BufferedReaderDemo Buffer
+
+@cartouche
+Notice that this implementation uses a @code{char} buffer, with a
+@code{getChars()} method to transfer the string characters, while the
+@file{BufferedInputStream} implementation uses a @code{byte} buffer, and a
+@code{getBytes()} method to transfer the string bytes.
+@xref{BufferedInputStreamDemo Buffer}.
+@end cartouche
+
+@ifinfo
+@noindent =========================================================================
+@end ifinfo
+
+@<BufferedReaderDemo Buffer@>=
+char buf[] = new char[s.length()];
+s.getChars(0, s.length(), buf, 0);
+
+@
+
+@c _____________________________________
+
+@node BufferedReaderDemo TryWithResources BufferedReader
+@subsubsection BufferedReaderDemo TryWithResources BufferedReader
+
+@cartouche
+Notice that the Switch code is identical to the byte stream example.
+@end cartouche
+
+@ifinfo
+@noindent==========================================================================
+@end ifinfo
+
+@<BufferedReaderDemo TryWithResources BufferedReader@>=
+try ( BufferedReader f = new BufferedReader(in) ) {
+  while ( (c = f.read()) != -1 ) {
+    @<BufferedInputStreamDemo Switch on Character@>
+  }
+}
+
+@
 
 @c .....................................
 
 @node BufferedWriter
 @subsection @file{BufferedWriter}
 @cindex @file{BufferedWriter}
+@cindex @file{BufferedWriter} constructors
+
+A @file{BufferedWriter} is a @file{Writer} that buffers output.  Using a
+@file{BufferedWriter} can improve performance by reducing the number of times
+data is actually phyiscally written to the output device.  A
+@file{BufferedWriter} has these constructors:
+
+@display
+BufferedWriter (Writer @ii{outputStream})
+BufferedWriter (Writer @ii{outputStream}, int @ii{bufSize})
+@end display
+
+
 
 @c .....................................
 

@@ -43,7 +43,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.2.5
+@set VERSION 0.2.6
 
 @iftex
 @set DOCUMENT book
@@ -634,6 +634,15 @@ The Byte Streams
 Buffered Byte Streams
 
 * BufferedInputStream::
+* Buffered Input Example::
+* BufferedInputStreamDemo Instance Variables::
+* BufferedInputStreamDemo TryWithResources BufferedInputStream::
+* BufferedInputStreamDemo While Loop::
+* BufferedInputStreamDemo Switch on Character::
+* BufferedInputStreamDemo String Into Buffer::
+* BufferedInputStreamDemo Buffer::
+* BufferedInputStreamDemo ByteArrayInputStream::
+* BufferedInputStreamDemo Utility Variables::
 * BufferedOutputStream::
 * PushbackInputStream::
 
@@ -646,9 +655,21 @@ The Character Streams
 * CharArrayReader::
 * CharArrayWriter::
 * BufferedReader::
+* Buffered Reader Demo::
 * BufferedWriter::
 * PushbackReader::
 * PrintWriter::
+
+Example Reading Lines From a File
+
+* FileReaderDemo TryWithResources FileReader::
+* Catch IOException::
+
+Buffered Reader Demo
+
+* BufferedReaderDemo Instance Variables::
+* BufferedReaderDemo Buffer::
+* BufferedReaderDemo TryWithResources BufferedReader::
 
 Serialization
 
@@ -4334,9 +4355,12 @@ This chunk is called by the following chunks:
 @headitem Chunk name @tab First definition point
 @item @r{@{@file{BRRead.java}@}} @tab See @ref{BRRead-java}.
 @item @r{@{@file{BRReadLines.java}@}} @tab See @ref{BRReadLines-java}.
+@item @r{@{@file{BufferedInputStreamDemo.java}@}} @tab See @ref{BufferedInputStreamDemo-java}.
+@item @r{@{@file{BufferedReaderDemo.java}@}} @tab See @ref{BufferedReaderDemo-java}.
 @item @r{@{@file{CopyFile.java}@}} @tab See @ref{CopyFile-java}.
 @item @r{@{@file{CopyFileMultTryWR.java}@}} @tab See @ref{CopyFileMultTryWR-java}.
 @item @r{@{@file{DirListOnly}@}} @tab See @ref{DirListOnly}.
+@item @r{@{@file{FileReaderDemo.java}@}} @tab See @ref{FileReaderDemo-java}.
 @item @r{@{@file{OnlyExt.java}@}} @tab See @ref{OnlyExt-java}.
 @item @r{@{@file{PrinterWriterDemo.java}@}} @tab See @ref{PrinterWriterDemo-java}.
 @item @r{@{@file{ShowFile.java}@}} @tab See @ref{ShowFile-java}.
@@ -9222,6 +9246,29 @@ Either can throw a @file{FileNotFoundException}.
 @subsection Filtered Byte Streams
 @cindex Byte Streams, filtered
 @cindex filtered byte streams
+@cindex @file{FilterInputStream}
+@cindex @file{FilterOutputStream}
+
+@dfn{Filtered streams} are simply wrappers around underlying input or output
+streams that transparently provide some extended level of functionality.
+These streams are typcially accessed by methods that are expecting a generic
+stream, which is a superclass of the filtered streams.  Typical extensions
+are buffering, character translation, and raw data translation. The filtered
+byte streams are:
+
+@itemize
+@item
+@file{FilterInputStream}
+@item
+@file{FilterOutputStream}
+@end itemize
+
+@noindent Their constructors are:
+
+@display
+FilterOutputStream (OutputStream @ii{os})
+FilterInputStream (InputStream @ii{is})
+@end display
 
 @c .....................................
 
@@ -9229,11 +9276,40 @@ Either can throw a @file{FileNotFoundException}.
 @subsection Buffered Byte Streams
 @cindex Buffered Byte Streams
 @cindex Byte Streams, buffered
+@cindex buffered stream
+@cindex @file{BufferedInputStream}
+@cindex @file{BufferedOutputStream}
+@cindex @file{PushbackInputStream}
+
+For the byte-oriented streams, a @dfn{buffered stream} extends a filtered
+stream class by attaching a memory buffer to the I/O stream.  This buffer
+allows Java to do I/O operations on more than a byte at a time, thereby
+improving performance.  Because the buffer is available, skipping, marking,
+and resetting of the stream become possible.  The buffered byte stream
+classes are:
+
+@itemize
+@item
+@file{BufferedInputStream}
+@item
+@file{BufferedOutputStream}
+@item
+@file{PushbackInputStream}
+@end itemize
 
 @c _____________________________________
 
 @menu
 * BufferedInputStream::
+* Buffered Input Example::
+* BufferedInputStreamDemo Instance Variables::
+* BufferedInputStreamDemo TryWithResources BufferedInputStream::
+* BufferedInputStreamDemo While Loop::
+* BufferedInputStreamDemo Switch on Character::
+* BufferedInputStreamDemo String Into Buffer::
+* BufferedInputStreamDemo Buffer::
+* BufferedInputStreamDemo ByteArrayInputStream::
+* BufferedInputStreamDemo Utility Variables::
 * BufferedOutputStream::
 * PushbackInputStream::
 @end menu
@@ -9241,6 +9317,356 @@ Either can throw a @file{FileNotFoundException}.
 @node BufferedInputStream
 @subsubsection @file{BufferedInputStream}
 @cindex @file{BufferedInputStream}
+@cindex @file{BufferedInputStream} constructors
+
+Java's @file{BufferedInputStream} class allows you to ``wrap'' any
+@file{InputStream} into a buffered stream to improve performance.
+@file{BufferedInputStream} has two constructors:
+
+@display
+BufferedInputStream (InputStream @ii{inputStream})
+BufferedInputStream (InputStream @ii{inputStream}, int @ii{bufSize})
+@end display
+
+The first form creates a buffered stream using a default buffer size.  In the
+second, the size of the buffer is passed in @ii{bufSize}.  Use of sizes that
+are multiples of a memory page, a disk block, and son, can have a significant
+positive impact on performance.  A good guess for a size is around 8,192
+bytes, and attaching even a rather small buffer to an I/O stream is always a
+good idea.  That way, the low-level system can read blocks of data from the
+disk or network and store the results in your buffer.  Thus, even if you are
+reading the data a byte at a time out of the @file{InputStream}, you will be
+manipulating fast memory most of the time.
+
+Buffering an input stream provides the foundation required to support moving
+backward in the stream of the available buffer.  Beyond the @code{read()} and
+@code{skip()} methods implemented in any @file{InputStream},
+@file{BufferedInputStream} also supports the @code{mark()} and @code{reset()}
+methods.  This support is reflected by the
+@code{BufferedInputStream.markSupported()} returning @code{true}.
+
+@c _____________________________________
+
+@node Buffered Input Example
+@subsubsection Buffered Input Example
+
+@cartouche
+The following example contrives a situation where we can use @code{mark()} to
+remember where we are in an input stream and later use @code{reset()} to get
+back there.  This example is parsing a stream for the HTML entity reference
+for the ``copyright'' symbol.  Such a reference begins with an ampersand
+(@kbd{&}) and ends with a semicolon (@kbd{;}) without any intervening
+whitespace.  The sample input has two ampersands to show the case where the
+@code{reset()} happens and where it does not.
+@end cartouche
+
+@ifinfo
+@noindent=============================================================================
+@end ifinfo
+
+@need 400
+@anchor{BufferedInputStreamDemo-java}
+@crindex @r{<@i{Import java.io}>}, use
+@crindex @r{<@i{BufferedInputStreamDemo Instance Variables}>}, use
+@crindex @r{<@i{BufferedInputStreamDemo TryWithResources BufferedInputStream}>}, use
+@crindex @r{<@i{Catch IOException}>}, use
+@cdindex @r{@{@file{BufferedInputStreamDemo.java}@}}, definition
+@noindent
+@r{@{@file{BufferedInputStreamDemo.java}@}} @equiv{}
+@example
+@r{<@i{Import java.io}>}
+class BufferedInputStreamDemo @{
+  public static void main(String[] args) @{
+
+    @r{<@i{BufferedInputStreamDemo Instance Variables}>}
+
+    @r{<@i{BufferedInputStreamDemo TryWithResources BufferedInputStream}>}
+    @r{<@i{Catch IOException}>}
+
+  @}
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{BufferedInputStreamDemo Instance Variables}>} @tab See @ref{BufferedInputStreamDemo-Instance-Variables}.
+@item @r{<@i{BufferedInputStreamDemo TryWithResources BufferedInputStream}>} @tab See @ref{BufferedInputStreamDemo-TryWithResources-BufferedInputStream}.
+@item @r{<@i{Catch IOException}>} @tab See @ref{Catch-IOException}.
+@item @r{<@i{Import java.io}>} @tab See @ref{Import-java-io}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo Instance Variables
+@subsubsection BufferedInputStreamDemo Instance Variables
+@need 400
+@anchor{BufferedInputStreamDemo-Instance-Variables}
+@crindex @r{<@i{BufferedInputStreamDemo String}>}, use
+@crindex @r{<@i{BufferedInputStreamDemo Buffer}>}, use
+@crindex @r{<@i{BufferedInputStreamDemo ByteArrayInputStream}>}, use
+@crindex @r{<@i{BufferedInputStreamDemo Utility Variables}>}, use
+@cdindex @r{<@i{BufferedInputStreamDemo Instance Variables}>}, definition
+@noindent
+@r{<@i{BufferedInputStreamDemo Instance Variables}>} @equiv{}
+@example
+@r{<@i{BufferedInputStreamDemo String}>}
+@r{<@i{BufferedInputStreamDemo Buffer}>}
+@r{<@i{BufferedInputStreamDemo ByteArrayInputStream}>}
+@r{<@i{BufferedInputStreamDemo Utility Variables}>}
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{BufferedInputStreamDemo.java}@}}; see its first definition at @ref{BufferedInputStreamDemo-java}.
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{BufferedInputStreamDemo Buffer}>} @tab See @ref{BufferedInputStreamDemo-Buffer}.
+@item @r{<@i{BufferedInputStreamDemo ByteArrayInputStream}>} @tab See @ref{BufferedInputStreamDemo-ByteArrayInputStream}.
+@item @r{<@i{BufferedInputStreamDemo String}>} @tab See @ref{BufferedInputStreamDemo-String}.
+@item @r{<@i{BufferedInputStreamDemo Utility Variables}>} @tab See @ref{BufferedInputStreamDemo-Utility-Variables}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo TryWithResources BufferedInputStream
+@subsubsection BufferedInputStreamDemo TryWithResources BufferedInputStream
+
+@need 400
+@anchor{BufferedInputStreamDemo-TryWithResources-BufferedInputStream}
+@crindex @r{<@i{BufferedInputStreamDemo While Loop}>}, use
+@cdindex @r{<@i{BufferedInputStreamDemo TryWithResources BufferedInputStream}>}, definition
+@noindent
+@r{<@i{BufferedInputStreamDemo TryWithResources BufferedInputStream}>} @equiv{}
+@example
+try (BufferedInputStream f = new BufferedInputStream(in)) @{
+
+  @r{<@i{BufferedInputStreamDemo While Loop}>}
+
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{BufferedInputStreamDemo.java}@}}; see its first definition at @ref{BufferedInputStreamDemo-java}.
+
+@noindent
+The called chunk @r{<@i{BufferedInputStreamDemo While Loop}>} is first defined at
+@ref{BufferedInputStreamDemo-While-Loop}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo While Loop
+@subsubsection BufferedInputStreamDemo While Loop
+
+@need 400
+@anchor{BufferedInputStreamDemo-While-Loop}
+@crindex @r{<@i{BufferedInputStreamDemo Switch on Character}>}, use
+@cdindex @r{<@i{BufferedInputStreamDemo While Loop}>}, definition
+@noindent
+@r{<@i{BufferedInputStreamDemo While Loop}>} @equiv{}
+@example
+while ( (c = f.read()) != -1 ) @{
+
+   @r{<@i{BufferedInputStreamDemo Switch on Character}>}
+  
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{BufferedInputStreamDemo TryWithResources BufferedInputStream}>}; see its first definition at @ref{BufferedInputStreamDemo-TryWithResources-BufferedInputStream}.
+
+@noindent
+The called chunk @r{<@i{BufferedInputStreamDemo Switch on Character}>} is first defined at
+@ref{BufferedInputStreamDemo-Switch-on-Character}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo Switch on Character
+@subsubsection BufferedInputStreamDemo Switch on Character
+
+@need 400
+@anchor{BufferedInputStreamDemo-Switch-on-Character}
+@cdindex @r{<@i{BufferedInputStreamDemo Switch on Character}>}, definition
+@noindent
+@r{<@i{BufferedInputStreamDemo Switch on Character}>} @equiv{}
+@example
+switch (c) @{
+  case '&':
+    if (!marked) @{
+      f.mark(32);
+      marked = true;
+    @} else marked = false;
+    break;
+
+  case ';':
+    if (marked) @{
+      marked = false;
+      System.out.print("(c)");
+    @} else System.out.print( (char) c);
+    break;
+
+  case ' ':
+    if (marked) @{
+      marked = false;
+      f.reset();
+      System.out.print("&");
+    @} else System.out.print( (char) c);
+    break;
+
+  default:
+    if (!marked) System.out.print( (char) c);
+    break;
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by the following chunks:
+
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{BufferedInputStreamDemo While Loop}>} @tab See @ref{BufferedInputStreamDemo-While-Loop}.
+@item @r{<@i{BufferedReaderDemo TryWithResources BufferedReader}>} @tab See @ref{BufferedReaderDemo-TryWithResources-BufferedReader}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo String Into Buffer
+@subsubsection BufferedInputStreamDemo String Into Buffer
+
+@need 400
+@anchor{BufferedInputStreamDemo-String}
+@cdindex @r{<@i{BufferedInputStreamDemo String}>}, definition
+@noindent
+@r{<@i{BufferedInputStreamDemo String}>} @equiv{}
+@example
+String s = "This is a &copy; copyright symbol " + "but this is &copy not.\n"
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by the following chunks:
+
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{BufferedInputStreamDemo Instance Variables}>} @tab See @ref{BufferedInputStreamDemo-Instance-Variables}.
+@item @r{<@i{BufferedReaderDemo Instance Variables}>} @tab See @ref{BufferedReaderDemo-Instance-Variables}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo Buffer
+@subsubsection BufferedInputStreamDemo Buffer
+
+@need 400
+@anchor{BufferedInputStreamDemo-Buffer}
+@cdindex @r{<@i{BufferedInputStreamDemo Buffer}>}, definition
+@noindent
+@r{<@i{BufferedInputStreamDemo Buffer}>} @equiv{}
+@example
+byte buf[] = s.getBytes();
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{BufferedInputStreamDemo Instance Variables}>}; see its first definition at @ref{BufferedInputStreamDemo-Instance-Variables}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo ByteArrayInputStream
+@subsubsection BufferedInputStreamDemo ByteArrayInputStream
+
+@need 400
+@anchor{BufferedInputStreamDemo-ByteArrayInputStream}
+@cdindex @r{<@i{BufferedInputStreamDemo ByteArrayInputStream}>}, definition
+@noindent
+@r{<@i{BufferedInputStreamDemo ByteArrayInputStream}>} @equiv{}
+@example
+ByteArrayInputStream in = new ByteArrayInputStream(buf);
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{BufferedInputStreamDemo Instance Variables}>}; see its first definition at @ref{BufferedInputStreamDemo-Instance-Variables}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node BufferedInputStreamDemo Utility Variables
+@subsubsection BufferedInputStreamDemo Utility Variables
+
+@need 400
+@anchor{BufferedInputStreamDemo-Utility-Variables}
+@cdindex @r{<@i{BufferedInputStreamDemo Utility Variables}>}, definition
+@noindent
+@r{<@i{BufferedInputStreamDemo Utility Variables}>} @equiv{}
+@example
+int c;
+boolean marked = false;
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{BufferedInputStreamDemo Instance Variables}>}; see its first definition at @ref{BufferedInputStreamDemo-Instance-Variables}.
+@iftex
+@textfonts @rm
+@end iftex
 
 @c _____________________________________
 
@@ -9285,6 +9711,27 @@ Either can throw a @file{FileNotFoundException}.
 @node Character Streams
 @section The Character Streams
 @cindex Character Streams
+@cindex Unicode characters
+@cindex @file{Reader} abstract class
+@cindex @file{Writer} abstract class
+
+While th byte stream classes provide sufficient functionality to handle any
+type of I/O operation, they cannot work directly with Unicode characters.
+Since one of the purposes of Java is to support the ``write once, run
+anywhere'' philosophy, it was necessary to include direction I/O support for
+characters.  In this section, several of the character I/O classes are
+discussed.
+
+At the top of the character stream hierarchies are the
+
+@itemize
+@item
+@file{Reader}
+@item
+@file{Writer}
+@end itemize
+
+@noindent abstract classes.
 
 @c .....................................
 
@@ -9296,6 +9743,7 @@ Either can throw a @file{FileNotFoundException}.
 * CharArrayReader::
 * CharArrayWriter::
 * BufferedReader::
+* Buffered Reader Demo::
 * BufferedWriter::
 * PushbackReader::
 * PrintWriter::
@@ -9305,23 +9753,257 @@ Either can throw a @file{FileNotFoundException}.
 @subsection @file{Reader}
 @cindex @file{Reader}
 
+@file{Reader} is an abstact class that defines Java's model of streaming
+character input.  It implements the @file{AutoCloseable}, @file{Closeable},
+and @file{Readable} interfaces.  All of the methods in this class (except
+@code{markSupported()}) will throw an @file{IOException} on error
+conditions.
+
+@subsubheading Reader Methods
+@cindex @file{Reader} Methods
+
+@float Table,ReaderMethods
+@table @b
+@item abstract void close()
+Closes the input source.  Further read attempts will general an
+@file{IOException}.  
+@item void mark(int @ii{numChars})
+Places a mark at the current point in the input stream that will remain valid
+until @ii{numChars} characters are read.
+@item boolean markSupported()
+Returns @code{true} if @code{mark()}/@code{reset()} are supported on this
+stream.
+@item int read(char @ii{buffer[]})
+Attempts to read up to @ii{buffer.length} characters into @ii{buffer} and
+returns the actual number of characters that were successfully read.
+@code{-1} is returned when an attempt is made to read at the end of the
+stream.
+@item int read(CharBuffer @ii{buffer})
+Attempts to read characters into @ii{buffer} and returns the actual number of
+characters that were successfully read.  @code{-1} is returned when an
+attempt is made to read at the end of the stream.
+@item abstract int read(char @ii{buffer[]}, int @ii{offset}, int @ii{numChars})
+Attempts to read up to @ii{numChars} characters into @ii{buffer} starting at
+@ii{buffer[offset]}, returning the number of characters successfully read.
+@code{-1} is returned whn an attempt is made to read at the end of the
+stream. 
+@item boolean read()
+Returns @code{true} if the next input request will not wait.  Otherwise, it
+returns @code{false}.
+@item void reset()
+Resets the input pointer to the previously set mark.
+@item long skip(long @ii{numChars})
+Skips over @ii{numChars} characters of input, returning the number of
+characters actually skipped.
+@end table
+@caption{The Methods Defined by @file{Reader}}
+@end float
+
 @c .....................................
 
 @node Writer
 @subsection @file{Writer}
 @cindex @file{Wrtier}
 
+@file{Writer} is an abstract class that defines streaming character output.
+It implements the @file{AutoCloseable}, @file{Closeable}, @file{Flushable},
+and @file{Appendable} interfaces.  All of the methods in this class throw an
+@file{IOException} in the case of errors.
+
+@subsubheading @file{Writer} Methods
+@cindex @file{Writer} Methods
+
+@float Table,WriterMethods
+@table @b
+@item Writer append(char @ii{ch})
+Appends @ii{ch} tot he end of the invoking output stream.  Returns a
+reference to the invoking stream.
+@item Writer append(CharSequence @ii{chars})
+Appends @ii{chars} to the end of the invoking output stream.  Returns a
+reference to the invoking stream.
+@item Writer append(CharSequence @ii{chars}, int @ii{begin}, int @ii{end})
+Appends the subrange of @ii{chars} specified by @ii{begin} and @ii{end} - 1
+to the end of the invoking output stream.  Returns a refernce to the invoking
+stream.  
+@item abstract void close()
+Closes the output stream.  Further write attempts will generate an
+@file{IOException}. 
+@item abstract void flush()
+Finalizes the output state so that any buffers are cleared (it flushes the
+output buffers).
+@item void write(int @ii{ch})
+Writes a single character to the invoking output stream.  The parameter is an
+@code{int}, whcih allows you to call @code{write()} with an expression
+without have to case it back to @code{char}.  However, only the low-order 16
+bits are written.
+@item void write(char @ii{buffer[]})
+Writes a complete array of characters to the invoking output stream.
+@item abstract void(char @ii{buffer[]}, int @ii{offset}, int @ii{numChars})
+Writes a subrange of @ii{numChars} characters from the array @ii{buffer},
+beginning at @ii{buffer[offset]} to the invoking output stream.
+@item void write(String @ii{str})
+Writes @ii{str} to the invoking output stream.
+@item void write(String @ii{str}, int @ii{offset}, int @ii{numChars})
+Writes a subrange of @ii{numChars} characters from the string @ii{str},
+beginning at the specified @ii{offset}
+@end table
+@caption{The Methods Defined by Writer}
+@end float
+
 @c .....................................
 
 @node FileReader
 @subsection @file{FileReader}
 @cindex @file{FileReader}
+@cindex @file{FileReader} constructors
+
+The @file{FileReader} class creates a @file{Reader} that you can use to read
+the contents of a file.  Two commonly used constructors are:
+
+@display
+FileReader (String @ii{filePath})
+FileReader (File @ii{fileObj})
+@end display
+
+Either can throw a @file{FileNotFoundException}.
+
+@subsubheading Example Reading Lines From a File
+
+@cartouche
+This example shows how to read lines from a file and display them on the
+standard output device.  It reads its own source file, which must be in the
+current directory.
+@end cartouche
+
+@ifinfo
+@noindent=========================================================================
+@end ifinfo
+
+@need 400
+@anchor{FileReaderDemo-java}
+@crindex @r{<@i{Import java.io}>}, use
+@crindex @r{<@i{FileReaderDemo TryWithResources FileReader}>}, use
+@crindex @r{<@i{Catch IOException}>}, use
+@cdindex @r{@{@file{FileReaderDemo.java}@}}, definition
+@noindent
+@r{@{@file{FileReaderDemo.java}@}} @equiv{}
+@example
+@r{<@i{Import java.io}>}
+class FileReaderDemo @{
+  public static void main (String[] args) @{
+    @r{<@i{FileReaderDemo TryWithResources FileReader}>}
+    @r{<@i{Catch IOException}>}
+  @}
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{Catch IOException}>} @tab See @ref{Catch-IOException}.
+@item @r{<@i{FileReaderDemo TryWithResources FileReader}>} @tab See @ref{FileReaderDemo-TryWithResources-FileReader}.
+@item @r{<@i{Import java.io}>} @tab See @ref{Import-java-io}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@menu
+* FileReaderDemo TryWithResources FileReader::
+* Catch IOException::
+@end menu
+
+@node FileReaderDemo TryWithResources FileReader
+@subsubsection FileReaderDemo TryWtihResources FileReader
+
+@need 400
+@anchor{FileReaderDemo-TryWithResources-FileReader}
+@cdindex @r{<@i{FileReaderDemo TryWithResources FileReader}>}, definition
+@noindent
+@r{<@i{FileReaderDemo TryWithResources FileReader}>} @equiv{}
+@example
+try (FileReader fr = new FileReader("FileReaderDemo.java")) @{
+  int c;
+
+  while ((c = fr.read()) != -1)
+    System.out.print((char) c);
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{FileReaderDemo.java}@}}; see its first definition at @ref{FileReaderDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node Catch IOException
+@subsubsection Catch IOException
+
+@need 400
+@anchor{Catch-IOException}
+@cdindex @r{<@i{Catch IOException}>}, definition
+@noindent
+@r{<@i{Catch IOException}>} @equiv{}
+@example
+catch (IOException e) @{
+  System.out.println("I/O Error: " + e);
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by the following chunks:
+
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{@{@file{BufferedInputStreamDemo.java}@}} @tab See @ref{BufferedInputStreamDemo-java}.
+@item @r{@{@file{BufferedReaderDemo.java}@}} @tab See @ref{BufferedReaderDemo-java}.
+@item @r{@{@file{FileReaderDemo.java}@}} @tab See @ref{FileReaderDemo-java}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
 
 @c .....................................
 
 @node FileWriter
 @subsection @file{FileWriter}
 @cindex @file{FileWriter}
+@cindex @file{FileWriter} constructors
+
+@file{FileWriter} creates a @file{Writer} that you can use to write to a
+file.  Four commonly used constructors are:
+
+@display
+FileWriter (String @ii{filePath})
+FileWriter (String @ii{filePath}, boolean @ii{append})
+FileWriter (File @ii{fileObj})
+FileWriter (File @ii{fileObj}, boolean @ii{append})
+@end display
+
+@noindent They can all throw an @file{IOException}.  If @ii{append} is
+@code{true}, then output is appended to the end of the file.  Creation of a
+@file{FileWriter} is not dependent on the file already existing.
+@file{FileWriter} will create the file before opening it for output when you
+create the object.  In the case where you attept to open a read-only file,
+an @file{IOException} will be thrown.
+
 
 @c .....................................
 
@@ -9340,12 +10022,242 @@ Either can throw a @file{FileNotFoundException}.
 @node BufferedReader
 @subsection @file{BufferedReader}
 @cindex @file{BufferedReader}
+@cindex @file{BufferedReader} constructors
+@cindex stream, move backwards in
+@cindex @code{BufferedReader.lines()} method
+@cindex @code{lines()} method
+@cindex @file{Stream} reference
+@cindex @file{Streams} API
+
+@file{BufferedReader} improves performance by buffering input.  It has two
+constructors:
+
+@display
+BufferedReader (Reader @ii{inputStream})
+BufferedReader (Reader @ii{inputStream}, int @ii{bufSize})
+@end display
+
+The first form creates a buffered character stream using a default buffer
+size.  In the second, the size of the buffer is passed in @ii{bufSize}.
+Closing a @file{BufferedReader} also causes the underlying stream specified
+by @ii{inputStream} to be closed.
+
+Buffering an input character stream provides the foundation required to
+support moving backward in the stream within the available buffer.  To
+support this, @file{BufferedReader} implements the @code{mark()} and
+@code{reset()} methods, and @code{BufferedReader.markSupported()} returns
+@code{true}.
+
+JDK 8 added a new method to @file{BufferedReader} called @code{lines()}.  It
+returns a @file{Stream} reference to the sequence of lines read by the
+reader.  (@file{Stream} is part of the stream API discussed in @ref{Streams
+API}.  
+
+@c .....................................
+
+@node Buffered Reader Demo
+@subsection Buffered Reader Demo
+
+@cartouche
+This example reworks the @file{BufferedInputStream} example (@pxref{Buffered
+Input Example}) so that it uses a @file{BufferedReader} character stream
+rather than a buffered byte stream.  It uses the @code{mark()} and
+@code{reset()} methods to parse a stream for the HTML-entity reference for
+the copyright symbol.  Such a reference begins with an ampersand (@kbd{&})
+and ends with a semicolon (@kbd{;}) without any intervening whitespace.  The
+sample has two ampersands to show the case where the @code{reset()} happens
+and where it does not.
+@end cartouche
+
+@ifinfo
+@noindent =============================================================================
+@end ifinfo
+
+@need 400
+@anchor{BufferedReaderDemo-java}
+@crindex @r{<@i{Import java.io}>}, use
+@crindex @r{<@i{BufferedReaderDemo Instance Variables}>}, use
+@crindex @r{<@i{BufferedReaderDemo TryWithResources BufferedReader}>}, use
+@crindex @r{<@i{Catch IOException}>}, use
+@cdindex @r{@{@file{BufferedReaderDemo.java}@}}, definition
+@noindent
+@r{@{@file{BufferedReaderDemo.java}@}} @equiv{}
+@example
+@r{<@i{Import java.io}>}
+class BufferedReaderDemo @{
+  public static void main (String[] args) throws IOException @{
+
+    @r{<@i{BufferedReaderDemo Instance Variables}>}
+
+    @r{<@i{BufferedReaderDemo TryWithResources BufferedReader}>}
+    @r{<@i{Catch IOException}>}
+
+  @}
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{BufferedReaderDemo Instance Variables}>} @tab See @ref{BufferedReaderDemo-Instance-Variables}.
+@item @r{<@i{BufferedReaderDemo TryWithResources BufferedReader}>} @tab See @ref{BufferedReaderDemo-TryWithResources-BufferedReader}.
+@item @r{<@i{Catch IOException}>} @tab See @ref{Catch-IOException}.
+@item @r{<@i{Import java.io}>} @tab See @ref{Import-java-io}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@menu
+* BufferedReaderDemo Instance Variables::
+* BufferedReaderDemo Buffer::
+* BufferedReaderDemo TryWithResources BufferedReader::
+@end menu
+
+@node BufferedReaderDemo Instance Variables
+@subsubsection BufferedReaderDemo Instance Variables
+
+@cartouche
+The String is copied directly from the prior implementation.
+@end cartouche
+
+@ifinfo
+@noindent=========================================================================
+@end ifinfo
+
+@need 400
+@anchor{BufferedReaderDemo-Instance-Variables}
+@crindex @r{<@i{BufferedInputStreamDemo String}>}, use
+@crindex @r{<@i{BufferedReaderDemo Buffer}>}, use
+@cdindex @r{<@i{BufferedReaderDemo Instance Variables}>}, definition
+@noindent
+@r{<@i{BufferedReaderDemo Instance Variables}>} @equiv{}
+@example
+@r{<@i{BufferedInputStreamDemo String}>}
+@r{<@i{BufferedReaderDemo Buffer}>}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{BufferedReaderDemo.java}@}}; see its first definition at @ref{BufferedReaderDemo-java}.
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{BufferedInputStreamDemo String}>} @tab See @ref{BufferedInputStreamDemo-String}.
+@item @r{<@i{BufferedReaderDemo Buffer}>} @tab See @ref{BufferedReaderDemo-Buffer}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node BufferedReaderDemo Buffer
+@subsubsection BufferedReaderDemo Buffer
+
+@cartouche
+Notice that this implementation uses a @code{char} buffer, with a
+@code{getChars()} method to transfer the string characters, while the
+@file{BufferedInputStream} implementation uses a @code{byte} buffer, and a
+@code{getBytes()} method to transfer the string bytes.
+@xref{BufferedInputStreamDemo Buffer}.
+@end cartouche
+
+@ifinfo
+@noindent =========================================================================
+@end ifinfo
+
+@need 400
+@anchor{BufferedReaderDemo-Buffer}
+@cdindex @r{<@i{BufferedReaderDemo Buffer}>}, definition
+@noindent
+@r{<@i{BufferedReaderDemo Buffer}>} @equiv{}
+@example
+char buf[] = new char[s.length()];
+s.getChars(0, s.length(), buf, 0);
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{BufferedReaderDemo Instance Variables}>}; see its first definition at @ref{BufferedReaderDemo-Instance-Variables}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node BufferedReaderDemo TryWithResources BufferedReader
+@subsubsection BufferedReaderDemo TryWithResources BufferedReader
+
+@cartouche
+Notice that the Switch code is identical to the byte stream example.
+@end cartouche
+
+@ifinfo
+@noindent==========================================================================
+@end ifinfo
+
+@need 400
+@anchor{BufferedReaderDemo-TryWithResources-BufferedReader}
+@crindex @r{<@i{BufferedInputStreamDemo Switch on Character}>}, use
+@cdindex @r{<@i{BufferedReaderDemo TryWithResources BufferedReader}>}, definition
+@noindent
+@r{<@i{BufferedReaderDemo TryWithResources BufferedReader}>} @equiv{}
+@example
+try ( BufferedReader f = new BufferedReader(in) ) @{
+  while ( (c = f.read()) != -1 ) @{
+    @r{<@i{BufferedInputStreamDemo Switch on Character}>}
+  @}
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{BufferedReaderDemo.java}@}}; see its first definition at @ref{BufferedReaderDemo-java}.
+
+@noindent
+The called chunk @r{<@i{BufferedInputStreamDemo Switch on Character}>} is first defined at
+@ref{BufferedInputStreamDemo-Switch-on-Character}.
+@iftex
+@textfonts @rm
+@end iftex
 
 @c .....................................
 
 @node BufferedWriter
 @subsection @file{BufferedWriter}
 @cindex @file{BufferedWriter}
+@cindex @file{BufferedWriter} constructors
+
+A @file{BufferedWriter} is a @file{Writer} that buffers output.  Using a
+@file{BufferedWriter} can improve performance by reducing the number of times
+data is actually phyiscally written to the output device.  A
+@file{BufferedWriter} has these constructors:
+
+@display
+BufferedWriter (Writer @ii{outputStream})
+BufferedWriter (Writer @ii{outputStream}, int @ii{bufSize})
+@end display
+
+
 
 @c .....................................
 
@@ -9962,6 +10874,12 @@ This chunk is defined in
 @item @r{@{@file{BRReadLines.java}@}}
 This chunk is defined in
 @ref{BRReadLines-java}.
+@item @r{@{@file{BufferedInputStreamDemo.java}@}}
+This chunk is defined in
+@ref{BufferedInputStreamDemo-java}.
+@item @r{@{@file{BufferedReaderDemo.java}@}}
+This chunk is defined in
+@ref{BufferedReaderDemo-java}.
 @item @r{@{@file{CopyFile.java}@}}
 This chunk is defined in
 @ref{CopyFile-java}.
@@ -9974,6 +10892,9 @@ This chunk is defined in
 @item @r{@{@file{DirListOnly}@}}
 This chunk is defined in
 @ref{DirListOnly}.
+@item @r{@{@file{FileReaderDemo.java}@}}
+This chunk is defined in
+@ref{FileReaderDemo-java}.
 @item @r{@{@file{FindAreas.java }@}}
 This chunk is defined in
 @ref{FindAreas-java-}.
@@ -10046,12 +10967,48 @@ This chunk is defined in
 @item @r{<@i{BRReadLines Enter Lines}>}
 This chunk is defined in
 @ref{BRReadLines-Enter-Lines}.
+@item @r{<@i{BufferedInputStreamDemo Buffer}>}
+This chunk is defined in
+@ref{BufferedInputStreamDemo-Buffer}.
+@item @r{<@i{BufferedInputStreamDemo ByteArrayInputStream}>}
+This chunk is defined in
+@ref{BufferedInputStreamDemo-ByteArrayInputStream}.
+@item @r{<@i{BufferedInputStreamDemo Instance Variables}>}
+This chunk is defined in
+@ref{BufferedInputStreamDemo-Instance-Variables}.
+@item @r{<@i{BufferedInputStreamDemo String}>}
+This chunk is defined in
+@ref{BufferedInputStreamDemo-String}.
+@item @r{<@i{BufferedInputStreamDemo Switch on Character}>}
+This chunk is defined in
+@ref{BufferedInputStreamDemo-Switch-on-Character}.
+@item @r{<@i{BufferedInputStreamDemo TryWithResources BufferedInputStream}>}
+This chunk is defined in
+@ref{BufferedInputStreamDemo-TryWithResources-BufferedInputStream}.
+@item @r{<@i{BufferedInputStreamDemo Utility Variables}>}
+This chunk is defined in
+@ref{BufferedInputStreamDemo-Utility-Variables}.
+@item @r{<@i{BufferedInputStreamDemo While Loop}>}
+This chunk is defined in
+@ref{BufferedInputStreamDemo-While-Loop}.
+@item @r{<@i{BufferedReaderDemo Buffer}>}
+This chunk is defined in
+@ref{BufferedReaderDemo-Buffer}.
+@item @r{<@i{BufferedReaderDemo Instance Variables}>}
+This chunk is defined in
+@ref{BufferedReaderDemo-Instance-Variables}.
+@item @r{<@i{BufferedReaderDemo TryWithResources BufferedReader}>}
+This chunk is defined in
+@ref{BufferedReaderDemo-TryWithResources-BufferedReader}.
 @item @r{<@i{Call Overridden Methods One By One }>}
 This chunk is defined in
 @ref{Call-Overridden-Methods-One-By-One-}.
 @item @r{<@i{Call Overridden Methods One By One Except Figure }>}
 This chunk is defined in
 @ref{Call-Overridden-Methods-One-By-One-Except-Figure-}.
+@item @r{<@i{Catch IOException}>}
+This chunk is defined in
+@ref{Catch-IOException}.
 @item @r{<@i{Class Declaration}>}
 This chunk is defined in
 @ref{Class-Declaration}.
@@ -10136,6 +11093,9 @@ This chunk is defined in
 @item @r{<@i{Figure Instance Variable Declarations }>}
 This chunk is defined in
 @ref{Figure-Instance-Variable-Declarations-}.
+@item @r{<@i{FileReaderDemo TryWithResources FileReader}>}
+This chunk is defined in
+@ref{FileReaderDemo-TryWithResources-FileReader}.
 @item @r{<@i{FindAreas Main Class }>}
 This chunk is defined in
 @ref{FindAreas-Main-Class-}.
@@ -10357,6 +11317,62 @@ This chunk is called by @r{@{@file{BRReadLines.java}@}}; see its first definitio
 
 @noindent
 This chunk is called by @r{@{@file{BRReadLines.java}@}}; see its first definition at @ref{BRReadLines-java}.
+@item @r{<@i{BufferedInputStreamDemo Buffer}>}
+
+@noindent
+This chunk is called by @r{<@i{BufferedInputStreamDemo Instance Variables}>}; see its first definition at @ref{BufferedInputStreamDemo-Instance-Variables}.
+@item @r{<@i{BufferedInputStreamDemo ByteArrayInputStream}>}
+
+@noindent
+This chunk is called by @r{<@i{BufferedInputStreamDemo Instance Variables}>}; see its first definition at @ref{BufferedInputStreamDemo-Instance-Variables}.
+@item @r{<@i{BufferedInputStreamDemo Instance Variables}>}
+
+@noindent
+This chunk is called by @r{@{@file{BufferedInputStreamDemo.java}@}}; see its first definition at @ref{BufferedInputStreamDemo-java}.
+@item @r{<@i{BufferedInputStreamDemo String}>}
+
+@noindent
+This chunk is called by the following chunks:
+
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{BufferedInputStreamDemo Instance Variables}>} @tab See @ref{BufferedInputStreamDemo-Instance-Variables}.
+@item @r{<@i{BufferedReaderDemo Instance Variables}>} @tab See @ref{BufferedReaderDemo-Instance-Variables}.
+@end multitable
+@item @r{<@i{BufferedInputStreamDemo Switch on Character}>}
+
+@noindent
+This chunk is called by the following chunks:
+
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{BufferedInputStreamDemo While Loop}>} @tab See @ref{BufferedInputStreamDemo-While-Loop}.
+@item @r{<@i{BufferedReaderDemo TryWithResources BufferedReader}>} @tab See @ref{BufferedReaderDemo-TryWithResources-BufferedReader}.
+@end multitable
+@item @r{<@i{BufferedInputStreamDemo TryWithResources BufferedInputStream}>}
+
+@noindent
+This chunk is called by @r{@{@file{BufferedInputStreamDemo.java}@}}; see its first definition at @ref{BufferedInputStreamDemo-java}.
+@item @r{<@i{BufferedInputStreamDemo Utility Variables}>}
+
+@noindent
+This chunk is called by @r{<@i{BufferedInputStreamDemo Instance Variables}>}; see its first definition at @ref{BufferedInputStreamDemo-Instance-Variables}.
+@item @r{<@i{BufferedInputStreamDemo While Loop}>}
+
+@noindent
+This chunk is called by @r{<@i{BufferedInputStreamDemo TryWithResources BufferedInputStream}>}; see its first definition at @ref{BufferedInputStreamDemo-TryWithResources-BufferedInputStream}.
+@item @r{<@i{BufferedReaderDemo Buffer}>}
+
+@noindent
+This chunk is called by @r{<@i{BufferedReaderDemo Instance Variables}>}; see its first definition at @ref{BufferedReaderDemo-Instance-Variables}.
+@item @r{<@i{BufferedReaderDemo Instance Variables}>}
+
+@noindent
+This chunk is called by @r{@{@file{BufferedReaderDemo.java}@}}; see its first definition at @ref{BufferedReaderDemo-java}.
+@item @r{<@i{BufferedReaderDemo TryWithResources BufferedReader}>}
+
+@noindent
+This chunk is called by @r{@{@file{BufferedReaderDemo.java}@}}; see its first definition at @ref{BufferedReaderDemo-java}.
 @item @r{<@i{Call Overridden Methods One By One }>}
 
 @noindent
@@ -10365,6 +11381,17 @@ This chunk is called by @r{<@i{FindAreas Main Method Declaration }>}; see its fi
 
 @noindent
 This chunk is called by @r{<@i{AbstractAreas Main Method Declaration }>}; see its first definition at @ref{AbstractAreas-Main-Method-Declaration-}.
+@item @r{<@i{Catch IOException}>}
+
+@noindent
+This chunk is called by the following chunks:
+
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{@{@file{BufferedInputStreamDemo.java}@}} @tab See @ref{BufferedInputStreamDemo-java}.
+@item @r{@{@file{BufferedReaderDemo.java}@}} @tab See @ref{BufferedReaderDemo-java}.
+@item @r{@{@file{FileReaderDemo.java}@}} @tab See @ref{FileReaderDemo-java}.
+@end multitable
 @item @r{<@i{Class Declaration}>}
 
 @noindent
@@ -10501,6 +11528,10 @@ This chunk is called by the following chunks:
 @item @r{<@i{AbstractAreas Abstract Class Figure }>} @tab See @ref{AbstractAreas-Abstract-Class-Figure-}.
 @item @r{<@i{FindAreas SuperClass Figure }>} @tab See @ref{FindAreas-SuperClass-Figure-}.
 @end multitable
+@item @r{<@i{FileReaderDemo TryWithResources FileReader}>}
+
+@noindent
+This chunk is called by @r{@{@file{FileReaderDemo.java}@}}; see its first definition at @ref{FileReaderDemo-java}.
 @item @r{<@i{FindAreas Main Class }>}
 
 @noindent
@@ -10550,9 +11581,12 @@ This chunk is called by the following chunks:
 @headitem Chunk name @tab First definition point
 @item @r{@{@file{BRRead.java}@}} @tab See @ref{BRRead-java}.
 @item @r{@{@file{BRReadLines.java}@}} @tab See @ref{BRReadLines-java}.
+@item @r{@{@file{BufferedInputStreamDemo.java}@}} @tab See @ref{BufferedInputStreamDemo-java}.
+@item @r{@{@file{BufferedReaderDemo.java}@}} @tab See @ref{BufferedReaderDemo-java}.
 @item @r{@{@file{CopyFile.java}@}} @tab See @ref{CopyFile-java}.
 @item @r{@{@file{CopyFileMultTryWR.java}@}} @tab See @ref{CopyFileMultTryWR-java}.
 @item @r{@{@file{DirListOnly}@}} @tab See @ref{DirListOnly}.
+@item @r{@{@file{FileReaderDemo.java}@}} @tab See @ref{FileReaderDemo-java}.
 @item @r{@{@file{OnlyExt.java}@}} @tab See @ref{OnlyExt-java}.
 @item @r{@{@file{PrinterWriterDemo.java}@}} @tab See @ref{PrinterWriterDemo-java}.
 @item @r{@{@file{ShowFile.java}@}} @tab See @ref{ShowFile-java}.

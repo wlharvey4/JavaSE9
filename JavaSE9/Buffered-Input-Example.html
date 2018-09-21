@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Buffered Input Example (About Java SE 9)</title>
+
+<meta name="description" content="Buffered Input Example (About Java SE 9)">
+<meta name="keywords" content="Buffered Input Example (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Buffered-Byte-Streams.html#Buffered-Byte-Streams" rel="up" title="Buffered Byte Streams">
+<link href="BufferedInputStreamDemo-Instance-Variables.html#BufferedInputStreamDemo-Instance-Variables" rel="next" title="BufferedInputStreamDemo Instance Variables">
+<link href="BufferedInputStream.html#BufferedInputStream" rel="prev" title="BufferedInputStream">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Buffered-Input-Example"></a>
+<div class="header">
+<p>
+Next: <a href="BufferedInputStreamDemo-Instance-Variables.html#BufferedInputStreamDemo-Instance-Variables" accesskey="n" rel="next">BufferedInputStreamDemo Instance Variables</a>, Previous: <a href="BufferedInputStream.html#BufferedInputStream" accesskey="p" rel="prev">BufferedInputStream</a>, Up: <a href="Buffered-Byte-Streams.html#Buffered-Byte-Streams" accesskey="u" rel="up">Buffered Byte Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Buffered-Input-Example-1"></a>
+<h4 class="subsubsection">15.7.8.2 Buffered Input Example</h4>
+
+<table class="cartouche" border="1"><tr><td>
+<p>The following example contrives a situation where we can use <code>mark()</code> to
+remember where we are in an input stream and later use <code>reset()</code> to get
+back there.  This example is parsing a stream for the HTML entity reference
+for the &ldquo;copyright&rdquo; symbol.  Such a reference begins with an ampersand
+(<kbd>&amp;</kbd>) and ends with a semicolon (<kbd>;</kbd>) without any intervening
+whitespace.  The sample input has two ampersands to show the case where the
+<code>reset()</code> happens and where it does not.
+</p></td></tr></table>
+
+
+<a name="BufferedInputStreamDemo_002djava"></a><a name="index-_003cImport-java_002eio_003e_002c-use-11"></a>
+<a name="index-_003cBufferedInputStreamDemo-Instance-Variables_003e_002c-use"></a>
+<a name="index-_003cBufferedInputStreamDemo-TryWithResources-BufferedInputStream_003e_002c-use"></a>
+<a name="index-_003cCatch-IOException_003e_002c-use"></a>
+<a name="index-_007bBufferedInputStreamDemo_002ejava_007d_002c-definition"></a>
+<p><span class="roman">{<samp>BufferedInputStreamDemo.java</samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example"><span class="roman">&lt;<i>Import java.io</i>&gt;</span>
+class BufferedInputStreamDemo {
+  public static void main(String[] args) {
+
+    <span class="roman">&lt;<i>BufferedInputStreamDemo Instance Variables</i>&gt;</span>
+
+    <span class="roman">&lt;<i>BufferedInputStreamDemo TryWithResources BufferedInputStream</i>&gt;</span>
+    <span class="roman">&lt;<i>Catch IOException</i>&gt;</span>
+
+  }
+}
+
+</pre></div>
+
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>BufferedInputStreamDemo Instance Variables</i>&gt;</span></td><td width="65%">See <a href="BufferedInputStreamDemo-Instance-Variables.html#BufferedInputStreamDemo_002dInstance_002dVariables">BufferedInputStreamDemo-Instance-Variables</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>BufferedInputStreamDemo TryWithResources BufferedInputStream</i>&gt;</span></td><td width="65%">See <a href="BufferedInputStreamDemo-TryWithResources-BufferedInputStream.html#BufferedInputStreamDemo_002dTryWithResources_002dBufferedInputStream">BufferedInputStreamDemo-TryWithResources-BufferedInputStream</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Catch IOException</i>&gt;</span></td><td width="65%">See <a href="Catch-IOException.html#Catch_002dIOException">Catch-IOException</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>Import java.io</i>&gt;</span></td><td width="65%">See <a href="Import-java_002eio.html#Import_002djava_002dio">Import-java-io</a>.</td></tr>
+</table>
+
+
+
+
+
+</body>
+</html>

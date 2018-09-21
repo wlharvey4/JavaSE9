@@ -417,6 +417,15 @@ The Byte Streams
 Buffered Byte Streams
 
 * BufferedInputStream::
+* Buffered Input Example::
+* BufferedInputStreamDemo Instance Variables::
+* BufferedInputStreamDemo TryWithResources BufferedInputStream::
+* BufferedInputStreamDemo While Loop::
+* BufferedInputStreamDemo Switch on Character::
+* BufferedInputStreamDemo String Into Buffer::
+* BufferedInputStreamDemo Buffer::
+* BufferedInputStreamDemo ByteArrayInputStream::
+* BufferedInputStreamDemo Utility Variables::
 * BufferedOutputStream::
 * PushbackInputStream::
 
@@ -429,9 +438,21 @@ The Character Streams
 * CharArrayReader::
 * CharArrayWriter::
 * BufferedReader::
+* Buffered Reader Demo::
 * BufferedWriter::
 * PushbackReader::
 * PrintWriter::
+
+Example Reading Lines From a File
+
+* FileReaderDemo TryWithResources FileReader::
+* Catch IOException::
+
+Buffered Reader Demo
+
+* BufferedReaderDemo Instance Variables::
+* BufferedReaderDemo Buffer::
+* BufferedReaderDemo TryWithResources BufferedReader::
 
 Serialization
 
@@ -3252,9 +3273,12 @@ Chunk name                First definition point
 -------------------------------------------------------------------------
 {'BRRead.java'}           See *note BRRead-java::.
 {'BRReadLines.java'}      See *note BRReadLines-java::.
+{'BufferedInputStreamDemo.java'}See *note BufferedInputStreamDemo-java::.
+{'BufferedReaderDemo.java'}See *note BufferedReaderDemo-java::.
 {'CopyFile.java'}         See *note CopyFile-java::.
 {'CopyFileMultTryWR.java'}See *note CopyFileMultTryWR-java::.
 {'DirListOnly'}           See *note DirListOnly::.
+{'FileReaderDemo.java'}   See *note FileReaderDemo-java::.
 {'OnlyExt.java'}          See *note OnlyExt-java::.
 {'PrinterWriterDemo.java'}See *note PrinterWriterDemo-java::.
 {'ShowFile.java'}         See *note ShowFile-java::.
@@ -6900,35 +6924,311 @@ File: JavaSE9.info,  Node: Filtered Byte Streams,  Next: Buffered Byte Streams, 
 15.7.7 Filtered Byte Streams
 ----------------------------
 
+"Filtered streams" are simply wrappers around underlying input or
+output streams that transparently provide some extended level of
+functionality.  These streams are typcially accessed by methods that
+are expecting a generic stream, which is a superclass of the filtered
+streams.  Typical extensions are buffering, character translation, and
+raw data translation.  The filtered byte streams are:
+
+   * 'FilterInputStream'
+   * 'FilterOutputStream'
+
+Their constructors are:
+
+     FilterOutputStream (OutputStream os)
+     FilterInputStream (InputStream is)
+
 
 File: JavaSE9.info,  Node: Buffered Byte Streams,  Next: SequenceInputStream,  Prev: Filtered Byte Streams,  Up: Byte Streams
 
 15.7.8 Buffered Byte Streams
 ----------------------------
 
+For the byte-oriented streams, a "buffered stream" extends a filtered
+stream class by attaching a memory buffer to the I/O stream.  This
+buffer allows Java to do I/O operations on more than a byte at a time,
+thereby improving performance.  Because the buffer is available,
+skipping, marking, and resetting of the stream become possible.  The
+buffered byte stream classes are:
+
+   * 'BufferedInputStream'
+   * 'BufferedOutputStream'
+   * 'PushbackInputStream'
+
 * Menu:
 
 * BufferedInputStream::
+* Buffered Input Example::
+* BufferedInputStreamDemo Instance Variables::
+* BufferedInputStreamDemo TryWithResources BufferedInputStream::
+* BufferedInputStreamDemo While Loop::
+* BufferedInputStreamDemo Switch on Character::
+* BufferedInputStreamDemo String Into Buffer::
+* BufferedInputStreamDemo Buffer::
+* BufferedInputStreamDemo ByteArrayInputStream::
+* BufferedInputStreamDemo Utility Variables::
 * BufferedOutputStream::
 * PushbackInputStream::
 
 
-File: JavaSE9.info,  Node: BufferedInputStream,  Next: BufferedOutputStream,  Up: Buffered Byte Streams
+File: JavaSE9.info,  Node: BufferedInputStream,  Next: Buffered Input Example,  Up: Buffered Byte Streams
 
 15.7.8.1 'BufferedInputStream'
 ..............................
 
-
-File: JavaSE9.info,  Node: BufferedOutputStream,  Next: PushbackInputStream,  Prev: BufferedInputStream,  Up: Buffered Byte Streams
+Java's 'BufferedInputStream' class allows you to "wrap" any
+'InputStream' into a buffered stream to improve performance.
+'BufferedInputStream' has two constructors:
 
-15.7.8.2 'BufferedOutputStream'
+     BufferedInputStream (InputStream inputStream)
+     BufferedInputStream (InputStream inputStream, int bufSize)
+
+   The first form creates a buffered stream using a default buffer
+size.  In the second, the size of the buffer is passed in bufSize.
+Use of sizes that are multiples of a memory page, a disk block, and
+son, can have a significant positive impact on performance.  A good
+guess for a size is around 8,192 bytes, and attaching even a rather
+small buffer to an I/O stream is always a good idea.  That way, the
+low-level system can read blocks of data from the disk or network and
+store the results in your buffer.  Thus, even if you are reading the
+data a byte at a time out of the 'InputStream', you will be
+manipulating fast memory most of the time.
+
+   Buffering an input stream provides the foundation required to
+support moving backward in the stream of the available buffer.  Beyond
+the 'read()' and 'skip()' methods implemented in any 'InputStream',
+'BufferedInputStream' also supports the 'mark()' and 'reset()'
+methods.  This support is reflected by the
+'BufferedInputStream.markSupported()' returning 'true'.
+
+
+File: JavaSE9.info,  Node: Buffered Input Example,  Next: BufferedInputStreamDemo Instance Variables,  Prev: BufferedInputStream,  Up: Buffered Byte Streams
+
+15.7.8.2 Buffered Input Example
 ...............................
+
+The following example contrives a situation where we can use 'mark()'
+to remember where we are in an input stream and later use 'reset()' to
+get back there.  This example is parsing a stream for the HTML entity
+reference for the "copyright" symbol.  Such a reference begins with an
+ampersand ('&') and ends with a semicolon (';') without any
+intervening whitespace.  The sample input has two ampersands to show
+the case where the 'reset()' happens and where it does not.
+
+=============================================================================
+
+{'BufferedInputStreamDemo.java'} ==
+     <Import java.io>
+     class BufferedInputStreamDemo {
+       public static void main(String[] args) {
+
+         <BufferedInputStreamDemo Instance Variables>
+
+         <BufferedInputStreamDemo TryWithResources BufferedInputStream>
+         <Catch IOException>
+
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<BufferedInputStreamDemo  See
+Instance Variables>       *note BufferedInputStreamDemo-Instance-Variables::.
+<BufferedInputStreamDemo  See
+TryWithResources          *note BufferedInputStreamDemo-TryWithResources-BufferedInputStream::.
+BufferedInputStream>
+<Catch IOException>       See *note Catch-IOException::.
+<Import java.io>          See *note Import-java-io::.
+
+
+File: JavaSE9.info,  Node: BufferedInputStreamDemo Instance Variables,  Next: BufferedInputStreamDemo TryWithResources BufferedInputStream,  Prev: Buffered Input Example,  Up: Buffered Byte Streams
+
+15.7.8.3 BufferedInputStreamDemo Instance Variables
+...................................................
+
+<BufferedInputStreamDemo Instance Variables> ==
+     <BufferedInputStreamDemo String>
+     <BufferedInputStreamDemo Buffer>
+     <BufferedInputStreamDemo ByteArrayInputStream>
+     <BufferedInputStreamDemo Utility Variables>
+
+This chunk is called by {'BufferedInputStreamDemo.java'}; see its
+first definition at *note BufferedInputStreamDemo-java::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<BufferedInputStreamDemo  See *note BufferedInputStreamDemo-Buffer::.
+Buffer>
+<BufferedInputStreamDemo  See
+ByteArrayInputStream>     *note BufferedInputStreamDemo-ByteArrayInputStream::.
+<BufferedInputStreamDemo  See *note BufferedInputStreamDemo-String::.
+String>
+<BufferedInputStreamDemo  See
+Utility Variables>        *note BufferedInputStreamDemo-Utility-Variables::.
+
+
+File: JavaSE9.info,  Node: BufferedInputStreamDemo TryWithResources BufferedInputStream,  Next: BufferedInputStreamDemo While Loop,  Prev: BufferedInputStreamDemo Instance Variables,  Up: Buffered Byte Streams
+
+15.7.8.4 BufferedInputStreamDemo TryWithResources BufferedInputStream
+.....................................................................
+
+<BufferedInputStreamDemo TryWithResources BufferedInputStream> ==
+     try (BufferedInputStream f = new BufferedInputStream(in)) {
+
+       <BufferedInputStreamDemo While Loop>
+
+     }
+
+
+This chunk is called by {'BufferedInputStreamDemo.java'}; see its
+first definition at *note BufferedInputStreamDemo-java::.
+
+The called chunk <BufferedInputStreamDemo While Loop> is first defined
+at *note BufferedInputStreamDemo-While-Loop::.
+
+
+File: JavaSE9.info,  Node: BufferedInputStreamDemo While Loop,  Next: BufferedInputStreamDemo Switch on Character,  Prev: BufferedInputStreamDemo TryWithResources BufferedInputStream,  Up: Buffered Byte Streams
+
+15.7.8.5 BufferedInputStreamDemo While Loop
+...........................................
+
+<BufferedInputStreamDemo While Loop> ==
+     while ( (c = f.read()) != -1 ) {
+
+        <BufferedInputStreamDemo Switch on Character>
+
+     }
+
+
+This chunk is called by <BufferedInputStreamDemo TryWithResources
+BufferedInputStream>; see its first definition at *note
+BufferedInputStreamDemo-TryWithResources-BufferedInputStream::.
+
+The called chunk <BufferedInputStreamDemo Switch on Character> is
+first defined at *note BufferedInputStreamDemo-Switch-on-Character::.
+
+
+File: JavaSE9.info,  Node: BufferedInputStreamDemo Switch on Character,  Next: BufferedInputStreamDemo String Into Buffer,  Prev: BufferedInputStreamDemo While Loop,  Up: Buffered Byte Streams
+
+15.7.8.6 BufferedInputStreamDemo Switch on Character
+....................................................
+
+<BufferedInputStreamDemo Switch on Character> ==
+     switch (c) {
+       case '&':
+         if (!marked) {
+           f.mark(32);
+           marked = true;
+         } else marked = false;
+         break;
+
+       case ';':
+         if (marked) {
+           marked = false;
+           System.out.print("(c)");
+         } else System.out.print( (char) c);
+         break;
+
+       case ' ':
+         if (marked) {
+           marked = false;
+           f.reset();
+           System.out.print("&");
+         } else System.out.print( (char) c);
+         break;
+
+       default:
+         if (!marked) System.out.print( (char) c);
+         break;
+     }
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<BufferedInputStreamDemo  See
+While Loop>               *note BufferedInputStreamDemo-While-Loop::.
+<BufferedReaderDemo       See
+TryWithResources          *note BufferedReaderDemo-TryWithResources-BufferedReader::.
+BufferedReader>
+
+
+File: JavaSE9.info,  Node: BufferedInputStreamDemo String Into Buffer,  Next: BufferedInputStreamDemo Buffer,  Prev: BufferedInputStreamDemo Switch on Character,  Up: Buffered Byte Streams
+
+15.7.8.7 BufferedInputStreamDemo String Into Buffer
+...................................................
+
+<BufferedInputStreamDemo String> ==
+     String s = "This is a &copy; copyright symbol " + "but this is &copy not.\n"
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<BufferedInputStreamDemo  See
+Instance Variables>       *note BufferedInputStreamDemo-Instance-Variables::.
+<BufferedReaderDemo       See
+Instance Variables>       *note BufferedReaderDemo-Instance-Variables::.
+
+
+File: JavaSE9.info,  Node: BufferedInputStreamDemo Buffer,  Next: BufferedInputStreamDemo ByteArrayInputStream,  Prev: BufferedInputStreamDemo String Into Buffer,  Up: Buffered Byte Streams
+
+15.7.8.8 BufferedInputStreamDemo Buffer
+.......................................
+
+<BufferedInputStreamDemo Buffer> ==
+     byte buf[] = s.getBytes();
+
+
+This chunk is called by <BufferedInputStreamDemo Instance Variables>;
+see its first definition at *note
+BufferedInputStreamDemo-Instance-Variables::.
+
+
+File: JavaSE9.info,  Node: BufferedInputStreamDemo ByteArrayInputStream,  Next: BufferedInputStreamDemo Utility Variables,  Prev: BufferedInputStreamDemo Buffer,  Up: Buffered Byte Streams
+
+15.7.8.9 BufferedInputStreamDemo ByteArrayInputStream
+.....................................................
+
+<BufferedInputStreamDemo ByteArrayInputStream> ==
+     ByteArrayInputStream in = new ByteArrayInputStream(buf);
+
+
+This chunk is called by <BufferedInputStreamDemo Instance Variables>;
+see its first definition at *note
+BufferedInputStreamDemo-Instance-Variables::.
+
+
+File: JavaSE9.info,  Node: BufferedInputStreamDemo Utility Variables,  Next: BufferedOutputStream,  Prev: BufferedInputStreamDemo ByteArrayInputStream,  Up: Buffered Byte Streams
+
+15.7.8.10 BufferedInputStreamDemo Utility Variables
+...................................................
+
+<BufferedInputStreamDemo Utility Variables> ==
+     int c;
+     boolean marked = false;
+
+
+This chunk is called by <BufferedInputStreamDemo Instance Variables>;
+see its first definition at *note
+BufferedInputStreamDemo-Instance-Variables::.
+
+
+File: JavaSE9.info,  Node: BufferedOutputStream,  Next: PushbackInputStream,  Prev: BufferedInputStreamDemo Utility Variables,  Up: Buffered Byte Streams
+
+15.7.8.11 'BufferedOutputStream'
+................................
 
 
 File: JavaSE9.info,  Node: PushbackInputStream,  Prev: BufferedOutputStream,  Up: Buffered Byte Streams
 
-15.7.8.3 'PushbackInputStream'
-..............................
+15.7.8.12 'PushbackInputStream'
+...............................
 
 
 File: JavaSE9.info,  Node: SequenceInputStream,  Next: PrintStream,  Prev: Buffered Byte Streams,  Up: Byte Streams
@@ -6960,6 +7260,20 @@ File: JavaSE9.info,  Node: Character Streams,  Next: Console Class,  Prev: Byte 
 15.8 The Character Streams
 ==========================
 
+While th byte stream classes provide sufficient functionality to
+handle any type of I/O operation, they cannot work directly with
+Unicode characters.  Since one of the purposes of Java is to support
+the "write once, run anywhere" philosophy, it was necessary to include
+direction I/O support for characters.  In this section, several of the
+character I/O classes are discussed.
+
+   At the top of the character stream hierarchies are the
+
+   * 'Reader'
+   * 'Writer'
+
+abstract classes.
+
 * Menu:
 
 * Reader::
@@ -6969,6 +7283,7 @@ File: JavaSE9.info,  Node: Character Streams,  Next: Console Class,  Prev: Byte 
 * CharArrayReader::
 * CharArrayWriter::
 * BufferedReader::
+* Buffered Reader Demo::
 * BufferedWriter::
 * PushbackReader::
 * PrintWriter::
@@ -6979,11 +7294,97 @@ File: JavaSE9.info,  Node: Reader,  Next: Writer,  Up: Character Streams
 15.8.1 'Reader'
 ---------------
 
+'Reader' is an abstact class that defines Java's model of streaming
+character input.  It implements the 'AutoCloseable', 'Closeable', and
+'Readable' interfaces.  All of the methods in this class (except
+'markSupported()') will throw an 'IOException' on error conditions.
+
+Reader Methods
+..............
+
+abstract void close()
+     Closes the input source.  Further read attempts will general an
+     'IOException'.
+void mark(int numChars)
+     Places a mark at the current point in the input stream that will
+     remain valid until numChars characters are read.
+boolean markSupported()
+     Returns 'true' if 'mark()'/'reset()' are supported on this
+     stream.
+int read(char buffer[])
+     Attempts to read up to buffer.length characters into buffer and
+     returns the actual number of characters that were successfully
+     read.  '-1' is returned when an attempt is made to read at the
+     end of the stream.
+int read(CharBuffer buffer)
+     Attempts to read characters into buffer and returns the actual
+     number of characters that were successfully read.  '-1' is
+     returned when an attempt is made to read at the end of the
+     stream.
+abstract int read(char buffer[], int offset, int numChars)
+     Attempts to read up to numChars characters into buffer starting
+     at buffer[offset], returning the number of characters
+     successfully read.  '-1' is returned whn an attempt is made to
+     read at the end of the stream.
+boolean read()
+     Returns 'true' if the next input request will not wait.
+     Otherwise, it returns 'false'.
+void reset()
+     Resets the input pointer to the previously set mark.
+long skip(long numChars)
+     Skips over numChars characters of input, returning the number of
+     characters actually skipped.
+
+Table 15.5: The Methods Defined by 'Reader'
+
 
 File: JavaSE9.info,  Node: Writer,  Next: FileReader,  Prev: Reader,  Up: Character Streams
 
 15.8.2 'Writer'
 ---------------
+
+'Writer' is an abstract class that defines streaming character output.
+It implements the 'AutoCloseable', 'Closeable', 'Flushable', and
+'Appendable' interfaces.  All of the methods in this class throw an
+'IOException' in the case of errors.
+
+'Writer' Methods
+................
+
+Writer append(char ch)
+     Appends ch tot he end of the invoking output stream.  Returns a
+     reference to the invoking stream.
+Writer append(CharSequence chars)
+     Appends chars to the end of the invoking output stream.  Returns
+     a reference to the invoking stream.
+Writer append(CharSequence chars, int begin, int end)
+     Appends the subrange of chars specified by begin and end - 1 to
+     the end of the invoking output stream.  Returns a refernce to the
+     invoking stream.
+abstract void close()
+     Closes the output stream.  Further write attempts will generate
+     an 'IOException'.
+abstract void flush()
+     Finalizes the output state so that any buffers are cleared (it
+     flushes the output buffers).
+void write(int ch)
+     Writes a single character to the invoking output stream.  The
+     parameter is an 'int', whcih allows you to call 'write()' with an
+     expression without have to case it back to 'char'.  However, only
+     the low-order 16 bits are written.
+void write(char buffer[])
+     Writes a complete array of characters to the invoking output
+     stream.
+abstract void(char buffer[], int offset, int numChars)
+     Writes a subrange of numChars characters from the array buffer,
+     beginning at buffer[offset] to the invoking output stream.
+void write(String str)
+     Writes str to the invoking output stream.
+void write(String str, int offset, int numChars)
+     Writes a subrange of numChars characters from the string str,
+     beginning at the specified offset
+
+Table 15.6: The Methods Defined by Writer
 
 
 File: JavaSE9.info,  Node: FileReader,  Next: FileWriter,  Prev: Writer,  Up: Character Streams
@@ -6991,11 +7392,105 @@ File: JavaSE9.info,  Node: FileReader,  Next: FileWriter,  Prev: Writer,  Up: Ch
 15.8.3 'FileReader'
 -------------------
 
+The 'FileReader' class creates a 'Reader' that you can use to read the
+contents of a file.  Two commonly used constructors are:
+
+     FileReader (String filePath)
+     FileReader (File fileObj)
+
+   Either can throw a 'FileNotFoundException'.
+
+Example Reading Lines From a File
+.................................
+
+This example shows how to read lines from a file and display them on
+the standard output device.  It reads its own source file, which must
+be in the current directory.
+
+=========================================================================
+
+{'FileReaderDemo.java'} ==
+     <Import java.io>
+     class FileReaderDemo {
+       public static void main (String[] args) {
+         <FileReaderDemo TryWithResources FileReader>
+         <Catch IOException>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Catch IOException>       See *note Catch-IOException::.
+<FileReaderDemo           See
+TryWithResources          *note FileReaderDemo-TryWithResources-FileReader::.
+FileReader>
+<Import java.io>          See *note Import-java-io::.
+
+* Menu:
+
+* FileReaderDemo TryWithResources FileReader::
+* Catch IOException::
+
+
+File: JavaSE9.info,  Node: FileReaderDemo TryWithResources FileReader,  Next: Catch IOException,  Up: FileReader
+
+15.8.3.1 FileReaderDemo TryWtihResources FileReader
+...................................................
+
+<FileReaderDemo TryWithResources FileReader> ==
+     try (FileReader fr = new FileReader("FileReaderDemo.java")) {
+       int c;
+
+       while ((c = fr.read()) != -1)
+         System.out.print((char) c);
+     }
+
+
+This chunk is called by {'FileReaderDemo.java'}; see its first
+definition at *note FileReaderDemo-java::.
+
+
+File: JavaSE9.info,  Node: Catch IOException,  Prev: FileReaderDemo TryWithResources FileReader,  Up: FileReader
+
+15.8.3.2 Catch IOException
+..........................
+
+<Catch IOException> ==
+     catch (IOException e) {
+       System.out.println("I/O Error: " + e);
+     }
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'BufferedInputStreamDemo.java'}See *note BufferedInputStreamDemo-java::.
+{'BufferedReaderDemo.java'}See *note BufferedReaderDemo-java::.
+{'FileReaderDemo.java'}   See *note FileReaderDemo-java::.
+
 
 File: JavaSE9.info,  Node: FileWriter,  Next: CharArrayReader,  Prev: FileReader,  Up: Character Streams
 
 15.8.4 'FileWriter'
 -------------------
+
+'FileWriter' creates a 'Writer' that you can use to write to a file.
+Four commonly used constructors are:
+
+     FileWriter (String filePath)
+     FileWriter (String filePath, boolean append)
+     FileWriter (File fileObj)
+     FileWriter (File fileObj, boolean append)
+
+They can all throw an 'IOException'.  If append is 'true', then output
+is appended to the end of the file.  Creation of a 'FileWriter' is not
+dependent on the file already existing.  'FileWriter' will create the
+file before opening it for output when you create the object.  In the
+case where you attept to open a read-only file, an 'IOException' will
+be thrown.
 
 
 File: JavaSE9.info,  Node: CharArrayReader,  Next: CharArrayWriter,  Prev: FileWriter,  Up: Character Streams
@@ -7010,27 +7505,177 @@ File: JavaSE9.info,  Node: CharArrayWriter,  Next: BufferedReader,  Prev: CharAr
 ------------------------
 
 
-File: JavaSE9.info,  Node: BufferedReader,  Next: BufferedWriter,  Prev: CharArrayWriter,  Up: Character Streams
+File: JavaSE9.info,  Node: BufferedReader,  Next: Buffered Reader Demo,  Prev: CharArrayWriter,  Up: Character Streams
 
 15.8.7 'BufferedReader'
 -----------------------
 
-
-File: JavaSE9.info,  Node: BufferedWriter,  Next: PushbackReader,  Prev: BufferedReader,  Up: Character Streams
+'BufferedReader' improves performance by buffering input.  It has two
+constructors:
 
-15.8.8 'BufferedWriter'
+     BufferedReader (Reader inputStream)
+     BufferedReader (Reader inputStream, int bufSize)
+
+   The first form creates a buffered character stream using a default
+buffer size.  In the second, the size of the buffer is passed in
+bufSize.  Closing a 'BufferedReader' also causes the underlying stream
+specified by inputStream to be closed.
+
+   Buffering an input character stream provides the foundation
+required to support moving backward in the stream within the available
+buffer.  To support this, 'BufferedReader' implements the 'mark()' and
+'reset()' methods, and 'BufferedReader.markSupported()' returns
+'true'.
+
+   JDK 8 added a new method to 'BufferedReader' called 'lines()'.  It
+returns a 'Stream' reference to the sequence of lines read by the
+reader.  ('Stream' is part of the stream API discussed in *note
+Streams API::.
+
+
+File: JavaSE9.info,  Node: Buffered Reader Demo,  Next: BufferedWriter,  Prev: BufferedReader,  Up: Character Streams
+
+15.8.8 Buffered Reader Demo
+---------------------------
+
+This example reworks the 'BufferedInputStream' example (*note Buffered
+Input Example::) so that it uses a 'BufferedReader' character stream
+rather than a buffered byte stream.  It uses the 'mark()' and
+'reset()' methods to parse a stream for the HTML-entity reference for
+the copyright symbol.  Such a reference begins with an ampersand ('&')
+and ends with a semicolon (';') without any intervening whitespace.
+The sample has two ampersands to show the case where the 'reset()'
+happens and where it does not.
+
+=============================================================================
+
+{'BufferedReaderDemo.java'} ==
+     <Import java.io>
+     class BufferedReaderDemo {
+       public static void main (String[] args) throws IOException {
+
+         <BufferedReaderDemo Instance Variables>
+
+         <BufferedReaderDemo TryWithResources BufferedReader>
+         <Catch IOException>
+
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<BufferedReaderDemo       See
+Instance Variables>       *note BufferedReaderDemo-Instance-Variables::.
+<BufferedReaderDemo       See
+TryWithResources          *note BufferedReaderDemo-TryWithResources-BufferedReader::.
+BufferedReader>
+<Catch IOException>       See *note Catch-IOException::.
+<Import java.io>          See *note Import-java-io::.
+
+* Menu:
+
+* BufferedReaderDemo Instance Variables::
+* BufferedReaderDemo Buffer::
+* BufferedReaderDemo TryWithResources BufferedReader::
+
+
+File: JavaSE9.info,  Node: BufferedReaderDemo Instance Variables,  Next: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
+
+15.8.8.1 BufferedReaderDemo Instance Variables
+..............................................
+
+The String is copied directly from the prior implementation.
+
+=========================================================================
+
+<BufferedReaderDemo Instance Variables> ==
+     <BufferedInputStreamDemo String>
+     <BufferedReaderDemo Buffer>
+
+
+This chunk is called by {'BufferedReaderDemo.java'}; see its first
+definition at *note BufferedReaderDemo-java::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<BufferedInputStreamDemo  See *note BufferedInputStreamDemo-String::.
+String>
+<BufferedReaderDemo       See *note BufferedReaderDemo-Buffer::.
+Buffer>
+
+
+File: JavaSE9.info,  Node: BufferedReaderDemo Buffer,  Next: BufferedReaderDemo TryWithResources BufferedReader,  Prev: BufferedReaderDemo Instance Variables,  Up: Buffered Reader Demo
+
+15.8.8.2 BufferedReaderDemo Buffer
+..................................
+
+Notice that this implementation uses a 'char' buffer, with a
+'getChars()' method to transfer the string characters, while the
+'BufferedInputStream' implementation uses a 'byte' buffer, and a
+'getBytes()' method to transfer the string bytes.  *Note
+BufferedInputStreamDemo Buffer::.
+
+=========================================================================
+
+<BufferedReaderDemo Buffer> ==
+     char buf[] = new char[s.length()];
+     s.getChars(0, s.length(), buf, 0);
+
+
+This chunk is called by <BufferedReaderDemo Instance Variables>; see
+its first definition at *note BufferedReaderDemo-Instance-Variables::.
+
+
+File: JavaSE9.info,  Node: BufferedReaderDemo TryWithResources BufferedReader,  Prev: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
+
+15.8.8.3 BufferedReaderDemo TryWithResources BufferedReader
+...........................................................
+
+Notice that the Switch code is identical to the byte stream example.
+
+==========================================================================
+
+<BufferedReaderDemo TryWithResources BufferedReader> ==
+     try ( BufferedReader f = new BufferedReader(in) ) {
+       while ( (c = f.read()) != -1 ) {
+         <BufferedInputStreamDemo Switch on Character>
+       }
+     }
+
+
+This chunk is called by {'BufferedReaderDemo.java'}; see its first
+definition at *note BufferedReaderDemo-java::.
+
+The called chunk <BufferedInputStreamDemo Switch on Character> is
+first defined at *note BufferedInputStreamDemo-Switch-on-Character::.
+
+
+File: JavaSE9.info,  Node: BufferedWriter,  Next: PushbackReader,  Prev: Buffered Reader Demo,  Up: Character Streams
+
+15.8.9 'BufferedWriter'
 -----------------------
+
+A 'BufferedWriter' is a 'Writer' that buffers output.  Using a
+'BufferedWriter' can improve performance by reducing the number of
+times data is actually phyiscally written to the output device.  A
+'BufferedWriter' has these constructors:
+
+     BufferedWriter (Writer outputStream)
+     BufferedWriter (Writer outputStream, int bufSize)
 
 
 File: JavaSE9.info,  Node: PushbackReader,  Next: PrintWriter,  Prev: BufferedWriter,  Up: Character Streams
 
-15.8.9 'PushbackReader'
------------------------
+15.8.10 'PushbackReader'
+------------------------
 
 
 File: JavaSE9.info,  Node: PrintWriter,  Prev: PushbackReader,  Up: Character Streams
 
-15.8.10 'PrintWriter'
+15.8.11 'PrintWriter'
 ---------------------
 
 
@@ -7454,6 +8099,10 @@ B.1 Source File Definitions
      This chunk is defined in *note BRRead-java::.
 {'BRReadLines.java'}
      This chunk is defined in *note BRReadLines-java::.
+{'BufferedInputStreamDemo.java'}
+     This chunk is defined in *note BufferedInputStreamDemo-java::.
+{'BufferedReaderDemo.java'}
+     This chunk is defined in *note BufferedReaderDemo-java::.
 {'CopyFile.java'}
      This chunk is defined in *note CopyFile-java::.
 {'CopyFileMultTryWR.java'}
@@ -7462,6 +8111,8 @@ B.1 Source File Definitions
      This chunk is defined in *note DirList-java::.
 {'DirListOnly'}
      This chunk is defined in *note DirListOnly::.
+{'FileReaderDemo.java'}
+     This chunk is defined in *note FileReaderDemo-java::.
 {'FindAreas.java '}
      This chunk is defined in *note FindAreas-java-::.
 {'GenMethDemo.java'}
@@ -7518,12 +8169,44 @@ B.2 Code Chunk Definitions
      BRReadLines-BufferedReader-Constructor::.
 <BRReadLines Enter Lines>
      This chunk is defined in *note BRReadLines-Enter-Lines::.
+<BufferedInputStreamDemo Buffer>
+     This chunk is defined in *note BufferedInputStreamDemo-Buffer::.
+<BufferedInputStreamDemo ByteArrayInputStream>
+     This chunk is defined in *note
+     BufferedInputStreamDemo-ByteArrayInputStream::.
+<BufferedInputStreamDemo Instance Variables>
+     This chunk is defined in *note
+     BufferedInputStreamDemo-Instance-Variables::.
+<BufferedInputStreamDemo String>
+     This chunk is defined in *note BufferedInputStreamDemo-String::.
+<BufferedInputStreamDemo Switch on Character>
+     This chunk is defined in *note
+     BufferedInputStreamDemo-Switch-on-Character::.
+<BufferedInputStreamDemo TryWithResources BufferedInputStream>
+     This chunk is defined in *note
+     BufferedInputStreamDemo-TryWithResources-BufferedInputStream::.
+<BufferedInputStreamDemo Utility Variables>
+     This chunk is defined in *note
+     BufferedInputStreamDemo-Utility-Variables::.
+<BufferedInputStreamDemo While Loop>
+     This chunk is defined in *note
+     BufferedInputStreamDemo-While-Loop::.
+<BufferedReaderDemo Buffer>
+     This chunk is defined in *note BufferedReaderDemo-Buffer::.
+<BufferedReaderDemo Instance Variables>
+     This chunk is defined in *note
+     BufferedReaderDemo-Instance-Variables::.
+<BufferedReaderDemo TryWithResources BufferedReader>
+     This chunk is defined in *note
+     BufferedReaderDemo-TryWithResources-BufferedReader::.
 <Call Overridden Methods One By One >
      This chunk is defined in *note
      Call-Overridden-Methods-One-By-One-::.
 <Call Overridden Methods One By One Except Figure >
      This chunk is defined in *note
      Call-Overridden-Methods-One-By-One-Except-Figure-::.
+<Catch IOException>
+     This chunk is defined in *note Catch-IOException::.
 <Class Declaration>
      This chunk is defined in *note Class-Declaration::.
 <Class Gen>
@@ -7594,6 +8277,9 @@ B.2 Code Chunk Definitions
 <Figure Instance Variable Declarations >
      This chunk is defined in *note
      Figure-Instance-Variable-Declarations-::.
+<FileReaderDemo TryWithResources FileReader>
+     This chunk is defined in *note
+     FileReaderDemo-TryWithResources-FileReader::.
 <FindAreas Main Class >
      This chunk is defined in *note FindAreas-Main-Class-::.
 <FindAreas Main Method Declaration >
@@ -7769,6 +8455,68 @@ B.3 Code Chunk References
 
      This chunk is called by {'BRReadLines.java'}; see its first
      definition at *note BRReadLines-java::.
+<BufferedInputStreamDemo Buffer>
+
+     This chunk is called by <BufferedInputStreamDemo Instance
+     Variables>; see its first definition at *note
+     BufferedInputStreamDemo-Instance-Variables::.
+<BufferedInputStreamDemo ByteArrayInputStream>
+
+     This chunk is called by <BufferedInputStreamDemo Instance
+     Variables>; see its first definition at *note
+     BufferedInputStreamDemo-Instance-Variables::.
+<BufferedInputStreamDemo Instance Variables>
+
+     This chunk is called by {'BufferedInputStreamDemo.java'}; see its
+     first definition at *note BufferedInputStreamDemo-java::.
+<BufferedInputStreamDemo String>
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     <BufferedInputStreamDemo  See
+     Instance Variables>       *note BufferedInputStreamDemo-Instance-Variables::.
+     <BufferedReaderDemo       See
+     Instance Variables>       *note BufferedReaderDemo-Instance-Variables::.
+<BufferedInputStreamDemo Switch on Character>
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     <BufferedInputStreamDemo  See
+     While Loop>               *note BufferedInputStreamDemo-While-Loop::.
+     <BufferedReaderDemo       See
+     TryWithResources          *note BufferedReaderDemo-TryWithResources-BufferedReader::.
+     BufferedReader>
+<BufferedInputStreamDemo TryWithResources BufferedInputStream>
+
+     This chunk is called by {'BufferedInputStreamDemo.java'}; see its
+     first definition at *note BufferedInputStreamDemo-java::.
+<BufferedInputStreamDemo Utility Variables>
+
+     This chunk is called by <BufferedInputStreamDemo Instance
+     Variables>; see its first definition at *note
+     BufferedInputStreamDemo-Instance-Variables::.
+<BufferedInputStreamDemo While Loop>
+
+     This chunk is called by <BufferedInputStreamDemo TryWithResources
+     BufferedInputStream>; see its first definition at *note
+     BufferedInputStreamDemo-TryWithResources-BufferedInputStream::.
+<BufferedReaderDemo Buffer>
+
+     This chunk is called by <BufferedReaderDemo Instance Variables>;
+     see its first definition at *note
+     BufferedReaderDemo-Instance-Variables::.
+<BufferedReaderDemo Instance Variables>
+
+     This chunk is called by {'BufferedReaderDemo.java'}; see its
+     first definition at *note BufferedReaderDemo-java::.
+<BufferedReaderDemo TryWithResources BufferedReader>
+
+     This chunk is called by {'BufferedReaderDemo.java'}; see its
+     first definition at *note BufferedReaderDemo-java::.
 <Call Overridden Methods One By One >
 
      This chunk is called by <FindAreas Main Method Declaration >; see
@@ -7779,6 +8527,15 @@ B.3 Code Chunk References
      This chunk is called by <AbstractAreas Main Method Declaration >;
      see its first definition at *note
      AbstractAreas-Main-Method-Declaration-::.
+<Catch IOException>
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'BufferedInputStreamDemo.java'}See *note BufferedInputStreamDemo-java::.
+     {'BufferedReaderDemo.java'}See *note BufferedReaderDemo-java::.
+     {'FileReaderDemo.java'}   See *note FileReaderDemo-java::.
 <Class Declaration>
 
      This chunk is called by <Class TwoGen>; see its first definition
@@ -7917,6 +8674,10 @@ B.3 Code Chunk References
      Class Figure >            *note AbstractAreas-Abstract-Class-Figure-::.
      <FindAreas SuperClass     See *note FindAreas-SuperClass-Figure-::.
      Figure >
+<FileReaderDemo TryWithResources FileReader>
+
+     This chunk is called by {'FileReaderDemo.java'}; see its first
+     definition at *note FileReaderDemo-java::.
 <FindAreas Main Class >
 
      This chunk is called by {'FindAreas.java '}; see its first
@@ -7961,9 +8722,12 @@ B.3 Code Chunk References
      -------------------------------------------------------------------------
      {'BRRead.java'}           See *note BRRead-java::.
      {'BRReadLines.java'}      See *note BRReadLines-java::.
+     {'BufferedInputStreamDemo.java'}See *note BufferedInputStreamDemo-java::.
+     {'BufferedReaderDemo.java'}See *note BufferedReaderDemo-java::.
      {'CopyFile.java'}         See *note CopyFile-java::.
      {'CopyFileMultTryWR.java'}See *note CopyFileMultTryWR-java::.
      {'DirListOnly'}           See *note DirListOnly::.
+     {'FileReaderDemo.java'}   See *note FileReaderDemo-java::.
      {'OnlyExt.java'}          See *note OnlyExt-java::.
      {'PrinterWriterDemo.java'}See *note PrinterWriterDemo-java::.
      {'ShowFile.java'}         See *note ShowFile-java::.
@@ -8221,1385 +8985,4 @@ B.3 Code Chunk References
 
      This chunk is called by <Class TwoGen>; see its first definition
      at *note Class-TwoGen::.
-
-
-File: JavaSE9.info,  Node: List of Tables,  Next: List of General Forms,  Prev: Code Chunk Summaries,  Up: Top
-
-List of Tables
-**************
-
-* Menu:
-
-* Table 5.1: PackageAccess.              Package Access Table
-* Table 7.1: ByteStreamClasses.          The Byte Stream Classes ...
-* Table 7.2: CharacterStreamClasses.     The Character Stream I/O ...
-* Table 15.1: 'File'-Methods.            'File' Property Methods
-* Table 15.2: 'File'-Utility-Methods.    File Utility Methods
-* Table 15.3: InputStreamMethods.        The Methods Defined by ...
-* Table 15.4: OutputStreamMethods.       The Methods Defined by ...
-
-
-File: JavaSE9.info,  Node: List of General Forms,  Next: Bibliography,  Prev: List of Tables,  Up: Top
-
-List of General Forms
-*********************
-
-* Menu:
-
-* GeneralForm 2.1: ClassDeclaration.     Class Declaration -- ...
-* GeneralForm 2.2: MethodDeclaration.    Method Declaration -- ...
-* GeneralForm 4.1: Subclass.             Subclass General Form
-* GeneralForm 4.2: SuperCallingConstructor.
-                                         'super' Calling a ...
-* GeneralForm 4.3: SuperReferencingSuperclass.
-                                         'super' Referencing its ...
-* GeneralForm 4.4: AbstractMethodDeclaration.
-                                         Abstract Method ...
-* GeneralForm 5.1: PackageStatement.     Package Statement -- ...
-* GeneralForm 5.2: PackageStatementMulti.Package Statement -- ...
-* GeneralForm 5.3: Import.               Import Statement -- ...
-* GeneralForm 6.1: InterfaceSimple.      Interface Definition -- ...
-* GeneralForm 6.2: ClassImplementsInterface.
-                                         Class Implementing ...
-* GeneralForm 6.3: InterfaceStaticMethod.Interface Static Method, ...
-* GeneralForm 7.1: AutomaticResourceManagement.
-                                         General Form Automatic ...
-* GeneralForm 9.1: GenericClass.         General Form Generic Class
-* GeneralForm 9.2: UpperBoundedWildcard. Upper Bounded Wildcard
-* GeneralForm 9.3: LowerBoundedWildcard. Lower Bounded Wildcard
-* GeneralForm 9.4: GenericMethod.        Generic Method Declaration
-* GeneralForm 15.1: Directory-List.      Obtaining a list of files ...
-* GeneralForm 15.2: Directory-List-With-Filter.
-                                         Obtaining a filtered list ...
-* GeneralForm 15.3: FilenameFilter.Accept.
-                                         'accept()' Form to be ...
-* GeneralForm 15.4: listFiles.           'File.listFiles()' Form
-* GeneralForm 15.5: FileFilter-accept(). FileFilter.accept() Method
-* GeneralForm 15.6: CloseStreamWithClose.Traditional Stream Close
-* GeneralForm 15.7: TryWithResourcesClose.
-                                         'try-with-resources' ...
-
-
-File: JavaSE9.info,  Node: Bibliography,  Next: Concept Index,  Prev: List of General Forms,  Up: Top
-
-Bibliography
-************
-
-
-File: JavaSE9.info,  Node: Concept Index,  Next: Function Index,  Prev: Bibliography,  Up: Top
-
-Index
-*****
-
- [index ]
-* Menu:
-
-* <AbstractAreas Abstract Area Method Declaration >, definition: AbstractAreas Abstract Class Figure Node.
-                                                            (line  34)
-* <AbstractAreas Abstract Area Method Declaration >, use: AbstractAreas Abstract Class Figure Node.
-                                                            (line  10)
-* <AbstractAreas Abstract Class Figure >, definition: AbstractAreas Abstract Class Figure Node.
-                                                            (line  10)
-* <AbstractAreas Abstract Class Figure >, use: Improved Figure Class.
-                                                            (line  12)
-* <AbstractAreas Main Class >, definition: AbstractAreas Main Class.
-                                                            (line   6)
-* <AbstractAreas Main Class >, use:      Improved Figure Class.
-                                                            (line  12)
-* <AbstractAreas Main Method Declaration >, definition: AbstractAreas Main Class.
-                                                            (line  21)
-* <AbstractAreas Main Method Declaration >, use: AbstractAreas Main Class.
-                                                            (line   6)
-* <BRRead BufferedReader Constructor>, definition: BRRead BufferedReader Constructor Node.
-                                                            (line   6)
-* <BRRead BufferedReader Constructor>, use: Reading Characters.
-                                                            (line  24)
-* <BRRead Enter Characters>, definition: BRRead Enter Characters Node.
-                                                            (line   6)
-* <BRRead Enter Characters>, use:        Reading Characters.
-                                                            (line  24)
-* <BRReadLines BufferedReader Constructor>, definition: BRReadLines BufferedReader Constructor.
-                                                            (line   6)
-* <BRReadLines BufferedReader Constructor>, use: Reading Strings.
-                                                            (line  20)
-* <BRReadLines Enter Lines>, definition: BRReadLines Enter Lines.
-                                                            (line   6)
-* <BRReadLines Enter Lines>, use:        Reading Strings.   (line  20)
-* <Call Overridden Methods One By One >, definition: FindAreas Main Class Node.
-                                                            (line  78)
-* <Call Overridden Methods One By One >, use: FindAreas Main Class Node.
-                                                            (line  21)
-* <Call Overridden Methods One By One Except Figure >, definition: AbstractAreas Main Class.
-                                                            (line  70)
-* <Call Overridden Methods One By One Except Figure >, use: AbstractAreas Main Class.
-                                                            (line  21)
-* <Class Declaration>, definition:       Class TwoGen.      (line  34)
-* <Class Declaration>, use:              Class TwoGen.      (line   6)
-* <Class Gen>, definition:               Class Gen<T>.      (line  33)
-* <Class Gen>, use:                      Simple Generics Example.
-                                                            (line   9)
-* <Class GenDemo>, definition:           Class GenDemo.     (line  22)
-* <Class GenDemo>, use:                  Simple Generics Example.
-                                                            (line   9)
-* <Class SimpGen>, definition:           Class SimpGen.     (line   9)
-* <Class SimpGen>, use:                  Two Types Example Code.
-                                                            (line   6)
-* <Class TwoGen>, definition:            Class TwoGen.      (line   6)
-* <Class TwoGen>, use:                   Two Types Example Code.
-                                                            (line   6)
-* <Constructor of Two Parameters>, definition: Class TwoGen.
-                                                            (line  54)
-* <Constructor of Two Parameters>, use:  Class TwoGen.      (line   6)
-* <Constructor taking parameter of Type T>, definition: Class Gen<T>.
-                                                            (line  79)
-* <Constructor taking parameter of Type T>, use: Class Gen<T>.
-                                                            (line  33)
-* <CopyFile Check For 2 Files>, definition: CopyFile Check for 2 Files.
-                                                            (line   6)
-* <CopyFile Check For 2 Files>, use:     Demonstration Writing to a File.
-                                                            (line  14)
-* <CopyFile Copy a File>, definition:    CopyFile Copy a File.
-                                                            (line  10)
-* <CopyFile Copy a File>, use:           Demonstration Writing to a File.
-                                                            (line  14)
-* <CopyFile Initial Comments>, definition: CopyFile Initial Comments.
-                                                            (line   6)
-* <CopyFile Initial Comments>, use:      Demonstration Writing to a File.
-                                                            (line  14)
-* <CopyFile Instance Variable Declarations>, definition: CopyFile Instance Variable Declarations.
-                                                            (line   6)
-* <CopyFile Instance Variable Declarations>, use: Demonstration Writing to a File.
-                                                            (line  14)
-* <CopyFileMultTryWR Initial Comments>, definition: CopyFileMultTryWR Initial Comments.
-                                                            (line   6)
-* <CopyFileMultTryWR Initial Comments>, use: Demonstration of Multiple Resources.
-                                                            (line  11)
-* <CopyFileMultTryWR Manage Two Files>, definition: CopyFileMultTryWR Manage Two Files.
-                                                            (line  13)
-* <CopyFileMultTryWR Manage Two Files>, use: Demonstration of Multiple Resources.
-                                                            (line  11)
-* <Create a Gen object for Integers>, definition: GenDemo as Integer.
-                                                            (line   6)
-* <Create a Gen object for Integers>, use: Class GenDemo.   (line  22)
-* <Create a Gen object for Strings>, definition: GenDemo as String.
-                                                            (line   6)
-* <Create a Gen object for Strings>, use: Class GenDemo.    (line  22)
-* <Create Basic Figure Objects >, definition: FindAreas Main Class Node.
-                                                            (line  45)
-* <Create Basic Figure Objects >, use:   FindAreas Main Class Node.
-                                                            (line  21)
-* <Create Basic Figure Objects Except Figure >, definition: AbstractAreas Main Class.
-                                                            (line  53)
-* <Create Basic Figure Objects Except Figure >, use: AbstractAreas Main Class.
-                                                            (line  21)
-* <Create Basic Figure Reference Variable >, definition: FindAreas Main Class Node.
-                                                            (line  62)
-* <Create Basic Figure Reference Variable >, use: FindAreas Main Class Node.
-                                                            (line  21)
-* <Create Basic Figure Reference Variable >, use <1>: AbstractAreas Main Class.
-                                                            (line  21)
-* <DirList Examine Directory Contents For-Loop>, definition: Examine Directory Contents For-Loop.
-                                                            (line   6)
-* <DirList Examine Directory Contents For-Loop>, use: DirList Examine Directory Contents.
-                                                            (line   6)
-* <DirList Examine Directory Contents>, definition: DirList Examine Directory Contents.
-                                                            (line   6)
-* <DirList Examine Directory Contents>, use: Examine Directory Contents.
-                                                            (line   9)
-* <DirList Instance Variable Declarations>, definition: DirList Instance Variable Declarations.
-                                                            (line   6)
-* <DirList Instance Variable Declarations>, use: Examine Directory Contents.
-                                                            (line   9)
-* <DirList Obtain Directory From Command-Line Args>, definition: DirList Obtain Directory From Command-Line Args.
-                                                            (line   6)
-* <DirList Obtain Directory From Command-Line Args>, use: DirList Instance Variable Declarations.
-                                                            (line   6)
-* <DirList Obtain Directory From Command-Line Args>, use <1>: Example Using FilenameFilter Interface.
-                                                            (line  39)
-* <DirListOnly FilenameFilter Object List>, definition: DirListOnly FilenameFilter Object List.
-                                                            (line   9)
-* <DirListOnly FilenameFilter Object List>, use: Example Using FilenameFilter Interface.
-                                                            (line  39)
-* <DirListOnly FilenameFilter Object>, definition: DirListOnly FilenameFilter Object.
-                                                            (line   6)
-* <DirListOnly FilenameFilter Object>, use: Example Using FilenameFilter Interface.
-                                                            (line  39)
-* <DirListOnly Print List>, definition:  DirListOnly Print List.
-                                                            (line   6)
-* <DirListOnly Print List>, use:         Example Using FilenameFilter Interface.
-                                                            (line  39)
-* <Figure Area Method Declaration >, definition: FindAreas SuperClass Figure Node.
-                                                            (line  71)
-* <Figure Area Method Declaration >, use: FindAreas SuperClass Figure Node.
-                                                            (line   6)
-* <Figure Constructor >, definition:     FindAreas SuperClass Figure Node.
-                                                            (line  46)
-* <Figure Constructor >, use:            FindAreas SuperClass Figure Node.
-                                                            (line   6)
-* <Figure Constructor >, use <1>:        AbstractAreas Abstract Class Figure Node.
-                                                            (line  10)
-* <Figure Instance Variable Declarations >, definition: FindAreas SuperClass Figure Node.
-                                                            (line  29)
-* <Figure Instance Variable Declarations >, use: FindAreas SuperClass Figure Node.
-                                                            (line   6)
-* <Figure Instance Variable Declarations >, use <1>: AbstractAreas Abstract Class Figure Node.
-                                                            (line  10)
-* <FindAreas Main Class >, definition:   FindAreas Main Class Node.
-                                                            (line   6)
-* <FindAreas Main Class >, use:          Applying Method Overriding.
-                                                            (line  15)
-* <FindAreas Main Method Declaration >, definition: FindAreas Main Class Node.
-                                                            (line  21)
-* <FindAreas Main Method Declaration >, use: FindAreas Main Class Node.
-                                                            (line   6)
-* <FindAreas SubClass Rectangle >, definition: FindAreas SubClass Rectangle Node.
-                                                            (line   6)
-* <FindAreas SubClass Rectangle >, use:  Applying Method Overriding.
-                                                            (line  15)
-* <FindAreas SubClass Rectangle >, use <1>: Improved Figure Class.
-                                                            (line  12)
-* <FindAreas SubClass Triangle >, definition: FindAreas SubClass Triangle Node.
-                                                            (line   6)
-* <FindAreas SubClass Triangle >, use:   Applying Method Overriding.
-                                                            (line  15)
-* <FindAreas SubClass Triangle >, use <1>: Improved Figure Class.
-                                                            (line  12)
-* <FindAreas SuperClass Figure >, definition: FindAreas SuperClass Figure Node.
-                                                            (line   6)
-* <FindAreas SuperClass Figure >, use:   Applying Method Overriding.
-                                                            (line  15)
-* <GenMethDemo Main>, definition:        GenMethDemo Main.  (line   6)
-* <GenMethDemo Main>, use:               Example of Generic Method.
-                                                            (line  13)
-* <Get Value>, definition:               GenDemo as Integer.
-                                                            (line  91)
-* <Get Value>, use:                      GenDemo as Integer.
-                                                            (line   6)
-* <Import java.io.File>, definition:     Import java.io.File.
-                                                            (line   6)
-* <Import java.io.File>, use:            Examine Directory Contents.
-                                                            (line   9)
-* <Import java.io>, definition:          Import java.io.    (line   6)
-* <Import java.io>, use:                 Reading Characters.
-                                                            (line  24)
-* <Import java.io>, use <1>:             Reading Strings.   (line  20)
-* <Import java.io>, use <2>:             Demonstration Using PrintWriter.
-                                                            (line   6)
-* <Import java.io>, use <3>:             Demonstration Reading From a File.
-                                                            (line  10)
-* <Import java.io>, use <4>:             close() Within finally.
-                                                            (line  19)
-* <Import java.io>, use <5>:             Demonstration Reading From File with Single try.
-                                                            (line  12)
-* <Import java.io>, use <6>:             Demonstration Writing to a File.
-                                                            (line  14)
-* <Import java.io>, use <7>:             Demonstration of Automatically Closing a File.
-                                                            (line   9)
-* <Import java.io>, use <8>:             Demonstration of Multiple Resources.
-                                                            (line  11)
-* <Import java.io>, use <9>:             Example Using FilenameFilter Interface.
-                                                            (line  14)
-* <Import java.io>, use <10>:            Example Using FilenameFilter Interface.
-                                                            (line  39)
-* <Instance Methods Show and Get>, definition: Class TwoGen.
-                                                            (line  67)
-* <Instance Methods Show and Get>, use:  Class TwoGen.      (line   6)
-* <Instance Variable ob of Type T>, definition: Class Gen<T>.
-                                                            (line  63)
-* <Instance Variable ob of Type T>, use: Class Gen<T>.      (line  33)
-* <Integer Type Parameter>, definition:  GenDemo as Integer.
-                                                            (line  36)
-* <Integer Type Parameter>, use:         GenDemo as Integer.
-                                                            (line   6)
-* <Makefile CLEAN Targets>, definition:  Makefile Clean Targets.
-                                                            (line   6)
-* <Makefile CLEAN Targets>, use:         The Makefile.      (line   6)
-* <Makefile CLEAN>, definition:          Makefile Clean.    (line   6)
-* <Makefile CLEAN>, use:                 Makefile Clean Targets.
-                                                            (line   6)
-* <Makefile CONSTANTS>, definition:      Makefile Constants.
-                                                            (line   8)
-* <Makefile CONSTANTS>, use:             The Makefile.      (line   6)
-* <Makefile DEFAULTS>, definition:       Makefile Defaults. (line   6)
-* <Makefile DEFAULTS>, use:              The Makefile.      (line   6)
-* <Makefile DISTCLEAN>, definition:      Makefile DistClean.
-                                                            (line   6)
-* <Makefile DISTCLEAN>, use:             Makefile Clean Targets.
-                                                            (line   6)
-* <Makefile HTML>, definition:           Makefile HTML.     (line   6)
-* <Makefile HTML>, use:                  The Makefile.      (line   6)
-* <Makefile MAKEFILE Target>, definition: Make the Makefile.
-                                                            (line   6)
-* <Makefile MAKEFILE Target>, use:       The Makefile.      (line   6)
-* <Makefile MAKEPDF>, definition:        Makefile MAKEPDF.  (line   6)
-* <Makefile MAKEPDF>, use:               Makefile PDF.      (line   6)
-* <Makefile OPENPDF>, definition:        Makefile OPENPDF.  (line   6)
-* <Makefile OPENPDF>, use:               Makefile PDF.      (line   6)
-* <Makefile PDF>, definition:            Makefile PDF.      (line   6)
-* <Makefile PDF>, use:                   The Makefile.      (line   6)
-* <Makefile TANGLE WEAVE>, definition:   Makefile Tangle Weave.
-                                                            (line   6)
-* <Makefile TANGLE WEAVE>, use:          The Makefile.      (line   6)
-* <Makefile WORLDCLEAN>, definition:     Makefile WorldClean.
-                                                            (line   6)
-* <Makefile WORLDCLEAN>, use:            Makefile Clean Targets.
-                                                            (line   6)
-* <Method returning object of type T>, definition: Class Gen<T>.
-                                                            (line  97)
-* <Method returning object of type T>, use: Class Gen<T>.   (line  33)
-* <Method showing type of T>, definition: Class Gen<T>.     (line 115)
-* <Method showing type of T>, use:       Class Gen<T>.      (line  33)
-* <Number 1>, definition:                ShowFileTryWR Check CL Args.
-                                                            (line  31)
-* <Number 1>, use:                       Demonstration of Automatically Closing a File.
-                                                            (line   9)
-* <Number 2>, definition:                Demonstration of Multiple Resources.
-                                                            (line  39)
-* <Number 2>, use:                       Demonstration of Multiple Resources.
-                                                            (line  11)
-* <OnlyExt Accept Method Implementation>, definition: OnlyExt Accept Method Implementation.
-                                                            (line   6)
-* <OnlyExt Accept Method Implementation>, use: Example Using FilenameFilter Interface.
-                                                            (line  14)
-* <OnlyExt Constructor>, definition:     OnlyExt Constructor.
-                                                            (line   6)
-* <OnlyExt Constructor>, use:            Example Using FilenameFilter Interface.
-                                                            (line  14)
-* <OnlyExt Instance Variable Declarations>, definition: OnlyExt Instance Variable Declarations.
-                                                            (line   6)
-* <OnlyExt Instance Variable Declarations>, use: Example Using FilenameFilter Interface.
-                                                            (line  14)
-* <PrintWriterDemo Printing To Console>, definition: PrintWriterDemo Printing To Console.
-                                                            (line   6)
-* <PrintWriterDemo Printing To Console>, use: Demonstration Using PrintWriter.
-                                                            (line   6)
-* <PrintWriterDemo PrintWriter Constructor>, definition: PrintWriterDemo PrintWriter Constructor.
-                                                            (line   6)
-* <PrintWriterDemo PrintWriter Constructor>, use: Demonstration Using PrintWriter.
-                                                            (line   6)
-* <Rectangle Area Method Declaration >, definition: FindAreas SubClass Rectangle Node.
-                                                            (line  43)
-* <Rectangle Area Method Declaration >, use: FindAreas SubClass Rectangle Node.
-                                                            (line   6)
-* <Rectangle Constructor >, definition:  FindAreas SubClass Rectangle Node.
-                                                            (line  31)
-* <Rectangle Constructor >, use:         FindAreas SubClass Rectangle Node.
-                                                            (line   6)
-* <Reference to Integer Instance>, definition: GenDemo as Integer.
-                                                            (line  58)
-* <Reference to Integer Instance>, use:  GenDemo as Integer.
-                                                            (line   6)
-* <Show Type>, definition:               GenDemo as Integer.
-                                                            (line  76)
-* <Show Type>, use:                      GenDemo as Integer.
-                                                            (line   6)
-* <ShowFile Close a File>, definition:   ShowFile Close a File.
-                                                            (line   6)
-* <ShowFile Close a File>, use:          Demonstration Reading From a File.
-                                                            (line  10)
-* <ShowFile Close a File>, use <1>:      close() Within finally.
-                                                            (line  19)
-* <ShowFile Initial Comments>, definition: ShowFile Initial Comments.
-                                                            (line   6)
-* <ShowFile Initial Comments>, use:      Demonstration Reading From a File.
-                                                            (line  10)
-* <ShowFile Initial Comments>, use <1>:  close() Within finally.
-                                                            (line  19)
-* <ShowFile Initial Comments>, use <2>:  Demonstration Reading From File with Single try.
-                                                            (line  12)
-* <ShowFile Instance Variable Declarations>, definition: ShowFile Instance Variable Declarations.
-                                                            (line   6)
-* <ShowFile Instance Variable Declarations>, use: Demonstration Reading From a File.
-                                                            (line  10)
-* <ShowFile Instance Variable Declarations>, use <1>: close() Within finally.
-                                                            (line  19)
-* <ShowFile Instance Variable Declarations>, use <2>: Demonstration Reading From File with Single try.
-                                                            (line  12)
-* <ShowFile Open a File>, definition:    ShowFile Open a File.
-                                                            (line  10)
-* <ShowFile Open a File>, use:           Demonstration Reading From a File.
-                                                            (line  10)
-* <ShowFile Open a File>, use <1>:       close() Within finally.
-                                                            (line  19)
-* <ShowFile Open a File>, use <2>:       Demonstration Reading From File with Single try.
-                                                            (line  12)
-* <ShowFile Read a File>, definition:    ShowFile Read a File.
-                                                            (line   6)
-* <ShowFile Read a File>, use:           Demonstration Reading From a File.
-                                                            (line  10)
-* <ShowFileAlt Read a File>, definition: close() Within finally.
-                                                            (line  48)
-* <ShowFileAlt Read a File>, use:        close() Within finally.
-                                                            (line  19)
-* <ShowFileSingleTry Additional Initial Comment>, definition: ShowFileSingleTry Additional Initial Comment.
-                                                            (line   6)
-* <ShowFileSingleTry Additional Initial Comment>, use: Demonstration Reading From File with Single try.
-                                                            (line  12)
-* <ShowFileSingleTry Read a File>, definition: ShowFileSingleTry Read a File.
-                                                            (line  12)
-* <ShowFileSingleTry Read a File>, use:  Demonstration Reading From File with Single try.
-                                                            (line  12)
-* <ShowFileTryWR Check CL Args End>, definition: ShowFileTryWR Check CL Args.
-                                                            (line  17)
-* <ShowFileTryWR Check CL Args End>, use: Demonstration of Automatically Closing a File.
-                                                            (line   9)
-* <ShowFileTryWR Check CL Args End>, use <1>: Demonstration of Multiple Resources.
-                                                            (line  11)
-* <ShowFileTryWR Check CL Args>, definition: ShowFileTryWR Check CL Args.
-                                                            (line   6)
-* <ShowFileTryWR Check CL Args>, use:    Demonstration of Automatically Closing a File.
-                                                            (line   9)
-* <ShowFileTryWR Check CL Args>, use <1>: Demonstration of Multiple Resources.
-                                                            (line  11)
-* <ShowFileTryWR Initial Comments>, definition: ShowFileTryWR Initial Comments.
-                                                            (line   6)
-* <ShowFileTryWR Initial Comments>, use: Demonstration of Automatically Closing a File.
-                                                            (line   9)
-* <ShowFileTryWR Instance Variable Declaration>, definition: ShowFileTryWR Instance Variable Declarations.
-                                                            (line   6)
-* <ShowFileTryWR Instance Variable Declaration>, use: Demonstration of Automatically Closing a File.
-                                                            (line   9)
-* <ShowFileTryWR Instance Variable Declaration>, use <1>: Demonstration of Multiple Resources.
-                                                            (line  11)
-* <ShowFileTryWR Open a File TryWR>, definition: ShowFileTryWR Open a File TryWR.
-                                                            (line  18)
-* <ShowFileTryWR Open a File TryWR>, use: Demonstration of Automatically Closing a File.
-                                                            (line   9)
-* <Stack Constructor>, definition:       Stack Constructor Node.
-                                                            (line   6)
-* <Stack Constructor>, use:              Stack Class.       (line  22)
-* <Stack Constructor>, use <1>:          Improved Stack Class.
-                                                            (line  11)
-* <Stack Instance Methods>, definition:  Stack Instance Methods Node.
-                                                            (line   6)
-* <Stack Instance Methods>, use:         Stack Class.       (line  22)
-* <Stack Instance Methods>, use <1>:     Improved Stack Class.
-                                                            (line  11)
-* <Stack Instance Variables>, definition: Stack Instance Variables.
-                                                            (line   6)
-* <Stack Instance Variables>, use:       Stack Class.       (line  22)
-* <Stack Pop>, definition:               Stack Push and Pop Node.
-                                                            (line  19)
-* <Stack Pop>, use:                      Stack Instance Methods Node.
-                                                            (line   6)
-* <Stack Private Instance Variables>, definition: Improved Stack Class.
-                                                            (line  31)
-* <Stack Private Instance Variables>, use: Improved Stack Class.
-                                                            (line  11)
-* <Stack Push>, definition:              Stack Push and Pop Node.
-                                                            (line   6)
-* <Stack Push>, use:                     Stack Instance Methods Node.
-                                                            (line   6)
-* <Static Method isIn>, definition:      Method isIn.       (line   9)
-* <Static Method isIn>, use:             Example of Generic Method.
-                                                            (line  13)
-* <TestStack Main Method>, definition:   Stack TestStack Node.
-                                                            (line   6)
-* <TestStack Main Method>, use:          Stack Class.       (line  42)
-* <Triangle Area Method Declaration >, definition: FindAreas SubClass Triangle Node.
-                                                            (line  42)
-* <Triangle Area Method Declaration >, use: FindAreas SubClass Triangle Node.
-                                                            (line   6)
-* <Triangle Constructor >, definition:   FindAreas SubClass Triangle Node.
-                                                            (line  30)
-* <Triangle Constructor >, use:          FindAreas SubClass Triangle Node.
-                                                            (line   6)
-* <Two Instance Variables Declarations>, definition: Class TwoGen.
-                                                            (line  43)
-* <Two Instance Variables Declarations>, use: Class TwoGen. (line   6)
-* ==:                                    Enumeration Basics.
-                                                            (line  38)
-* {AbstractAreas.java }, definition:     Improved Figure Class.
-                                                            (line  12)
-* {BRRead.java}, definition:             Reading Characters.
-                                                            (line  24)
-* {BRReadLines.java}, definition:        Reading Strings.   (line  20)
-* {CopyFile.java}, definition:           Demonstration Writing to a File.
-                                                            (line  14)
-* {CopyFileMultTryWR.java}, definition:  Demonstration of Multiple Resources.
-                                                            (line  11)
-* {DirList.java}, definition:            Examine Directory Contents.
-                                                            (line   9)
-* {DirListOnly}, definition:             Example Using FilenameFilter Interface.
-                                                            (line  39)
-* {FindAreas.java }, definition:         Applying Method Overriding.
-                                                            (line  15)
-* {GenMethDemo.java}, definition:        Example of Generic Method.
-                                                            (line  13)
-* {Makefile}, definition:                The Makefile.      (line   6)
-* {OnlyExt.java}, definition:            Example Using FilenameFilter Interface.
-                                                            (line  14)
-* {PrinterWriterDemo.java}, definition:  Demonstration Using PrintWriter.
-                                                            (line   6)
-* {ShowFile.java}, definition:           Demonstration Reading From a File.
-                                                            (line  10)
-* {ShowFileAlt.java}, definition:        close() Within finally.
-                                                            (line  19)
-* {ShowFileSingleTry}, definition:       Demonstration Reading From File with Single try.
-                                                            (line  12)
-* {ShowFileTryWR.java}, definition:      Demonstration of Automatically Closing a File.
-                                                            (line   9)
-* {SimpleGenerics.java}, definition:     Simple Generics Example.
-                                                            (line   9)
-* {Stack.java}, definition:              Stack Class.       (line  22)
-* {StackImproved.java}, definition:      Improved Stack Class.
-                                                            (line  11)
-* {TestStack.java}, definition:          Stack Class.       (line  42)
-* {TwoTypeParameters.java}, definition:  Two Types Example Code.
-                                                            (line   6)
-* abstract class:                        Interfaces.        (line   6)
-* abstract class, inheritance:           Using Abstract Classes.
-                                                            (line   6)
-* abstract method:                       Using Abstract Classes.
-                                                            (line   6)
-* abstract methods, interface:           Defining Interfaces.
-                                                            (line  22)
-* abstract methods, interface <1>:       Default Interface Methods.
-                                                            (line   6)
-* abstract over types:                   Generics.          (line   6)
-* abstract type modifier:                Using Abstract Classes.
-                                                            (line   6)
-* accept():                              FilenameFilter.    (line   6)
-* access control table:                  Member Access.     (line  27)
-* access control, packages:              Member Access.     (line   6)
-* access control, single class:          Access Control.    (line   6)
-* access modifiers:                      Access Control.    (line   6)
-* access, member:                        Member Access.     (line   6)
-* accessibility:                         Packages Intro.    (line   6)
-* anonymous inner classes:               Nested and Inner Classes.
-                                                            (line   6)
-* API, Stream:                           Streams API.       (line   5)
-* argument passing:                      Argument Passing.  (line   6)
-* arguments, command-line:               Command-Line Arguments.
-                                                            (line   6)
-* arguments, varargs:                    Varargs.           (line   6)
-* ARM:                                   Automatically Closing Files.
-                                                            (line   6)
-* Arrays:                                Arrays 2.          (line   6)
-* arrays as objects:                     Arrays 2.          (line   6)
-* assert:                                Miscellaneous Java Keywords.
-                                                            (line   6)
-* auto-boxing, generics:                 Reference Types.   (line   6)
-* auto-unboxing, generics:               Reference Types.   (line   6)
-* autoboxing in generic reference:       GenDemo as Integer.
-                                                            (line  46)
-* AutoClosable interface:                FileInputStream and FileOutputStream.
-                                                            (line  42)
-* AutoCloseable:                         AutoCloseable Closeable Flushable Interfaces.
-                                                            (line   6)
-* automatic resource management:         Automatically Closing Files.
-                                                            (line   6)
-* AWT:                                   AWT.               (line   6)
-* AWT Controls:                          AWT Controls.      (line   6)
-* AWT Layout Managers, Menus:            AWT Controls.      (line   5)
-* binary data, reading and writing:      Byte Streams Character Streams.
-                                                            (line   6)
-* binding, late, early:                  final to Prevent Overriding.
-                                                            (line   6)
-* bounded types:                         Bounded Types.     (line   6)
-* bounded wildcards:                     Bounded Wildcards. (line   6)
-* bounded wildcards, lower bound:        Bounded Wildcards. (line  32)
-* bounded wildcards, upper bound:        Bounded Wildcards. (line  18)
-* bounded wildcards, upper bound <1>:    Bounded Wildcards. (line  20)
-* BRRead BufferedReader Constructor:     BRRead BufferedReader Constructor Node.
-                                                            (line   6)
-* BRRead Enter Characters:               BRRead Enter Characters Node.
-                                                            (line   6)
-* BRRead.java:                           Reading Characters.
-                                                            (line  19)
-* BRReadLines BufferedReader Constructor: BRReadLines BufferedReader Constructor.
-                                                            (line   6)
-* BRReadLines Enter Lines:               BRReadLines Enter Lines.
-                                                            (line   6)
-* BRReadLines.java:                      Reading Strings.   (line  16)
-* Buffered Byte Streams:                 Buffered Byte Streams.
-                                                            (line   6)
-* BufferedInputStream:                   BufferedInputStream.
-                                                            (line   5)
-* BufferedOutputStream:                  BufferedOutputStream.
-                                                            (line   5)
-* BufferedReader:                        Reading Console Input.
-                                                            (line  13)
-* BufferedReader <1>:                    BufferedReader.    (line   5)
-* BufferedWriter:                        BufferedWriter.    (line   5)
-* Byte Stream Class:                     Byte Stream Class. (line   6)
-* Byte Streams:                          Byte Streams.      (line   6)
-* Byte Streams, buffered:                Buffered Byte Streams.
-                                                            (line   6)
-* Byte Streams, definition:              Byte Streams Character Streams.
-                                                            (line   6)
-* Byte Streams, filtered:                Filtered Byte Streams.
-                                                            (line   6)
-* byte-oriented I/O:                     Byte Streams.      (line   6)
-* ByteArrayInputStream:                  ByteArrayInputStream.
-                                                            (line   5)
-* ByteArrayOutputStream:                 ByteArrayOutputStream.
-                                                            (line   5)
-* casts, eliminated in generics:         Type Safety.       (line   6)
-* casts, generics, automatic, implicit:  What are Generics. (line   6)
-* catch exception:                       I/O Exceptions.    (line   6)
-* Character Stream Class:                Character Stream Class.
-                                                            (line   6)
-* Character Streams:                     Character Streams. (line   6)
-* Character Streams, definition:         Byte Streams Character Streams.
-                                                            (line   6)
-* character streams, Unicode:            Character Stream Class.
-                                                            (line   6)
-* character-based stream:                Reading Console Input.
-                                                            (line   6)
-* character-based stream class, PrintWriter: PrintWriter Class.
-                                                            (line   6)
-* characters, reading:                   Reading Characters.
-                                                            (line   6)
-* CharArrayReader:                       CharArrayReader.   (line   5)
-* CharArrayWriter:                       CharArrayWriter.   (line   5)
-* charAT():                              String Class.      (line  33)
-* Class:                                 Class Gen<T>.      (line 107)
-* Class fundamentals:                    Class Fundamentals.
-                                                            (line   6)
-* class name, from getName():            Class Gen<T>.      (line 107)
-* class namespace, compartmentalize:     Packages.          (line   6)
-* Class object, from getClass():         Class Gen<T>.      (line 107)
-* class String:                          String Class.      (line   6)
-* class, general form:                   General Form.      (line   6)
-* class, new data type:                  Class Fundamentals.
-                                                            (line   6)
-* classed in java.lang:                  java Lang.         (line  14)
-* Classes:                               Classes.           (line   6)
-* classes, nested and inner:             Nested and Inner Classes.
-                                                            (line   6)
-* CLASSPATH -classpath:                  Classpath.         (line   6)
-* close():                               FileInputStream and FileOutputStream.
-                                                            (line  29)
-* close() <1>:                           Closing a Stream.  (line   6)
-* close() Within finally:                close() Within finally.
-                                                            (line   6)
-* Closeable:                             AutoCloseable Closeable Flushable Interfaces.
-                                                            (line   6)
-* closing a stream:                      Closing a Stream.  (line   6)
-* Collections Framework:                 Generics.          (line   6)
-* collections, generics:                 Generics.          (line   6)
-* collisions, prevention:                Packages.          (line   6)
-* command-line arguments:                Command-Line Arguments.
-                                                            (line   6)
-* compartmentalized:                     Packages.          (line   6)
-* compile time:                          Interfaces.        (line  19)
-* compile-time type check:               Motivation.        (line  31)
-* Concurrency Utilities:                 Concurrency.       (line   5)
-* Console Class:                         Console Class.     (line   5)
-* console I/O:                           I/O Basics.        (line   6)
-* console input, reading:                Reading Console Input.
-                                                            (line   6)
-* constant, final variable:              final Keyword.     (line   6)
-* Constants:                             Makefile Constants.
-                                                            (line   6)
-* constructor:                           Declaring Objects. (line   6)
-* Constructors:                          Constructors.      (line   6)
-* constructors for FileInputStream:      FileInputStream.   (line   6)
-* constructors, overloading:             Overloading Constructors.
-                                                            (line   6)
-* containers, packages as:               Packages.          (line   6)
-* Creating Directories:                  Creating Directories.
-                                                            (line   6)
-* creating generic method:               Generic Methods.   (line   6)
-* data type, enumeration:                Enumerations.      (line   6)
-* DataInputStream:                       DataOutputStream DataInputStream.
-                                                            (line   5)
-* DataOutputStream:                      DataOutputStream DataInputStream.
-                                                            (line   6)
-* default access level:                  Access Control.    (line  28)
-* default method, interface, motivation: Default Interface Methods.
-                                                            (line  15)
-* default methods, interface:            Default Interface Methods.
-                                                            (line   6)
-* default package:                       Defining Packages. (line   6)
-* demonstration using PrintWriter:       Demonstration Using PrintWriter.
-                                                            (line   6)
-* difference between class and interface: Default Interface Methods.
-                                                            (line  32)
-* directories:                           File.              (line  17)
-* Directories:                           Directories.       (line   6)
-* directories, creating:                 Creating Directories.
-                                                            (line   6)
-* directory contents, examine using list(): Examine Directory Contents.
-                                                            (line   6)
-* dispatch through an interface:         Interface References.
-                                                            (line   6)
-* dot operator:                          General Form.      (line  48)
-* dynamic allocation, run time:          Declaring Objects. (line   6)
-* dynamic dispatch, interface method look-ups: Interface References.
-                                                            (line   6)
-* dynamic method dispatch:               Dynamic Method Dispatch.
-                                                            (line   6)
-* dynamic method resolution:             Interfaces.        (line  19)
-* early binding:                         final to Prevent Overriding.
-                                                            (line   6)
-* encapsulation, access control:         Access Control.    (line   6)
-* enum valueOf():                        Enum Methods.      (line   6)
-* enum values():                         Enum Methods.      (line   6)
-* enum variable, declare:                Enumeration Basics.
-                                                            (line  25)
-* enumeration capabilities:              Enumerations.      (line   6)
-* enumeration comparison:                Enumeration Basics.
-                                                            (line  38)
-* enumeration constants:                 Enumeration Basics.
-                                                            (line  15)
-* enumeration constants <1>:             Enumerations as Class Types.
-                                                            (line   6)
-* enumeration constructor:               Enumerations as Class Types.
-                                                            (line   6)
-* enumeration instance variables:        Enumerations as Class Types.
-                                                            (line   6)
-* enumeration methods:                   Enum Methods.      (line   6)
-* enumeration methods <1>:               Enumerations as Class Types.
-                                                            (line   6)
-* enumeration object:                    Enumerations.      (line   6)
-* enumeration restrictions:              Enumerations as Class Types.
-                                                            (line  41)
-* enumeration variable:                  Enumeration Basics.
-                                                            (line  25)
-* Enumeration, basics:                   Enumeration Basics.
-                                                            (line   6)
-* Enumerations:                          Enumerations.      (line   6)
-* enumerations as class types:           Enumerations as Class Types.
-                                                            (line   6)
-* enumerations inherit Enum:             Inherit Enum.      (line   6)
-* enums, printing:                       Enumeration Basics.
-                                                            (line  51)
-* equality, enum types:                  Enumeration Basics.
-                                                            (line  38)
-* equals():                              String Class.      (line  33)
-* equals() <1>:                          Object Class.      (line  49)
-* erasure:                               Class GenDemo.     (line   6)
-* err:                                   Predefined Streams.
-                                                            (line   6)
-* Event Handling:                        Event Handling.    (line   5)
-* example generic method:                Example of Generic Method.
-                                                            (line   6)
-* example, generics:                     Simple Generics Example.
-                                                            (line   6)
-* exceptions for I/O errors:             Demonstration Writing to a File.
-                                                            (line   6)
-* Exceptions, I/O:                       I/O Exceptions.    (line   6)
-* exposure of code:                      Packages Intro.    (line   6)
-* extending interfaces:                  Extending Interfaces.
-                                                            (line   6)
-* extends clause:                        Bounded Types.     (line   6)
-* extends keyword:                       Inheritance Basics.
-                                                            (line   6)
-* extents, with interfaces:              Extending Interfaces.
-                                                            (line   6)
-* Externalize:                           Externalize.       (line   5)
-* File class:                            File.              (line   6)
-* File constructors:                     File.              (line  26)
-* File methods:                          File Methods.      (line   6)
-* file properties:                       File.              (line   6)
-* File utility methods:                  File Utility Methods.
-                                                            (line   6)
-* file, close:                           FileInputStream and FileOutputStream.
-                                                            (line  29)
-* file, open:                            FileInputStream and FileOutputStream.
-                                                            (line  16)
-* file, read from:                       FileInputStream and FileOutputStream.
-                                                            (line  63)
-* file, write to:                        FileInputStream and FileOutputStream.
-                                                            (line  75)
-* FileFilter.accept() method:            listFiles() Alternative.
-                                                            (line  33)
-* FileInputStream:                       FileInputStream and FileOutputStream.
-                                                            (line   6)
-* FileInputStream <1>:                   FileInputStream.   (line   6)
-* FilenameFilter:                        FilenameFilter.    (line   6)
-* FilenameFilter interface:              FilenameFilter.    (line   6)
-* FileNotFoundException:                 I/O Exceptions.    (line   6)
-* FileNotFoundException <1>:             FileInputStream.   (line   6)
-* FileOutputStream:                      FileInputStream and FileOutputStream.
-                                                            (line   6)
-* FileOutputStream <1>:                  FileOutputStream.  (line   5)
-* FileReader:                            FileReader.        (line   5)
-* files:                                 File.              (line  17)
-* Files, Reading and Writing:            Reading and Writing Files.
-                                                            (line   6)
-* FileWriter:                            FileWriter.        (line   5)
-* filter directory contents:             FilenameFilter.    (line   6)
-* filtered byte streams:                 Filtered Byte Streams.
-                                                            (line   5)
-* final Keyword:                         final Keyword.     (line   6)
-* final to prevent inheritance:          final to Prevent Inheritance.
-                                                            (line   6)
-* final to prevent overriding:           final to Prevent Overriding.
-                                                            (line   6)
-* final with inheritance:                final with Inheritance.
-                                                            (line   6)
-* final, traditional enums:              Enumerations.      (line   6)
-* finally used to close a stream:        Closing a Stream.  (line   6)
-* finding packages:                      Classpath.         (line   6)
-* Flushable:                             AutoCloseable Closeable Flushable Interfaces.
-                                                            (line   5)
-* flushing:                              PrinterWriter Constructors.
-                                                            (line   6)
-* flushingOn:                            PrinterWriter Constructors.
-                                                            (line   6)
-* fully qualified name:                  Importing.         (line  39)
-* generic class:                         Simple Generics Example.
-                                                            (line   6)
-* generic class <1>:                     Class Gen<T>.      (line   6)
-* generic class, general form:           Generic Class General Form.
-                                                            (line   6)
-* generic class, method:                 What are Generics. (line   6)
-* generic class, two type parameters:    Two Type Parameters.
-                                                            (line   6)
-* generic code, demonstrating an implementation: Class GenDemo.
-                                                            (line   6)
-* generic constructors:                  Generic Constructors.
-                                                            (line   6)
-* generic interface:                     Motivation.        (line  31)
-* generic method, creating:              Generic Methods.   (line   6)
-* generic method, example:               Example of Generic Method.
-                                                            (line   6)
-* generic method, static:                Method isIn.       (line  28)
-* generic methods, including type arguments: Method isIn.   (line  34)
-* generic reference assignment to Integer: GenDemo as Integer.
-                                                            (line  46)
-* generic reference to Integer:          GenDemo as Integer.
-                                                            (line  28)
-* generic reference, creating:           GenDemo as Integer.
-                                                            (line   6)
-* generic type argument, reference type: Reference Types.   (line   6)
-* generic type checking:                 GenDemo as Integer.
-                                                            (line  46)
-* generic types differ, type arguments:  Type Arguments.    (line   6)
-* Generics (chapter):                    Generics.          (line   6)
-* generics eliminate casts:              Type Safety.       (line   6)
-* generics ensure type safety:           Type Safety.       (line   6)
-* generics example:                      Simple Generics Example.
-                                                            (line   6)
-* generics improve type safety:          Type Safety.       (line   6)
-* generics, bounded types:               Bounded Types.     (line   6)
-* generics, casts:                       What are Generics. (line   6)
-* generics, compile-time error, mismatched types: GenDemo as Integer.
-                                                            (line  46)
-* generics, generic constructors:        Generic Constructors.
-                                                            (line   6)
-* generics, interface as bound:          Bounded Types.     (line  22)
-* generics, introduction:                Generics.          (line   6)
-* generics, motivation:                  Motivation.        (line   6)
-* generics, motivation, readability and robustness: Motivation.
-                                                            (line  31)
-* generics, only reference types:        Reference Types.   (line   6)
-* generics, subtyping:                   Subtyping.         (line   6)
-* generics, two type arguments:          Class TwoGen.      (line  29)
-* generics, two type parameters, declaration: Class TwoGen. (line  29)
-* generics, type safety benefit:         GenDemo as Integer.
-                                                            (line  46)
-* generics, what they are:               What are Generics. (line   6)
-* generics, wildcard arguments:          Wildcard Arguments.
-                                                            (line   6)
-* getClass(), defined in Object:         Class Gen<T>.      (line 107)
-* getName(), defined in Class:           Class Gen<T>.      (line 107)
-* global members:                        static Keyword.    (line  55)
-* Graphics:                              AWT.               (line   6)
-* hiding, instance variables:            Instance Variable Hiding.
-                                                            (line   6)
-* hierarchical classifications:          Inheritance.       (line   6)
-* hierarchical structure, packages:      Packages.          (line   6)
-* hierarchy of packages:                 Defining Packages. (line  41)
-* hierarchy, constructors executed:      Constructors Executed.
-                                                            (line   6)
-* hierarchy, files:                      Multilevel Hierarchy.
-                                                            (line   6)
-* hierarchy, multilevel, creating:       Multilevel Hierarchy.
-                                                            (line   6)
-* I/O:                                   I/O.               (line   6)
-* I/O abstract classes:                  Stream Classes.    (line   6)
-* I/O Basics:                            I/O Basics.        (line   6)
-* I/O Classes and Interfaces:            I/O Classes and Interfaces.
-                                                            (line   6)
-* I/O Classes, java.io:                  I/O Classes.       (line   6)
-* I/O Exceptions:                        I/O Exceptions.    (line   6)
-* I/O Interfaces, java.io:               I/O Interfaces.    (line   6)
-* I/O, byte-oriented:                    Byte Streams.      (line   6)
-* Images:                                Images.            (line   5)
-* implements clause:                     Implementing Interfaces.
-                                                            (line   6)
-* import is optional:                    Importing.         (line  39)
-* import java.io:                        Import java.io.    (line   6)
-* import java.io.File:                   Import java.io.File.
-                                                            (line   6)
-* import packages:                       Packages.          (line   6)
-* import statement, general form and example: Importing.    (line  14)
-* imported packages must be public:      Importing.         (line  43)
-* importing packages:                    Importing.         (line   6)
-* in:                                    Predefined Streams.
-                                                            (line   6)
-* index interface, default methods:      Default Interface Methods.
-                                                            (line   6)
-* Inheritance:                           Inheritance.       (line   6)
-* inheritance basics:                    Inheritance Basics.
-                                                            (line   6)
-* inheritance, member access:            Member Access and Inheritance.
-                                                            (line   6)
-* inheriting interfaces:                 Extending Interfaces.
-                                                            (line   6)
-* inline, inlining:                      final to Prevent Overriding.
-                                                            (line   6)
-* inner classes:                         Nested and Inner Classes.
-                                                            (line   6)
-* inner classes, anonymous:              Nested and Inner Classes.
-                                                            (line   6)
-* inner classes, event handling:         Nested and Inner Classes.
-                                                            (line   6)
-* input stream:                          Streams.           (line   6)
-* input/output system:                   I/O.               (line   6)
-* InputStream:                           Reading Console Input.
-                                                            (line  13)
-* InputStream <1>:                       InputStream.       (line   6)
-* InputStream abstract class:            Stream Classes.    (line   6)
-* InputStream methods:                   InputStream Methods.
-                                                            (line   6)
-* InputStreamReader concrete subclass:   Reading Console Input.
-                                                            (line  13)
-* instance variables:                    General Form.      (line  32)
-* instance, class:                       Class Fundamentals.
-                                                            (line   6)
-* instanceof:                            Miscellaneous Java Keywords.
-                                                            (line   6)
-* intefaces, applying:                   Applying Interfaces.
-                                                            (line   6)
-* interface as bound, generics:          Bounded Types.     (line  22)
-* interface default access, no modified: Defining Interfaces.
-                                                            (line  22)
-* interface definition, simplified general form: Defining Interfaces.
-                                                            (line   7)
-* interface method defintion, declared public: Implementing Interfaces.
-                                                            (line  18)
-* interface methods, abstract methods:   Defining Interfaces.
-                                                            (line  22)
-* interface methods, private:            Private Interface Methods.
-                                                            (line   6)
-* interface public access:               Defining Interfaces.
-                                                            (line  22)
-* interface references, accessing implementations: Interface References.
-                                                            (line   6)
-* interface variable declarations:       Defining Interfaces.
-                                                            (line  35)
-* interface, implement:                  Interfaces.        (line   6)
-* interface, partial implementation:     Partial Implementations.
-                                                            (line   6)
-* interface, static method:              Interface Static Methods.
-                                                            (line   6)
-* interface, traditional form:           Default Interface Methods.
-                                                            (line   6)
-* Interfaces (chapter):                  Interfaces.        (line   6)
-* interfaces in java.lang:               java Lang.         (line  62)
-* interfaces, defining:                  Defining Interfaces.
-                                                            (line   6)
-* interfaces, extending:                 Extending Interfaces.
-                                                            (line   6)
-* interfaces, final variables in:        Variables in Interfaces.
-                                                            (line   6)
-* interfaces, implementing:              Implementing Interfaces.
-                                                            (line   6)
-* interfaces, inheriting:                Extending Interfaces.
-                                                            (line   6)
-* interfaces, introduction:              Interfaces.        (line   6)
-* interfaces, key aspect, no state:      Default Interface Methods.
-                                                            (line  32)
-* interfaces, key feature, reference look-ups: Interface References.
-                                                            (line   6)
-* interfaces, nested:                    Nested Interfaces. (line   6)
-* interfaces, shared constants:          Variables in Interfaces.
-                                                            (line   6)
-* internationalization of output to console: PrintWriter Class.
-                                                            (line   6)
-* internationalization, character streams: Byte Streams Character Streams.
-                                                            (line   6)
-* internationalization, character streams <1>: Reading Console Input.
-                                                            (line   6)
-* introduction to Java SE 9:             Java SE 9 Introduction.
-                                                            (line   5)
-* Introduction to Packages (section):    Packages Intro.    (line   6)
-* IOException:                           I/O Exceptions.    (line   6)
-* iteration, iterative:                  Recursion.         (line   6)
-* J2SE 5.0:                              Generics.          (line   6)
-* Java I/O system:                       Streams.           (line   6)
-* Java SE 9 introduction:                Java SE 9 Introduction.
-                                                            (line   6)
-* java.io:                               I/O.               (line   6)
-* java.io <1>:                           Character Stream Class.
-                                                            (line   6)
-* java.io <2>:                           Input/Output java.io.
-                                                            (line   6)
-* java.io package:                       Streams.           (line   6)
-* java.lang:                             Importing.         (line  29)
-* java.lang <1>:                         java Lang.         (line   6)
-* java.nio:                              Input/Output java.io.
-                                                            (line   6)
-* java.util Collections Framework:       java util Collections.
-                                                            (line   5)
-* java.util Utility Classes:             java util Utility Classes.
-                                                            (line   5)
-* JDK 5:                                 Enumerations.      (line   6)
-* JDK 7, try-with-resource:              Closing a Stream.  (line  32)
-* JDK 8, default method in interface:    Default Interface Methods.
-                                                            (line   6)
-* JDK 8, static interface method:        Interface Static Methods.
-                                                            (line   6)
-* JDK 9, package part of module:         Classpath.         (line   6)
-* JDK 9, private interface method:       Private Interface Methods.
-                                                            (line   6)
-* JDK 9, try-with-resources:             Closing a Stream.  (line  54)
-* keyword extends:                       Inheritance Basics.
-                                                            (line   6)
-* keyword final:                         final Keyword.     (line   6)
-* keyword interface:                     Interfaces.        (line   6)
-* keyword static:                        static Keyword.    (line   6)
-* keyword, enum:                         Enumeration Basics.
-                                                            (line   6)
-* late binding:                          final to Prevent Overriding.
-                                                            (line   6)
-* length instance variable:              Arrays 2.          (line   6)
-* length():                              String Class.      (line  33)
-* list():                                Directories.       (line   6)
-* list() method for directories:         File.              (line  17)
-* listFiles() Alternative:               listFiles() Alternative.
-                                                            (line   6)
-* lower bounded wildcard:                Bounded Wildcards. (line  32)
-* main() method, class:                  General Form.      (line  45)
-* Make the Makefile:                     Make the Makefile. (line   6)
-* Makefiel Weave:                        Makefile Tangle Weave.
-                                                            (line   6)
-* Makefile Clean:                        Makefile Clean.    (line   6)
-* Makefile Clean targets:                Makefile Clean Targets.
-                                                            (line   6)
-* Makefile defaults:                     Makefile Defaults. (line   6)
-* Makefile DistClean:                    Makefile DistClean.
-                                                            (line   6)
-* Makefile HTML:                         Makefile HTML.     (line   6)
-* Makefile MAKEPDF:                      Makefile MAKEPDF.  (line   6)
-* Makefile OPENPDF:                      Makefile OPENPDF.  (line   6)
-* Makefile PDF:                          Makefile PDF.      (line   6)
-* Makefile Tangle:                       Makefile Tangle Weave.
-                                                            (line   6)
-* Makefile WorldClean:                   Makefile WorldClean.
-                                                            (line   6)
-* Makefile, The (appendix):              The Makefile.      (line   6)
-* member access:                         Member Access.     (line   6)
-* member access, inheritance:            Member Access and Inheritance.
-                                                            (line   6)
-* member hiding:                         super Referencing Superclass.
-                                                            (line   6)
-* member interfaces:                     Nested Interfaces. (line   6)
-* members:                               General Form.      (line  32)
-* method overriding:                     Method Overriding. (line   6)
-* method signatures compatible:          Interfaces.        (line  19)
-* method, static, interface:             Interface Static Methods.
-                                                            (line   6)
-* method, varargs:                       Varargs.           (line   6)
-* methods:                               General Form.      (line  32)
-* Methods:                               Methods.           (line   6)
-* Methods and Classes:                   Methods and Classes.
-                                                            (line   6)
-* methods, enumeration:                  Enum Methods.      (line   6)
-* methods, overloading:                  Overloading Methods.
-                                                            (line   6)
-* module path:                           Classpath.         (line   6)
-* modules, packages:                     Classpath.         (line   6)
-* multilevel hierarchy:                  Multilevel Hierarchy.
-                                                            (line   6)
-* name, method:                          Methods.           (line  15)
-* naming mechanism:                      Packages Intro.    (line   6)
-* native:                                Miscellaneous Java Keywords.
-                                                            (line   6)
-* nested classes:                        Nested and Inner Classes.
-                                                            (line   6)
-* nested interfaces:                     Nested Interfaces. (line   6)
-* Networking:                            Networking.        (line   5)
-* new operator:                          Declaring Objects. (line   6)
-* NIO:                                   Input/Output java.io.
-                                                            (line   6)
-* NIO <1>:                               NIO.               (line   5)
-* Object:                                Class Gen<T>.      (line 107)
-* Object class:                          Object Class.      (line   6)
-* object references, interfaces:         Interface References.
-                                                            (line   6)
-* Object type:                           What are Generics. (line   6)
-* object, class:                         Class Fundamentals.
-                                                            (line   6)
-* ObjectInput:                           ObjectInput.       (line   5)
-* ObjectInputStream:                     ObjectInputStream. (line   5)
-* ObjectOutput:                          ObjectOutput.      (line   5)
-* ObjectOutputStream:                    ObjectOutputStream.
-                                                            (line   5)
-* objects as parameters:                 Objects as Parameters.
-                                                            (line   6)
-* objects, declaring:                    Declaring Objects. (line   6)
-* objects, dynamical allocation:         Returning Objects. (line   6)
-* objects, references to:                Returning Objects. (line   6)
-* objects, returning from methods:       Returning Objects. (line   6)
-* one interface, many methods polymorphism: Why Overridden Methods.
-                                                            (line   6)
-* _one interface, multiple methods_:     Overloading Methods.
-                                                            (line   6)
-* out:                                   Predefined Streams.
-                                                            (line   6)
-* output stream:                         Streams.           (line   6)
-* OutputStream:                          OutputStream.      (line   6)
-* OutputStream abstract class:           Stream Classes.    (line   6)
-* OutputStream as byte stream abstract class: Writing Console Output.
-                                                            (line   6)
-* OutputStream Methods:                  OutputStream Methods.
-                                                            (line   6)
-* overload versus override:              Method Overriding. (line   6)
-* overload, overloaded:                  Overloading Methods.
-                                                            (line   6)
-* overloading constructors:              Overloading Constructors.
-                                                            (line   6)
-* overloading methods:                   Overloading Methods.
-                                                            (line   6)
-* overloading, automatic type conversion: Overloading Methods.
-                                                            (line   6)
-* overriding, method:                    Method Overriding. (line   6)
-* package command:                       Defining Packages. (line   6)
-* package namespace:                     Defining Packages. (line   6)
-* package renaming:                      Defining Packages. (line  56)
-* package statement:                     Defining Packages. (line   6)
-* package statement, example:            Defining Packages. (line  20)
-* package statement, general form:       Defining Packages. (line  16)
-* package statement, multilevel form:    Defining Packages. (line  43)
-* package, java.io:                      Streams.           (line   6)
-* Packages (chapter):                    Packages.          (line   6)
-* packages hierarchy:                    Defining Packages. (line  41)
-* packages stored in file system:        Defining Packages. (line  27)
-* packages, access control:              Member Access.     (line   6)
-* Packages, Defining (section):          Defining Packages. (line   6)
-* packages, finding, example:            Classpath.         (line  26)
-* packages, how stored:                  Packages.          (line   6)
-* packages, import:                      Packages.          (line   6)
-* packages, importing:                   Importing.         (line   6)
-* packages, purposes, prevent collisions: Packages.         (line   6)
-* parameter list, method:                Methods.           (line  15)
-* parameter, generic class:              Class Gen<T>.      (line   6)
-* parameterized type:                    Class Gen<T>.      (line   6)
-* parameterized types:                   What are Generics. (line   6)
-* parameters, as objects:                Objects as Parameters.
-                                                            (line   6)
-* partitioning mechanism:                Packages Intro.    (line   6)
-* performance enhancement, inlining:     final to Prevent Overriding.
-                                                            (line   6)
-* polymorphism, dynamic run-time:        Why Overridden Methods.
-                                                            (line   6)
-* polymorphism, one interface multiple methods: Interfaces. (line   6)
-* polymorphism, overloading of methods:  Overloading Methods.
-                                                            (line   6)
-* polymorphism, run-time:                Dynamic Method Dispatch.
-                                                            (line   6)
-* Predefined Streams:                    Predefined Streams.
-                                                            (line   6)
-* preexisting code, default method, interface: Default Interface Methods.
-                                                            (line  15)
-* Primitive Wrappers:                    Primitive Wrappers.
-                                                            (line   6)
-* print() and println(), PrintWriter class: PrinterWriter Constructors.
-                                                            (line   6)
-* print(), from PrintStream:             Writing Console Output.
-                                                            (line   6)
-* println(), from PrintStream:           Writing Console Output.
-                                                            (line   6)
-* PrintStream:                           PrintStream.       (line   5)
-* PrintStream as byte stream:            Writing Console Output.
-                                                            (line   6)
-* PrintWriter:                           PrintWriter.       (line   5)
-* PrintWriter Class, character-based stream: PrintWriter Class.
-                                                            (line   6)
-* PrintWriter constructor:               PrinterWriter Constructors.
-                                                            (line   6)
-* private access modifier:               Access Control.    (line  28)
-* private and inheritance:               Member Access and Inheritance.
-                                                            (line   6)
-* protected access modifier:             Access Control.    (line  28)
-* public access modifier:                Access Control.    (line  28)
-* PushbackInputStream:                   PushbackInputStream.
-                                                            (line   5)
-* PushbackReader:                        PushbackReader.    (line   5)
-* RandomAccessFile:                      RandomAccessFile.  (line   5)
-* read():                                FileInputStream and FileOutputStream.
-                                                            (line  63)
-* read(), from BufferedReader:           Reading Characters.
-                                                            (line   6)
-* read(), InputStream abstract class:    Byte Stream Class. (line  58)
-* read(), Reader:                        Character Stream Class.
-                                                            (line  55)
-* Reader:                                Reader.            (line   5)
-* Reader abstract class:                 Character Stream Class.
-                                                            (line   6)
-* Reader abstract class <1>:             Reading Console Input.
-                                                            (line  13)
-* Reader abstract class <2>:             Stream Classes.    (line   6)
-* reading characters:                    Reading Characters.
-                                                            (line   6)
-* Reading Console Input:                 Reading Console Input.
-                                                            (line   6)
-* reading from file demonstration:       Demonstration Reading From a File.
-                                                            (line   6)
-* reading strings:                       Reading Strings.   (line   6)
-* recursion, recursive:                  Recursion.         (line   6)
-* reference variable, superclass:        Superclass Referencing Subclass.
-                                                            (line   6)
-* Regular Expressions:                   Regular Expressions.
-                                                            (line   5)
-* run time, dynamic allocation:          Declaring Objects. (line   6)
-* run-time:                              Interfaces.        (line  19)
-* run-time polymorphism, abstract class: Using Abstract Classes.
-                                                            (line  52)
-* run-time system, finding packages:     Classpath.         (line   6)
-* self-typed constants:                  Enumeration Basics.
-                                                            (line  15)
-* SequenceInputStream:                   SequenceInputStream.
-                                                            (line   5)
-* Serializable:                          Serializable.      (line   5)
-* serializable example:                  Serializable Example.
-                                                            (line   5)
-* Serialization:                         Serialization.     (line   6)
-* Stack Class:                           Stack Class.       (line   6)
-* Stack class, improved:                 Improved Stack Class.
-                                                            (line   6)
-* stack exhaustion, recursion:           Recursion.         (line   6)
-* stack overun, recursion:               Recursion.         (line   6)
-* standard Java classes, imported implicitly: Importing.    (line  29)
-* static and non-static nested classes:  Nested and Inner Classes.
-                                                            (line   6)
-* static environment:                    Interfaces.        (line  19)
-* static generic method:                 Method isIn.       (line  28)
-* static initialization block:           static Keyword.    (line  34)
-* static Keyword:                        static Keyword.    (line   6)
-* static members:                        static Keyword.    (line   6)
-* static method, interface:              Interface Static Methods.
-                                                            (line   6)
-* static restrictions on methods:        static Keyword.    (line  24)
-* stream:                                Input/Output java.io.
-                                                            (line   6)
-* Stream API:                            Streams API.       (line   6)
-* Stream Benefits:                       Stream Benefits.   (line   5)
-* Stream Class, Byte:                    Byte Stream Class. (line   6)
-* Stream Class, Character:               Character Stream Class.
-                                                            (line   6)
-* Stream Classes:                        Stream Classes.    (line   6)
-* stream closing using try-with-resources: Closing a Stream.
-                                                            (line  32)
-* stream closing, traditional approach:  Closing a Stream.  (line   6)
-* stream definition:                     Streams.           (line   6)
-* stream variables, predefined:          Predefined Streams.
-                                                            (line   6)
-* stream, character-based:               Reading Console Input.
-                                                            (line   6)
-* stream, input:                         Streams.           (line   6)
-* stream, output:                        Streams.           (line   6)
-* Streams:                               Streams.           (line   6)
-* Streams, Character:                    Byte Streams Character Streams.
-                                                            (line   6)
-* Streams, Predefined:                   Predefined Streams.
-                                                            (line   6)
-* strictfp:                              Miscellaneous Java Keywords.
-                                                            (line   6)
-* String Class:                          String Class.      (line   6)
-* String concatenation:                  String Class.      (line  20)
-* String construction:                   String Class.      (line  20)
-* String Handling:                       Strings.           (line   5)
-* String methods:                        String Class.      (line  33)
-* String operator +:                     String Class.      (line  20)
-* Strings:                               Strings.           (line   6)
-* strings, reading:                      Reading Strings.   (line   6)
-* subclass:                              Inheritance.       (line   6)
-* super calling superclass constructors: super Calling Superclass Constructor.
-                                                            (line   6)
-* super referencing superclass:          super Referencing Superclass.
-                                                            (line   6)
-* super, using:                          Using super.       (line   6)
-* superclass:                            Inheritance.       (line   6)
-* superclass referencing subclass:       Superclass Referencing Subclass.
-                                                            (line   6)
-* Swing:                                 Swing.             (line   5)
-* switch statement, enum types:          Enumeration Basics.
-                                                            (line  38)
-* System class:                          Predefined Streams.
-                                                            (line   6)
-* System.in:                             Reading Console Input.
-                                                            (line  13)
-* System.out as byte stream:             Writing Console Output.
-                                                            (line   6)
-* template, class:                       Class Fundamentals.
-                                                            (line   6)
-* Text:                                  AWT.               (line   5)
-* text-based console programs:           I/O Basics.        (line   6)
-* this Keyword:                          this Keyword.      (line   6)
-* toString():                            Object Class.      (line  49)
-* toString(), PrintWriter:               PrinterWriter Constructors.
-                                                            (line   6)
-* try-with-resources:                    I/O.               (line   6)
-* try-with-resources <1>:                Automatically Closing Files.
-                                                            (line   6)
-* try-with-resources <2>:                Closing a Stream.  (line  32)
-* try-with-resources multiple resources: Automatically Closing Files.
-                                                            (line  54)
-* type abstraction, generics:            Generics.          (line   6)
-* type argument, passed to type parameter: GenDemo as Integer.
-                                                            (line   6)
-* type correctness:                      Motivation.        (line  31)
-* type erasure:                          Class GenDemo.     (line   6)
-* type parameter:                        Motivation.        (line  31)
-* type parameter, generic class:         Class Gen<T>.      (line   6)
-* type safety, generics:                 What are Generics. (line   6)
-* type wrappers:                         Primitive Wrappers.
-                                                            (line   6)
-* type wrappers, generics:               Reference Types.   (line   6)
-* type, method:                          Methods.           (line  15)
-* Unicode:                               Byte Streams Character Streams.
-                                                            (line   6)
-* Unicode character streams:             Character Stream Class.
-                                                            (line   6)
-* Unicode character streams <1>:         Character Stream Class.
-                                                            (line   6)
-* upper bound:                           Bounded Types.     (line   6)
-* upper bound wildcard argument:         Bounded Wildcards. (line  20)
-* upper bounded wildcard:                Bounded Wildcards. (line  18)
-* vararg ambiguity:                      Varargs.           (line  32)
-* vararg overloading:                    Varargs.           (line  32)
-* varargs:                               Varargs.           (line   6)
-* varargs method:                        Varargs.           (line   6)
-* variable, enum type:                   Enumeration Basics.
-                                                            (line  25)
-* variable-arity method:                 Varargs.           (line   6)
-* variable-length arguments:             Varargs.           (line   6)
-* visibility mechanism:                  Packages Intro.    (line   6)
-* volative:                              Miscellaneous Java Keywords.
-                                                            (line   6)
-* wildcard arguments, generics:          Wildcard Arguments.
-                                                            (line   6)
-* wildcard syntax:                       Wildcard Syntax.   (line   6)
-* wildcards, bounded:                    Bounded Wildcards. (line   6)
-* wildcards, motivation:                 Wildcard Motivation.
-                                                            (line   6)
-* Windows:                               AWT.               (line   6)
-* Wrappers, Primitives:                  Primitive Wrappers.
-                                                            (line   6)
-* write to a file:                       FileInputStream and FileOutputStream.
-                                                            (line  75)
-* write to file demonstration:           Demonstration Writing to a File.
-                                                            (line   6)
-* write() example:                       Writing Console Output.
-                                                            (line  38)
-* write() low-level method:              Writing Console Output.
-                                                            (line   6)
-* write(), FileOutputStream class:       FileInputStream and FileOutputStream.
-                                                            (line  75)
-* write(), OutputStream abstract class:  Byte Stream Class. (line  58)
-* write(), Writer:                       Character Stream Class.
-                                                            (line  55)
-* Writer abstract class:                 Character Stream Class.
-                                                            (line   6)
-* Writer abstract class <1>:             Stream Classes.    (line   6)
-* Writing Console Output:                Writing Console Output.
-                                                            (line   6)
-* Wrtier:                                Writer.            (line   5)
 

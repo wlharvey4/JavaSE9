@@ -15,7 +15,7 @@
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Character-Streams.html#Character-Streams" rel="up" title="Character Streams">
 <link href="PushbackReader.html#PushbackReader" rel="next" title="PushbackReader">
-<link href="BufferedReader.html#BufferedReader" rel="prev" title="BufferedReader">
+<link href="BufferedReaderDemo-TryWithResources-BufferedReader.html#BufferedReaderDemo-TryWithResources-BufferedReader" rel="prev" title="BufferedReaderDemo TryWithResources BufferedReader">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -51,12 +51,25 @@ ul.no-bullet {list-style: none}
 <a name="BufferedWriter"></a>
 <div class="header">
 <p>
-Next: <a href="PushbackReader.html#PushbackReader" accesskey="n" rel="next">PushbackReader</a>, Previous: <a href="BufferedReader.html#BufferedReader" accesskey="p" rel="prev">BufferedReader</a>, Up: <a href="Character-Streams.html#Character-Streams" accesskey="u" rel="up">Character Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="PushbackReader.html#PushbackReader" accesskey="n" rel="next">PushbackReader</a>, Previous: <a href="Buffered-Reader-Demo.html#Buffered-Reader-Demo" accesskey="p" rel="prev">Buffered Reader Demo</a>, Up: <a href="Character-Streams.html#Character-Streams" accesskey="u" rel="up">Character Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="BufferedWriter-1"></a>
-<h4 class="subsection">15.8.8 <samp>BufferedWriter</samp></h4>
+<h4 class="subsection">15.8.9 <samp>BufferedWriter</samp></h4>
 <a name="index-BufferedWriter"></a>
+<a name="index-BufferedWriter-constructors"></a>
+
+<p>A <samp>BufferedWriter</samp> is a <samp>Writer</samp> that buffers output.  Using a
+<samp>BufferedWriter</samp> can improve performance by reducing the number of times
+data is actually phyiscally written to the output device.  A
+<samp>BufferedWriter</samp> has these constructors:
+</p>
+<div class="display">
+<pre class="display">BufferedWriter (Writer <i>outputStream</i>)
+BufferedWriter (Writer <i>outputStream</i>, int <i>bufSize</i>)
+</pre></div>
+
+
 
 
 

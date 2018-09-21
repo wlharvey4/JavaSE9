@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>FileReaderDemo TryWithResources FileReader (About Java SE 9)</title>
+
+<meta name="description" content="FileReaderDemo TryWithResources FileReader (About Java SE 9)">
+<meta name="keywords" content="FileReaderDemo TryWithResources FileReader (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FileReader.html#FileReader" rel="up" title="FileReader">
+<link href="Catch-IOException.html#Catch-IOException" rel="next" title="Catch IOException">
+<link href="FileReader.html#FileReader" rel="prev" title="FileReader">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="FileReaderDemo-TryWithResources-FileReader"></a>
+<div class="header">
+<p>
+Next: <a href="Catch-IOException.html#Catch-IOException" accesskey="n" rel="next">Catch IOException</a>, Up: <a href="FileReader.html#FileReader" accesskey="u" rel="up">FileReader</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="FileReaderDemo-TryWtihResources-FileReader"></a>
+<h4 class="subsubsection">15.8.3.1 FileReaderDemo TryWtihResources FileReader</h4>
+
+<a name="FileReaderDemo_002dTryWithResources_002dFileReader"></a><a name="index-_003cFileReaderDemo-TryWithResources-FileReader_003e_002c-definition"></a>
+<p><span class="roman">&lt;<i>FileReaderDemo TryWithResources FileReader</i>&gt;</span> &equiv;
+</p><div class="example">
+<pre class="example">try (FileReader fr = new FileReader(&quot;FileReaderDemo.java&quot;)) {
+  int c;
+
+  while ((c = fr.read()) != -1)
+    System.out.print((char) c);
+}
+
+</pre></div>
+
+<p>This chunk is called by <span class="roman">{<samp>FileReaderDemo.java</samp>}</span>; see its first definition at <a href="FileReader.html#FileReaderDemo_002djava">FileReaderDemo-java</a>.
+</p>
+
+
+
+
+</body>
+</html>

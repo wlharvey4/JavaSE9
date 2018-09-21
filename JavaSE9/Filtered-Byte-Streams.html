@@ -58,6 +58,27 @@ Next: <a href="Buffered-Byte-Streams.html#Buffered-Byte-Streams" accesskey="n" r
 <h4 class="subsection">15.7.7 Filtered Byte Streams</h4>
 <a name="index-Byte-Streams_002c-filtered"></a>
 <a name="index-filtered-byte-streams"></a>
+<a name="index-FilterInputStream"></a>
+<a name="index-FilterOutputStream"></a>
+
+<p><em>Filtered streams</em> are simply wrappers around underlying input or output
+streams that transparently provide some extended level of functionality.
+These streams are typcially accessed by methods that are expecting a generic
+stream, which is a superclass of the filtered streams.  Typical extensions
+are buffering, character translation, and raw data translation. The filtered
+byte streams are:
+</p>
+<ul>
+<li> <samp>FilterInputStream</samp>
+</li><li> <samp>FilterOutputStream</samp>
+</li></ul>
+
+<p>Their constructors are:
+</p>
+<div class="display">
+<pre class="display">FilterOutputStream (OutputStream <i>os</i>)
+FilterInputStream (InputStream <i>is</i>)
+</pre></div>
 
 
 

@@ -14,7 +14,7 @@
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Character-Streams.html#Character-Streams" rel="up" title="Character Streams">
-<link href="BufferedWriter.html#BufferedWriter" rel="next" title="BufferedWriter">
+<link href="Buffered-Reader-Demo.html#Buffered-Reader-Demo" rel="next" title="Buffered Reader Demo">
 <link href="CharArrayWriter.html#CharArrayWriter" rel="prev" title="CharArrayWriter">
 <style type="text/css">
 <!--
@@ -51,13 +51,42 @@ ul.no-bullet {list-style: none}
 <a name="BufferedReader"></a>
 <div class="header">
 <p>
-Next: <a href="BufferedWriter.html#BufferedWriter" accesskey="n" rel="next">BufferedWriter</a>, Previous: <a href="CharArrayWriter.html#CharArrayWriter" accesskey="p" rel="prev">CharArrayWriter</a>, Up: <a href="Character-Streams.html#Character-Streams" accesskey="u" rel="up">Character Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Buffered-Reader-Demo.html#Buffered-Reader-Demo" accesskey="n" rel="next">Buffered Reader Demo</a>, Previous: <a href="CharArrayWriter.html#CharArrayWriter" accesskey="p" rel="prev">CharArrayWriter</a>, Up: <a href="Character-Streams.html#Character-Streams" accesskey="u" rel="up">Character Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="BufferedReader-1"></a>
 <h4 class="subsection">15.8.7 <samp>BufferedReader</samp></h4>
 <a name="index-BufferedReader-1"></a>
+<a name="index-BufferedReader-constructors"></a>
+<a name="index-stream_002c-move-backwards-in"></a>
+<a name="index-BufferedReader_002elines_0028_0029-method"></a>
+<a name="index-lines_0028_0029-method"></a>
+<a name="index-Stream-reference"></a>
+<a name="index-Streams-API"></a>
 
+<p><samp>BufferedReader</samp> improves performance by buffering input.  It has two
+constructors:
+</p>
+<div class="display">
+<pre class="display">BufferedReader (Reader <i>inputStream</i>)
+BufferedReader (Reader <i>inputStream</i>, int <i>bufSize</i>)
+</pre></div>
+
+<p>The first form creates a buffered character stream using a default buffer
+size.  In the second, the size of the buffer is passed in <i>bufSize</i>.
+Closing a <samp>BufferedReader</samp> also causes the underlying stream specified
+by <i>inputStream</i> to be closed.
+</p>
+<p>Buffering an input character stream provides the foundation required to
+support moving backward in the stream within the available buffer.  To
+support this, <samp>BufferedReader</samp> implements the <code>mark()</code> and
+<code>reset()</code> methods, and <code>BufferedReader.markSupported()</code> returns
+<code>true</code>.
+</p>
+<p>JDK 8 added a new method to <samp>BufferedReader</samp> called <code>lines()</code>.  It
+returns a <samp>Stream</samp> reference to the sequence of lines read by the
+reader.  (<samp>Stream</samp> is part of the stream API discussed in <a href="Streams-API.html#Streams-API">The Stream API</a>.  
+</p>
 
 
 

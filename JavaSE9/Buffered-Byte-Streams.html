@@ -58,14 +58,49 @@ Next: <a href="SequenceInputStream.html#SequenceInputStream" accesskey="n" rel="
 <h4 class="subsection">15.7.8 Buffered Byte Streams</h4>
 <a name="index-Buffered-Byte-Streams"></a>
 <a name="index-Byte-Streams_002c-buffered"></a>
+<a name="index-buffered-stream"></a>
+<a name="index-BufferedInputStream"></a>
+<a name="index-BufferedOutputStream"></a>
+<a name="index-PushbackInputStream"></a>
+
+<p>For the byte-oriented streams, a <em>buffered stream</em> extends a filtered
+stream class by attaching a memory buffer to the I/O stream.  This buffer
+allows Java to do I/O operations on more than a byte at a time, thereby
+improving performance.  Because the buffer is available, skipping, marking,
+and resetting of the stream become possible.  The buffered byte stream
+classes are:
+</p>
+<ul>
+<li> <samp>BufferedInputStream</samp>
+</li><li> <samp>BufferedOutputStream</samp>
+</li><li> <samp>PushbackInputStream</samp>
+</li></ul>
 
 
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="BufferedInputStream.html#BufferedInputStream" accesskey="1">BufferedInputStream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="BufferedOutputStream.html#BufferedOutputStream" accesskey="2">BufferedOutputStream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="Buffered-Input-Example.html#Buffered-Input-Example" accesskey="2">Buffered Input Example</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="PushbackInputStream.html#PushbackInputStream" accesskey="3">PushbackInputStream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="BufferedInputStreamDemo-Instance-Variables.html#BufferedInputStreamDemo-Instance-Variables" accesskey="3">BufferedInputStreamDemo Instance Variables</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="BufferedInputStreamDemo-TryWithResources-BufferedInputStream.html#BufferedInputStreamDemo-TryWithResources-BufferedInputStream" accesskey="4">BufferedInputStreamDemo TryWithResources BufferedInputStream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="BufferedInputStreamDemo-While-Loop.html#BufferedInputStreamDemo-While-Loop" accesskey="5">BufferedInputStreamDemo While Loop</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="BufferedInputStreamDemo-Switch-on-Character.html#BufferedInputStreamDemo-Switch-on-Character" accesskey="6">BufferedInputStreamDemo Switch on Character</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="BufferedInputStreamDemo-String-Into-Buffer.html#BufferedInputStreamDemo-String-Into-Buffer" accesskey="7">BufferedInputStreamDemo String Into Buffer</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="BufferedInputStreamDemo-Buffer.html#BufferedInputStreamDemo-Buffer" accesskey="8">BufferedInputStreamDemo Buffer</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="BufferedInputStreamDemo-ByteArrayInputStream.html#BufferedInputStreamDemo-ByteArrayInputStream" accesskey="9">BufferedInputStreamDemo ByteArrayInputStream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="BufferedInputStreamDemo-Utility-Variables.html#BufferedInputStreamDemo-Utility-Variables">BufferedInputStreamDemo Utility Variables</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="BufferedOutputStream.html#BufferedOutputStream">BufferedOutputStream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="PushbackInputStream.html#PushbackInputStream">PushbackInputStream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 

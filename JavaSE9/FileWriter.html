@@ -15,7 +15,7 @@
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Character-Streams.html#Character-Streams" rel="up" title="Character Streams">
 <link href="CharArrayReader.html#CharArrayReader" rel="next" title="CharArrayReader">
-<link href="FileReader.html#FileReader" rel="prev" title="FileReader">
+<link href="Catch-IOException.html#Catch-IOException" rel="prev" title="Catch IOException">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -57,6 +57,25 @@ Next: <a href="CharArrayReader.html#CharArrayReader" accesskey="n" rel="next">Ch
 <a name="FileWriter-1"></a>
 <h4 class="subsection">15.8.4 <samp>FileWriter</samp></h4>
 <a name="index-FileWriter"></a>
+<a name="index-FileWriter-constructors"></a>
+
+<p><samp>FileWriter</samp> creates a <samp>Writer</samp> that you can use to write to a
+file.  Four commonly used constructors are:
+</p>
+<div class="display">
+<pre class="display">FileWriter (String <i>filePath</i>)
+FileWriter (String <i>filePath</i>, boolean <i>append</i>)
+FileWriter (File <i>fileObj</i>)
+FileWriter (File <i>fileObj</i>, boolean <i>append</i>)
+</pre></div>
+
+<p>They can all throw an <samp>IOException</samp>.  If <i>append</i> is
+<code>true</code>, then output is appended to the end of the file.  Creation of a
+<samp>FileWriter</samp> is not dependent on the file already existing.
+<samp>FileWriter</samp> will create the file before opening it for output when you
+create the object.  In the case where you attept to open a read-only file,
+an <samp>IOException</samp> will be thrown.
+</p>
 
 
 

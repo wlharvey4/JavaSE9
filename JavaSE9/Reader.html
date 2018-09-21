@@ -58,7 +58,67 @@ Next: <a href="Writer.html#Writer" accesskey="n" rel="next">Writer</a>, Up: <a h
 <h4 class="subsection">15.8.1 <samp>Reader</samp></h4>
 <a name="index-Reader"></a>
 
+<p><samp>Reader</samp> is an abstact class that defines Java&rsquo;s model of streaming
+character input.  It implements the <samp>AutoCloseable</samp>, <samp>Closeable</samp>,
+and <samp>Readable</samp> interfaces.  All of the methods in this class (except
+<code>markSupported()</code>) will throw an <samp>IOException</samp> on error
+conditions.
+</p>
+<a name="Reader-Methods"></a>
+<h4 class="subsubheading">Reader Methods</h4>
+<a name="index-Reader-Methods"></a>
 
+<div class="float"><a name="ReaderMethods"></a>
+<dl compact="compact">
+<dt><b>abstract void close()</b></dt>
+<dd><p>Closes the input source.  Further read attempts will general an
+<samp>IOException</samp>.  
+</p></dd>
+<dt><b>void mark(int <i>numChars</i>)</b></dt>
+<dd><p>Places a mark at the current point in the input stream that will remain valid
+until <i>numChars</i> characters are read.
+</p></dd>
+<dt><b>boolean markSupported()</b></dt>
+<dd><p>Returns <code>true</code> if <code>mark()</code>/<code>reset()</code> are supported on this
+stream.
+</p></dd>
+<dt><b>int read(char <i>buffer[]</i>)</b></dt>
+<dd><p>Attempts to read up to <i>buffer.length</i> characters into <i>buffer</i> and
+returns the actual number of characters that were successfully read.
+<code>-1</code> is returned when an attempt is made to read at the end of the
+stream.
+</p></dd>
+<dt><b>int read(CharBuffer <i>buffer</i>)</b></dt>
+<dd><p>Attempts to read characters into <i>buffer</i> and returns the actual number of
+characters that were successfully read.  <code>-1</code> is returned when an
+attempt is made to read at the end of the stream.
+</p></dd>
+<dt><b>abstract int read(char <i>buffer[]</i>, int <i>offset</i>, int <i>numChars</i>)</b></dt>
+<dd><p>Attempts to read up to <i>numChars</i> characters into <i>buffer</i> starting at
+<i>buffer[offset]</i>, returning the number of characters successfully read.
+<code>-1</code> is returned whn an attempt is made to read at the end of the
+stream. 
+</p></dd>
+<dt><b>boolean read()</b></dt>
+<dd><p>Returns <code>true</code> if the next input request will not wait.  Otherwise, it
+returns <code>false</code>.
+</p></dd>
+<dt><b>void reset()</b></dt>
+<dd><p>Resets the input pointer to the previously set mark.
+</p></dd>
+<dt><b>long skip(long <i>numChars</i>)</b></dt>
+<dd><p>Skips over <i>numChars</i> characters of input, returning the number of
+characters actually skipped.
+</p></dd>
+</dl>
+
+<div class="float-caption"><p><strong>Table 15.5: </strong>The Methods Defined by <samp>Reader</samp></p></div></div>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Writer.html#Writer" accesskey="n" rel="next">Writer</a>, Up: <a href="Character-Streams.html#Character-Streams" accesskey="u" rel="up">Character Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

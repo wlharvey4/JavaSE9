@@ -14,7 +14,7 @@
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Buffered-Byte-Streams.html#Buffered-Byte-Streams" rel="up" title="Buffered Byte Streams">
-<link href="BufferedOutputStream.html#BufferedOutputStream" rel="next" title="BufferedOutputStream">
+<link href="Buffered-Input-Example.html#Buffered-Input-Example" rel="next" title="Buffered Input Example">
 <link href="Buffered-Byte-Streams.html#Buffered-Byte-Streams" rel="prev" title="Buffered Byte Streams">
 <style type="text/css">
 <!--
@@ -51,13 +51,40 @@ ul.no-bullet {list-style: none}
 <a name="BufferedInputStream"></a>
 <div class="header">
 <p>
-Next: <a href="BufferedOutputStream.html#BufferedOutputStream" accesskey="n" rel="next">BufferedOutputStream</a>, Up: <a href="Buffered-Byte-Streams.html#Buffered-Byte-Streams" accesskey="u" rel="up">Buffered Byte Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Buffered-Input-Example.html#Buffered-Input-Example" accesskey="n" rel="next">Buffered Input Example</a>, Up: <a href="Buffered-Byte-Streams.html#Buffered-Byte-Streams" accesskey="u" rel="up">Buffered Byte Streams</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="BufferedInputStream-1"></a>
 <h4 class="subsubsection">15.7.8.1 <samp>BufferedInputStream</samp></h4>
-<a name="index-BufferedInputStream"></a>
+<a name="index-BufferedInputStream-1"></a>
+<a name="index-BufferedInputStream-constructors"></a>
 
+<p>Java&rsquo;s <samp>BufferedInputStream</samp> class allows you to &ldquo;wrap&rdquo; any
+<samp>InputStream</samp> into a buffered stream to improve performance.
+<samp>BufferedInputStream</samp> has two constructors:
+</p>
+<div class="display">
+<pre class="display">BufferedInputStream (InputStream <i>inputStream</i>)
+BufferedInputStream (InputStream <i>inputStream</i>, int <i>bufSize</i>)
+</pre></div>
+
+<p>The first form creates a buffered stream using a default buffer size.  In the
+second, the size of the buffer is passed in <i>bufSize</i>.  Use of sizes that
+are multiples of a memory page, a disk block, and son, can have a significant
+positive impact on performance.  A good guess for a size is around 8,192
+bytes, and attaching even a rather small buffer to an I/O stream is always a
+good idea.  That way, the low-level system can read blocks of data from the
+disk or network and store the results in your buffer.  Thus, even if you are
+reading the data a byte at a time out of the <samp>InputStream</samp>, you will be
+manipulating fast memory most of the time.
+</p>
+<p>Buffering an input stream provides the foundation required to support moving
+backward in the stream of the available buffer.  Beyond the <code>read()</code> and
+<code>skip()</code> methods implemented in any <samp>InputStream</samp>,
+<samp>BufferedInputStream</samp> also supports the <code>mark()</code> and <code>reset()</code>
+methods.  This support is reflected by the
+<code>BufferedInputStream.markSupported()</code> returning <code>true</code>.
+</p>
 
 
 
