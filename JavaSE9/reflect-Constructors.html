@@ -3,10 +3,10 @@
 <!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>reflect Constructor (About Java SE 9)</title>
+<title>reflect Constructors (About Java SE 9)</title>
 
-<meta name="description" content="reflect Constructor (About Java SE 9)">
-<meta name="keywords" content="reflect Constructor (About Java SE 9)">
+<meta name="description" content="reflect Constructors (About Java SE 9)">
+<meta name="keywords" content="reflect Constructors (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -15,7 +15,7 @@
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Members-and-Reflection.html#Members-and-Reflection" rel="up" title="Members and Reflection">
 <link href="Finding-Constructors.html#Finding-Constructors" rel="next" title="Finding Constructors">
-<link href="reflect-Method.html#reflect-Method" rel="prev" title="reflect Method">
+<link href="reflect-Methods.html#reflect-Methods" rel="prev" title="reflect Methods">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -48,14 +48,14 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<a name="reflect-Constructor"></a>
+<a name="reflect-Constructors"></a>
 <div class="header">
 <p>
-Previous: <a href="reflect-Method.html#reflect-Method" accesskey="p" rel="prev">reflect Method</a>, Up: <a href="Members-and-Reflection.html#Members-and-Reflection" accesskey="u" rel="up">Members and Reflection</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="reflect-Methods.html#reflect-Methods" accesskey="p" rel="prev">reflect Methods</a>, Up: <a href="Members-and-Reflection.html#Members-and-Reflection" accesskey="u" rel="up">Members and Reflection</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<a name="reflect_002eConstructor"></a>
-<h4 class="subsection">25.3.3 <samp>reflect.Constructor</samp></h4>
+<a name="reflect_002eConstructors"></a>
+<h4 class="subsection">25.3.3 <samp>reflect.Constructors</samp></h4>
 <a name="index-Constructor_002c-reflection"></a>
 <a name="index-java_002elang_002ereflect_002eConstructor"></a>
 
@@ -64,6 +64,19 @@ Previous: <a href="reflect-Method.html#reflect-Method" accesskey="p" rel="prev">
 with two major exceptions: first, constructors have no return values; second,
 the invocation of a constructor creates a new instance of an object for a
 given class.
+</p>
+<p>Similar to methods, reflection provides APIs to
+</p>
+<ul>
+<li> discover and retrieve the constructors of a class and
+</li><li> obtain declaration information such as the modifiers, parameters,
+annotations, and thrown exceptions.
+</li><li> New instances of classes may also be created using a specified constructor.
+</li></ul>
+
+<p>The key classes used when working with constructors are <samp>Class</samp> and
+<samp>java.lang.reflect.Constructor</samp>. Common operations involving
+constructors are covered in the following sections.
 </p>
 
 <table class="menu" border="0" cellspacing="0">

@@ -472,13 +472,35 @@ Drawbacks of Reflection
 * Members and Reflection::
 * Arays and Enumerated Types and Reflection::
 
+'java.lang.reflect' Package
+
+* Classes Defined in java-lang-reflect::
+* Interfaces Defined in java-lang-reflect::
+* Reflection Demonstration::
+
+ReflectionDemo1.java
+
+* ReflectionDemo1 Class forName Call::
+* ReflectionDemo1 getConstructors Call::
+* ReflectionDem1 getFields Call::
+* ReflectionDemo1 getMethods Call::
+* Catch Exception::
+* Import java.lang.reflect::
+
 Classes and Reflection
 
+* java.lang.Class::
 * Retrieving Class Objects::
+* Examining Class Modifiers::
+* Discovering Class Members::
+
+'java.lang.Class'
+
+* Class Constructor::
 
 Retrieving Class Objects
 
-* Object.getClass()::
+* Object.getClass::
 * .class Syntax::
 * Class.forName() and Class.getName() Methods::
 * TYPE Field for Primitive Wrappers::
@@ -486,11 +508,11 @@ Retrieving Class Objects
 
 Note about Members and the Specification
 
-* reflect Field::
-* reflect Method::
-* reflect Constructor::
+* reflect Fields::
+* reflect Methods::
+* reflect Constructors::
 
-'reflect.Constructor'
+'reflect.Constructors'
 
 * Finding Constructors::
 * Constructor Modifiers::
@@ -7925,13 +7947,41 @@ File: JavaSE9.info,  Node: java.lang.reflect Package,  Next: Classes and Reflect
 25.1 'java.lang.reflect' Package
 ================================
 
-The package 'java.lang.reflect' includes several interfaces.  Of
+This package provides classes and interfaces for obtaining reflective
+information about classes and objects.  Reflection allows programmatic
+access to information about the fields, methods and constructors of
+loaded classes, and the use of reflected fields, methods, and
+constructors to operate on their underlying counterparts, within
+encapsulation and security restrictions.
+
+   The package 'java.lang.reflect' includes several interfaces.  Of
 special interest is 'Member', which defines methods that allow you to
 get information abouta field, constructor, or method of a class.
 There are also ten classes in this package.
 
-Classes Defined in 'java.lang.reflect'
---------------------------------------
+   Classes in this package, along with java.lang.Class accommodate
+applications such as debuggers, interpreters, object inspectors, class
+browsers, and services such as Object Serialization and JavaBeans that
+need access to either the public members of a target object (based on
+its runtime class) or the members declared by a given class.
+
+   Note that none of the classes in 'java.lang.reflect' offer any
+public constructors.  All reflection interactions must go through
+'java.lang.Class'.  Note also that 'java.lang.Class' does not offer
+any public constructors.  Instances of this class are created by the
+Java Virtual Machine.
+
+* Menu:
+
+* Classes Defined in java-lang-reflect::
+* Interfaces Defined in java-lang-reflect::
+* Reflection Demonstration::
+
+
+File: JavaSE9.info,  Node: Classes Defined in java-lang-reflect,  Next: Interfaces Defined in java-lang-reflect,  Up: java.lang.reflect Package
+
+25.1.1 Classes Defined in 'java.lang.reflect'
+---------------------------------------------
 
 AccessibleObject
      Allows you to bypass the default access control checks
@@ -7957,6 +8007,222 @@ ReflectPermission
 Table 25.1: Classes Defined in 'java.lang.reflect'
 
 
+File: JavaSE9.info,  Node: Interfaces Defined in java-lang-reflect,  Next: Reflection Demonstration,  Prev: Classes Defined in java-lang-reflect,  Up: java.lang.reflect Package
+
+25.1.2 Interfaces Defined in 'java.lang.reflect'
+------------------------------------------------
+
+AnnotatedArrayType
+     represents the potentially annotated use of an array type, whose
+     component type may itself represent the annotated use of a type.
+AnnotatedElement
+     represents an annotated element of the program currently running
+     in this VM.
+AnnotatedParameterizedType
+     represents the potentially annotated use of a parameterized type,
+     whose type arguments may themselves represent annotated uses of
+     types.
+AnnotatedType
+     represents the potentially annotated use of a type in the program
+     currently running in this VM.
+AnnotatedTypeVariable
+     represents the potentially annotated use of a type variable,
+     whose declaration may have bounds which themselves represent
+     annotated uses of types.
+AnnotatedWildcardType
+     represents the potentially annotated use of a wildcard type
+     argument, whose upper or lower bounds may themselves represent
+     annotated uses of types.
+GenericArrayType
+     represents an array type whose component type is either a
+     parameterized type or a type variable.
+GenericDeclaration
+     A common interface for all entities that declare type variables.
+InvocationHandler
+     the interface implemented by the invocation handler of a proxy
+     instance.
+Member
+     an interface that reflects identifying information about a single
+     member (a field or a method) or a constructor.
+ParameterizedType
+     ParameterizedType represents a parameterized type such as
+     Collection<String>.
+Type
+     Type is the common superinterface for all types in the Java
+     programming language.
+TypeVariable<D extends GenericDeclaration>
+     the common superinterface for type variables of kinds.
+WildcardType
+     WildcardType represents a wildcard type expression, such as ?, ?
+     extends Number, or ?  super Integer.
+
+Table 25.2: Interfaces Defined in 'java.lang.reflect'
+
+
+File: JavaSE9.info,  Node: Reflection Demonstration,  Prev: Interfaces Defined in java-lang-reflect,  Up: java.lang.reflect Package
+
+25.1.3 Reflection Demonstration
+-------------------------------
+
+The following application illustrates a simple use of the Java
+reflection capabilities.  It prints the constructors, fields, and
+methods of the class 'java.awt.Dimension'.  The program begins by
+using the 'forName()' mthod of 'Class' to get a class object for
+'java.awt.Dimension'.  Once this is obtained, 'getConstructors()',
+'getFields()', and 'getMethods()' are used to analyze this class
+object.  They return arrays of 'Constructor', 'Field', and 'Method'
+objects that provide the information about the object.  The
+'Constructor', 'Field', and 'Method' classes define several methods
+that can be used to obtain information about an object.  Each supports
+the 'toString()' method.  Therefore, using these objects as arguments
+tot he 'println()' method is straightforward.
+
+ReflectionDemo1.java
+....................
+
+{'ReflectionDemo1.java'} ==
+     <Import java.lang.reflect>
+
+     public class ReflectionDemo1 {
+       public static void main(String[] args) {
+
+         try {
+
+           <ReflectionDemo1 Class forName Call>
+
+           System.out.println("Constructors:");
+           <ReflectionDemo1 getConstructors Call>
+
+           System.out.println("Fields:");
+           <ReflectionDemo1 getFields Call>
+
+           System.out.println("Methods:");
+           <ReflectionDemo1 getMethods Call>
+
+         }
+         <Catch Exception>
+
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Catch Exception>         See *note Catch-Exception::.
+<Import                   See *note Import-java-lang-reflect::.
+java.lang.reflect>
+<ReflectionDemo1 Class    See
+forName Call>             *note ReflectionDemo1-Class-forName-Call::.
+<ReflectionDemo1          See
+getConstructors Call>     *note ReflectionDemo1-getConstructors-Call::.
+<ReflectionDemo1          See *note ReflectionDemo1-getFields-Call::.
+getFields Call>
+<ReflectionDemo1          See *note ReflectionDemo1-getMethods-Call::.
+getMethods Call>
+
+* Menu:
+
+* ReflectionDemo1 Class forName Call::
+* ReflectionDemo1 getConstructors Call::
+* ReflectionDem1 getFields Call::
+* ReflectionDemo1 getMethods Call::
+* Catch Exception::
+* Import java.lang.reflect::
+
+
+File: JavaSE9.info,  Node: ReflectionDemo1 Class forName Call,  Next: ReflectionDemo1 getConstructors Call,  Up: Reflection Demonstration
+
+25.1.3.1 ReflectionDemo1 Class forName Call
+...........................................
+
+<ReflectionDemo1 Class forName Call> ==
+     Class<?> c = Class.forName("java.awt.Dimension");
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: ReflectionDemo1 getConstructors Call,  Next: ReflectionDem1 getFields Call,  Prev: ReflectionDemo1 Class forName Call,  Up: Reflection Demonstration
+
+25.1.3.2 ReflectionDemo1 getConstructors Call
+.............................................
+
+<ReflectionDemo1 getConstructors Call> ==
+     Constructor<?> constructors[] = c.getConstructors();
+
+     for (int i = 0; i < constructors.length; i++) {
+       System.out.println(" " + constructors[i]);
+     }
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: ReflectionDem1 getFields Call,  Next: ReflectionDemo1 getMethods Call,  Prev: ReflectionDemo1 getConstructors Call,  Up: Reflection Demonstration
+
+25.1.3.3 ReflectionDem1 getFields Call
+......................................
+
+<ReflectionDemo1 getFields Call> ==
+     Filed fields[] = c.getFields();
+
+     for (int i = 0; i < fields.length; i++) {
+       System.out.println(" " + fields[i]);
+     }
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: ReflectionDemo1 getMethods Call,  Next: Catch Exception,  Prev: ReflectionDem1 getFields Call,  Up: Reflection Demonstration
+
+25.1.3.4 ReflectionDemo1 getMethods Call
+........................................
+
+<ReflectionDemo1 getMethods Call> ==
+     Method methods[] = c.getMethods();
+
+     for (int i = 0; i < methods.length; i++) {
+       System.out.print.n(" " + methods[i]);
+     }
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: Catch Exception,  Next: Import java.lang.reflect,  Prev: ReflectionDemo1 getMethods Call,  Up: Reflection Demonstration
+
+25.1.3.5 Catch Exception
+........................
+
+<Catch Exception> ==
+     catch (Exception e) {
+       System.out.println("Exception: " + e);
+     }
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: Import java.lang.reflect,  Prev: Catch Exception,  Up: Reflection Demonstration
+
+25.1.3.6 Import java.lang.reflect
+.................................
+
+<Import java.lang.reflect> ==
+     import java.lang.reflect.*;
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
 File: JavaSE9.info,  Node: Classes and Reflection,  Next: Members and Reflection,  Prev: java.lang.reflect Package,  Up: Reflection
 
 25.2 Classes and Reflection
@@ -7973,12 +8239,73 @@ Reflective APIs.
 
 * Menu:
 
+* java.lang.Class::
 * Retrieving Class Objects::
+* Examining Class Modifiers::
+* Discovering Class Members::
 
 
-File: JavaSE9.info,  Node: Retrieving Class Objects,  Up: Classes and Reflection
+File: JavaSE9.info,  Node: java.lang.Class,  Next: Retrieving Class Objects,  Up: Classes and Reflection
 
-25.2.1 Retrieving Class Objects
+25.2.1 'java.lang.Class'
+------------------------
+
+Instances of the class 'Class' represent classes and interfaces in a
+running Java application.  An 'enum' is a kind of class and an
+'annotation' is a kind of interface.  Every array also belongs to a
+class that is reflected as a 'Class' object that is shared by all
+arrays with the same element type and number of dimensions.  The
+primitive Java types ('boolean', 'byte', 'char', 'short', 'int',
+'long', 'float', and 'double'), and the keyword 'void' are also
+represented as 'Class' objects.
+
+   'Class' has no public constructor.  Instead 'Class' objects are
+constructed automatically by the Java Virtual Machine as classes are
+loaded and by calls to the 'defineClass' method in the class loader.
+
+   The following example uses a Class object to print the class name
+of an object:
+
+     void printClassName(Object obj) {
+              System.out.println("The class of " + obj +
+                                 " is " + obj.getClass().getName());
+          }
+
+   It is also possible to get the 'Class' object for a named type (or
+for 'void') using a class literal.
+
+     System.out.println("The name of class Foo is: "+Foo.class.getName());
+
+* Menu:
+
+* Class Constructor::
+
+
+File: JavaSE9.info,  Node: Class Constructor,  Up: java.lang.Class
+
+25.2.1.1 'Class' getConstructor
+...............................
+
+ -- Constructor on Class:
+          Constructor<T>
+          getConstructor (parameterType)
+     Returns a 'Constructor' object that reflects the specified public
+     constructor of the class represented by this 'Class' object.
+
+'Class' getConstructors
+.......................
+
+ -- Constructor on Class:
+          Constructor<?>[]
+          getConstructors ()
+     Returns an array containing 'Constructor' objects reflecting all
+     the public constructors of the class represented by this 'Class'
+     object.
+
+
+File: JavaSE9.info,  Node: Retrieving Class Objects,  Next: Examining Class Modifiers,  Prev: java.lang.Class,  Up: Classes and Reflection
+
+25.2.2 Retrieving Class Objects
 -------------------------------
 
 The entry point for all reflection operations is 'java.lang.Class'.
@@ -7990,7 +8317,7 @@ type, or an existing 'Class'.
 
 * Menu:
 
-* Object.getClass()::
+* Object.getClass::
 * .class Syntax::
 * Class.forName() and Class.getName() Methods::
 * TYPE Field for Primitive Wrappers::
@@ -8001,9 +8328,9 @@ type, or an existing 'Class'.
    (1) with the exception of 'java.lang.reflect.ReflectPermission'.
 
 
-File: JavaSE9.info,  Node: Object.getClass(),  Next: .class Syntax,  Up: Retrieving Class Objects
+File: JavaSE9.info,  Node: Object.getClass,  Next: .class Syntax,  Up: Retrieving Class Objects
 
-25.2.1.1 'Object.getClass()'
+25.2.2.1 'Object.getClass()'
 ............................
 
 If an instance of an object is available, then the simplest way to get
@@ -8055,9 +8382,9 @@ corresponding to 'java.util.HashSet'.
 which is returned by the 'static' method 'System.console()'.
 
 
-File: JavaSE9.info,  Node: .class Syntax,  Next: Class.forName() and Class.getName() Methods,  Prev: Object.getClass(),  Up: Retrieving Class Objects
+File: JavaSE9.info,  Node: .class Syntax,  Next: Class.forName() and Class.getName() Methods,  Prev: Object.getClass,  Up: Retrieving Class Objects
 
-25.2.1.2 The '.class' Syntax
+25.2.2.2 The '.class' Syntax
 ............................
 
 If the type is available, but there is no instance, then it is
@@ -8096,7 +8423,7 @@ a multi-dimensional array of a given type.
 
 File: JavaSE9.info,  Node: Class.forName() and Class.getName() Methods,  Next: TYPE Field for Primitive Wrappers,  Prev: .class Syntax,  Up: Retrieving Class Objects
 
-25.2.1.3 'Class.forName()' and 'Class.getName()' Methods
+25.2.2.3 'Class.forName()' and 'Class.getName()' Methods
 ........................................................
 
 If the fully-qualified name of a class is available, it is possible to
@@ -8132,7 +8459,7 @@ identical to String[][].class).
 
 File: JavaSE9.info,  Node: TYPE Field for Primitive Wrappers,  Next: Methods that Return Classes,  Prev: Class.forName() and Class.getName() Methods,  Up: Retrieving Class Objects
 
-25.2.1.4 TYPE Field for Primitive Type Wrappers
+25.2.2.4 TYPE Field for Primitive Type Wrappers
 ...............................................
 
 The '.class' syntax is a more convenient and the preferred way to
@@ -8162,7 +8489,7 @@ Wrapper TYPE for void
 
 File: JavaSE9.info,  Node: Methods that Return Classes,  Prev: TYPE Field for Primitive Wrappers,  Up: Retrieving Class Objects
 
-25.2.1.5 Methods that Return Classes
+25.2.2.5 Methods that Return Classes
 ....................................
 
 There are several 'Reflection' APIs which return classes, but these
@@ -8238,6 +8565,87 @@ The enclosing class of the enum 'Thread.State' is 'Thread'.
    The anonymous class defined by 'o' is enclosed by 'MyClass'.
 
 
+File: JavaSE9.info,  Node: Examining Class Modifiers,  Next: Discovering Class Members,  Prev: Retrieving Class Objects,  Up: Classes and Reflection
+
+25.2.3 Examing Class Modifiers and Types
+----------------------------------------
+
+A class may be declared with one or more modifiers which affect its
+runtime behavior:
+
+   * Access modifiers: public, protected, and private
+   * Modifier requiring override: abstract
+   * Modifier restricting to one instance: static
+   * Modifier prohibiting value modification: final
+   * Modifier forcing strict floating point behavior: strictfp
+   * Annotations
+
+   Not all modifiers are allowed on all classes, for example an
+interface cannot be 'final' and an 'enum' cannot be 'abstract'.
+'java.lang.reflect.Modifier' contains declarations for all possible
+modifiers.  It also contains methods which may be used to decode the
+set of modifiers returned by 'Class.getModifiers()'.
+
+
+File: JavaSE9.info,  Node: Discovering Class Members,  Prev: Examining Class Modifiers,  Up: Classes and Reflection
+
+25.2.4 Discovering Class Members
+--------------------------------
+
+There are two categories of methods provided in 'Class' for accessing
+fields, methods, and constructors:
+
+  1. methods which enumerate these members; and
+  2. methods which search for particular members.
+
+Also there are distinct methods for
+
+   * accessing members declared directly on the class; versus
+   * methods which search the superinterfaces and superclasses for
+     inherited members.
+
+   The following tables provide a summary of all the member-locating
+methods and their characteristics.
+
+                  Class Methods for Locating Fields
+'Class' API         List of          Inherited          Private
+                    members?         members?           members?
+-------------------------------------------------------------------------
+getDeclarareField() no               no                 yes
+getField()          no               yes                no
+getDeclaredFields() yes              no                 yes
+getFields()         yes              yes                no
+
+
+
+                 Class Methods for Locating Methods
+'Class' API         List of          Inherited          Private
+                    members?         members?           members?
+-------------------------------------------------------------------------
+getDeclarareMethod()no               no                 yes
+getMethod()         no               yes                no
+getDeclaredMethods()yes              no                 yes
+getMethods()        yes              yes                no
+
+
+
+               Class Methods for Locating Constructors
+'Class' API         List of          Inherited          Private
+                    members?         members?           members?
+-------------------------------------------------------------------------
+getDeclarareConstructor()no          N/A(1)             yes
+getConstructor()    no               N/A                no
+getDeclaredConstructors()yes         N/A                yes
+getConstructors()   yes              N/A                no
+
+Table 25.3: Class Methods for Locating Fields, Methods, and
+Constructors
+
+   ---------- Footnotes ----------
+
+   (1) Constructors are not inherited
+
+
 File: JavaSE9.info,  Node: Members and Reflection,  Next: Arays and Enumerated Types and Reflection,  Prev: Classes and Reflection,  Up: Reflection
 
 25.3 Members and Reflection
@@ -8269,22 +8677,22 @@ This differs from the implementing classes of
 
 * Menu:
 
-* reflect Field::
-* reflect Method::
-* reflect Constructor::
+* reflect Fields::
+* reflect Methods::
+* reflect Constructors::
 
 
-File: JavaSE9.info,  Node: reflect Field,  Next: reflect Method,  Up: Members and Reflection
+File: JavaSE9.info,  Node: reflect Fields,  Next: reflect Methods,  Up: Members and Reflection
 
-25.3.1 'reflect.Field'
-----------------------
+25.3.1 'reflect.Fields'
+-----------------------
 
 Fields have a type and a value.  The 'java.lang.reflect.Field' class
 provides methods for accessing type information and setting and
 getting values of a field on a given object.
 
 
-File: JavaSE9.info,  Node: reflect Method,  Next: reflect Constructor,  Prev: reflect Field,  Up: Members and Reflection
+File: JavaSE9.info,  Node: reflect Methods,  Next: reflect Constructors,  Prev: reflect Fields,  Up: Members and Reflection
 
 25.3.2 'reflect.Method'
 -----------------------
@@ -8295,16 +8703,28 @@ type information for the parameters and return value.  It may also be
 used to invoke methods on a given object.
 
 
-File: JavaSE9.info,  Node: reflect Constructor,  Prev: reflect Method,  Up: Members and Reflection
+File: JavaSE9.info,  Node: reflect Constructors,  Prev: reflect Methods,  Up: Members and Reflection
 
-25.3.3 'reflect.Constructor'
-----------------------------
+25.3.3 'reflect.Constructors'
+-----------------------------
 
 The Reflection APIs for constructors are defined in
 'java.lang.reflect.Constructor' and are similar to those for methods,
 with two major exceptions: first, constructors have no return values;
 second, the invocation of a constructor creates a new instance of an
 object for a given class.
+
+   Similar to methods, reflection provides APIs to
+
+   * discover and retrieve the constructors of a class and
+   * obtain declaration information such as the modifiers, parameters,
+     annotations, and thrown exceptions.
+   * New instances of classes may also be created using a specified
+     constructor.
+
+   The key classes used when working with constructors are 'Class' and
+'java.lang.reflect.Constructor'.  Common operations involving
+constructors are covered in the following sections.
 
 * Menu:
 
@@ -8313,23 +8733,29 @@ object for a given class.
 * Creating New Class Instances::
 
 
-File: JavaSE9.info,  Node: Finding Constructors,  Next: Constructor Modifiers,  Up: reflect Constructor
+File: JavaSE9.info,  Node: Finding Constructors,  Next: Constructor Modifiers,  Up: reflect Constructors
 
 25.3.3.1 Finding Constructors
 .............................
 
-A constructor declaration includes the name, modifiers, parameters,
+This section illustrates how to retrieve constructors with specific
+parameters.
+
+   A constructor declaration includes the name, modifiers, parameters,
 and list of throwable exceptions.  The 'java.lang.reflect.Constructor'
 class provides a way to obtain this information.
 
 
-File: JavaSE9.info,  Node: Constructor Modifiers,  Next: Creating New Class Instances,  Prev: Finding Constructors,  Up: reflect Constructor
+File: JavaSE9.info,  Node: Constructor Modifiers,  Next: Creating New Class Instances,  Prev: Finding Constructors,  Up: reflect Constructors
 
 25.3.3.2 Retrieving and Parsing Constructor Modifiers
 .....................................................
 
-Because of the role of constructors in the language, fewer modifiers
-are meaningful than for methods:
+This section shows how to obtain the modifiers of a constructor
+declaration and other information about the constructor.
+
+   Because of the role of constructors in the language, fewer
+modifiers are meaningful than for methods:
 
    * Access modifiers:
         * 'public',
@@ -8338,12 +8764,15 @@ are meaningful than for methods:
    * Annotations
 
 
-File: JavaSE9.info,  Node: Creating New Class Instances,  Prev: Constructor Modifiers,  Up: reflect Constructor
+File: JavaSE9.info,  Node: Creating New Class Instances,  Prev: Constructor Modifiers,  Up: reflect Constructors
 
 25.3.3.3 Creating New Class Instances
 .....................................
 
-There are two reflective methods for creating instances of classes:
+This section shows how to instantiate an instance of an object by
+invoking its constructor.
+
+   There are two reflective methods for creating instances of classes:
 
   1. 'java.lang.reflect.Constructor.newInstance()' and
   2. 'Class.newInstance()'.
@@ -8518,619 +8947,5 @@ Shows how to set and get fields with an enum constant value
    Fields which store 'enums' are set and retrieved as any other
 reference type, using 'Field.set()' and 'Field.get()'.  For more
 information on accessing fields, see the Fields section.  *Note
-reflect Field::
-
-
-File: JavaSE9.info,  Node: Swing,  Next: The Makefile,  Prev: Reflection,  Up: Top
-
-26 Introducinvg Swing
-*********************
-
-
-File: JavaSE9.info,  Node: The Makefile,  Next: Code Chunk Summaries,  Prev: Swing,  Up: Top
-
-Appendix A The Makefile
-***********************
-
-{'Makefile'} ==
-     <Makefile CONSTANTS>
-     <Makefile DEFAULTS>
-     <Makefile TANGLE WEAVE>
-     <Makefile PDF>
-     <Makefile HTML>
-     <Makefile CLEAN Targets>
-     <Makefile MAKEFILE Target>
-
-The following table lists called chunk definition points.
-Chunk name                First definition point
--------------------------------------------------------------------------
-<Makefile CLEAN           See *note Makefile-CLEAN-Targets::.
-Targets>
-<Makefile CONSTANTS>      See *note Makefile-CONSTANTS::.
-<Makefile DEFAULTS>       See *note Makefile-DEFAULTS::.
-<Makefile HTML>           See *note Makefile-HTML::.
-<Makefile MAKEFILE        See *note Makefile-MAKEFILE-Target::.
-Target>
-<Makefile PDF>            See *note Makefile-PDF::.
-<Makefile TANGLE WEAVE>   See *note Makefile-TANGLE-WEAVE::.
-
-* Menu:
-
-* Makefile Constants::
-* Makefile Defaults::
-* Make the Makefile::
-* Makefile Tangle Weave::
-* Makefile PDF::
-* Makefile HTML::
-* Makefile Clean Targets::
-
-
-File: JavaSE9.info,  Node: Makefile Constants,  Next: Makefile Defaults,  Up: The Makefile
-
-A.1 Makefile Constants
-======================
-
-*FIXME*: Relativize ROOT
-
-<Makefile CONSTANTS> ==
-     ROOT := /usr/local/dev/programming/Java/JavaSE9
-     FILENAME := JavaSE9
-     AUX := {aux,cps,fns,log,toc}
-
-This chunk is called by {'Makefile'}; see its first definition at
-*note Makefile::.
-
-
-File: JavaSE9.info,  Node: Makefile Defaults,  Next: Make the Makefile,  Prev: Makefile Constants,  Up: The Makefile
-
-A.2 Makefile Default Targets
-============================
-
-<Makefile DEFAULTS> ==
-     .PHONY: all
-     all: tangle weave
-
-
-This chunk is called by {'Makefile'}; see its first definition at
-*note Makefile::.
-
-
-File: JavaSE9.info,  Node: Make the Makefile,  Next: Makefile Tangle Weave,  Prev: Makefile Defaults,  Up: The Makefile
-
-A.3 Make the Makefile
-=====================
-
-<Makefile MAKEFILE Target> ==
-     .PHONY : makefile
-     makefile : jrtangle worldclean
-
-
-This chunk is called by {'Makefile'}; see its first definition at
-*note Makefile::.
-
-
-File: JavaSE9.info,  Node: Makefile Tangle Weave,  Next: Makefile PDF,  Prev: Make the Makefile,  Up: The Makefile
-
-A.4 Makefile Tangle Weave Targets
-=================================
-
-<Makefile TANGLE WEAVE> ==
-     .PHONY: tangle weave jrtangle jrweave texi
-
-     tangle: jrtangle
-     weave: jrweave
-
-     jrtangle: $(FILENAME).twjr
-         jrtangle $(FILENAME).twjr
-
-     jrweave: texi
-
-     texi: $(FILENAME).texi
-
-     $(FILENAME).texi: $(FILENAME).twjr
-         jrweave $(FILENAME).twjr > $(FILENAME).texi
-
-This chunk is called by {'Makefile'}; see its first definition at
-*note Makefile::.
-
-
-File: JavaSE9.info,  Node: Makefile PDF,  Next: Makefile HTML,  Prev: Makefile Tangle Weave,  Up: The Makefile
-
-A.5 Makefile PDF
-================
-
-<Makefile PDF> ==
-     <Makefile MAKEPDF>
-     <Makefile OPENPDF>
-
-
-This chunk is called by {'Makefile'}; see its first definition at
-*note Makefile::.
-
-The following table lists called chunk definition points.
-Chunk name                First definition point
--------------------------------------------------------------------------
-<Makefile MAKEPDF>        See *note Makefile-MAKEPDF::.
-<Makefile OPENPDF>        See *note Makefile-OPENPDF::.
-
-* Menu:
-
-* Makefile MAKEPDF::
-
-
-File: JavaSE9.info,  Node: Makefile MAKEPDF,  Up: Makefile PDF
-
-A.5.1 Makefile MAKEPDF
-----------------------
-
-<Makefile MAKEPDF> ==
-     .PHONY : makepdf
-     makepdf : ${FILENAME}.pdf
-
-     ${FILENAME}.pdf : ${FILENAME}.texi
-         pdftexi2dvi ${FILENAME}.texi
-
-
-This chunk is called by <Makefile PDF>; see its first definition at
-*note Makefile-PDF::.
-
-* Menu:
-
-* Makefile OPENPDF::
-
-
-File: JavaSE9.info,  Node: Makefile OPENPDF,  Up: Makefile MAKEPDF
-
-A.5.1.1 Makefile OPENPDF
-........................
-
-<Makefile OPENPDF> ==
-     .PHONY : pdf
-     pdf : makepdf
-         open ${FILENAME}.pdf
-
-
-This chunk is called by <Makefile PDF>; see its first definition at
-*note Makefile-PDF::.
-
-
-File: JavaSE9.info,  Node: Makefile HTML,  Next: Makefile Clean Targets,  Prev: Makefile PDF,  Up: The Makefile
-
-A.6 Makefile HTML
-=================
-
-<Makefile HTML> ==
-     .PHONY: html
-     html : ${FILENAME}.texi
-         makeinfo --html ${FILENAME}.texi
-
-
-This chunk is called by {'Makefile'}; see its first definition at
-*note Makefile::.
-
-
-File: JavaSE9.info,  Node: Makefile Clean Targets,  Prev: Makefile HTML,  Up: The Makefile
-
-A.7 Makefile Clean Targets
-==========================
-
-<Makefile CLEAN Targets> ==
-     <Makefile CLEAN>
-     <Makefile DISTCLEAN>
-     <Makefile WORLDCLEAN>
-
-
-This chunk is called by {'Makefile'}; see its first definition at
-*note Makefile::.
-
-The following table lists called chunk definition points.
-Chunk name                First definition point
--------------------------------------------------------------------------
-<Makefile CLEAN>          See *note Makefile-CLEAN::.
-<Makefile DISTCLEAN>      See *note Makefile-DISTCLEAN::.
-<Makefile WORLDCLEAN>     See *note Makefile-WORLDCLEAN::.
-
-* Menu:
-
-* Makefile Clean ::
-* Makefile DistClean::
-* Makefile WorldClean::
-
-
-File: JavaSE9.info,  Node: Makefile Clean,  Next: Makefile DistClean,  Up: Makefile Clean Targets
-
-A.7.1 Makefile Clean
---------------------
-
-<Makefile CLEAN> ==
-     .PHONY: clean
-     clean:
-         rm -f *~
-         rm -f $(FILENAME).??
-
-
-This chunk is called by <Makefile CLEAN Targets>; see its first
-definition at *note Makefile-CLEAN-Targets::.
-
-
-File: JavaSE9.info,  Node: Makefile DistClean,  Next: Makefile WorldClean,  Prev: Makefile Clean,  Up: Makefile Clean Targets
-
-A.7.2 Makefile DistClean
-------------------------
-
-<Makefile DISTCLEAN> ==
-     .PHONY : distclean
-     distclean : clean
-         rm -fv ${FILENAME}.${AUX}
-
-
-This chunk is called by <Makefile CLEAN Targets>; see its first
-definition at *note Makefile-CLEAN-Targets::.
-
-
-File: JavaSE9.info,  Node: Makefile WorldClean,  Prev: Makefile DistClean,  Up: Makefile Clean Targets
-
-A.7.3 Makefile WorldClean
--------------------------
-
-<Makefile WORLDCLEAN> ==
-     .PHONY: worldclean
-     worldclean :
-         for file in ${ROOT}/*; do \
-           [ \
-             $${file} != "${ROOT}/${FILENAME}.twjr" -a \
-             $$file != "${ROOT}/Makefile" -a \
-             $$file != ".git" \
-           ] \
-           && rm -rfv "$${file}" || :; \
-         done
-
-
-This chunk is called by <Makefile CLEAN Targets>; see its first
-definition at *note Makefile-CLEAN-Targets::.
-
-
-File: JavaSE9.info,  Node: Code Chunk Summaries,  Next: List of Tables,  Prev: The Makefile,  Up: Top
-
-Appendix B Code Chunk Summaries
-*******************************
-
-This major node presents alphabetical lists of all the file
-definitions, the code chunk definitions, and the code chunk
-references.
-
-* Menu:
-
-* File Definitions::            Source files by definition.
-* Code Chunk Definitions::      Code chunks by definition.
-* Code Chunk References::       Code chunks by reference.
-
-
-File: JavaSE9.info,  Node: File Definitions,  Next: Code Chunk Definitions,  Up: Code Chunk Summaries
-
-B.1 Source File Definitions
-===========================
-
-{'AbstractAreas.java '}
-     This chunk is defined in *note AbstractAreas-java-::.
-{'BRRead.java'}
-     This chunk is defined in *note BRRead-java::.
-{'BRReadLines.java'}
-     This chunk is defined in *note BRReadLines-java::.
-{'BufferedInputStreamDemo.java'}
-     This chunk is defined in *note BufferedInputStreamDemo-java::.
-{'BufferedReaderDemo.java'}
-     This chunk is defined in *note BufferedReaderDemo-java::.
-{'CopyFile.java'}
-     This chunk is defined in *note CopyFile-java::.
-{'CopyFileMultTryWR.java'}
-     This chunk is defined in *note CopyFileMultTryWR-java::.
-{'DirList.java'}
-     This chunk is defined in *note DirList-java::.
-{'DirListOnly'}
-     This chunk is defined in *note DirListOnly::.
-{'FileReaderDemo.java'}
-     This chunk is defined in *note FileReaderDemo-java::.
-{'FindAreas.java '}
-     This chunk is defined in *note FindAreas-java-::.
-{'GenMethDemo.java'}
-     This chunk is defined in *note GenMethDemo-java::.
-{'Makefile'}
-     This chunk is defined in *note Makefile::.
-{'OnlyExt.java'}
-     This chunk is defined in *note OnlyExt-java::.
-{'PrinterWriterDemo.java'}
-     This chunk is defined in *note PrinterWriterDemo-java::.
-{'ShowFile.java'}
-     This chunk is defined in *note ShowFile-java::.
-{'ShowFileAlt.java'}
-     This chunk is defined in *note ShowFileAlt-java::.
-{'ShowFileSingleTry'}
-     This chunk is defined in *note ShowFileSingleTry::.
-{'ShowFileTryWR.java'}
-     This chunk is defined in *note ShowFileTryWR-java::.
-{'SimpleGenerics.java'}
-     This chunk is defined in *note SimpleGenerics-java::.
-{'Stack.java'}
-     This chunk is defined in *note Stack-java::.
-{'StackImproved.java'}
-     This chunk is defined in *note StackImproved-java::.
-{'TestStack.java'}
-     This chunk is defined in *note TestStack-java::.
-{'TwoTypeParameters.java'}
-     This chunk is defined in *note TwoTypeParameters-java::.
-
-
-File: JavaSE9.info,  Node: Code Chunk Definitions,  Next: Code Chunk References,  Prev: File Definitions,  Up: Code Chunk Summaries
-
-B.2 Code Chunk Definitions
-==========================
-
-<AbstractAreas Abstract Area Method Declaration >
-     This chunk is defined in *note
-     AbstractAreas-Abstract-Area-Method-Declaration-::.
-<AbstractAreas Abstract Class Figure >
-     This chunk is defined in *note
-     AbstractAreas-Abstract-Class-Figure-::.
-<AbstractAreas Main Class >
-     This chunk is defined in *note AbstractAreas-Main-Class-::.
-<AbstractAreas Main Method Declaration >
-     This chunk is defined in *note
-     AbstractAreas-Main-Method-Declaration-::.
-<BRRead BufferedReader Constructor>
-     This chunk is defined in *note
-     BRRead-BufferedReader-Constructor::.
-<BRRead Enter Characters>
-     This chunk is defined in *note BRRead-Enter-Characters::.
-<BRReadLines BufferedReader Constructor>
-     This chunk is defined in *note
-     BRReadLines-BufferedReader-Constructor::.
-<BRReadLines Enter Lines>
-     This chunk is defined in *note BRReadLines-Enter-Lines::.
-<BufferedInputStreamDemo Buffer>
-     This chunk is defined in *note BufferedInputStreamDemo-Buffer::.
-<BufferedInputStreamDemo ByteArrayInputStream>
-     This chunk is defined in *note
-     BufferedInputStreamDemo-ByteArrayInputStream::.
-<BufferedInputStreamDemo Instance Variables>
-     This chunk is defined in *note
-     BufferedInputStreamDemo-Instance-Variables::.
-<BufferedInputStreamDemo String>
-     This chunk is defined in *note BufferedInputStreamDemo-String::.
-<BufferedInputStreamDemo Switch on Character>
-     This chunk is defined in *note
-     BufferedInputStreamDemo-Switch-on-Character::.
-<BufferedInputStreamDemo TryWithResources BufferedInputStream>
-     This chunk is defined in *note
-     BufferedInputStreamDemo-TryWithResources-BufferedInputStream::.
-<BufferedInputStreamDemo Utility Variables>
-     This chunk is defined in *note
-     BufferedInputStreamDemo-Utility-Variables::.
-<BufferedInputStreamDemo While Loop>
-     This chunk is defined in *note
-     BufferedInputStreamDemo-While-Loop::.
-<BufferedReaderDemo Buffer>
-     This chunk is defined in *note BufferedReaderDemo-Buffer::.
-<BufferedReaderDemo Instance Variables>
-     This chunk is defined in *note
-     BufferedReaderDemo-Instance-Variables::.
-<BufferedReaderDemo TryWithResources BufferedReader>
-     This chunk is defined in *note
-     BufferedReaderDemo-TryWithResources-BufferedReader::.
-<Call Overridden Methods One By One >
-     This chunk is defined in *note
-     Call-Overridden-Methods-One-By-One-::.
-<Call Overridden Methods One By One Except Figure >
-     This chunk is defined in *note
-     Call-Overridden-Methods-One-By-One-Except-Figure-::.
-<Catch IOException>
-     This chunk is defined in *note Catch-IOException::.
-<Class Declaration>
-     This chunk is defined in *note Class-Declaration::.
-<Class Gen>
-     This chunk is defined in *note Class-Gen::.
-<Class GenDemo>
-     This chunk is defined in *note Class-GenDemo::.
-<Class SimpGen>
-     This chunk is defined in *note Class-SimpGen::.
-<Class TwoGen>
-     This chunk is defined in *note Class-TwoGen::.
-<Constructor of Two Parameters>
-     This chunk is defined in *note Constructor-of-Two-Parameters::.
-<Constructor taking parameter of Type T>
-     This chunk is defined in *note
-     Constructor-taking-parameter-of-Type-T::.
-<CopyFile Check For 2 Files>
-     This chunk is defined in *note CopyFile-Check-For-2-Files::.
-<CopyFile Copy a File>
-     This chunk is defined in *note CopyFile-Copy-a-File::.
-<CopyFile Initial Comments>
-     This chunk is defined in *note CopyFile-Initial-Comments::.
-<CopyFile Instance Variable Declarations>
-     This chunk is defined in *note
-     CopyFile-Instance-Variable-Declarations::.
-<CopyFileMultTryWR Initial Comments>
-     This chunk is defined in *note
-     CopyFileMultTryWR-Initial-Comments::.
-<CopyFileMultTryWR Manage Two Files>
-     This chunk is defined in *note
-     CopyFileMultTryWR-Manage-Two-Files::.
-<Create Basic Figure Objects >
-     This chunk is defined in *note Create-Basic-Figure-Objects-::.
-<Create Basic Figure Objects Except Figure >
-     This chunk is defined in *note
-     Create-Basic-Figure-Objects-Except-Figure-::.
-<Create Basic Figure Reference Variable >
-     This chunk is defined in *note
-     Create-Basic-Figure-Reference-Variable-::.
-<Create a Gen object for Integers>
-     This chunk is defined in *note
-     Create-a-Gen-object-for-Integers::.
-<Create a Gen object for Strings>
-     This chunk is defined in *note Create-a-Gen-object-for-Strings::.
-<DirList Examine Directory Contents>
-     This chunk is defined in *note
-     DirList-Examine-Directory-Contents::.
-<DirList Examine Directory Contents For-Loop>
-     This chunk is defined in *note
-     DirList-Examine-Directory-Contents-For-Loop::.
-<DirList Instance Variable Declarations>
-     This chunk is defined in *note
-     DirList-Instance-Variable-Declarations::.
-<DirList Obtain Directory From Command-Line Args>
-     This chunk is defined in *note
-     DirList-Obtain-Directory-From-Command-Line-Args::.
-<DirListOnly FilenameFilter Object>
-     This chunk is defined in *note
-     DirListOnly-FilenameFilter-Object::.
-<DirListOnly FilenameFilter Object List>
-     This chunk is defined in *note
-     DirListOnly-FilenameFilter-Object-List::.
-<DirListOnly Print List>
-     This chunk is defined in *note DirListOnly-Print-List::.
-<Figure Area Method Declaration >
-     This chunk is defined in *note Figure-Area-Method-Declaration-::.
-<Figure Constructor >
-     This chunk is defined in *note Figure-Constructor-::.
-<Figure Instance Variable Declarations >
-     This chunk is defined in *note
-     Figure-Instance-Variable-Declarations-::.
-<FileReaderDemo TryWithResources FileReader>
-     This chunk is defined in *note
-     FileReaderDemo-TryWithResources-FileReader::.
-<FindAreas Main Class >
-     This chunk is defined in *note FindAreas-Main-Class-::.
-<FindAreas Main Method Declaration >
-     This chunk is defined in *note
-     FindAreas-Main-Method-Declaration-::.
-<FindAreas SubClass Rectangle >
-     This chunk is defined in *note FindAreas-SubClass-Rectangle-::.
-<FindAreas SubClass Triangle >
-     This chunk is defined in *note FindAreas-SubClass-Triangle-::.
-<FindAreas SuperClass Figure >
-     This chunk is defined in *note FindAreas-SuperClass-Figure-::.
-<GenMethDemo Main>
-     This chunk is defined in *note GenMethDemo-Main::.
-<Get Value>
-     This chunk is defined in *note Get-Value::.
-<Import java.io>
-     This chunk is defined in *note Import-java-io::.
-<Import java.io.File>
-     This chunk is defined in *note Import-java-io-File::.
-<Instance Methods Show and Get>
-     This chunk is defined in *note Instance-Methods-Show-and-Get::.
-<Instance Variable ob of Type T>
-     This chunk is defined in *note Instance-Variable-ob-of-Type-T::.
-<Integer Type Parameter>
-     This chunk is defined in *note Integer-Type-Parameter::.
-<Makefile CLEAN>
-     This chunk is defined in *note Makefile-CLEAN::.
-<Makefile CLEAN Targets>
-     This chunk is defined in *note Makefile-CLEAN-Targets::.
-<Makefile CONSTANTS>
-     This chunk is defined in *note Makefile-CONSTANTS::.
-<Makefile DEFAULTS>
-     This chunk is defined in *note Makefile-DEFAULTS::.
-<Makefile DISTCLEAN>
-     This chunk is defined in *note Makefile-DISTCLEAN::.
-<Makefile HTML>
-     This chunk is defined in *note Makefile-HTML::.
-<Makefile MAKEFILE Target>
-     This chunk is defined in *note Makefile-MAKEFILE-Target::.
-<Makefile MAKEPDF>
-     This chunk is defined in *note Makefile-MAKEPDF::.
-<Makefile OPENPDF>
-     This chunk is defined in *note Makefile-OPENPDF::.
-<Makefile PDF>
-     This chunk is defined in *note Makefile-PDF::.
-<Makefile TANGLE WEAVE>
-     This chunk is defined in *note Makefile-TANGLE-WEAVE::.
-<Makefile WORLDCLEAN>
-     This chunk is defined in *note Makefile-WORLDCLEAN::.
-<Method returning object of type T>
-     This chunk is defined in *note
-     Method-returning-object-of-type-T::.
-<Method showing type of T>
-     This chunk is defined in *note Method-showing-type-of-T::.
-<Number 1>
-     This chunk is defined in *note Number-1::.
-<Number 2>
-     This chunk is defined in *note Number-2::.
-<OnlyExt Accept Method Implementation>
-     This chunk is defined in *note
-     OnlyExt-Accept-Method-Implementation::.
-<OnlyExt Constructor>
-     This chunk is defined in *note OnlyExt-Constructor::.
-<OnlyExt Instance Variable Declarations>
-     This chunk is defined in *note
-     OnlyExt-Instance-Variable-Declarations::.
-<PrintWriterDemo PrintWriter Constructor>
-     This chunk is defined in *note
-     PrintWriterDemo-PrintWriter-Constructor::.
-<PrintWriterDemo Printing To Console>
-     This chunk is defined in *note
-     PrintWriterDemo-Printing-To-Console::.
-<Rectangle Area Method Declaration >
-     This chunk is defined in *note
-     Rectangle-Area-Method-Declaration-::.
-<Rectangle Constructor >
-     This chunk is defined in *note Rectangle-Constructor-::.
-<Reference to Integer Instance>
-     This chunk is defined in *note Reference-to-Integer-Instance::.
-<Show Type>
-     This chunk is defined in *note Show-Type::.
-<ShowFile Close a File>
-     This chunk is defined in *note ShowFile-Close-a-File::.
-<ShowFile Initial Comments>
-     This chunk is defined in *note ShowFile-Initial-Comments::.
-<ShowFile Instance Variable Declarations>
-     This chunk is defined in *note
-     ShowFile-Instance-Variable-Declarations::.
-<ShowFile Open a File>
-     This chunk is defined in *note ShowFile-Open-a-File::.
-<ShowFile Read a File>
-     This chunk is defined in *note ShowFile-Read-a-File::.
-<ShowFileAlt Read a File>
-     This chunk is defined in *note ShowFileAlt-Read-a-File::.
-<ShowFileSingleTry Additional Initial Comment>
-     This chunk is defined in *note
-     ShowFileSingleTry-Additional-Initial-Comment::.
-<ShowFileSingleTry Read a File>
-     This chunk is defined in *note ShowFileSingleTry-Read-a-File::.
-<ShowFileTryWR Check CL Args>
-     This chunk is defined in *note ShowFileTryWR-Check-CL-Args::.
-<ShowFileTryWR Check CL Args End>
-     This chunk is defined in *note ShowFileTryWR-Check-CL-Args-End::.
-<ShowFileTryWR Initial Comments>
-     This chunk is defined in *note ShowFileTryWR-Initial-Comments::.
-<ShowFileTryWR Instance Variable Declaration>
-     This chunk is defined in *note
-     ShowFileTryWR-Instance-Variable-Declaration::.
-<ShowFileTryWR Open a File TryWR>
-     This chunk is defined in *note ShowFileTryWR-Open-a-File-TryWR::.
-<Stack Constructor>
-     This chunk is defined in *note Stack-Constructor::.
-<Stack Instance Methods>
-     This chunk is defined in *note Stack-Instance-Methods::.
-<Stack Instance Variables>
-     This chunk is defined in *note Stack-Instance-Variables::.
-<Stack Pop>
-     This chunk is defined in *note Stack-Pop::.
-<Stack Private Instance Variables>
-     This chunk is defined in *note
-     Stack-Private-Instance-Variables::.
-<Stack Push>
-     This chunk is defined in *note Stack-Push::.
-<Static Method isIn>
-     This chunk is defined in *note Static-Method-isIn::.
-<TestStack Main Method>
-     This chunk is defined in *note TestStack-Main-Method::.
-<Triangle Area Method Declaration >
-     This chunk is defined in *note
-     Triangle-Area-Method-Declaration-::.
-<Triangle Constructor >
-     This chunk is defined in *note Triangle-Constructor-::.
-<Two Instance Variables Declarations>
-     This chunk is defined in *note
-     Two-Instance-Variables-Declarations::.
+reflect Fields::
 

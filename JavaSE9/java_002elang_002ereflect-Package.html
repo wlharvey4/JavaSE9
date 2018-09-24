@@ -14,7 +14,7 @@
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Reflection.html#Reflection" rel="up" title="Reflection">
-<link href="Classes-and-Reflection.html#Classes-and-Reflection" rel="next" title="Classes and Reflection">
+<link href="Classes-Defined-in-java_002dlang_002dreflect.html#Classes-Defined-in-java_002dlang_002dreflect" rel="next" title="Classes Defined in java-lang-reflect">
 <link href="Reflection.html#Reflection" rel="prev" title="Reflection">
 <style type="text/css">
 <!--
@@ -59,51 +59,40 @@ Next: <a href="Classes-and-Reflection.html#Classes-and-Reflection" accesskey="n"
 <a name="index-java_002elang_002ereflect-Package"></a>
 <a name="index-Member-interface"></a>
 
+
+<p>This package provides classes and interfaces for obtaining reflective
+information about classes and objects.  Reflection allows programmatic access
+to information about the fields, methods and constructors of loaded classes,
+and the use of reflected fields, methods, and constructors to operate on
+their underlying counterparts, within encapsulation and security
+restrictions.
+</p>
 <p>The package <samp>java.lang.reflect</samp> includes several interfaces.  Of special
 interest is <samp>Member</samp>, which defines methods that allow you to get
 information abouta field, constructor, or method of a class.  There are also
 ten classes in this package.
 </p>
-<a name="Classes-Defined-in-java_002elang_002ereflect"></a>
-<h4 class="subheading">Classes Defined in <samp>java.lang.reflect</samp></h4>
+<p>Classes in this package, along with java.lang.Class accommodate applications
+such as debuggers, interpreters, object inspectors, class browsers, and
+services such as Object Serialization and JavaBeans that need access to
+either the public members of a target object (based on its runtime class) or
+the members declared by a given class.
+</p>
+<p>Note that none of the classes in <samp>java.lang.reflect</samp> offer any public
+constructors.  All reflection interactions must go through
+<samp>java.lang.Class</samp>.  Note also that <samp>java.lang.Class</samp> does not offer
+any public constructors.  Instances of this class are created by the Java
+Virtual Machine.
+</p>
 
-<div class="float"><a name="java_002dlang_002dreflect_002dClasses"></a>
-<dl compact="compact">
-<dt><b>AccessibleObject</b></dt>
-<dd><p>Allows you to bypass the default access control checks
-</p></dd>
-<dt><b>Array</b></dt>
-<dd><p>Allows you to dynamically create and manipulate arrays
-</p></dd>
-<dt><b>Constructor</b></dt>
-<dd><p>Provides information about a constructor
-</p></dd>
-<dt><b>Executable</b></dt>
-<dd><p>An abstract superclass extended by <samp>Member</samp> and <samp>Constructor</samp>
-</p></dd>
-<dt><b>Field</b></dt>
-<dd><p>Provides information about a field
-</p></dd>
-<dt><b>Method</b></dt>
-<dd><p>Provides information about a method
-</p></dd>
-<dt><b>Modifier</b></dt>
-<dd><p>Provides information about class and member access modifiers
-</p></dd>
-<dt><b>Parameter</b></dt>
-<dd><p>Provides information about parameters
-</p></dd>
-<dt><b>Proxy</b></dt>
-<dd><p>Supports dynamic proxy classes
-</p></dd>
-<dt><b>ReflectPermission</b></dt>
-<dd><p>Allows reflection of private or protected members of a class
-</p></dd>
-</dl>
-
-<div class="float-caption"><p><strong>Table 25.1: </strong>Classes Defined in <samp>java.lang.reflect</samp></p></div></div>
-
-
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Classes-Defined-in-java_002dlang_002dreflect.html#Classes-Defined-in-java_002dlang_002dreflect" accesskey="1">Classes Defined in java-lang-reflect</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Interfaces-Defined-in-java_002dlang_002dreflect.html#Interfaces-Defined-in-java_002dlang_002dreflect" accesskey="2">Interfaces Defined in java-lang-reflect</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Reflection-Demonstration.html#Reflection-Demonstration" accesskey="3">Reflection Demonstration</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
 
 
 

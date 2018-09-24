@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>java.lang.Class (About Java SE 9)</title>
+
+<meta name="description" content="java.lang.Class (About Java SE 9)">
+<meta name="keywords" content="java.lang.Class (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Classes-and-Reflection.html#Classes-and-Reflection" rel="up" title="Classes and Reflection">
+<link href="Class-Constructor.html#Class-Constructor" rel="next" title="Class Constructor">
+<link href="Classes-and-Reflection.html#Classes-and-Reflection" rel="prev" title="Classes and Reflection">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="java_002elang_002eClass"></a>
+<div class="header">
+<p>
+Next: <a href="Retrieving-Class-Objects.html#Retrieving-Class-Objects" accesskey="n" rel="next">Retrieving Class Objects</a>, Up: <a href="Classes-and-Reflection.html#Classes-and-Reflection" accesskey="u" rel="up">Classes and Reflection</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="java_002elang_002eClass-1"></a>
+<h4 class="subsection">25.2.1 <samp>java.lang.Class</samp></h4>
+<a name="index-java_002elang_002eClass-1"></a>
+<a name="index-Class-2"></a>
+
+<p>Instances of the class <samp>Class</samp> represent classes and interfaces in a
+running Java application.  An <code>enum</code> is a kind of class and an
+<code>annotation</code> is a kind of interface.  Every array also belongs to a
+class that is reflected as a <samp>Class</samp> object that is shared by all arrays
+with the same element type and number of dimensions.  The primitive Java
+types (<code>boolean</code>, <code>byte</code>, <code>char</code>, <code>short</code>, <code>int</code>,
+<code>long</code>, <code>float</code>, and <code>double</code>), and the keyword <code>void</code>
+are also represented as <samp>Class</samp> objects.
+</p>
+<p><samp>Class</samp> has no public constructor. Instead <samp>Class</samp> objects are
+constructed automatically by the Java Virtual Machine as classes are loaded
+and by calls to the <code>defineClass</code> method in the class loader.
+</p>
+<p>The following example uses a Class object to print the class name of an
+object:
+</p>
+<div class="example">
+<pre class="example">void printClassName(Object obj) {
+         System.out.println(&quot;The class of &quot; + obj +
+                            &quot; is &quot; + obj.getClass().getName());
+     }
+</pre></div>
+
+<p>It is also possible to get the <samp>Class</samp> object for a named type (or for
+<code>void</code>) using a class literal.
+</p>
+<div class="example">
+<pre class="example">System.out.println(&quot;The name of class Foo is: &quot;+Foo.class.getName());
+</pre></div>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Class-Constructor.html#Class-Constructor" accesskey="1">Class Constructor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+
+</body>
+</html>

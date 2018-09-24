@@ -689,13 +689,35 @@ Drawbacks of Reflection
 * Members and Reflection::
 * Arays and Enumerated Types and Reflection::
 
+@file{java.lang.reflect} Package
+
+* Classes Defined in java-lang-reflect::
+* Interfaces Defined in java-lang-reflect::
+* Reflection Demonstration::
+
+ReflectionDemo1.java
+
+* ReflectionDemo1 Class forName Call::
+* ReflectionDemo1 getConstructors Call::
+* ReflectionDem1 getFields Call::
+* ReflectionDemo1 getMethods Call::
+* Catch Exception::
+* Import java.lang.reflect::
+
 Classes and Reflection
 
+* java.lang.Class::
 * Retrieving Class Objects::
+* Examining Class Modifiers::
+* Discovering Class Members::
+
+@file{java.lang.Class}
+
+* Class Constructor::
 
 Retrieving Class Objects
 
-* Object.getClass()::
+* Object.getClass::
 * .class Syntax::
 * Class.forName() and Class.getName() Methods::
 * TYPE Field for Primitive Wrappers::
@@ -703,11 +725,11 @@ Retrieving Class Objects
 
 Note about Members and the Specification
 
-* reflect Field::
-* reflect Method::
-* reflect Constructor::
+* reflect Fields::
+* reflect Methods::
+* reflect Constructors::
 
-@file{reflect.Constructor}
+@file{reflect.Constructors}
 
 * Finding Constructors::
 * Constructor Modifiers::
@@ -10560,12 +10582,41 @@ result in unexpected behavior.  Reflection breaks abstractions.
 @cindex @file{java.lang.reflect} Package
 @cindex @file{Member} interface
 
+
+This package provides classes and interfaces for obtaining reflective
+information about classes and objects.  Reflection allows programmatic access
+to information about the fields, methods and constructors of loaded classes,
+and the use of reflected fields, methods, and constructors to operate on
+their underlying counterparts, within encapsulation and security
+restrictions.
+
 The package @file{java.lang.reflect} includes several interfaces.  Of special
 interest is @file{Member}, which defines methods that allow you to get
 information abouta field, constructor, or method of a class.  There are also
 ten classes in this package.
 
-@subheading Classes Defined in @file{java.lang.reflect}
+Classes in this package, along with java.lang.Class accommodate applications
+such as debuggers, interpreters, object inspectors, class browsers, and
+services such as Object Serialization and JavaBeans that need access to
+either the public members of a target object (based on its runtime class) or
+the members declared by a given class.
+
+Note that none of the classes in @file{java.lang.reflect} offer any public
+constructors.  All reflection interactions must go through
+@file{java.lang.Class}.  Note also that @file{java.lang.Class} does not offer
+any public constructors.  Instances of this class are created by the Java
+Virtual Machine.
+
+@c .....................................
+
+@menu
+* Classes Defined in java-lang-reflect::
+* Interfaces Defined in java-lang-reflect::
+* Reflection Demonstration::
+@end menu
+
+@node Classes Defined in java-lang-reflect
+@subsection Classes Defined in @file{java.lang.reflect}
 
 @float Table,java-lang-reflect-Classes
 @table @b
@@ -10593,6 +10644,299 @@ Allows reflection of private or protected members of a class
 @caption{Classes Defined in @file{java.lang.reflect}}
 @end float
 
+@c .....................................
+
+@node Interfaces Defined in java-lang-reflect
+@subsection Interfaces Defined in @file{java.lang.reflect}
+
+@float Table,java-lang-reflect_Interfaces
+@table @b
+@item  AnnotatedArrayType
+represents the potentially annotated use of an array type, whose component
+type may itself represent the annotated use of a type.
+@item AnnotatedElement
+represents an annotated element of the program currently running in this VM.
+@item AnnotatedParameterizedType
+represents the potentially annotated use of a parameterized type, whose type
+arguments may themselves represent annotated uses of types.
+@item AnnotatedType
+represents the potentially annotated use of a type in the program currently
+running in this VM.
+@item AnnotatedTypeVariable
+represents the potentially annotated use of a type variable, whose
+declaration may have bounds which themselves represent annotated uses of
+types.
+@item AnnotatedWildcardType
+represents the potentially annotated use of a wildcard type argument, whose
+upper or lower bounds may themselves represent annotated uses of types.
+@item GenericArrayType
+represents an array type whose component type is either a parameterized type
+or a type variable.
+@item GenericDeclaration
+A common interface for all entities that declare type variables.
+@item InvocationHandler
+the interface implemented by the invocation handler of a proxy instance.
+@item Member
+an interface that reflects identifying information about a single member (a
+field or a method) or a constructor.
+@item ParameterizedType
+ParameterizedType represents a parameterized type such as Collection<String>.
+@item Type
+Type is the common superinterface for all types in the Java programming
+language.
+@item TypeVariable<D extends GenericDeclaration>
+the common superinterface for type variables of kinds.
+@item WildcardType
+WildcardType represents a wildcard type expression, such as ?, ? extends
+Number, or ? super Integer.
+@end table
+@caption{Interfaces Defined in @file{java.lang.reflect}}
+@end float
+
+@c .....................................
+
+@node Reflection Demonstration
+@subsection Reflection Demonstration
+@cindex Reflection demonstration
+
+The following application illustrates a simple use of the Java reflection
+capabilities.  It prints the constructors, fields, and methods of the class
+@file{java.awt.Dimension}.  The program begins by using the @code{forName()}
+mthod of @file{Class} to get a class object for @file{java.awt.Dimension}.
+Once this is obtained, @code{getConstructors()}, @code{getFields()}, and
+@code{getMethods()} are used to analyze this class object.  They return
+arrays of @file{Constructor}, @file{Field}, and @file{Method} objects that
+provide the information about the object.  The @file{Constructor},
+@file{Field}, and @file{Method} classes define several methods that can be
+used to obtain information about an object.  Each supports the
+@code{toString()} method.  Therefore, using these objects as arguments tot he
+@code{println()} method is straightforward.
+
+@subsubheading ReflectionDemo1.java
+
+@need 400
+@anchor{ReflectionDemo1-java}
+@crindex @r{<@i{Import java.lang.reflect}>}, use
+@crindex @r{<@i{ReflectionDemo1 Class forName Call}>}, use
+@crindex @r{<@i{ReflectionDemo1 getConstructors Call}>}, use
+@crindex @r{<@i{ReflectionDemo1 getFields Call}>}, use
+@crindex @r{<@i{ReflectionDemo1 getMethods Call}>}, use
+@crindex @r{<@i{Catch Exception}>}, use
+@cdindex @r{@{@file{ReflectionDemo1.java}@}}, definition
+@noindent
+@r{@{@file{ReflectionDemo1.java}@}} @equiv{}
+@example
+@r{<@i{Import java.lang.reflect}>}
+
+public class ReflectionDemo1 @{
+  public static void main(String[] args) @{
+
+    try @{
+
+      @r{<@i{ReflectionDemo1 Class forName Call}>}
+
+      System.out.println("Constructors:");
+      @r{<@i{ReflectionDemo1 getConstructors Call}>}
+
+      System.out.println("Fields:");
+      @r{<@i{ReflectionDemo1 getFields Call}>}
+
+      System.out.println("Methods:");
+      @r{<@i{ReflectionDemo1 getMethods Call}>}
+
+    @}
+    @r{<@i{Catch Exception}>}
+
+  @}
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{Catch Exception}>} @tab See @ref{Catch-Exception}.
+@item @r{<@i{Import java.lang.reflect}>} @tab See @ref{Import-java-lang-reflect}.
+@item @r{<@i{ReflectionDemo1 Class forName Call}>} @tab See @ref{ReflectionDemo1-Class-forName-Call}.
+@item @r{<@i{ReflectionDemo1 getConstructors Call}>} @tab See @ref{ReflectionDemo1-getConstructors-Call}.
+@item @r{<@i{ReflectionDemo1 getFields Call}>} @tab See @ref{ReflectionDemo1-getFields-Call}.
+@item @r{<@i{ReflectionDemo1 getMethods Call}>} @tab See @ref{ReflectionDemo1-getMethods-Call}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c_____________________________________
+
+@menu
+* ReflectionDemo1 Class forName Call::
+* ReflectionDemo1 getConstructors Call::
+* ReflectionDem1 getFields Call::
+* ReflectionDemo1 getMethods Call::
+* Catch Exception::
+* Import java.lang.reflect::
+@end menu
+
+@node ReflectionDemo1 Class forName Call
+@subsubsection ReflectionDemo1 Class forName Call
+
+@need 400
+@anchor{ReflectionDemo1-Class-forName-Call}
+@cdindex @r{<@i{ReflectionDemo1 Class forName Call}>}, definition
+@noindent
+@r{<@i{ReflectionDemo1 Class forName Call}>} @equiv{}
+@example
+Class<?> c = Class.forName("java.awt.Dimension");
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node ReflectionDemo1 getConstructors Call
+@subsubsection ReflectionDemo1 getConstructors Call
+
+@need 400
+@anchor{ReflectionDemo1-getConstructors-Call}
+@cdindex @r{<@i{ReflectionDemo1 getConstructors Call}>}, definition
+@noindent
+@r{<@i{ReflectionDemo1 getConstructors Call}>} @equiv{}
+@example
+Constructor<?> constructors[] = c.getConstructors();
+
+for (int i = 0; i < constructors.length; i++) @{
+  System.out.println(" " + constructors[i]);
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node ReflectionDem1 getFields Call
+@subsubsection ReflectionDem1 getFields Call
+
+@need 400
+@anchor{ReflectionDemo1-getFields-Call}
+@cdindex @r{<@i{ReflectionDemo1 getFields Call}>}, definition
+@noindent
+@r{<@i{ReflectionDemo1 getFields Call}>} @equiv{}
+@example
+Filed fields[] = c.getFields();
+
+for (int i = 0; i < fields.length; i++) @{
+  System.out.println(" " + fields[i]);
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node ReflectionDemo1 getMethods Call
+@subsubsection ReflectionDemo1 getMethods Call
+
+@need 400
+@anchor{ReflectionDemo1-getMethods-Call}
+@cdindex @r{<@i{ReflectionDemo1 getMethods Call}>}, definition
+@noindent
+@r{<@i{ReflectionDemo1 getMethods Call}>} @equiv{}
+@example
+Method methods[] = c.getMethods();
+
+for (int i = 0; i < methods.length; i++) @{
+  System.out.print.n(" " + methods[i]);
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node Catch Exception
+@subsubsection Catch Exception
+
+@need 400
+@anchor{Catch-Exception}
+@cdindex @r{<@i{Catch Exception}>}, definition
+@noindent
+@r{<@i{Catch Exception}>} @equiv{}
+@example
+catch (Exception e) @{
+  System.out.println("Exception: " + e);
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node Import java.lang.reflect
+@subsubsection Import java.lang.reflect
+
+@need 400
+@anchor{Import-java-lang-reflect}
+@cdindex @r{<@i{Import java.lang.reflect}>}, definition
+@noindent
+@r{<@i{Import java.lang.reflect}>} @equiv{}
+@example
+import java.lang.reflect.*;
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
 
 
 @c -----------------------------------------------------------------------------
@@ -10613,8 +10957,70 @@ Most importantly, it is the entry point for all of the Reflective APIs.
 @c .....................................
 
 @menu
+* java.lang.Class::
 * Retrieving Class Objects::
+* Examining Class Modifiers::
+* Discovering Class Members::
 @end menu
+
+@node java.lang.Class
+@subsection @file{java.lang.Class}
+@cindex @file{java.lang.Class}
+@cindex @file{Class}
+
+Instances of the class @file{Class} represent classes and interfaces in a
+running Java application.  An @code{enum} is a kind of class and an
+@code{annotation} is a kind of interface.  Every array also belongs to a
+class that is reflected as a @file{Class} object that is shared by all arrays
+with the same element type and number of dimensions.  The primitive Java
+types (@code{boolean}, @code{byte}, @code{char}, @code{short}, @code{int},
+@code{long}, @code{float}, and @code{double}), and the keyword @code{void}
+are also represented as @file{Class} objects.
+
+@file{Class} has no public constructor. Instead @file{Class} objects are
+constructed automatically by the Java Virtual Machine as classes are loaded
+and by calls to the @code{defineClass} method in the class loader.
+
+The following example uses a Class object to print the class name of an
+object:
+
+@example
+void printClassName(Object obj) @{
+         System.out.println("The class of " + obj +
+                            " is " + obj.getClass().getName());
+     @}
+@end example
+
+It is also possible to get the @file{Class} object for a named type (or for
+@code{void}) using a class literal.
+
+@example
+System.out.println("The name of class Foo is: "+Foo.class.getName());
+@end example
+
+@c _____________________________________
+
+@menu
+* Class Constructor::
+@end menu
+
+@node Class Constructor
+@subsubsection @file{Class} getConstructor
+
+@deftypeop Constructor Class Constructor<T> getConstructor (parameterType)
+Returns a @file{Constructor} object that reflects the specified public
+constructor of the class represented by this @file{Class} object.
+@end deftypeop
+
+@subsubheading @file{Class} getConstructors
+
+@deftypeop Constructor Class Constructor<?>[] getConstructors ()
+Returns an array containing @file{Constructor} objects reflecting all the
+public constructors of the class represented by this @file{Class} object.
+@end deftypeop
+
+
+@c .....................................
 
 @node Retrieving Class Objects
 @subsection Retrieving Class Objects
@@ -10632,14 +11038,14 @@ an existing @file{Class}.
 @c _____________________________________
 
 @menu
-* Object.getClass()::
+* Object.getClass::
 * .class Syntax::
 * Class.forName() and Class.getName() Methods::
 * TYPE Field for Primitive Wrappers::
 * Methods that Return Classes::
 @end menu
 
-@node Object.getClass()
+@node Object.getClass
 @subsubsection @code{Object.getClass()}
 @cindex @code{Object.getClass()}
 
@@ -10906,6 +11312,102 @@ public class MyClass @{
 The anonymous class defined by @code{o} is enclosed by @code{MyClass}.
 
 
+@c .....................................
+
+@node Examining Class Modifiers
+@subsection Examing Class Modifiers and Types
+@cindex class modifiers, examining
+@cindex class types, examing
+
+A class may be declared with one or more modifiers which affect its runtime
+behavior:
+
+@itemize
+@item
+Access modifiers: public, protected, and private
+@item
+Modifier requiring override: abstract
+@item
+Modifier restricting to one instance: static
+@item
+Modifier prohibiting value modification: final
+@item
+Modifier forcing strict floating point behavior: strictfp
+@item
+Annotations
+@end itemize
+
+Not all modifiers are allowed on all classes, for example an interface cannot
+be @code{final} and an @code{enum} cannot be @code{abstract}.
+@code{java.lang.reflect.Modifier} contains declarations for all possible
+modifiers.  It also contains methods which may be used to decode the set of
+modifiers returned by @code{Class.getModifiers()}.
+
+
+@c .....................................
+
+@node Discovering Class Members
+@subsection Discovering Class Members
+@cindex class members, discovering
+
+There are two categories of methods provided in @file{Class} for accessing
+fields, methods, and constructors:
+
+@enumerate
+@item
+methods which enumerate these members; and
+@item
+methods which search for particular members.
+@end enumerate
+
+@noindent
+Also there are distinct methods for
+
+@itemize
+@item
+accessing members declared directly on the class; versus 
+@item
+methods which search the superinterfaces and superclasses
+for inherited members.
+@end itemize
+
+The following tables provide a summary of all the member-locating methods and
+their characteristics.
+
+@float Table,ClassMethodsLocating
+@center @b{Class Methods for Locating Fields}
+@multitable @columnfractions .27 .23 .25 .23
+@headitem @file{Class} API @tab List of members? @tab Inherited members? @tab Private members?
+@item getDeclarareField() @tab no  @tab no  @tab yes
+@item getField()          @tab no  @tab yes @tab no
+@item getDeclaredFields() @tab yes @tab no  @tab yes
+@item getFields()         @tab yes @tab yes @tab no
+@end multitable
+
+@sp 2
+
+@center @b{Class Methods for Locating Methods}
+@multitable @columnfractions .27 .23 .25 .23
+@headitem @file{Class} API @tab List of members? @tab Inherited members? @tab Private members?
+@item getDeclarareMethod() @tab no  @tab no  @tab yes
+@item getMethod()          @tab no  @tab yes @tab no
+@item getDeclaredMethods() @tab yes @tab no  @tab yes
+@item getMethods()         @tab yes @tab yes @tab no
+@end multitable
+
+@sp 2
+
+@center @b{Class Methods for Locating Constructors}
+@multitable @columnfractions .27 .23 .25 .23
+@headitem @file{Class} API @tab List of members? @tab Inherited members? @tab Private members?
+@item getDeclarareConstructor() @tab no  @tab N/A@footnote{Constructors are not inherited} @tab yes
+@item getConstructor()          @tab no  @tab N/A @tab no
+@item getDeclaredConstructors() @tab yes @tab N/A @tab yes
+@item getConstructors()         @tab yes @tab N/A @tab no
+@end multitable
+@caption{Class Methods for Locating Fields, Methods, and Constructors}
+@shortcaption{Class Methods Locating}
+@end float
 
 @c -----------------------------------------------------------------------------
 
@@ -10914,8 +11416,8 @@ The anonymous class defined by @code{o} is enclosed by @code{MyClass}.
 @cindex Members and Reflection
 @cindex @file{java.lang.reflect.Member} interface
 
-Reflection defines an interface @file{java.lang.reflect.Member} which is implemented
-by
+Reflection defines an interface @file{java.lang.reflect.Member} which is
+implemented by
 
 @itemize
 @item @file{java.lang.reflect.Field}, 
@@ -10940,13 +11442,13 @@ differs from the implementing classes of @file{java.lang.reflect.Member}.
 @c .....................................
 
 @menu
-* reflect Field::
-* reflect Method::
-* reflect Constructor::
+* reflect Fields::
+* reflect Methods::
+* reflect Constructors::
 @end menu
 
-@node reflect Field
-@subsection @file{reflect.Field}
+@node reflect Fields
+@subsection @file{reflect.Fields}
 @cindex Fields, reflection
 @cindex @file{java.lang.reflect.Field} class
 
@@ -10956,7 +11458,7 @@ values of a field on a given object.
 
 @c .....................................
 
-@node reflect Method
+@node reflect Methods
 @subsection @file{reflect.Method}
 @cindex Methods, reflection
 @cindex @file{java.lang.reflect.Method} class
@@ -10968,8 +11470,8 @@ invoke methods on a given object.
 
 @c .....................................
 
-@node reflect Constructor
-@subsection @file{reflect.Constructor}
+@node reflect Constructors
+@subsection @file{reflect.Constructors}
 @cindex Constructor, reflection
 @cindex @file{java.lang.reflect.Constructor}
 
@@ -10978,6 +11480,22 @@ The Reflection APIs for constructors are defined in
 with two major exceptions: first, constructors have no return values; second,
 the invocation of a constructor creates a new instance of an object for a
 given class.
+
+Similar to methods, reflection provides APIs to
+
+@itemize
+@item
+discover and retrieve the constructors of a class and
+@item
+obtain declaration information such as the modifiers, parameters,
+annotations, and thrown exceptions.
+@item
+New instances of classes may also be created using a specified constructor.
+@end itemize
+
+The key classes used when working with constructors are @file{Class} and
+@file{java.lang.reflect.Constructor}. Common operations involving
+constructors are covered in the following sections.
 
 @c _____________________________________
 
@@ -10992,6 +11510,9 @@ given class.
 @cindex constructors, finding
 @cindex @file{java.lang.reflect.Constructor}
 
+This section illustrates how to retrieve constructors with specific
+parameters.
+
 A constructor declaration includes the name, modifiers, parameters, and list
 of throwable exceptions. The @file{java.lang.reflect.Constructor} class provides a
 way to obtain this information.
@@ -11001,6 +11522,9 @@ way to obtain this information.
 @node Constructor Modifiers
 @subsubsection Retrieving and Parsing Constructor Modifiers
 @cindex constructor modifiers, retrieving and parsing
+
+This section shows how to obtain the modifiers of a constructor declaration
+and other information about the constructor.
 
 Because of the role of constructors in the language, fewer modifiers are
 meaningful than for methods:
@@ -11020,6 +11544,12 @@ meaningful than for methods:
 @node Creating New Class Instances
 @subsubsection Creating New Class Instances
 @cindex class instance, creating new
+@cindex object, instantiate using reflection API
+@cindex @code{java.lang.reflect.Constructor.newInstance()}
+@cindex @code{Class.newInstance()}
+
+This section shows how to instantiate an instance of an object by invoking
+its constructor.
 
 There are two reflective methods for creating instances of classes:
 
@@ -11045,6 +11575,8 @@ regardless of whether it is checked or unchecked.
 @code{Constructor.newInstance()} may invoke private constructors under
 certain circumstances.
 @end itemize
+
+
 
 
 @c -----------------------------------------------------------------------------
@@ -11209,7 +11741,7 @@ Shows how to set and get fields with an enum constant value
 
 Fields which store @code{enums} are set and retrieved as any other reference
 type, using @code{Field.set()} and @code{Field.get()}. For more information
-on accessing fields, see the Fields section.  @xref{reflect Field}
+on accessing fields, see the Fields section.  @xref{reflect Fields}
 
 
 @c *****************************************************************************
@@ -11694,6 +12226,9 @@ This chunk is defined in
 @item @r{@{@file{PrinterWriterDemo.java}@}}
 This chunk is defined in
 @ref{PrinterWriterDemo-java}.
+@item @r{@{@file{ReflectionDemo1.java}@}}
+This chunk is defined in
+@ref{ReflectionDemo1-java}.
 @item @r{@{@file{ShowFile.java}@}}
 This chunk is defined in
 @ref{ShowFile-java}.
@@ -11790,6 +12325,9 @@ This chunk is defined in
 @item @r{<@i{Call Overridden Methods One By One Except Figure }>}
 This chunk is defined in
 @ref{Call-Overridden-Methods-One-By-One-Except-Figure-}.
+@item @r{<@i{Catch Exception}>}
+This chunk is defined in
+@ref{Catch-Exception}.
 @item @r{<@i{Catch IOException}>}
 This chunk is defined in
 @ref{Catch-IOException}.
@@ -11907,6 +12445,9 @@ This chunk is defined in
 @item @r{<@i{Import java.io.File}>}
 This chunk is defined in
 @ref{Import-java-io-File}.
+@item @r{<@i{Import java.lang.reflect}>}
+This chunk is defined in
+@ref{Import-java-lang-reflect}.
 @item @r{<@i{Instance Methods Show and Get}>}
 This chunk is defined in
 @ref{Instance-Methods-Show-and-Get}.
@@ -11988,6 +12529,18 @@ This chunk is defined in
 @item @r{<@i{Reference to Integer Instance}>}
 This chunk is defined in
 @ref{Reference-to-Integer-Instance}.
+@item @r{<@i{ReflectionDemo1 Class forName Call}>}
+This chunk is defined in
+@ref{ReflectionDemo1-Class-forName-Call}.
+@item @r{<@i{ReflectionDemo1 getConstructors Call}>}
+This chunk is defined in
+@ref{ReflectionDemo1-getConstructors-Call}.
+@item @r{<@i{ReflectionDemo1 getFields Call}>}
+This chunk is defined in
+@ref{ReflectionDemo1-getFields-Call}.
+@item @r{<@i{ReflectionDemo1 getMethods Call}>}
+This chunk is defined in
+@ref{ReflectionDemo1-getMethods-Call}.
 @item @r{<@i{Show Type}>}
 This chunk is defined in
 @ref{Show-Type}.
@@ -12165,6 +12718,10 @@ This chunk is called by @r{<@i{FindAreas Main Method Declaration }>}; see its fi
 
 @noindent
 This chunk is called by @r{<@i{AbstractAreas Main Method Declaration }>}; see its first definition at @ref{AbstractAreas-Main-Method-Declaration-}.
+@item @r{<@i{Catch Exception}>}
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
 @item @r{<@i{Catch IOException}>}
 
 @noindent
@@ -12382,6 +12939,10 @@ This chunk is called by the following chunks:
 
 @noindent
 This chunk is called by @r{@{@file{DirList.java}@}}; see its first definition at @ref{DirList-java}.
+@item @r{<@i{Import java.lang.reflect}>}
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
 @item @r{<@i{Instance Methods Show and Get}>}
 
 @noindent
@@ -12490,6 +13051,22 @@ This chunk is called by @r{<@i{FindAreas SubClass Rectangle }>}; see its first d
 
 @noindent
 This chunk is called by @r{<@i{Create a Gen object for Integers}>}; see its first definition at @ref{Create-a-Gen-object-for-Integers}.
+@item @r{<@i{ReflectionDemo1 Class forName Call}>}
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@item @r{<@i{ReflectionDemo1 getConstructors Call}>}
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@item @r{<@i{ReflectionDemo1 getFields Call}>}
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@item @r{<@i{ReflectionDemo1 getMethods Call}>}
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
 @item @r{<@i{Show Type}>}
 
 @noindent

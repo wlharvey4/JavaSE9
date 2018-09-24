@@ -13,7 +13,7 @@
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="reflect-Constructor.html#reflect-Constructor" rel="up" title="reflect Constructor">
+<link href="reflect-Constructors.html#reflect-Constructors" rel="up" title="reflect Constructors">
 <link href="Arays-and-Enumerated-Types-and-Reflection.html#Arays-and-Enumerated-Types-and-Reflection" rel="next" title="Arays and Enumerated Types and Reflection">
 <link href="Constructor-Modifiers.html#Constructor-Modifiers" rel="prev" title="Constructor Modifiers">
 <style type="text/css">
@@ -51,13 +51,19 @@ ul.no-bullet {list-style: none}
 <a name="Creating-New-Class-Instances"></a>
 <div class="header">
 <p>
-Previous: <a href="Constructor-Modifiers.html#Constructor-Modifiers" accesskey="p" rel="prev">Constructor Modifiers</a>, Up: <a href="reflect-Constructor.html#reflect-Constructor" accesskey="u" rel="up">reflect Constructor</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Constructor-Modifiers.html#Constructor-Modifiers" accesskey="p" rel="prev">Constructor Modifiers</a>, Up: <a href="reflect-Constructors.html#reflect-Constructors" accesskey="u" rel="up">reflect Constructors</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="Creating-New-Class-Instances-1"></a>
 <h4 class="subsubsection">25.3.3.3 Creating New Class Instances</h4>
 <a name="index-class-instance_002c-creating-new"></a>
+<a name="index-object_002c-instantiate-using-reflection-API"></a>
+<a name="index-java_002elang_002ereflect_002eConstructor_002enewInstance_0028_0029"></a>
+<a name="index-Class_002enewInstance_0028_0029"></a>
 
+<p>This section shows how to instantiate an instance of an object by invoking
+its constructor.
+</p>
 <p>There are two reflective methods for creating instances of classes:
 </p>
 <ol>
@@ -79,6 +85,8 @@ regardless of whether it is checked or unchecked.
 <code>Constructor.newInstance()</code> may invoke private constructors under
 certain circumstances.
 </li></ul>
+
+
 
 
 

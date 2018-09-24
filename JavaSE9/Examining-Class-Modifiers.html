@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Examining Class Modifiers (About Java SE 9)</title>
+
+<meta name="description" content="Examining Class Modifiers (About Java SE 9)">
+<meta name="keywords" content="Examining Class Modifiers (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Classes-and-Reflection.html#Classes-and-Reflection" rel="up" title="Classes and Reflection">
+<link href="Discovering-Class-Members.html#Discovering-Class-Members" rel="next" title="Discovering Class Members">
+<link href="Methods-that-Return-Classes.html#Methods-that-Return-Classes" rel="prev" title="Methods that Return Classes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Examining-Class-Modifiers"></a>
+<div class="header">
+<p>
+Next: <a href="Discovering-Class-Members.html#Discovering-Class-Members" accesskey="n" rel="next">Discovering Class Members</a>, Previous: <a href="Retrieving-Class-Objects.html#Retrieving-Class-Objects" accesskey="p" rel="prev">Retrieving Class Objects</a>, Up: <a href="Classes-and-Reflection.html#Classes-and-Reflection" accesskey="u" rel="up">Classes and Reflection</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Examing-Class-Modifiers-and-Types"></a>
+<h4 class="subsection">25.2.3 Examing Class Modifiers and Types</h4>
+<a name="index-class-modifiers_002c-examining"></a>
+<a name="index-class-types_002c-examing"></a>
+
+<p>A class may be declared with one or more modifiers which affect its runtime
+behavior:
+</p>
+<ul>
+<li> Access modifiers: public, protected, and private
+</li><li> Modifier requiring override: abstract
+</li><li> Modifier restricting to one instance: static
+</li><li> Modifier prohibiting value modification: final
+</li><li> Modifier forcing strict floating point behavior: strictfp
+</li><li> Annotations
+</li></ul>
+
+<p>Not all modifiers are allowed on all classes, for example an interface cannot
+be <code>final</code> and an <code>enum</code> cannot be <code>abstract</code>.
+<code>java.lang.reflect.Modifier</code> contains declarations for all possible
+modifiers.  It also contains methods which may be used to decode the set of
+modifiers returned by <code>Class.getModifiers()</code>.
+</p>
+
+
+
+
+
+</body>
+</html>
