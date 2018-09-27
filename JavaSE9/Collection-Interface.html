@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Collection Interface (About Java SE 9)</title>
+
+<meta name="description" content="Collection Interface (About Java SE 9)">
+<meta name="keywords" content="Collection Interface (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Collection-Interfaces.html#Collection-Interfaces" rel="up" title="Collection Interfaces">
+<link href="List-Interface.html#List-Interface" rel="next" title="List Interface">
+<link href="Collection-Interfaces.html#Collection-Interfaces" rel="prev" title="Collection Interfaces">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Collection-Interface"></a>
+<div class="header">
+<p>
+Next: <a href="List-Interface.html#List-Interface" accesskey="n" rel="next">List Interface</a>, Up: <a href="Collection-Interfaces.html#Collection-Interfaces" accesskey="u" rel="up">Collection Interfaces</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="The-Collection-Interface"></a>
+<h4 class="subsection">13.2.1 The <samp>Collection</samp> Interface</h4>
+<a name="index-Collection-interface"></a>
+
+<p>The <samp>Collection</samp> interface is the foundation upon which the Collections
+Framework is build because it must be implemented by any class that defines a
+collection.  <samp>Collection</samp> is a generic interface that has this
+declaration:
+</p>
+<div class="example">
+<pre class="example">interface Collection&lt;E&gt;
+</pre></div>
+
+<p>Here, <code>E</code> specifies the type of objects that the collection will hold.
+<samp>Collections</samp> extends the <samp>Iterable</samp> interface.  This means that
+all collections can be cycled through by use of their for-each style
+<code>for</code> loop.  (Only classes that implement <samp>Iterable</samp> can be cycled
+through by the <code>for</code>.  See section <a href="Iterable-Interface.html#Iterable-Interface">The <samp>Iterable</samp> Interface</a>.)
+</p>
+<a name="Collection-Core-Methods"></a>
+<h4 class="subheading">Collection Core Methods</h4>
+
+<p><samp>Collection</samp> declares the core methods that all collecitons will have.
+These methods are summarized in <a href="#CollectionsCoreMethods">Table 13.2</a>.  Because all
+collections implement <samp>Collection</samp>, familiarity with its methods is
+necessary for a clear understanding of the framework.  Several of these
+methods can throw an <samp>UnsupportedOperationException</samp>.  This occurs if a
+collection cannot be modified.  A <samp>ClassCastException</samp> is generated when
+one object is incompatible with another, such as when an attempt is made to
+add an incompatible object to a collection.  A <samp>NullPointerException</samp> is
+thrown if an attempt is made to store a <code>null</code> object and <code>null</code>
+elements are not allowed in the collection.  An
+<samp>IllegalArgumentException</samp> is thrown if an invalid argument is used.  An
+<samp>IllegalStateException</samp> is thrown if an attempt is made to add an
+element to a fixed-length collection that is full.
+</p>
+<div class="float"><a name="CollectionsCoreMethods"></a>
+<table>
+<tr><td width="40%">boolean add(E <i>obj</i>)</td><td width="60%">Adds <i>obj</i> to the invoking collection.
+Returns <code>true</code> if <i>obj</i> was added to the collection.  Returns
+<code>false</code> if <i>obj</i> is already a member of the collection and the
+collection does not allow duplicates</td></tr>
+<tr><td width="40%">boolean addAll(Collection&lt;? extends E&gt; <i>c</i>)</td><td width="60%">Adds all the elements of
+<i>c</i> to the invoking collection.  Returns <code>true</code> if the collection
+changed (i.e., the elements were added).  Otherwise, returns <code>false</code>.</td></tr>
+</table>
+
+<p><strong>FIXME</strong>: continue adding methods
+</p><div class="float-caption"><p><strong>Table 13.2: </strong>The Methods Declared by <samp>Collection</samp></p></div></div>
+<a name="Adding-and-Removing-Objects-to-and-from-Collections"></a>
+<h4 class="subheading">Adding and Removing Objects to and from Collections</h4>
+<a name="index-add_0028_0029"></a>
+<a name="index-addAll_0028_0029"></a>
+<a name="index-remove_0028_0029"></a>
+<a name="index-removeAll_0028_0029"></a>
+<a name="index-retainAll_0028_0029"></a>
+<a name="index-removeIf_0028_0029"></a>
+<a name="index-clear_0028_0029"></a>
+
+<p>Objects are added to a collection by calling <code>add()</code>  Notice that
+<code>add()</code> takes an argument of type <code>E</code>, whcih means that objects
+added to a collection must be compatible with the type of data expected by
+the collection.  You can add the entire contents of one collection to another
+by called <code>addAll()</code>.
+</p>
+<p>You can remove an object by using <code>remove()</code>.  To remove a group of
+objects, call <code>removeAll()</code>.  You can remove all elements except those
+of a specified group by calling <code>retainAll()</code>.  To remove an element
+only if it satisfies some condition,you cna use <code>removeIf()</code>.  To empty
+a collection, call <code>clear()</code>.
+</p>
+<a name="Determine-Whether-a-Collection-Contains-an-Object"></a>
+<h4 class="subheading">Determine Whether a Collection Contains an Object</h4>
+<a name="index-contains_0028_0029"></a>
+<a name="index-containsAll_0028_0029"></a>
+<a name="index-isEmpty_0028_0029"></a>
+<a name="index-size_0028_0029"></a>
+
+<p>You can determine whether a collection contains a specific object by calling
+<code>contains()</code>.  To determine whether one collection contains all the
+members of another, call <code>containsAll()</code>.  You can determine when a
+collection is empty by calling <code>isEmpty()</code>.  The number of elements
+currently held in a collection can be determined by calling <code>size()</code>.
+</p>
+<a name="toArray_0028_0029-Methods"></a>
+<h4 class="subheading"><code>toArray()</code> Methods</h4>
+<a name="index-toArray_0028_0029"></a>
+
+<div class="example">
+<pre class="example">Object[] toArray()
+&lt;T&gt; T[] toArray(T <i>array</i>[])
+</pre></div>
+
+<p>The <code>toArray()</code> methods return an array that contains the elements
+stored in the collection.  The first returns an array of <samp>Object</samp>.  The
+second returns an array of elements that have the same type as the array
+specified as a parameter.  Normally, the second form is more convenient
+because it returns the desired array type.  Often, processing the contents of
+a collection by using array-like syntax is advantageous.  By providing a
+pathway between collections and arrays, you have the best of both.
+</p>
+<a name="Comparing-Collections"></a>
+<h4 class="subheading">Comparing Collections</h4>
+<a name="index-equals_0028_0029-2"></a>
+
+<p>Two collections can be compared for equality by called <code>equals()</code>.  The
+precise meaning of &ldquo;equality&rdquo; may differ from collection to collection.  
+</p>
+<a name="Collection-Iterators"></a>
+<h4 class="subheading">Collection Iterators</h4>
+<a name="index-iterator_0028_0029"></a>
+<a name="index-spliterator_0028_0029-1"></a>
+<a name="index-stream_0028_0029"></a>
+<a name="index-parallelStream_0028_0029"></a>
+<a name="index-Stream"></a>
+
+<p>Another important method is <code>iterator()</code>, which returns an iterator to a
+collection.  The <code>spliterator()</code> methods returns a spliterator to the
+collection.  Iterators are frequently used when working with collections.
+Finally, the <code>stream()</code> and <code>parallelStream()</code> methods return a
+<samp>Stream</samp> that uses the collection as a source of elements.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="List-Interface.html#List-Interface" accesskey="n" rel="next">List Interface</a>, Up: <a href="Collection-Interfaces.html#Collection-Interfaces" accesskey="u" rel="up">Collection Interfaces</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

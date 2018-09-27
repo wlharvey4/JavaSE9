@@ -2,6 +2,574 @@ This is JavaSE9.info, produced by makeinfo version 6.5 from
 JavaSE9.texi.
 
 
+File: JavaSE9.info,  Node: .class Syntax,  Next: Class.forName() and Class.getName() Methods,  Prev: Object.getClass,  Up: Retrieving Class Objects
+
+25.2.2.2 The '.class' Syntax
+............................
+
+If the type is available, but there is no instance, then it is
+possible to obtain a 'Class' by appending '.class' to the name of the
+type.  This is also the easiest way to obtain the 'Class' for a
+primitive type.
+
+Primitive.class
+...............
+
+     boolean b;
+     Class c = b.getClass();	 // compile-time error
+     Class c = boolean.class; // correct
+
+The statement 'boolean.getClass()' would produce a compile-time error
+because a 'boolean' is a primitive type and cannot be dereferenced.
+The '.class' syntax returns the 'Class' corresponding to the type
+'boolean'.
+
+Type.class
+..........
+
+     Class c = java.io.PrintStream.class;
+
+The variable 'c' will be the 'Class' corresponding to the type
+'java.io.PrintStream'.
+
+Multi-dimensional Array
+.......................
+
+     Class c = int[][].class;
+
+The '.class' syntax may be used to retrieve a 'Class' corresonding to
+a multi-dimensional array of a given type.
+
+
+File: JavaSE9.info,  Node: Class.forName() and Class.getName() Methods,  Next: TYPE Field for Primitive Wrappers,  Prev: .class Syntax,  Up: Retrieving Class Objects
+
+25.2.2.3 'Class.forName()' and 'Class.getName()' Methods
+........................................................
+
+If the fully-qualified name of a class is available, it is possible to
+get the corresponding 'Class' using the 'static' method
+'Class.forName()'.  This cannot be used for primitive types.
+
+   The syntax for names of array classes is described by
+'Class.getName()'.  This syntax is applicable to references and
+primitive types.
+
+'forName()'
+...........
+
+     Class c = Class.forName("com.duke.MyLocalServiceProvider");
+
+This statement will create a class from the given fully-qualified
+name.
+
+'getName()'
+...........
+
+*FIXME*: should these be 'getName()' instead of 'forName()'?
+
+     Class cDoubleArray = Class.forName("[D");
+     Class cStringArray = Class.forName("[[Ljava.lang.String;");
+
+The variable 'cDoubleArray' will contain the 'Class' corresponding to
+an array of primitive type 'double' (i.e., the same as
+'double[].class'.  The 'cStringArray' variable will contain the
+'Class' corresponding to a two-dimensional array of 'String' (i.e.,
+identical to String[][].class).
+
+
+File: JavaSE9.info,  Node: TYPE Field for Primitive Wrappers,  Next: Methods that Return Classes,  Prev: Class.forName() and Class.getName() Methods,  Up: Retrieving Class Objects
+
+25.2.2.4 TYPE Field for Primitive Type Wrappers
+...............................................
+
+The '.class' syntax is a more convenient and the preferred way to
+obtain the 'Class' for a primitive type; however, there is another way
+to acquire the 'Class'.  Each of the primitive types and 'void' has a
+wrapper class in 'java.lang' that is used for boxing of primitive
+types to reference types.  Each wrapper class contains a field name
+'TYPE' which is equal to the 'Class' for the primitive type being
+wrapped.
+
+Wrapper TYPE for Primitive
+..........................
+
+     Class c = Double.TYPE;
+
+There is a class 'java.lang.Double' which is used to wrap the
+primitive type 'double' whenever an 'Object' is required.  The value
+of 'Double.TYPE' is identical to that of 'double.class'.
+
+Wrapper TYPE for void
+.....................
+
+     Class c = Void.TYPE;
+
+   'Void.TYPE' is identical to 'void.class'.
+
+
+File: JavaSE9.info,  Node: Methods that Return Classes,  Prev: TYPE Field for Primitive Wrappers,  Up: Retrieving Class Objects
+
+25.2.2.5 Methods that Return Classes
+....................................
+
+There are several 'Reflection' APIs which return classes, but these
+may only be accessed if a 'Class' has already been obtained, either
+directly or indirectly.
+
+'Class.getSuperClass()'
+.......................
+
+Returns the super class for the given class.
+
+     Class c = javax.swing.JButton.class.getSuperclass();
+
+'Class.getClasses()'
+....................
+
+Returns all the public classes, interfaces, and enums that are members
+of the class including inherited members.
+
+     Class<?>[] c = Character.class.getClasses();
+
+'Class.getDeclaredClasses()'
+............................
+
+Returns all of the classes interfaces, and enums that are explicitly
+declared in this class.
+
+     Class<?>[] c = Character.class.getDeclaredClasses();
+
+'Class.getDeclaringClass()'
+...........................
+
+     java.lang.reflect.Field.getDeclaringClass()
+     java.lang.reflect.Method.getDeclaringClass()
+     java.lang.reflect.Constructor.getDeclaringClass()
+
+Returns the 'Class' in which these members were declared.  'Anonymous
+Class Declarations' will not have a declaring class but will have an
+enclosing class.
+
+     import java.lang.reflect.Field;
+
+     Field f = System.class.getField("out");
+     Class c = f.getDeclaringClass();
+
+The field out is declared in 'System'.
+
+     public class MyClass {
+         static Object o = new Object() {
+             public void m() {}
+         };
+         static Class<c> = o.getClass().getEnclosingClass();
+     }
+
+   The declaring class of the anonymous class defined by 'o' is 'null'
+
+'Class.getEnclosingClass()'
+...........................
+
+Returns the immediately enclosing class of the class.
+
+     Class c = Thread.State.class().getEnclosingClass();
+
+The enclosing class of the enum 'Thread.State' is 'Thread'.
+
+     public class MyClass {
+         static Object o = new Object() {
+             public void m() {}
+         };
+         static Class<c> = o.getClass().getEnclosingClass();
+     }
+
+   The anonymous class defined by 'o' is enclosed by 'MyClass'.
+
+
+File: JavaSE9.info,  Node: Examining Class Modifiers,  Next: Discovering Class Members,  Prev: Retrieving Class Objects,  Up: Classes and Reflection
+
+25.2.3 Examing Class Modifiers and Types
+----------------------------------------
+
+A class may be declared with one or more modifiers which affect its
+runtime behavior:
+
+   * Access modifiers: public, protected, and private
+   * Modifier requiring override: abstract
+   * Modifier restricting to one instance: static
+   * Modifier prohibiting value modification: final
+   * Modifier forcing strict floating point behavior: strictfp
+   * Annotations
+
+   Not all modifiers are allowed on all classes, for example an
+interface cannot be 'final' and an 'enum' cannot be 'abstract'.
+'java.lang.reflect.Modifier' contains declarations for all possible
+modifiers.  It also contains methods which may be used to decode the
+set of modifiers returned by 'Class.getModifiers()'.
+
+
+File: JavaSE9.info,  Node: Discovering Class Members,  Prev: Examining Class Modifiers,  Up: Classes and Reflection
+
+25.2.4 Discovering Class Members
+--------------------------------
+
+There are two categories of methods provided in 'Class' for accessing
+fields, methods, and constructors:
+
+  1. methods which enumerate these members; and
+  2. methods which search for particular members.
+
+Also there are distinct methods for
+
+   * accessing members declared directly on the class; versus
+   * methods which search the superinterfaces and superclasses for
+     inherited members.
+
+   The following tables provide a summary of all the member-locating
+methods and their characteristics.
+
+                  Class Methods for Locating Fields
+'Class' API         List of          Inherited          Private
+                    members?         members?           members?
+-------------------------------------------------------------------------
+getDeclarareField() no               no                 yes
+getField()          no               yes                no
+getDeclaredFields() yes              no                 yes
+getFields()         yes              yes                no
+
+
+
+                 Class Methods for Locating Methods
+'Class' API         List of          Inherited          Private
+                    members?         members?           members?
+-------------------------------------------------------------------------
+getDeclarareMethod()no               no                 yes
+getMethod()         no               yes                no
+getDeclaredMethods()yes              no                 yes
+getMethods()        yes              yes                no
+
+
+
+               Class Methods for Locating Constructors
+'Class' API         List of          Inherited          Private
+                    members?         members?           members?
+-------------------------------------------------------------------------
+getDeclarareConstructor()no          N/A(1)             yes
+getConstructor()    no               N/A                no
+getDeclaredConstructors()yes         N/A                yes
+getConstructors()   yes              N/A                no
+
+Table 25.3: Class Methods for Locating Fields, Methods, and
+Constructors
+
+   ---------- Footnotes ----------
+
+   (1) Constructors are not inherited
+
+
+File: JavaSE9.info,  Node: Members and Reflection,  Next: Arays and Enumerated Types and Reflection,  Prev: Classes and Reflection,  Up: Reflection
+
+25.3 Members and Reflection
+===========================
+
+Reflection defines an interface 'java.lang.reflect.Member' which is
+implemented by
+
+   * 'java.lang.reflect.Field',
+   * 'java.lang.reflect.Method', and
+   * 'java.lang.reflect.Constructor'.
+
+   For each member, the lesson will describe the associated APIs to
+retrieve declaration and type information, any operations unique to
+the member (for example, setting the value of a field or invoking a
+method), and commonly encountered errors.  Each concept will be
+illustrated with code samples and related output which approximate
+some expected reflection uses.
+
+Note about Members and the Specification
+----------------------------------------
+
+According to The Java Language Specification, Java SE 7 Edition, the
+"members of a class" are the inherited components of the class body
+including fields, methods, nested classes, interfaces, and enumerated
+types.  Since constructors are not inherited, they are not members.
+This differs from the implementing classes of
+'java.lang.reflect.Member'.
+
+* Menu:
+
+* reflect Fields::
+* reflect Methods::
+* reflect Constructors::
+
+
+File: JavaSE9.info,  Node: reflect Fields,  Next: reflect Methods,  Up: Members and Reflection
+
+25.3.1 'reflect.Fields'
+-----------------------
+
+Fields have a type and a value.  The 'java.lang.reflect.Field' class
+provides methods for accessing type information and setting and
+getting values of a field on a given object.
+
+
+File: JavaSE9.info,  Node: reflect Methods,  Next: reflect Constructors,  Prev: reflect Fields,  Up: Members and Reflection
+
+25.3.2 'reflect.Method'
+-----------------------
+
+Methods have return values, parameters, and may throw exceptions.  The
+'java.lang.reflect.Method' class provides methods for obtaining the
+type information for the parameters and return value.  It may also be
+used to invoke methods on a given object.
+
+
+File: JavaSE9.info,  Node: reflect Constructors,  Prev: reflect Methods,  Up: Members and Reflection
+
+25.3.3 'reflect.Constructors'
+-----------------------------
+
+The Reflection APIs for constructors are defined in
+'java.lang.reflect.Constructor' and are similar to those for methods,
+with two major exceptions: first, constructors have no return values;
+second, the invocation of a constructor creates a new instance of an
+object for a given class.
+
+   Similar to methods, reflection provides APIs to
+
+   * discover and retrieve the constructors of a class and
+   * obtain declaration information such as the modifiers, parameters,
+     annotations, and thrown exceptions.
+   * New instances of classes may also be created using a specified
+     constructor.
+
+   The key classes used when working with constructors are 'Class' and
+'java.lang.reflect.Constructor'.  Common operations involving
+constructors are covered in the following sections.
+
+* Menu:
+
+* Finding Constructors::
+* Constructor Modifiers::
+* Creating New Class Instances::
+
+
+File: JavaSE9.info,  Node: Finding Constructors,  Next: Constructor Modifiers,  Up: reflect Constructors
+
+25.3.3.1 Finding Constructors
+.............................
+
+This section illustrates how to retrieve constructors with specific
+parameters.
+
+   A constructor declaration includes the name, modifiers, parameters,
+and list of throwable exceptions.  The 'java.lang.reflect.Constructor'
+class provides a way to obtain this information.
+
+
+File: JavaSE9.info,  Node: Constructor Modifiers,  Next: Creating New Class Instances,  Prev: Finding Constructors,  Up: reflect Constructors
+
+25.3.3.2 Retrieving and Parsing Constructor Modifiers
+.....................................................
+
+This section shows how to obtain the modifiers of a constructor
+declaration and other information about the constructor.
+
+   Because of the role of constructors in the language, fewer
+modifiers are meaningful than for methods:
+
+   * Access modifiers:
+        * 'public',
+        * 'protected', and
+        * 'private'
+   * Annotations
+
+
+File: JavaSE9.info,  Node: Creating New Class Instances,  Prev: Constructor Modifiers,  Up: reflect Constructors
+
+25.3.3.3 Creating New Class Instances
+.....................................
+
+This section shows how to instantiate an instance of an object by
+invoking its constructor.
+
+   There are two reflective methods for creating instances of classes:
+
+  1. 'java.lang.reflect.Constructor.newInstance()' and
+  2. 'Class.newInstance()'.
+
+   The former is preferred and is thus used in these examples because:
+
+   * 'Class.newInstance()' can only invoke the zero-argument
+     constructor, while 'Constructor.newInstance()' may invoke any
+     constructor, regardless of the number of parameters.
+   * 'Class.newInstance()' throws any exception thrown by the
+     constructor, regardless of whether it is checked or unchecked.
+     'Constructor.newInstance()' always wraps the thrown exception
+     with an 'InvocationTargetException'.
+   * 'Class.newInstance()' requires that the constructor be visible;
+     'Constructor.newInstance()' may invoke private constructors under
+     certain circumstances.
+
+
+File: JavaSE9.info,  Node: Arays and Enumerated Types and Reflection,  Prev: Members and Reflection,  Up: Reflection
+
+25.4 Arrays and Enumerate Types and Reflection
+==============================================
+
+From the Java virtual machine's perspective, arrays and enumerated
+types (or 'enums') are just classes.  Many of the methods in 'Class'
+may be used on them.  Reflection provides a few specific APIs for
+arrays and enums.  This lesson uses a series of code samples to
+describe how to distinguish each of these objects from other classes
+and operate on them.  Various errors are also be examined.
+
+* Menu:
+
+* Arrays and Reflection::
+* Enumerate Types and Reflection::
+
+
+File: JavaSE9.info,  Node: Arrays and Reflection,  Next: Enumerate Types and Reflection,  Up: Arays and Enumerated Types and Reflection
+
+25.4.1 Arrays and Reflection
+----------------------------
+
+Arrays have a component type and a length (which is not part of the
+type).  Arrays may be maniuplated either in their entirety or
+component by component.  Reflection provides the
+'java.lang.reflect.Array' class for the latter purpose.
+
+* Menu:
+
+* Identifying Array Types::
+* Creating New Arrays::
+* Getting and Setting Arrays::
+
+
+File: JavaSE9.info,  Node: Identifying Array Types,  Next: Creating New Arrays,  Up: Arrays and Reflection
+
+25.4.1.1 Identifying Array Types
+................................
+
+Array types may be identified by invoking 'Class.isArray()'.  To
+obtain a 'Class' use one of the methods described in *note Retrieving
+Class Objects:: section.
+
+
+File: JavaSE9.info,  Node: Creating New Arrays,  Next: Getting and Setting Arrays,  Prev: Identifying Array Types,  Up: Arrays and Reflection
+
+25.4.1.2 Creating New Arrays
+............................
+
+Just as in non-reflective code, reflection supports the ability to
+dynamically create arrays of arbitrary type and dimensions via
+'java.lang.reflect.Array.newInstance()'.  Consider ArrayCreator, a
+basic interpreter capable of dynamically creating arrays.  The syntax
+that will be parsed is as follows:
+
+     fully_qualified_class_name variable_name[] =
+     	{ val1, val2, val3, ... }
+
+
+File: JavaSE9.info,  Node: Getting and Setting Arrays,  Prev: Creating New Arrays,  Up: Arrays and Reflection
+
+25.4.1.3 Getting and Setting Arrays and Their Components
+........................................................
+
+Just as in non-reflective code, an array field may be set or retrieved
+in its entirety or component by component.  To set the entire array at
+once, use 'java.lang.reflect.Field.set(Object obj, Object value)'.  To
+retrieve the entire array, use 'Field.get(Object)'.  Individual
+components can be set or retrieved using methods in
+'java.lang.reflect.Array'.
+
+   'Array' provides methods of the form 'setFoo()' and 'getFoo()' for
+setting and getting components of any primitive type.  For example,
+the component of an int array may be set with 'Array.setInt(Object
+array, int index, int value)' and may be retrieved with
+'Array.getInt(Object array, int index)'.
+
+Setting a Field of Type Array
+.............................
+
+Accessing Elements of a Multidimensional Array
+..............................................
+
+
+File: JavaSE9.info,  Node: Enumerate Types and Reflection,  Prev: Arrays and Reflection,  Up: Arays and Enumerated Types and Reflection
+
+25.4.2 Enumerated Types and Reflection
+--------------------------------------
+
+Enums are treated very much like ordinary classes in reflection code.
+'Class.isEnum()' tells whether a 'Class' represents an enum.
+'Class.getEnumConstants()' retrieves the enum constants defined in an
+enum.  'java.lang.reflect.Field.isEnumConstant()' indicates whether a
+field is an enumerated type.
+
+* Menu:
+
+* Enumerated Types Reflection::
+
+
+File: JavaSE9.info,  Node: Enumerated Types Reflection,  Up: Enumerate Types and Reflection
+
+25.4.2.1 Enumerated Types in Reflection
+.......................................
+
+An "enum" is a language construct that is used to define type-safe
+enumerations which can be used when a fixed set of named values is
+desired.  All 'enums' implicitly extend 'java.lang.Enum'.  'Enums' may
+contain one or more 'enum' constants, which define unique instances of
+the 'enum' type.  An 'enum' declaration defines an 'enum' type which
+is very similar to a class in that it may have members such as fields,
+methods, and constructors (with some restrictions).
+
+   Since 'enums' are classes, reflection has no need to define an
+explicit java.lang.reflect.Enum class.  The only Reflection APIs that
+are specific to 'enums' are 'Class.isEnum()',
+'Class.getEnumConstants()', and
+'java.lang.reflect.Field.isEnumConstant()'.  Most reflective
+operations involving 'enums' are the same as any other class or
+member.  For example, 'enum' constants are implemented as 'public
+static final' fields on the 'enum'.  The following sections show how
+to use 'Class' and 'java.lang.reflect.Field' with 'enums'.
+
+Examining Enums
+...............
+
+Illustrates how to retrieve an enum's constants and any other fields,
+constructors, and methods
+
+   Reflection provides three enum-specific APIs:
+
+'Class.isEnum()'
+     Indicates whether this class represents an enum type
+'Class.getEnumConstants()'
+     Retrieves the list of enum constants defined by the enum in the
+     order they're declared
+'java.lang.reflect.Field.isEnumConstant()'
+     Indicates whether this field represents an element of an
+     enumerated type
+
+   Sometimes it is necessary to dynamically retrieve the list of enum
+constants; in non-reflective code this is accomplished by invoking the
+implicitly declared static method 'values()' on the enum.  If an
+instance of an 'enum' type is not available the only way to get a list
+of the possible values is to invoke 'Class.getEnumConstants()' since
+it is impossible to instantiate an 'enum' type.
+
+Getting and Setting Fields with Enum Types
+..........................................
+
+Shows how to set and get fields with an enum constant value
+
+   Fields which store 'enums' are set and retrieved as any other
+reference type, using 'Field.set()' and 'Field.get()'.  For more
+information on accessing fields, see the Fields section.  *Note
+reflect Fields::
+
+
 File: JavaSE9.info,  Node: Swing,  Next: The Makefile,  Prev: Reflection,  Up: Top
 
 26 Introducinvg Swing
@@ -1236,6 +1804,9 @@ List of Tables
 * Table 5.1: PackageAccess.              Package Access Table
 * Table 7.1: ByteStreamClasses.          The Byte Stream Classes ...
 * Table 7.2: CharacterStreamClasses.     The Character Stream I/O ...
+* Table 13.1: CollectionsInterfaces.     Summary of 'Collection' ...
+* Table 13.2: CollectionsCoreMethods.    The Methods Declared by ...
+* Table 13.3: CollectionCoreClasses.     Collection Core Classes
 * Table 15.1: 'File'-Methods.            'File' Property Methods
 * Table 15.2: 'File'-Utility-Methods.    File Utility Methods
 * Table 15.3: InputStreamMethods.        The Methods Defined by ...
@@ -1869,6 +2440,12 @@ Index
 * access modifiers:                      Access Control.    (line   6)
 * access, member:                        Member Access.     (line   6)
 * accessibility:                         Packages Intro.    (line   6)
+* add():                                 Collection Interface.
+                                                            (line  54)
+* addAll():                              Collection Interface.
+                                                            (line  54)
+* Algorithms, Collections Framework:     Collections Overview.
+                                                            (line  46)
 * anonymous inner classes:               Nested and Inner Classes.
                                                             (line   6)
 * API, Stream:                           Streams API.       (line   5)
@@ -1880,6 +2457,7 @@ Index
                                                             (line   6)
 * Arrays:                                Arrays 2.          (line   6)
 * arrays as objects:                     Arrays 2.          (line   6)
+* Arrays Class:                          Arrays Class.      (line   5)
 * arrays, creating new:                  Creating New Arrays.
                                                             (line   6)
 * arrays, getting and setting:           Getting and Setting Arrays.
@@ -2014,13 +2592,16 @@ Index
                                                             (line   6)
 * Class.newInstance():                   Creating New Class Instances.
                                                             (line   6)
-* classed in java.lang:                  java Lang.         (line  14)
+* classed in java.lang:                  Exploring java-lang.
+                                                            (line  14)
 * Classes:                               Classes.           (line   6)
 * Classes and Reflection:                Classes and Reflection.
                                                             (line   6)
 * classes, nested and inner:             Nested and Inner Classes.
                                                             (line   6)
 * CLASSPATH -classpath:                  Classpath.         (line   6)
+* clear():                               Collection Interface.
+                                                            (line  54)
 * close():                               FileInputStream and FileOutputStream.
                                                             (line  29)
 * close() <1>:                           Closing a Stream.  (line   6)
@@ -2029,11 +2610,28 @@ Index
 * Closeable:                             AutoCloseable Closeable Flushable Interfaces.
                                                             (line   6)
 * closing a stream:                      Closing a Stream.  (line   6)
+* Collection Algorithms:                 Collection Algorithms.
+                                                            (line   5)
+* Collection Classes:                    Collection Classes.
+                                                            (line   6)
+* Collection interface:                  Collection Interface.
+                                                            (line   6)
+* Collection Interfaces:                 Collection Interfaces.
+                                                            (line   6)
+* collection-view of a map:              Collections Overview.
+                                                            (line  79)
+* Collections Framekwork goals:          Collections Overview.
+                                                            (line  20)
 * Collections Framework:                 Generics.          (line   6)
+* Collections Framework <1>:             java util Collections.
+                                                            (line  20)
+* Collections overview:                  Collections Overview.
+                                                            (line   6)
 * collections, generics:                 Generics.          (line   6)
 * collisions, prevention:                Packages.          (line   6)
 * command-line arguments:                Command-Line Arguments.
                                                             (line   6)
+* Comparators:                           Comparators.       (line   5)
 * compartmentalized:                     Packages.          (line   6)
 * compile time:                          Interfaces.        (line  19)
 * compile-time type check:               Motivation.        (line  31)
@@ -2056,7 +2654,13 @@ Index
                                                             (line   6)
 * constructors, overloading:             Overloading Constructors.
                                                             (line   6)
+* Consumer:                              Iterable Interface.
+                                                            (line  32)
 * containers, packages as:               Packages.          (line   6)
+* contains():                            Collection Interface.
+                                                            (line  69)
+* containsAll():                         Collection Interface.
+                                                            (line  69)
 * Creating Directories:                  Creating Directories.
                                                             (line   6)
 * creating generic method:               Generic Methods.   (line   6)
@@ -2072,6 +2676,9 @@ Index
                                                             (line   6)
 * default package:                       Defining Packages. (line   6)
 * demonstration using PrintWriter:       Demonstration Using PrintWriter.
+                                                            (line   6)
+* Dequeue Interface:                     Dequeue Interface. (line   5)
+* Dictionary:                            Collections Overview.
                                                             (line   6)
 * difference between class and interface: Default Interface Methods.
                                                             (line  32)
@@ -2135,6 +2742,8 @@ Index
                                                             (line  38)
 * equals():                              String Class.      (line  33)
 * equals() <1>:                          Object Class.      (line  49)
+* equals() <2>:                          Collection Interface.
+                                                            (line  94)
 * erasure:                               Class GenDemo.     (line   6)
 * err:                                   Predefined Streams.
                                                             (line   6)
@@ -2213,6 +2822,10 @@ Index
 * flushing:                              PrinterWriter Constructors.
                                                             (line   6)
 * flushingOn:                            PrinterWriter Constructors.
+                                                            (line   6)
+* for loop, for-each version:            Iterable Interface.
+                                                            (line   6)
+* for-each version of for loop:          Iterable Interface.
                                                             (line   6)
 * fully qualified name:                  Importing.         (line  39)
 * fully-qualified name and reflection:   Class.forName() and Class.getName() Methods.
@@ -2375,7 +2988,8 @@ Index
 * interface, traditional form:           Default Interface Methods.
                                                             (line   6)
 * Interfaces (chapter):                  Interfaces.        (line   6)
-* interfaces in java.lang:               java Lang.         (line  62)
+* interfaces in java.lang:               Exploring java-lang.
+                                                            (line  62)
 * interfaces, defining:                  Defining Interfaces.
                                                             (line   6)
 * interfaces, extending:                 Extending Interfaces.
@@ -2404,7 +3018,25 @@ Index
                                                             (line   5)
 * Introduction to Packages (section):    Packages Intro.    (line   6)
 * IOException:                           I/O Exceptions.    (line   6)
+* isEmpty():                             Collection Interface.
+                                                            (line  69)
+* Iterable Interface:                    Iterable Interface.
+                                                            (line   6)
 * iteration, iterative:                  Recursion.         (line   6)
+* iterator:                              Collections Overview.
+                                                            (line  56)
+* Iterator interface:                    Collections Overview.
+                                                            (line  56)
+* Iterator iterator:                     Iterable Interface.
+                                                            (line   6)
+* iterator():                            Collection Interface.
+                                                            (line 101)
+* Iterator, accessing a Collection:      Accessing a Collection via Iterator.
+                                                            (line   6)
+* iterators, primitive types:            Collections Overview.
+                                                            (line  69)
+* J2SE 1.2:                              Collections Overview.
+                                                            (line   6)
 * J2SE 5.0:                              Generics.          (line   6)
 * Java I/O system:                       Streams.           (line   6)
 * Java SE 9 introduction:                Java SE 9 Introduction.
@@ -2417,7 +3049,8 @@ Index
                                                             (line   6)
 * java.io package:                       Streams.           (line   6)
 * java.lang:                             Importing.         (line  29)
-* java.lang <1>:                         java Lang.         (line   6)
+* java.lang <1>:                         Exploring java-lang.
+                                                            (line   6)
 * java.lang.Class:                       Classes and Reflection.
                                                             (line   6)
 * java.lang.Class <1>:                   java.lang.Class.   (line   6)
@@ -2449,16 +3082,24 @@ Index
 * java.nio:                              Input/Output java.io.
                                                             (line   6)
 * java.util Collections Framework:       java util Collections.
-                                                            (line   5)
+                                                            (line   6)
 * java.util Utility Classes:             java util Utility Classes.
                                                             (line   5)
+* java.util.function:                    Iterable Interface.
+                                                            (line  32)
 * JDK 5:                                 Enumerations.      (line   6)
 * JDK 7, try-with-resource:              Closing a Stream.  (line  32)
+* JDK 8:                                 Iterable Interface.
+                                                            (line  32)
+* JDK 8 <1>:                             Collections Overview.
+                                                            (line  69)
 * JDK 8, default method in interface:    Default Interface Methods.
                                                             (line   6)
 * JDK 8, static interface method:        Interface Static Methods.
                                                             (line   6)
-* JDK 9:                                 Reflection.        (line   6)
+* JDK 9:                                 java util Collections.
+                                                            (line  20)
+* JDK 9 <1>:                             Reflection.        (line   6)
 * JDK 9, package part of module:         Classpath.         (line   6)
 * JDK 9, private interface method:       Private Interface Methods.
                                                             (line   6)
@@ -2472,9 +3113,12 @@ Index
                                                             (line   6)
 * late binding:                          final to Prevent Overriding.
                                                             (line   6)
+* legacy classes and interfaces, Collections: Legacy Classes and Interfaces.
+                                                            (line   5)
 * length instance variable:              Arrays 2.          (line   6)
 * length():                              String Class.      (line  33)
 * lines() method:                        BufferedReader.    (line   6)
+* List interface:                        List Interface.    (line   5)
 * list():                                Directories.       (line   6)
 * list() method for directories:         File.              (line  17)
 * listFiles() Alternative:               listFiles() Alternative.
@@ -2499,6 +3143,9 @@ Index
 * Makefile WorldClean:                   Makefile WorldClean.
                                                             (line   6)
 * Makefile, The (appendix):              The Makefile.      (line   6)
+* maps:                                  Collections Overview.
+                                                            (line  79)
+* Maps, working with:                    Working with Maps. (line   5)
 * member access:                         Member Access.     (line   6)
 * member access, inheritance:            Member Access and Inheritance.
                                                             (line   6)
@@ -2523,6 +3170,8 @@ Index
 * methods, overloading:                  Overloading Methods.
                                                             (line   6)
 * Methods, reflection:                   reflect Methods.   (line   6)
+* modifiable collections:                Collection Interfaces.
+                                                            (line  47)
 * module path:                           Classpath.         (line   6)
 * modules, packages:                     Classpath.         (line   6)
 * multilevel hierarchy:                  Multilevel Hierarchy.
@@ -2531,6 +3180,8 @@ Index
 * naming mechanism:                      Packages Intro.    (line   6)
 * native:                                Miscellaneous Java Keywords.
                                                             (line   6)
+* NavigableSet interface:                NavigableSet Interface.
+                                                            (line   5)
 * nested classes:                        Nested and Inner Classes.
                                                             (line   6)
 * nested interfaces:                     Nested Interfaces. (line   6)
@@ -2601,6 +3252,8 @@ Index
 * packages, import:                      Packages.          (line   6)
 * packages, importing:                   Importing.         (line   6)
 * packages, purposes, prevent collisions: Packages.         (line   6)
+* parallelStream():                      Collection Interface.
+                                                            (line 101)
 * parameter list, method:                Methods.           (line  15)
 * parameter, generic class:              Class Gen<T>.      (line   6)
 * parameterized type:                    Class Gen<T>.      (line   6)
@@ -2621,8 +3274,14 @@ Index
                                                             (line   6)
 * preexisting code, default method, interface: Default Interface Methods.
                                                             (line  15)
+* primitive type iterators:              Collections Overview.
+                                                            (line  69)
 * Primitive Wrappers:                    Primitive Wrappers.
                                                             (line   6)
+* PrimitiveIterator:                     Collections Overview.
+                                                            (line  69)
+* PrimitiveIterator.OfDouble:            Collections Overview.
+                                                            (line  69)
 * print() and println(), PrintWriter class: PrinterWriter Constructors.
                                                             (line   6)
 * print(), from PrintStream:             Writing Console Output.
@@ -2640,6 +3299,8 @@ Index
 * private access modifier:               Access Control.    (line  28)
 * private and inheritance:               Member Access and Inheritance.
                                                             (line   6)
+* Properties:                            Collections Overview.
+                                                            (line   6)
 * protected access modifier:             Access Control.    (line  28)
 * public access modifier:                Access Control.    (line  28)
 * PushbackInputStream:                   Buffered Byte Streams.
@@ -2647,6 +3308,9 @@ Index
 * PushbackInputStream <1>:               PushbackInputStream.
                                                             (line   5)
 * PushbackReader:                        PushbackReader.    (line   5)
+* Queue interface:                       Queue Interface.   (line   5)
+* RandomAccess Interface:                RandomAccess Interface.
+                                                            (line   5)
 * RandomAccessFile:                      RandomAccessFile.  (line   5)
 * read():                                FileInputStream and FileOutputStream.
                                                             (line  63)
@@ -2679,6 +3343,14 @@ Index
                                                             (line   6)
 * Regular Expressions:                   Regular Expressions.
                                                             (line   5)
+* remove():                              Collection Interface.
+                                                            (line  54)
+* removeAll():                           Collection Interface.
+                                                            (line  54)
+* removeIf():                            Collection Interface.
+                                                            (line  54)
+* retainAll():                           Collection Interface.
+                                                            (line  54)
 * run time, dynamic allocation:          Declaring Objects. (line   6)
 * run-time:                              Interfaces.        (line  19)
 * run-time polymorphism, abstract class: Using Abstract Classes.
@@ -2692,6 +3364,20 @@ Index
                                                             (line   5)
 * Serializable interface:                Serializable.      (line   6)
 * Serialization:                         Serialization.     (line   6)
+* Set Interface:                         Set Interface.     (line   5)
+* size():                                Collection Interface.
+                                                            (line  69)
+* SortedSet interface:                   SortedSed Interface.
+                                                            (line   5)
+* Spliterator:                           Collections Overview.
+                                                            (line  69)
+* spliterator():                         Iterable Interface.
+                                                            (line  40)
+* spliterator() <1>:                     Collection Interface.
+                                                            (line 101)
+* Spliterators:                          Spliterators.      (line   5)
+* Stack:                                 Collections Overview.
+                                                            (line   6)
 * Stack Class:                           Stack Class.       (line   6)
 * Stack class, improved:                 Improved Stack Class.
                                                             (line   6)
@@ -2709,6 +3395,8 @@ Index
                                                             (line   6)
 * static restrictions on methods:        static Keyword.    (line  24)
 * static variable, not serialized:       Serializable.      (line   6)
+* Stream:                                Collection Interface.
+                                                            (line 101)
 * stream:                                Input/Output java.io.
                                                             (line   6)
 * Stream API:                            Streams API.       (line   6)
@@ -2724,6 +3412,8 @@ Index
 * Stream reference:                      BufferedReader.    (line   6)
 * stream variables, predefined:          Predefined Streams.
                                                             (line   6)
+* stream():                              Collection Interface.
+                                                            (line 101)
 * stream, character-based:               Reading Console Input.
                                                             (line   6)
 * stream, input:                         Streams.           (line   6)
@@ -2768,6 +3458,8 @@ Index
 * Text:                                  AWT.               (line   5)
 * text-based console programs:           I/O Basics.        (line   6)
 * this Keyword:                          this Keyword.      (line   6)
+* toArray():                             Collection Interface.
+                                                            (line  79)
 * toString():                            Object Class.      (line  49)
 * toString(), PrintWriter:               PrinterWriter Constructors.
                                                             (line   6)
@@ -2799,9 +3491,15 @@ Index
 * Unicode character streams <1>:         Character Stream Class.
                                                             (line   6)
 * Unicode characters:                    Character Streams. (line   6)
+* unmodifiable collections:              Collection Interfaces.
+                                                            (line  47)
+* UnsupportedOperationException:         Collection Interfaces.
+                                                            (line  47)
 * upper bound:                           Bounded Types.     (line   6)
 * upper bound wildcard argument:         Bounded Wildcards. (line  20)
 * upper bounded wildcard:                Bounded Wildcards. (line  18)
+* User-Defined Classes, storing in Collections: Storing User-Defined Classes.
+                                                            (line   5)
 * vararg ambiguity:                      Varargs.           (line  32)
 * vararg overloading:                    Varargs.           (line  32)
 * varargs:                               Varargs.           (line   6)
@@ -2810,6 +3508,8 @@ Index
                                                             (line  25)
 * variable-arity method:                 Varargs.           (line   6)
 * variable-length arguments:             Varargs.           (line   6)
+* Vector:                                Collections Overview.
+                                                            (line   6)
 * visibility mechanism:                  Packages Intro.    (line   6)
 * volative:                              Miscellaneous Java Keywords.
                                                             (line   6)

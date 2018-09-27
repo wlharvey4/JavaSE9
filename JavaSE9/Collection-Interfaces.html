@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Collection Interfaces (About Java SE 9)</title>
+
+<meta name="description" content="Collection Interfaces (About Java SE 9)">
+<meta name="keywords" content="Collection Interfaces (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="java-util-Collections.html#java-util-Collections" rel="up" title="java util Collections">
+<link href="Collection-Interface.html#Collection-Interface" rel="next" title="Collection Interface">
+<link href="Collections-Overview.html#Collections-Overview" rel="prev" title="Collections Overview">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Collection-Interfaces"></a>
+<div class="header">
+<p>
+Next: <a href="Collection-Classes.html#Collection-Classes" accesskey="n" rel="next">Collection Classes</a>, Previous: <a href="Collections-Overview.html#Collections-Overview" accesskey="p" rel="prev">Collections Overview</a>, Up: <a href="java-util-Collections.html#java-util-Collections" accesskey="u" rel="up">java util Collections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="The-Collection-Interfaces"></a>
+<h3 class="section">13.2 The Collection Interfaces</h3>
+<a name="index-Collection-Interfaces"></a>
+
+<p>The Collections Framework defines several core interfaces.  Beginning with
+the collection interfaces is necessary because they determine the fundamental
+nature of the collection classes.  The concrete classes simply provide
+different implementations of the standard interfaces.  The interfaces that
+underpin collections are summarized:
+</p>
+<div class="float"><a name="CollectionsInterfaces"></a>
+<dl compact="compact">
+<dt><samp>Collection</samp></dt>
+<dd><p>Enables you to work with groups of objects; it is at the top of the
+collections hierarchy.
+</p></dd>
+<dt><samp>Deque</samp></dt>
+<dd><p>Extends <samp>Queue</samp> to handle a double-ended queue.
+</p></dd>
+<dt><samp>List</samp></dt>
+<dd><p>Extends <samp>Collection</samp> to handle sequences (lists of objects).
+</p></dd>
+<dt><samp>NavigableSet</samp></dt>
+<dd><p>Extends <samp>SortedSet</samp> to handle retrieval of elements based on
+closest-match searchesl.
+</p></dd>
+<dt><samp>Queue</samp></dt>
+<dd><p>Extends <samp>Collection</samp> to handle special types of lists in which elements
+are removed only from the head.
+</p></dd>
+<dt><samp>Set</samp></dt>
+<dd><p>Extends <samp>Collection</samp> to handle sets, which must contain unique elements.
+</p></dd>
+<dt><samp>SortedSet</samp></dt>
+<dd><p>Extends <samp>Set</samp> to handle sorted sets
+</p></dd>
+</dl>
+
+<div class="float-caption"><p><strong>Table 13.1: </strong>Summary of <samp>Collection</samp> Interfaces</p></div></div>
+<p>In addition to the collection interfaces, collections also use the following
+interfaces:  
+</p>
+<ul>
+<li> <samp>Comparator</samp> (defines how two objects are compared)
+</li><li> <samp>RandomAccess</samp> (indicates that a collection supports efficient random
+access to its elements)
+</li><li> <samp>Iterator</samp> (the iterators enumerate the objects within a collection)
+</li><li> <samp>ListIterator</samp>
+</li><li> <samp>Spliterator</samp>
+</li></ul>
+
+<a name="Optional-Interface-Methods-_002d_002d_002d-Modifiable-Collections"></a>
+<h4 class="subheading">Optional Interface Methods &mdash; Modifiable Collections</h4>
+<a name="index-modifiable-collections"></a>
+<a name="index-unmodifiable-collections"></a>
+<a name="index-UnsupportedOperationException"></a>
+
+<p>To provide the greatest flexibility  in their use, the collection interfaces
+allow some methods to be optional.  The optional methods enable you to modify
+the contents of a collection.  Collections that support these methods are
+called <em>modifiable</em>.  Collections that do not allow their contents to be
+changed are called <em>unmodifiable</em>.  If an attempt is made to use one of
+these methods on an unmodifiable collection, an
+<samp>UnsupportedOperationException</samp> is thrown.  All of the built-in
+collections are modifiable.  
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Collection-Interface.html#Collection-Interface" accesskey="1">Collection Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="List-Interface.html#List-Interface" accesskey="2">List Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Set-Interface.html#Set-Interface" accesskey="3">Set Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="SortedSed-Interface.html#SortedSed-Interface" accesskey="4">SortedSed Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="NavigableSet-Interface.html#NavigableSet-Interface" accesskey="5">NavigableSet Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Queue-Interface.html#Queue-Interface" accesskey="6">Queue Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Dequeue-Interface.html#Dequeue-Interface" accesskey="7">Dequeue Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Collection-Classes.html#Collection-Classes" accesskey="n" rel="next">Collection Classes</a>, Previous: <a href="Collections-Overview.html#Collections-Overview" accesskey="p" rel="prev">Collections Overview</a>, Up: <a href="java-util-Collections.html#java-util-Collections" accesskey="u" rel="up">java util Collections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

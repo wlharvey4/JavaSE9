@@ -238,7 +238,7 @@ This file documents @value{TITLE}.
 * Generics::
 * Enumerations::
 * Strings::
-* java Lang::
+* Exploring java-lang::
 * java util Collections::
 * java util Utility Classes::
 * Input/Output java.io::
@@ -553,14 +553,40 @@ Enumerations
 @file{java.lang} includes the following interfaces
 
 * Primitive Wrappers::
+* Iterable Interface::
 
 Primitive Type Wrappers
 
 * Number::
 * Double and Float::
-* isInfiinite() and isNaN()::
+* isInfinite() and isNaN()::
 * Byte Short Integer Long::
 * Numbers to from String::
+
+Collections Framework
+
+* Collections Overview::
+* Collection Interfaces::
+* Collection Classes::
+* Accessing a Collection via Iterator::
+* Spliterators::
+* Storing User-Defined Classes::
+* RandomAccess Interface::
+* Working with Maps::
+* Comparators::
+* Collection Algorithms::
+* Arrays Class::
+* Legacy Classes and Interfaces::
+
+Optional Interface Methods --- Modifiable Collections
+
+* Collection Interface::
+* List Interface::
+* Set Interface::
+* SortedSed Interface::
+* NavigableSet Interface::
+* Queue Interface::
+* Dequeue Interface::
 
 Input/Output --- @file{java.io}
 
@@ -1995,7 +2021,7 @@ access the command-line arguments inside a Java program, access the
 @code{main()}.  The first command-line argument is stored at @code{args[0]},
 the second at @code{args[1]}, and so on.  All command-line arguments are
 passed as strings.  You must convert numeric values to their internal forms
-manually.  @xref{java Lang}.
+manually.  @xref{Exploring java-lang}.
 
 @c -----------------------------------------------------------------------------
 
@@ -7656,7 +7682,7 @@ first).
 
 
 
-@c ****************************************************************************
+@c *****************************************************************************
 
 @node Enumerations
 @chapter Enumerations
@@ -7905,17 +7931,27 @@ not just compare ordinal values in general.)
 
 
 
-@c *****************************************************************************
+@c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 @part The Java Standard Library
+
+
+
+
+@c *****************************************************************************
 
 @node Strings
 @chapter String Handling
 @cindex Strings
 @cindex String Handling
 
-@node java Lang
-@chapter @file{java.lang}
+
+
+
+@c *****************************************************************************
+
+@node Exploring java-lang
+@chapter Exploring @file{java.lang}
 @cindex @file{java.lang}
 
 Classes and interfaces defined by @file{java.lang}, which is automatically
@@ -8008,8 +8044,12 @@ fundamental to all of Java programming.  Beginning with JDK 9, all of
 @item Thread.UncaughtExceptionHandler
 @end itemize
 
+
+@c -----------------------------------------------------------------------------
+
 @menu
 * Primitive Wrappers::
+* Iterable Interface::
 @end menu
 
 @node Primitive Wrappers
@@ -8028,10 +8068,12 @@ Java provides classes that correspond to each of the primitive types.
 These classes encapsulate or @dfn{wrap} the primitive types within a
 class.  They are commonly referred to as @dfn{type wrappers}.
 
+@c .....................................
+
 @menu
 * Number::
 * Double and Float::
-* isInfiinite() and isNaN()::
+* isInfinite() and isNaN()::
 * Byte Short Integer Long::
 * Numbers to from String::
 @end menu
@@ -8039,18 +8081,83 @@ class.  They are commonly referred to as @dfn{type wrappers}.
 @node Number
 @subsection Number
 
+@c .....................................
+
 @node Double and Float
 @subsection Double and Float
 
-@node isInfiinite() and isNaN()
+@c .....................................
+
+@node isInfinite() and isNaN()
 @subsection isInfinite() and isNaN()
+
+@c .....................................
 
 @node Byte Short Integer Long
 @subsection Byte, Short, Integer, Long
 
+@c .....................................
+
 @node Numbers to from String
 @subsection Converting Numbers to and from String
 
+
+@c -----------------------------------------------------------------------------
+
+@node Iterable Interface
+@section The @file{Iterable} Interface
+@cindex @file{Iterable} Interface
+@cindex @code{for} loop, for-each version
+@cindex for-each version of @code{for} loop
+@cindex @file{Iterator} iterator
+
+@file{Iterable} must be implemented by any class whose objects will be used
+by the for-each version of the @code{for} loop.  In other words, for
+an object to be used within a for-each style @code{for} loop, its class must
+implement @file{Iterable}.  @file{Iterable} is a generic interface that has
+this declaration:
+
+@example
+interface Iterable<T>
+@end example
+
+Here, @code{T} is the type of the object being iterated.  It defines one
+abstract method, @code{iterator()}, which is declared as:
+
+@example
+Iterator<T> iterator()
+@end example
+
+It returns an iterator to the elements contained in the invoking object.
+
+@subheading @file{Iterable} Default Methods
+
+@subsubheading @code{forEach()}
+
+Beginning with JDK 8, @file{Iterable} also defines two default methods.  The
+first is called @code{forEach()}:
+
+@example
+default void forEach(Consumer<? super T> @ii{action})
+@end example
+@cindex @file{Consumer}
+@cindex JDK 8
+@cindex @file{java.util.function}
+
+For each element being iterated, @code{forEach()} executes the code specified
+by @ii{action}.  (@file{Consumer} is a functional interface added by JDK 8
+and defined in @file{java.util.function}.)
+
+@subsubheading @code{spliterator()}
+@cindex @code{spliterator()}
+
+The second default method is @code{spliterator()}:
+
+@example
+default Spliterator<T> spliterator()
+@end example
+
+It returns a @file{Spliterator} to the sequence being iterated.
 
 
 
@@ -8060,6 +8167,499 @@ class.  They are commonly referred to as @dfn{type wrappers}.
 @chapter @file{java.util} --- Part 1: The Collections Framework
 @cindex @file{java.util} Collections Framework
 
+The package @file{java.util} contains a large assortment of classes and
+interfaces that support a braod range of functionality.  For example,
+@file{java.util} has classes that
+
+@itemize
+@item
+generate pseudorandom numnbers,
+@item
+manage date and time,
+@item
+observe events,
+@item
+manipulate sets of bits,
+@item
+tokenize strings, and
+@item
+handle formatted data
+@end itemize
+
+@heading Collections Framework
+@cindex Collections Framework
+@cindex JDK 9
+
+The @file{java.util} package also contains one of Java's most powerful
+subsystems: the Collections Framework.  This is a sophisticated hierarchy of
+interfaces and classes that provide state-of-the-art technology for managing
+groups of objects.  Beginning with JDK 9, @file{java.util} is part of the
+@file{java.base} module.
+
+
+@c -----------------------------------------------------------------------------
+
+@menu
+* Collections Overview::
+* Collection Interfaces::
+* Collection Classes::
+* Accessing a Collection via Iterator::
+* Spliterators::
+* Storing User-Defined Classes::
+* RandomAccess Interface::
+* Working with Maps::
+* Comparators::
+* Collection Algorithms::
+* Arrays Class::
+* Legacy Classes and Interfaces::
+@end menu
+
+@node Collections Overview
+@section Collections Overview
+@cindex Collections overview
+@cindex J2SE 1.2
+@cindex @file{Dictionary}
+@cindex @file{Vector}
+@cindex @file{Stack}
+@cindex @file{Properties}
+
+The Java Collections Framework standardizes the way in whcih groups of
+objects are handled by programs.  Collections were not part of the original
+Java release, but were added by J2SE 1.2.  Prior to the Collections
+Framework, Java provided ad hoc classes such as @file{Dictionary},
+@file{Vector}, @file{Stack}, and @file{Properties} to stored and manipulate
+groups of objects.  These classes lacked a central unifying theme.  The way
+that you used @file{Vector} was different from the way that you used
+@file{Properties}.  This early, ad hoc approach was not designed to be easily
+extended or adapted.  Collections were an answer to these (and other)
+problems.
+
+@subheading Collections Goals
+@cindex Collections Framekwork goals
+
+The Collections Framework was designed to meet several goals.  @emph{First},
+the framework had to be high-performance.  The implementations for the
+fundamental collections (dynamic arrays, linked lists, trees, and hash
+tables) are highly efficient.  You seldom, if ever, need to code one of these
+``data engines'' manually.  @emph{Second}, the framework had to allow
+different types of collections to work in a similar manner and with a high
+degree of interoperability.  @emph{Third}, extending and/or adapting a
+collection had to be easy.  Toward this end, the entire Collections Framework
+is built upon a set of standard interfaces.  Several standard implementations
+(such as @file{LinkedList}, @file{HashSet}, and @file{TreeSet} of these
+interfaces are provided that you may use as-is.  You may also implement your
+own collection.  Various special-purpose implementations are created for your
+convenience, and some partial implementations are provided that make creating
+your own collection class easier.  @emph{Finally}, mechanisms were added that
+allow the integration of standard arrays into the Collections Framework.
+
+@enumerate
+@item
+high-performance
+@item
+interoperatibility
+@item
+standard interfaces and implementations; easily extensibible
+@item
+integration of arrays
+@end enumerate
+
+@subheading Algorithms
+@cindex Algorithms, Collections Framework
+
+@dfn{Algorithms} are another important part of the collection mechanism.
+Algorithms operate on collections and are defined as static methods within
+the @file{Collections} class.  Thus, they are available for all collections.
+Each collection class need not implement its own versions.  The algorithms
+provide a standard means of manipulating collections.
+
+@subheading @file{Iterator} Interface
+@cindex @file{Iterator} interface
+@cindex iterator
+
+Antoher item closely associated with the Collections Framework is the
+@file{Iterator} interface.  An @dfn{iterator} offers a general-purpose
+standardized way of accessing the elements within a collection, one at a
+time.  Thus, an iterator provides a means of @emph{enumerating the contents
+of a collection}.  Because each collection provides an iterator, the elements
+of any collection class can be accessed through the methods defined by
+@file{Iterator}.  Thus, with only small changes, the code that cycles through
+a set can also be used to cycle through a list.
+
+@subheading @file{Splitarator}
+@cindex @file{Spliterator}
+@cindex @file{PrimitiveIterator}
+@cindex @file{PrimitiveIterator.OfDouble}
+@cindex JDK 8
+@cindex primitive type iterators
+@cindex iterators, primitive types
+
+JDK 8 added another type of iterator called a @dfn{spliterator}.  These are
+iterators that provide support for parallel iteration.  The interfaces that
+support spliterators are @file{Spliterator} and several nested interfaces
+that support primitive types.  JDK 8 also added iterator interfaces designed
+for use with primitive types such as @file{PrimitiveIterator} and
+@file{PrimitiveIterator.OfDouble}.  
+
+@subheading Map Interfaces and Classes
+@cindex maps
+@cindex collection-view of a map
+
+In addition to collections, the framework defines several map interfaces and
+classes.  @dfn{Maps} store key/value pairs.  Although maps are part of the
+Collections Framework, they are not ``collections'' in the strict use of the
+term.  You can, however, obtain a @dfn{collection-view} of a map.  Such a
+view contains the elements from the map stored in a collection.  Thus, you
+can process the contents of a map as a collection.
+
+
+@c -----------------------------------------------------------------------------
+
+@node Collection Interfaces
+@section The Collection Interfaces
+@cindex Collection Interfaces
+
+The Collections Framework defines several core interfaces.  Beginning with
+the collection interfaces is necessary because they determine the fundamental
+nature of the collection classes.  The concrete classes simply provide
+different implementations of the standard interfaces.  The interfaces that
+underpin collections are summarized:
+
+@float Table,CollectionsInterfaces
+@table @file
+@item Collection
+Enables you to work with groups of objects; it is at the top of the
+collections hierarchy.
+@item Deque
+Extends @file{Queue} to handle a double-ended queue.
+@item List
+Extends @file{Collection} to handle sequences (lists of objects).
+@item NavigableSet
+Extends @file{SortedSet} to handle retrieval of elements based on
+closest-match searchesl.
+@item Queue
+Extends @file{Collection} to handle special types of lists in which elements
+are removed only from the head.
+@item Set
+Extends @file{Collection} to handle sets, which must contain unique elements.
+@item SortedSet
+Extends @file{Set} to handle sorted sets
+@end table
+@caption{Summary of @file{Collection} Interfaces}
+@end float
+
+In addition to the collection interfaces, collections also use the following
+interfaces:  
+
+@itemize
+@item
+@file{Comparator} (defines how two objects are compared)
+@item
+@file{RandomAccess} (indicates that a collection supports efficient random
+access to its elements)
+@item
+@file{Iterator} (the iterators enumerate the objects within a collection)
+@item
+@file{ListIterator}
+@item
+@file{Spliterator}
+@end itemize
+
+@subheading Optional Interface Methods --- Modifiable Collections
+@cindex modifiable collections
+@cindex unmodifiable collections
+@cindex UnsupportedOperationException
+
+To provide the greatest flexibility  in their use, the collection interfaces
+allow some methods to be optional.  The optional methods enable you to modify
+the contents of a collection.  Collections that support these methods are
+called @dfn{modifiable}.  Collections that do not allow their contents to be
+changed are called @dfn{unmodifiable}.  If an attempt is made to use one of
+these methods on an unmodifiable collection, an
+@file{UnsupportedOperationException} is thrown.  All of the built-in
+collections are modifiable.  
+
+@c .....................................
+
+@menu
+* Collection Interface::
+* List Interface::
+* Set Interface::
+* SortedSed Interface::
+* NavigableSet Interface::
+* Queue Interface::
+* Dequeue Interface::
+@end menu
+
+@node Collection Interface
+@subsection The @file{Collection} Interface
+@cindex @file{Collection} interface
+
+The @file{Collection} interface is the foundation upon which the Collections
+Framework is build because it must be implemented by any class that defines a
+collection.  @file{Collection} is a generic interface that has this
+declaration:
+
+@example
+interface Collection<E>
+@end example
+
+Here, @code{E} specifies the type of objects that the collection will hold.
+@file{Collections} extends the @file{Iterable} interface.  This means that
+all collections can be cycled through by use of their for-each style
+@code{for} loop.  (Only classes that implement @file{Iterable} can be cycled
+through by the @code{for}.  @xref{Iterable Interface}.)
+
+@subheading Collection Core Methods
+
+@file{Collection} declares the core methods that all collecitons will have.
+These methods are summarized in @ref{CollectionsCoreMethods}.  Because all
+collections implement @file{Collection}, familiarity with its methods is
+necessary for a clear understanding of the framework.  Several of these
+methods can throw an @file{UnsupportedOperationException}.  This occurs if a
+collection cannot be modified.  A @file{ClassCastException} is generated when
+one object is incompatible with another, such as when an attempt is made to
+add an incompatible object to a collection.  A @file{NullPointerException} is
+thrown if an attempt is made to store a @code{null} object and @code{null}
+elements are not allowed in the collection.  An
+@file{IllegalArgumentException} is thrown if an invalid argument is used.  An
+@file{IllegalStateException} is thrown if an attempt is made to add an
+element to a fixed-length collection that is full.
+
+@float Table,CollectionsCoreMethods
+@multitable @columnfractions 0.4 0.6
+@item
+boolean add(E @ii{obj}) @tab Adds @ii{obj} to the invoking collection.
+Returns @code{true} if @ii{obj} was added to the collection.  Returns
+@code{false} if @ii{obj} is already a member of the collection and the
+collection does not allow duplicates
+@item
+boolean addAll(Collection<? extends E> @ii{c}) @tab Adds all the elements of
+@ii{c} to the invoking collection.  Returns @code{true} if the collection
+changed (i.e., the elements were added).  Otherwise, returns @code{false}.
+@end multitable
+@caption{The Methods Declared by @file{Collection}}
+@FIXME{continue adding methods}
+@end float
+
+@subheading Adding and Removing Objects to and from Collections
+@cindex @code{add()}
+@cindex @code{addAll()}
+@cindex @code{remove()}
+@cindex @code{removeAll()}
+@cindex @code{retainAll()}
+@cindex @code{removeIf()}
+@cindex @code{clear()}
+
+Objects are added to a collection by calling @code{add()}  Notice that
+@code{add()} takes an argument of type @code{E}, whcih means that objects
+added to a collection must be compatible with the type of data expected by
+the collection.  You can add the entire contents of one collection to another
+by called @code{addAll()}.
+
+You can remove an object by using @code{remove()}.  To remove a group of
+objects, call @code{removeAll()}.  You can remove all elements except those
+of a specified group by calling @code{retainAll()}.  To remove an element
+only if it satisfies some condition,you cna use @code{removeIf()}.  To empty
+a collection, call @code{clear()}.
+
+@subheading Determine Whether a Collection Contains an Object
+@cindex @code{contains()}
+@cindex @code{containsAll()}
+@cindex @code{isEmpty()}
+@cindex @code{size()}
+
+You can determine whether a collection contains a specific object by calling
+@code{contains()}.  To determine whether one collection contains all the
+members of another, call @code{containsAll()}.  You can determine when a
+collection is empty by calling @code{isEmpty()}.  The number of elements
+currently held in a collection can be determined by calling @code{size()}.
+
+@subheading @code{toArray()} Methods
+@cindex @code{toArray()}
+
+@example
+Object[] toArray()
+<T> T[] toArray(T @ii{array}[])
+@end example
+
+The @code{toArray()} methods return an array that contains the elements
+stored in the collection.  The first returns an array of @file{Object}.  The
+second returns an array of elements that have the same type as the array
+specified as a parameter.  Normally, the second form is more convenient
+because it returns the desired array type.  Often, processing the contents of
+a collection by using array-like syntax is advantageous.  By providing a
+pathway between collections and arrays, you have the best of both.
+
+@subheading Comparing Collections
+@cindex @code{equals()}
+
+Two collections can be compared for equality by called @code{equals()}.  The
+precise meaning of ``equality'' may differ from collection to collection.  
+
+@subheading Collection Iterators
+@cindex @code{iterator()}
+@cindex @code{spliterator()}
+@cindex @code{stream()}
+@cindex @code{parallelStream()}
+@cindex @file{Stream}
+
+Another important method is @code{iterator()}, which returns an iterator to a
+collection.  The @code{spliterator()} methods returns a spliterator to the
+collection.  Iterators are frequently used when working with collections.
+Finally, the @code{stream()} and @code{parallelStream()} methods return a
+@file{Stream} that uses the collection as a source of elements.
+
+@c .....................................
+
+@node List Interface
+@subsection The @file{List} Interface
+@cindex @file{List} interface
+
+@c .....................................
+
+@node Set Interface
+@subsection The @file{Set} Interface
+@cindex @file{Set} Interface
+
+@c .....................................
+
+@node SortedSed Interface
+@subsection The @file{SortedSet} Interface
+@cindex @file{SortedSet} interface
+
+@c .....................................
+
+@node NavigableSet Interface
+@subsection The @file{NavigableSet} Interface
+@cindex @file{NavigableSet} interface
+
+@c .....................................
+
+@node Queue Interface
+@subsection The @file{Queue} Interface
+@cindex @file{Queue} interface
+
+@c .....................................
+
+@node Dequeue Interface
+@subsection The @file{Dequeue} Interface
+@cindex @file{Dequeue} Interface
+
+
+@c -----------------------------------------------------------------------------
+
+@node Collection Classes
+@section The Collection Classes
+@cindex Collection Classes
+
+Some collection classes provide full implementations that can be used as-is.
+Others are abstract, providing skeletal implementations that are used as
+starting points for creating concrete collections.  As a general rule, the
+collection classes are not synchronized, but it is possible to obtain
+synchronized version.
+
+@heading Core Collection Classes
+
+@float Table,CollectionCoreClasses
+@multitable @columnfractions 0.4 0.6
+@item
+AbstractCollection @tab Implements most of the @file{Collections} interface
+@item
+AbstractList @tab Extends @file{AbstractCollection} and implments most of the
+@file{List} interface
+@item
+AbstractQueue @tab Extends @file{AbstractCollection} and implements parts of
+the @file{Queue} interface
+@item
+@FIXME{Complete entering Classes}
+@end multitable
+@caption{Collection Core Classes}
+@end float
+
+
+
+
+@c -----------------------------------------------------------------------------
+
+@node Accessing a Collection via Iterator
+@section Accessing a Collection via an Interator
+@cindex Iterator, accessing a Collection
+
+Often you will want to cycle through the elements in a collection.  One way
+to do this is to employ an @dfn{iterator}, which is an object that implements
+either the @file{Iterator} of the @file{ListIterator} interface.
+@file{Iterator} enables you to cycle through a collection, obtaining or
+removing elements.  @file{ListIterator} extends @file{Iterator} to allow
+bidirectional traversal of a list, and the modification of elements.
+@file{Iterator} and @file{ListIterator} are generic interfaces which are
+declared as shown:
+
+@example
+interface Iterator<E>
+interface ListIterator<E>
+@end example
+
+@noindent
+Here, @code{E} specifies the type of objects being iterated.  
+
+
+@c -----------------------------------------------------------------------------
+
+@node Spliterators
+@section Spliterators
+@cindex Spliterators
+
+
+@c -----------------------------------------------------------------------------
+
+@node Storing User-Defined Classes
+@section Storing User-Defined Classes in Collections
+@cindex User-Defined Classes, storing in Collections
+
+
+@c -----------------------------------------------------------------------------
+
+@node RandomAccess Interface
+@section RandomAccess Interface
+@cindex RandomAccess Interface
+
+
+@c -----------------------------------------------------------------------------
+
+@node Working with Maps
+@section Working with Maps
+@cindex Maps, working with
+
+
+@c -----------------------------------------------------------------------------
+
+@node Comparators
+@section Comparators
+@cindex Comparators
+
+
+@c -----------------------------------------------------------------------------
+
+@node Collection Algorithms
+@section The Collection Algorithms
+@cindex Collection Algorithms
+
+
+@c -----------------------------------------------------------------------------
+
+@node Arrays Class
+@section Arrays Class
+@cindex Arrays Class
+
+
+@c -----------------------------------------------------------------------------
+
+@node Legacy Classes and Interfaces
+@section Legacy Classes and Interfaces
+@cindex legacy classes and interfaces, Collections
+
+
 
 
 @c *****************************************************************************
@@ -8067,6 +8667,8 @@ class.  They are commonly referred to as @dfn{type wrappers}.
 @node java util Utility Classes
 @chapter @file{java.util} --- Part 2: Utility Classes
 @cindex @file{java.util} Utility Classes
+
+
 
 
 @c *****************************************************************************

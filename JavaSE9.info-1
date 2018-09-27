@@ -22,7 +22,7 @@ This file documents Outline Covering Java SE 9.
 * Generics::
 * Enumerations::
 * Strings::
-* java Lang::
+* Exploring java-lang::
 * java util Collections::
 * java util Utility Classes::
 * Input/Output java.io::
@@ -336,14 +336,40 @@ Enumerations
 'java.lang' includes the following interfaces
 
 * Primitive Wrappers::
+* Iterable Interface::
 
 Primitive Type Wrappers
 
 * Number::
 * Double and Float::
-* isInfiinite() and isNaN()::
+* isInfinite() and isNaN()::
 * Byte Short Integer Long::
 * Numbers to from String::
+
+Collections Framework
+
+* Collections Overview::
+* Collection Interfaces::
+* Collection Classes::
+* Accessing a Collection via Iterator::
+* Spliterators::
+* Storing User-Defined Classes::
+* RandomAccess Interface::
+* Working with Maps::
+* Comparators::
+* Collection Algorithms::
+* Arrays Class::
+* Legacy Classes and Interfaces::
+
+Optional Interface Methods -- Modifiable Collections
+
+* Collection Interface::
+* List Interface::
+* Set Interface::
+* SortedSed Interface::
+* NavigableSet Interface::
+* Queue Interface::
+* Dequeue Interface::
 
 Input/Output -- 'java.io'
 
@@ -1497,7 +1523,7 @@ To access the command-line arguments inside a Java program, access the
 first command-line argument is stored at 'args[0]', the second at
 'args[1]', and so on.  All command-line arguments are passed as
 strings.  You must convert numeric values to their internal forms
-manually.  *Note java Lang::.
+manually.  *Note Exploring java-lang::.
 
 
 File: JavaSE9.info,  Node: Varargs,  Prev: Command-Line Arguments,  Up: Methods and Classes
@@ -5874,16 +5900,16 @@ same enumeration.  (In other words, 'equals' does not just compare
 ordinal values in general.)
 
 
-File: JavaSE9.info,  Node: Strings,  Next: java Lang,  Prev: Enumerations,  Up: Top
+File: JavaSE9.info,  Node: Strings,  Next: Exploring java-lang,  Prev: Enumerations,  Up: Top
 
 11 String Handling
 ******************
 
 
-File: JavaSE9.info,  Node: java Lang,  Next: java util Collections,  Prev: Strings,  Up: Top
+File: JavaSE9.info,  Node: Exploring java-lang,  Next: java util Collections,  Prev: Strings,  Up: Top
 
-12 'java.lang'
-**************
+12 Exploring 'java.lang'
+************************
 
 Classes and interfaces defined by 'java.lang', which is automatically
 imported into all programs.  Contains classes and interfaces that are
@@ -5958,9 +5984,10 @@ fundamental to all of Java programming.  Beginning with JDK 9, all of
 * Menu:
 
 * Primitive Wrappers::
+* Iterable Interface::
 
 
-File: JavaSE9.info,  Node: Primitive Wrappers,  Up: java Lang
+File: JavaSE9.info,  Node: Primitive Wrappers,  Next: Iterable Interface,  Up: Exploring java-lang
 
 12.1 Primitive Type Wrappers
 ============================
@@ -5979,7 +6006,7 @@ a class.  They are commonly referred to as "type wrappers".
 
 * Number::
 * Double and Float::
-* isInfiinite() and isNaN()::
+* isInfinite() and isNaN()::
 * Byte Short Integer Long::
 * Numbers to from String::
 
@@ -5990,19 +6017,19 @@ File: JavaSE9.info,  Node: Number,  Next: Double and Float,  Up: Primitive Wrapp
 -------------
 
 
-File: JavaSE9.info,  Node: Double and Float,  Next: isInfiinite() and isNaN(),  Prev: Number,  Up: Primitive Wrappers
+File: JavaSE9.info,  Node: Double and Float,  Next: isInfinite() and isNaN(),  Prev: Number,  Up: Primitive Wrappers
 
 12.1.2 Double and Float
 -----------------------
 
 
-File: JavaSE9.info,  Node: isInfiinite() and isNaN(),  Next: Byte Short Integer Long,  Prev: Double and Float,  Up: Primitive Wrappers
+File: JavaSE9.info,  Node: isInfinite() and isNaN(),  Next: Byte Short Integer Long,  Prev: Double and Float,  Up: Primitive Wrappers
 
 12.1.3 isInfinite() and isNaN()
 -------------------------------
 
 
-File: JavaSE9.info,  Node: Byte Short Integer Long,  Next: Numbers to from String,  Prev: isInfiinite() and isNaN(),  Up: Primitive Wrappers
+File: JavaSE9.info,  Node: Byte Short Integer Long,  Next: Numbers to from String,  Prev: isInfinite() and isNaN(),  Up: Primitive Wrappers
 
 12.1.4 Byte, Short, Integer, Long
 ---------------------------------
@@ -6014,10 +6041,482 @@ File: JavaSE9.info,  Node: Numbers to from String,  Prev: Byte Short Integer Lon
 --------------------------------------------
 
 
-File: JavaSE9.info,  Node: java util Collections,  Next: java util Utility Classes,  Prev: java Lang,  Up: Top
+File: JavaSE9.info,  Node: Iterable Interface,  Prev: Primitive Wrappers,  Up: Exploring java-lang
+
+12.2 The 'Iterable' Interface
+=============================
+
+'Iterable' must be implemented by any class whose objects will be used
+by the for-each version of the 'for' loop.  In other words, for an
+object to be used within a for-each style 'for' loop, its class must
+implement 'Iterable'.  'Iterable' is a generic interface that has this
+declaration:
+
+     interface Iterable<T>
+
+   Here, 'T' is the type of the object being iterated.  It defines one
+abstract method, 'iterator()', which is declared as:
+
+     Iterator<T> iterator()
+
+   It returns an iterator to the elements contained in the invoking
+object.
+
+'Iterable' Default Methods
+--------------------------
+
+'forEach()'
+...........
+
+Beginning with JDK 8, 'Iterable' also defines two default methods.
+The first is called 'forEach()':
+
+     default void forEach(Consumer<? super T> action)
+
+   For each element being iterated, 'forEach()' executes the code
+specified by action.  ('Consumer' is a functional interface added by
+JDK 8 and defined in 'java.util.function'.)
+
+'spliterator()'
+...............
+
+The second default method is 'spliterator()':
+
+     default Spliterator<T> spliterator()
+
+   It returns a 'Spliterator' to the sequence being iterated.
+
+
+File: JavaSE9.info,  Node: java util Collections,  Next: java util Utility Classes,  Prev: Exploring java-lang,  Up: Top
 
 13 'java.util' -- Part 1: The Collections Framework
 ***************************************************
+
+The package 'java.util' contains a large assortment of classes and
+interfaces that support a braod range of functionality.  For example,
+'java.util' has classes that
+
+   * generate pseudorandom numnbers,
+   * manage date and time,
+   * observe events,
+   * manipulate sets of bits,
+   * tokenize strings, and
+   * handle formatted data
+
+Collections Framework
+=====================
+
+The 'java.util' package also contains one of Java's most powerful
+subsystems: the Collections Framework.  This is a sophisticated
+hierarchy of interfaces and classes that provide state-of-the-art
+technology for managing groups of objects.  Beginning with JDK 9,
+'java.util' is part of the 'java.base' module.
+
+* Menu:
+
+* Collections Overview::
+* Collection Interfaces::
+* Collection Classes::
+* Accessing a Collection via Iterator::
+* Spliterators::
+* Storing User-Defined Classes::
+* RandomAccess Interface::
+* Working with Maps::
+* Comparators::
+* Collection Algorithms::
+* Arrays Class::
+* Legacy Classes and Interfaces::
+
+
+File: JavaSE9.info,  Node: Collections Overview,  Next: Collection Interfaces,  Up: java util Collections
+
+13.1 Collections Overview
+=========================
+
+The Java Collections Framework standardizes the way in whcih groups of
+objects are handled by programs.  Collections were not part of the
+original Java release, but were added by J2SE 1.2.  Prior to the
+Collections Framework, Java provided ad hoc classes such as
+'Dictionary', 'Vector', 'Stack', and 'Properties' to stored and
+manipulate groups of objects.  These classes lacked a central unifying
+theme.  The way that you used 'Vector' was different from the way that
+you used 'Properties'.  This early, ad hoc approach was not designed
+to be easily extended or adapted.  Collections were an answer to these
+(and other) problems.
+
+Collections Goals
+-----------------
+
+The Collections Framework was designed to meet several goals.
+_First_, the framework had to be high-performance.  The
+implementations for the fundamental collections (dynamic arrays,
+linked lists, trees, and hash tables) are highly efficient.  You
+seldom, if ever, need to code one of these "data engines" manually.
+_Second_, the framework had to allow different types of collections to
+work in a similar manner and with a high degree of interoperability.
+_Third_, extending and/or adapting a collection had to be easy.
+Toward this end, the entire Collections Framework is built upon a set
+of standard interfaces.  Several standard implementations (such as
+'LinkedList', 'HashSet', and 'TreeSet' of these interfaces are
+provided that you may use as-is.  You may also implement your own
+collection.  Various special-purpose implementations are created for
+your convenience, and some partial implementations are provided that
+make creating your own collection class easier.  _Finally_, mechanisms
+were added that allow the integration of standard arrays into the
+Collections Framework.
+
+  1. high-performance
+  2. interoperatibility
+  3. standard interfaces and implementations; easily extensibible
+  4. integration of arrays
+
+Algorithms
+----------
+
+"Algorithms" are another important part of the collection mechanism.
+Algorithms operate on collections and are defined as static methods
+within the 'Collections' class.  Thus, they are available for all
+collections.  Each collection class need not implement its own
+versions.  The algorithms provide a standard means of manipulating
+collections.
+
+'Iterator' Interface
+--------------------
+
+Antoher item closely associated with the Collections Framework is the
+'Iterator' interface.  An "iterator" offers a general-purpose
+standardized way of accessing the elements within a collection, one at
+a time.  Thus, an iterator provides a means of _enumerating the
+contents of a collection_.  Because each collection provides an
+iterator, the elements of any collection class can be accessed through
+the methods defined by 'Iterator'.  Thus, with only small changes, the
+code that cycles through a set can also be used to cycle through a
+list.
+
+'Splitarator'
+-------------
+
+JDK 8 added another type of iterator called a "spliterator".  These
+are iterators that provide support for parallel iteration.  The
+interfaces that support spliterators are 'Spliterator' and several
+nested interfaces that support primitive types.  JDK 8 also added
+iterator interfaces designed for use with primitive types such as
+'PrimitiveIterator' and 'PrimitiveIterator.OfDouble'.
+
+Map Interfaces and Classes
+--------------------------
+
+In addition to collections, the framework defines several map
+interfaces and classes.  "Maps" store key/value pairs.  Although maps
+are part of the Collections Framework, they are not "collections" in
+the strict use of the term.  You can, however, obtain a
+"collection-view" of a map.  Such a view contains the elements from
+the map stored in a collection.  Thus, you can process the contents of
+a map as a collection.
+
+
+File: JavaSE9.info,  Node: Collection Interfaces,  Next: Collection Classes,  Prev: Collections Overview,  Up: java util Collections
+
+13.2 The Collection Interfaces
+==============================
+
+The Collections Framework defines several core interfaces.  Beginning
+with the collection interfaces is necessary because they determine the
+fundamental nature of the collection classes.  The concrete classes
+simply provide different implementations of the standard interfaces.
+The interfaces that underpin collections are summarized:
+
+'Collection'
+     Enables you to work with groups of objects; it is at the top of
+     the collections hierarchy.
+'Deque'
+     Extends 'Queue' to handle a double-ended queue.
+'List'
+     Extends 'Collection' to handle sequences (lists of objects).
+'NavigableSet'
+     Extends 'SortedSet' to handle retrieval of elements based on
+     closest-match searchesl.
+'Queue'
+     Extends 'Collection' to handle special types of lists in which
+     elements are removed only from the head.
+'Set'
+     Extends 'Collection' to handle sets, which must contain unique
+     elements.
+'SortedSet'
+     Extends 'Set' to handle sorted sets
+
+Table 13.1: Summary of 'Collection' Interfaces
+
+   In addition to the collection interfaces, collections also use the
+following interfaces:
+
+   * 'Comparator' (defines how two objects are compared)
+   * 'RandomAccess' (indicates that a collection supports efficient
+     random access to its elements)
+   * 'Iterator' (the iterators enumerate the objects within a
+     collection)
+   * 'ListIterator'
+   * 'Spliterator'
+
+Optional Interface Methods -- Modifiable Collections
+----------------------------------------------------
+
+To provide the greatest flexibility in their use, the collection
+interfaces allow some methods to be optional.  The optional methods
+enable you to modify the contents of a collection.  Collections that
+support these methods are called "modifiable".  Collections that do
+not allow their contents to be changed are called "unmodifiable".  If
+an attempt is made to use one of these methods on an unmodifiable
+collection, an 'UnsupportedOperationException' is thrown.  All of the
+built-in collections are modifiable.
+
+* Menu:
+
+* Collection Interface::
+* List Interface::
+* Set Interface::
+* SortedSed Interface::
+* NavigableSet Interface::
+* Queue Interface::
+* Dequeue Interface::
+
+
+File: JavaSE9.info,  Node: Collection Interface,  Next: List Interface,  Up: Collection Interfaces
+
+13.2.1 The 'Collection' Interface
+---------------------------------
+
+The 'Collection' interface is the foundation upon which the
+Collections Framework is build because it must be implemented by any
+class that defines a collection.  'Collection' is a generic interface
+that has this declaration:
+
+     interface Collection<E>
+
+   Here, 'E' specifies the type of objects that the collection will
+hold.  'Collections' extends the 'Iterable' interface.  This means
+that all collections can be cycled through by use of their for-each
+style 'for' loop.  (Only classes that implement 'Iterable' can be
+cycled through by the 'for'.  *Note Iterable Interface::.)
+
+Collection Core Methods
+-----------------------
+
+'Collection' declares the core methods that all collecitons will have.
+These methods are summarized in *note Table 13.2:
+CollectionsCoreMethods.  Because all collections implement
+'Collection', familiarity with its methods is necessary for a clear
+understanding of the framework.  Several of these methods can throw an
+'UnsupportedOperationException'.  This occurs if a collection cannot
+be modified.  A 'ClassCastException' is generated when one object is
+incompatible with another, such as when an attempt is made to add an
+incompatible object to a collection.  A 'NullPointerException' is
+thrown if an attempt is made to store a 'null' object and 'null'
+elements are not allowed in the collection.  An
+'IllegalArgumentException' is thrown if an invalid argument is used.
+An 'IllegalStateException' is thrown if an attempt is made to add an
+element to a fixed-length collection that is full.
+
+boolean add(E obj)           Adds obj to the invoking collection.
+                             Returns 'true' if obj was added to the
+                             collection.  Returns 'false' if obj is
+                             already a member of the collection and
+                             the collection does not allow duplicates
+boolean                      Adds all the elements of c to the
+addAll(Collection<?          invoking collection.  Returns 'true' if
+extends E> c)                the collection changed (i.e., the
+                             elements were added).  Otherwise,
+                             returns 'false'.
+*FIXME*: continue adding methods
+
+Table 13.2: The Methods Declared by 'Collection'
+
+Adding and Removing Objects to and from Collections
+---------------------------------------------------
+
+Objects are added to a collection by calling 'add()' Notice that
+'add()' takes an argument of type 'E', whcih means that objects added
+to a collection must be compatible with the type of data expected by
+the collection.  You can add the entire contents of one collection to
+another by called 'addAll()'.
+
+   You can remove an object by using 'remove()'.  To remove a group of
+objects, call 'removeAll()'.  You can remove all elements except those
+of a specified group by calling 'retainAll()'.  To remove an element
+only if it satisfies some condition,you cna use 'removeIf()'.  To
+empty a collection, call 'clear()'.
+
+Determine Whether a Collection Contains an Object
+-------------------------------------------------
+
+You can determine whether a collection contains a specific object by
+calling 'contains()'.  To determine whether one collection contains
+all the members of another, call 'containsAll()'.  You can determine
+when a collection is empty by calling 'isEmpty()'.  The number of
+elements currently held in a collection can be determined by calling
+'size()'.
+
+'toArray()' Methods
+-------------------
+
+     Object[] toArray()
+     <T> T[] toArray(T array[])
+
+   The 'toArray()' methods return an array that contains the elements
+stored in the collection.  The first returns an array of 'Object'.
+The second returns an array of elements that have the same type as the
+array specified as a parameter.  Normally, the second form is more
+convenient because it returns the desired array type.  Often,
+processing the contents of a collection by using array-like syntax is
+advantageous.  By providing a pathway between collections and arrays,
+you have the best of both.
+
+Comparing Collections
+---------------------
+
+Two collections can be compared for equality by called 'equals()'.
+The precise meaning of "equality" may differ from collection to
+collection.
+
+Collection Iterators
+--------------------
+
+Another important method is 'iterator()', which returns an iterator to
+a collection.  The 'spliterator()' methods returns a spliterator to
+the collection.  Iterators are frequently used when working with
+collections.  Finally, the 'stream()' and 'parallelStream()' methods
+return a 'Stream' that uses the collection as a source of elements.
+
+
+File: JavaSE9.info,  Node: List Interface,  Next: Set Interface,  Prev: Collection Interface,  Up: Collection Interfaces
+
+13.2.2 The 'List' Interface
+---------------------------
+
+
+File: JavaSE9.info,  Node: Set Interface,  Next: SortedSed Interface,  Prev: List Interface,  Up: Collection Interfaces
+
+13.2.3 The 'Set' Interface
+--------------------------
+
+
+File: JavaSE9.info,  Node: SortedSed Interface,  Next: NavigableSet Interface,  Prev: Set Interface,  Up: Collection Interfaces
+
+13.2.4 The 'SortedSet' Interface
+--------------------------------
+
+
+File: JavaSE9.info,  Node: NavigableSet Interface,  Next: Queue Interface,  Prev: SortedSed Interface,  Up: Collection Interfaces
+
+13.2.5 The 'NavigableSet' Interface
+-----------------------------------
+
+
+File: JavaSE9.info,  Node: Queue Interface,  Next: Dequeue Interface,  Prev: NavigableSet Interface,  Up: Collection Interfaces
+
+13.2.6 The 'Queue' Interface
+----------------------------
+
+
+File: JavaSE9.info,  Node: Dequeue Interface,  Prev: Queue Interface,  Up: Collection Interfaces
+
+13.2.7 The 'Dequeue' Interface
+------------------------------
+
+
+File: JavaSE9.info,  Node: Collection Classes,  Next: Accessing a Collection via Iterator,  Prev: Collection Interfaces,  Up: java util Collections
+
+13.3 The Collection Classes
+===========================
+
+Some collection classes provide full implementations that can be used
+as-is.  Others are abstract, providing skeletal implementations that
+are used as starting points for creating concrete collections.  As a
+general rule, the collection classes are not synchronized, but it is
+possible to obtain synchronized version.
+
+Core Collection Classes
+=======================
+
+AbstractCollection           Implements most of the 'Collections'
+                             interface
+AbstractList                 Extends 'AbstractCollection' and
+                             implments most of the 'List' interface
+AbstractQueue                Extends 'AbstractCollection' and
+                             implements parts of the 'Queue'
+                             interface
+*FIXME*: Complete entering
+Classes
+
+Table 13.3: Collection Core Classes
+
+
+File: JavaSE9.info,  Node: Accessing a Collection via Iterator,  Next: Spliterators,  Prev: Collection Classes,  Up: java util Collections
+
+13.4 Accessing a Collection via an Interator
+============================================
+
+Often you will want to cycle through the elements in a collection.
+One way to do this is to employ an "iterator", which is an object that
+implements either the 'Iterator' of the 'ListIterator' interface.
+'Iterator' enables you to cycle through a collection, obtaining or
+removing elements.  'ListIterator' extends 'Iterator' to allow
+bidirectional traversal of a list, and the modification of elements.
+'Iterator' and 'ListIterator' are generic interfaces which are
+declared as shown:
+
+     interface Iterator<E>
+     interface ListIterator<E>
+
+Here, 'E' specifies the type of objects being iterated.
+
+
+File: JavaSE9.info,  Node: Spliterators,  Next: Storing User-Defined Classes,  Prev: Accessing a Collection via Iterator,  Up: java util Collections
+
+13.5 Spliterators
+=================
+
+
+File: JavaSE9.info,  Node: Storing User-Defined Classes,  Next: RandomAccess Interface,  Prev: Spliterators,  Up: java util Collections
+
+13.6 Storing User-Defined Classes in Collections
+================================================
+
+
+File: JavaSE9.info,  Node: RandomAccess Interface,  Next: Working with Maps,  Prev: Storing User-Defined Classes,  Up: java util Collections
+
+13.7 RandomAccess Interface
+===========================
+
+
+File: JavaSE9.info,  Node: Working with Maps,  Next: Comparators,  Prev: RandomAccess Interface,  Up: java util Collections
+
+13.8 Working with Maps
+======================
+
+
+File: JavaSE9.info,  Node: Comparators,  Next: Collection Algorithms,  Prev: Working with Maps,  Up: java util Collections
+
+13.9 Comparators
+================
+
+
+File: JavaSE9.info,  Node: Collection Algorithms,  Next: Arrays Class,  Prev: Comparators,  Up: java util Collections
+
+13.10 The Collection Algorithms
+===============================
+
+
+File: JavaSE9.info,  Node: Arrays Class,  Next: Legacy Classes and Interfaces,  Prev: Collection Algorithms,  Up: java util Collections
+
+13.11 Arrays Class
+==================
+
+
+File: JavaSE9.info,  Node: Legacy Classes and Interfaces,  Prev: Arrays Class,  Up: java util Collections
+
+13.12 Legacy Classes and Interfaces
+===================================
 
 
 File: JavaSE9.info,  Node: java util Utility Classes,  Next: Input/Output java.io,  Prev: java util Collections,  Up: Top
@@ -8380,572 +8879,4 @@ corresponding to 'java.util.HashSet'.
 
    (1) There is a unique console associated with the virtual machine
 which is returned by the 'static' method 'System.console()'.
-
-
-File: JavaSE9.info,  Node: .class Syntax,  Next: Class.forName() and Class.getName() Methods,  Prev: Object.getClass,  Up: Retrieving Class Objects
-
-25.2.2.2 The '.class' Syntax
-............................
-
-If the type is available, but there is no instance, then it is
-possible to obtain a 'Class' by appending '.class' to the name of the
-type.  This is also the easiest way to obtain the 'Class' for a
-primitive type.
-
-Primitive.class
-...............
-
-     boolean b;
-     Class c = b.getClass();	 // compile-time error
-     Class c = boolean.class; // correct
-
-The statement 'boolean.getClass()' would produce a compile-time error
-because a 'boolean' is a primitive type and cannot be dereferenced.
-The '.class' syntax returns the 'Class' corresponding to the type
-'boolean'.
-
-Type.class
-..........
-
-     Class c = java.io.PrintStream.class;
-
-The variable 'c' will be the 'Class' corresponding to the type
-'java.io.PrintStream'.
-
-Multi-dimensional Array
-.......................
-
-     Class c = int[][].class;
-
-The '.class' syntax may be used to retrieve a 'Class' corresonding to
-a multi-dimensional array of a given type.
-
-
-File: JavaSE9.info,  Node: Class.forName() and Class.getName() Methods,  Next: TYPE Field for Primitive Wrappers,  Prev: .class Syntax,  Up: Retrieving Class Objects
-
-25.2.2.3 'Class.forName()' and 'Class.getName()' Methods
-........................................................
-
-If the fully-qualified name of a class is available, it is possible to
-get the corresponding 'Class' using the 'static' method
-'Class.forName()'.  This cannot be used for primitive types.
-
-   The syntax for names of array classes is described by
-'Class.getName()'.  This syntax is applicable to references and
-primitive types.
-
-'forName()'
-...........
-
-     Class c = Class.forName("com.duke.MyLocalServiceProvider");
-
-This statement will create a class from the given fully-qualified
-name.
-
-'getName()'
-...........
-
-*FIXME*: should these be 'getName()' instead of 'forName()'?
-
-     Class cDoubleArray = Class.forName("[D");
-     Class cStringArray = Class.forName("[[Ljava.lang.String;");
-
-The variable 'cDoubleArray' will contain the 'Class' corresponding to
-an array of primitive type 'double' (i.e., the same as
-'double[].class'.  The 'cStringArray' variable will contain the
-'Class' corresponding to a two-dimensional array of 'String' (i.e.,
-identical to String[][].class).
-
-
-File: JavaSE9.info,  Node: TYPE Field for Primitive Wrappers,  Next: Methods that Return Classes,  Prev: Class.forName() and Class.getName() Methods,  Up: Retrieving Class Objects
-
-25.2.2.4 TYPE Field for Primitive Type Wrappers
-...............................................
-
-The '.class' syntax is a more convenient and the preferred way to
-obtain the 'Class' for a primitive type; however, there is another way
-to acquire the 'Class'.  Each of the primitive types and 'void' has a
-wrapper class in 'java.lang' that is used for boxing of primitive
-types to reference types.  Each wrapper class contains a field name
-'TYPE' which is equal to the 'Class' for the primitive type being
-wrapped.
-
-Wrapper TYPE for Primitive
-..........................
-
-     Class c = Double.TYPE;
-
-There is a class 'java.lang.Double' which is used to wrap the
-primitive type 'double' whenever an 'Object' is required.  The value
-of 'Double.TYPE' is identical to that of 'double.class'.
-
-Wrapper TYPE for void
-.....................
-
-     Class c = Void.TYPE;
-
-   'Void.TYPE' is identical to 'void.class'.
-
-
-File: JavaSE9.info,  Node: Methods that Return Classes,  Prev: TYPE Field for Primitive Wrappers,  Up: Retrieving Class Objects
-
-25.2.2.5 Methods that Return Classes
-....................................
-
-There are several 'Reflection' APIs which return classes, but these
-may only be accessed if a 'Class' has already been obtained, either
-directly or indirectly.
-
-'Class.getSuperClass()'
-.......................
-
-Returns the super class for the given class.
-
-     Class c = javax.swing.JButton.class.getSuperclass();
-
-'Class.getClasses()'
-....................
-
-Returns all the public classes, interfaces, and enums that are members
-of the class including inherited members.
-
-     Class<?>[] c = Character.class.getClasses();
-
-'Class.getDeclaredClasses()'
-............................
-
-Returns all of the classes interfaces, and enums that are explicitly
-declared in this class.
-
-     Class<?>[] c = Character.class.getDeclaredClasses();
-
-'Class.getDeclaringClass()'
-...........................
-
-     java.lang.reflect.Field.getDeclaringClass()
-     java.lang.reflect.Method.getDeclaringClass()
-     java.lang.reflect.Constructor.getDeclaringClass()
-
-Returns the 'Class' in which these members were declared.  'Anonymous
-Class Declarations' will not have a declaring class but will have an
-enclosing class.
-
-     import java.lang.reflect.Field;
-
-     Field f = System.class.getField("out");
-     Class c = f.getDeclaringClass();
-
-The field out is declared in 'System'.
-
-     public class MyClass {
-         static Object o = new Object() {
-             public void m() {}
-         };
-         static Class<c> = o.getClass().getEnclosingClass();
-     }
-
-   The declaring class of the anonymous class defined by 'o' is 'null'
-
-'Class.getEnclosingClass()'
-...........................
-
-Returns the immediately enclosing class of the class.
-
-     Class c = Thread.State.class().getEnclosingClass();
-
-The enclosing class of the enum 'Thread.State' is 'Thread'.
-
-     public class MyClass {
-         static Object o = new Object() {
-             public void m() {}
-         };
-         static Class<c> = o.getClass().getEnclosingClass();
-     }
-
-   The anonymous class defined by 'o' is enclosed by 'MyClass'.
-
-
-File: JavaSE9.info,  Node: Examining Class Modifiers,  Next: Discovering Class Members,  Prev: Retrieving Class Objects,  Up: Classes and Reflection
-
-25.2.3 Examing Class Modifiers and Types
-----------------------------------------
-
-A class may be declared with one or more modifiers which affect its
-runtime behavior:
-
-   * Access modifiers: public, protected, and private
-   * Modifier requiring override: abstract
-   * Modifier restricting to one instance: static
-   * Modifier prohibiting value modification: final
-   * Modifier forcing strict floating point behavior: strictfp
-   * Annotations
-
-   Not all modifiers are allowed on all classes, for example an
-interface cannot be 'final' and an 'enum' cannot be 'abstract'.
-'java.lang.reflect.Modifier' contains declarations for all possible
-modifiers.  It also contains methods which may be used to decode the
-set of modifiers returned by 'Class.getModifiers()'.
-
-
-File: JavaSE9.info,  Node: Discovering Class Members,  Prev: Examining Class Modifiers,  Up: Classes and Reflection
-
-25.2.4 Discovering Class Members
---------------------------------
-
-There are two categories of methods provided in 'Class' for accessing
-fields, methods, and constructors:
-
-  1. methods which enumerate these members; and
-  2. methods which search for particular members.
-
-Also there are distinct methods for
-
-   * accessing members declared directly on the class; versus
-   * methods which search the superinterfaces and superclasses for
-     inherited members.
-
-   The following tables provide a summary of all the member-locating
-methods and their characteristics.
-
-                  Class Methods for Locating Fields
-'Class' API         List of          Inherited          Private
-                    members?         members?           members?
--------------------------------------------------------------------------
-getDeclarareField() no               no                 yes
-getField()          no               yes                no
-getDeclaredFields() yes              no                 yes
-getFields()         yes              yes                no
-
-
-
-                 Class Methods for Locating Methods
-'Class' API         List of          Inherited          Private
-                    members?         members?           members?
--------------------------------------------------------------------------
-getDeclarareMethod()no               no                 yes
-getMethod()         no               yes                no
-getDeclaredMethods()yes              no                 yes
-getMethods()        yes              yes                no
-
-
-
-               Class Methods for Locating Constructors
-'Class' API         List of          Inherited          Private
-                    members?         members?           members?
--------------------------------------------------------------------------
-getDeclarareConstructor()no          N/A(1)             yes
-getConstructor()    no               N/A                no
-getDeclaredConstructors()yes         N/A                yes
-getConstructors()   yes              N/A                no
-
-Table 25.3: Class Methods for Locating Fields, Methods, and
-Constructors
-
-   ---------- Footnotes ----------
-
-   (1) Constructors are not inherited
-
-
-File: JavaSE9.info,  Node: Members and Reflection,  Next: Arays and Enumerated Types and Reflection,  Prev: Classes and Reflection,  Up: Reflection
-
-25.3 Members and Reflection
-===========================
-
-Reflection defines an interface 'java.lang.reflect.Member' which is
-implemented by
-
-   * 'java.lang.reflect.Field',
-   * 'java.lang.reflect.Method', and
-   * 'java.lang.reflect.Constructor'.
-
-   For each member, the lesson will describe the associated APIs to
-retrieve declaration and type information, any operations unique to
-the member (for example, setting the value of a field or invoking a
-method), and commonly encountered errors.  Each concept will be
-illustrated with code samples and related output which approximate
-some expected reflection uses.
-
-Note about Members and the Specification
-----------------------------------------
-
-According to The Java Language Specification, Java SE 7 Edition, the
-"members of a class" are the inherited components of the class body
-including fields, methods, nested classes, interfaces, and enumerated
-types.  Since constructors are not inherited, they are not members.
-This differs from the implementing classes of
-'java.lang.reflect.Member'.
-
-* Menu:
-
-* reflect Fields::
-* reflect Methods::
-* reflect Constructors::
-
-
-File: JavaSE9.info,  Node: reflect Fields,  Next: reflect Methods,  Up: Members and Reflection
-
-25.3.1 'reflect.Fields'
------------------------
-
-Fields have a type and a value.  The 'java.lang.reflect.Field' class
-provides methods for accessing type information and setting and
-getting values of a field on a given object.
-
-
-File: JavaSE9.info,  Node: reflect Methods,  Next: reflect Constructors,  Prev: reflect Fields,  Up: Members and Reflection
-
-25.3.2 'reflect.Method'
------------------------
-
-Methods have return values, parameters, and may throw exceptions.  The
-'java.lang.reflect.Method' class provides methods for obtaining the
-type information for the parameters and return value.  It may also be
-used to invoke methods on a given object.
-
-
-File: JavaSE9.info,  Node: reflect Constructors,  Prev: reflect Methods,  Up: Members and Reflection
-
-25.3.3 'reflect.Constructors'
------------------------------
-
-The Reflection APIs for constructors are defined in
-'java.lang.reflect.Constructor' and are similar to those for methods,
-with two major exceptions: first, constructors have no return values;
-second, the invocation of a constructor creates a new instance of an
-object for a given class.
-
-   Similar to methods, reflection provides APIs to
-
-   * discover and retrieve the constructors of a class and
-   * obtain declaration information such as the modifiers, parameters,
-     annotations, and thrown exceptions.
-   * New instances of classes may also be created using a specified
-     constructor.
-
-   The key classes used when working with constructors are 'Class' and
-'java.lang.reflect.Constructor'.  Common operations involving
-constructors are covered in the following sections.
-
-* Menu:
-
-* Finding Constructors::
-* Constructor Modifiers::
-* Creating New Class Instances::
-
-
-File: JavaSE9.info,  Node: Finding Constructors,  Next: Constructor Modifiers,  Up: reflect Constructors
-
-25.3.3.1 Finding Constructors
-.............................
-
-This section illustrates how to retrieve constructors with specific
-parameters.
-
-   A constructor declaration includes the name, modifiers, parameters,
-and list of throwable exceptions.  The 'java.lang.reflect.Constructor'
-class provides a way to obtain this information.
-
-
-File: JavaSE9.info,  Node: Constructor Modifiers,  Next: Creating New Class Instances,  Prev: Finding Constructors,  Up: reflect Constructors
-
-25.3.3.2 Retrieving and Parsing Constructor Modifiers
-.....................................................
-
-This section shows how to obtain the modifiers of a constructor
-declaration and other information about the constructor.
-
-   Because of the role of constructors in the language, fewer
-modifiers are meaningful than for methods:
-
-   * Access modifiers:
-        * 'public',
-        * 'protected', and
-        * 'private'
-   * Annotations
-
-
-File: JavaSE9.info,  Node: Creating New Class Instances,  Prev: Constructor Modifiers,  Up: reflect Constructors
-
-25.3.3.3 Creating New Class Instances
-.....................................
-
-This section shows how to instantiate an instance of an object by
-invoking its constructor.
-
-   There are two reflective methods for creating instances of classes:
-
-  1. 'java.lang.reflect.Constructor.newInstance()' and
-  2. 'Class.newInstance()'.
-
-   The former is preferred and is thus used in these examples because:
-
-   * 'Class.newInstance()' can only invoke the zero-argument
-     constructor, while 'Constructor.newInstance()' may invoke any
-     constructor, regardless of the number of parameters.
-   * 'Class.newInstance()' throws any exception thrown by the
-     constructor, regardless of whether it is checked or unchecked.
-     'Constructor.newInstance()' always wraps the thrown exception
-     with an 'InvocationTargetException'.
-   * 'Class.newInstance()' requires that the constructor be visible;
-     'Constructor.newInstance()' may invoke private constructors under
-     certain circumstances.
-
-
-File: JavaSE9.info,  Node: Arays and Enumerated Types and Reflection,  Prev: Members and Reflection,  Up: Reflection
-
-25.4 Arrays and Enumerate Types and Reflection
-==============================================
-
-From the Java virtual machine's perspective, arrays and enumerated
-types (or 'enums') are just classes.  Many of the methods in 'Class'
-may be used on them.  Reflection provides a few specific APIs for
-arrays and enums.  This lesson uses a series of code samples to
-describe how to distinguish each of these objects from other classes
-and operate on them.  Various errors are also be examined.
-
-* Menu:
-
-* Arrays and Reflection::
-* Enumerate Types and Reflection::
-
-
-File: JavaSE9.info,  Node: Arrays and Reflection,  Next: Enumerate Types and Reflection,  Up: Arays and Enumerated Types and Reflection
-
-25.4.1 Arrays and Reflection
-----------------------------
-
-Arrays have a component type and a length (which is not part of the
-type).  Arrays may be maniuplated either in their entirety or
-component by component.  Reflection provides the
-'java.lang.reflect.Array' class for the latter purpose.
-
-* Menu:
-
-* Identifying Array Types::
-* Creating New Arrays::
-* Getting and Setting Arrays::
-
-
-File: JavaSE9.info,  Node: Identifying Array Types,  Next: Creating New Arrays,  Up: Arrays and Reflection
-
-25.4.1.1 Identifying Array Types
-................................
-
-Array types may be identified by invoking 'Class.isArray()'.  To
-obtain a 'Class' use one of the methods described in *note Retrieving
-Class Objects:: section.
-
-
-File: JavaSE9.info,  Node: Creating New Arrays,  Next: Getting and Setting Arrays,  Prev: Identifying Array Types,  Up: Arrays and Reflection
-
-25.4.1.2 Creating New Arrays
-............................
-
-Just as in non-reflective code, reflection supports the ability to
-dynamically create arrays of arbitrary type and dimensions via
-'java.lang.reflect.Array.newInstance()'.  Consider ArrayCreator, a
-basic interpreter capable of dynamically creating arrays.  The syntax
-that will be parsed is as follows:
-
-     fully_qualified_class_name variable_name[] =
-     	{ val1, val2, val3, ... }
-
-
-File: JavaSE9.info,  Node: Getting and Setting Arrays,  Prev: Creating New Arrays,  Up: Arrays and Reflection
-
-25.4.1.3 Getting and Setting Arrays and Their Components
-........................................................
-
-Just as in non-reflective code, an array field may be set or retrieved
-in its entirety or component by component.  To set the entire array at
-once, use 'java.lang.reflect.Field.set(Object obj, Object value)'.  To
-retrieve the entire array, use 'Field.get(Object)'.  Individual
-components can be set or retrieved using methods in
-'java.lang.reflect.Array'.
-
-   'Array' provides methods of the form 'setFoo()' and 'getFoo()' for
-setting and getting components of any primitive type.  For example,
-the component of an int array may be set with 'Array.setInt(Object
-array, int index, int value)' and may be retrieved with
-'Array.getInt(Object array, int index)'.
-
-Setting a Field of Type Array
-.............................
-
-Accessing Elements of a Multidimensional Array
-..............................................
-
-
-File: JavaSE9.info,  Node: Enumerate Types and Reflection,  Prev: Arrays and Reflection,  Up: Arays and Enumerated Types and Reflection
-
-25.4.2 Enumerated Types and Reflection
---------------------------------------
-
-Enums are treated very much like ordinary classes in reflection code.
-'Class.isEnum()' tells whether a 'Class' represents an enum.
-'Class.getEnumConstants()' retrieves the enum constants defined in an
-enum.  'java.lang.reflect.Field.isEnumConstant()' indicates whether a
-field is an enumerated type.
-
-* Menu:
-
-* Enumerated Types Reflection::
-
-
-File: JavaSE9.info,  Node: Enumerated Types Reflection,  Up: Enumerate Types and Reflection
-
-25.4.2.1 Enumerated Types in Reflection
-.......................................
-
-An "enum" is a language construct that is used to define type-safe
-enumerations which can be used when a fixed set of named values is
-desired.  All 'enums' implicitly extend 'java.lang.Enum'.  'Enums' may
-contain one or more 'enum' constants, which define unique instances of
-the 'enum' type.  An 'enum' declaration defines an 'enum' type which
-is very similar to a class in that it may have members such as fields,
-methods, and constructors (with some restrictions).
-
-   Since 'enums' are classes, reflection has no need to define an
-explicit java.lang.reflect.Enum class.  The only Reflection APIs that
-are specific to 'enums' are 'Class.isEnum()',
-'Class.getEnumConstants()', and
-'java.lang.reflect.Field.isEnumConstant()'.  Most reflective
-operations involving 'enums' are the same as any other class or
-member.  For example, 'enum' constants are implemented as 'public
-static final' fields on the 'enum'.  The following sections show how
-to use 'Class' and 'java.lang.reflect.Field' with 'enums'.
-
-Examining Enums
-...............
-
-Illustrates how to retrieve an enum's constants and any other fields,
-constructors, and methods
-
-   Reflection provides three enum-specific APIs:
-
-'Class.isEnum()'
-     Indicates whether this class represents an enum type
-'Class.getEnumConstants()'
-     Retrieves the list of enum constants defined by the enum in the
-     order they're declared
-'java.lang.reflect.Field.isEnumConstant()'
-     Indicates whether this field represents an element of an
-     enumerated type
-
-   Sometimes it is necessary to dynamically retrieve the list of enum
-constants; in non-reflective code this is accomplished by invoking the
-implicitly declared static method 'values()' on the enum.  If an
-instance of an 'enum' type is not available the only way to get a list
-of the possible values is to invoke 'Class.getEnumConstants()' since
-it is impossible to instantiate an 'enum' type.
-
-Getting and Setting Fields with Enum Types
-..........................................
-
-Shows how to set and get fields with an enum constant value
-
-   Fields which store 'enums' are set and retrieved as any other
-reference type, using 'Field.set()' and 'Field.get()'.  For more
-information on accessing fields, see the Fields section.  *Note
-reflect Fields::
 

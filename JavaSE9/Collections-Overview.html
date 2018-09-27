@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Collections Overview (About Java SE 9)</title>
+
+<meta name="description" content="Collections Overview (About Java SE 9)">
+<meta name="keywords" content="Collections Overview (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="java-util-Collections.html#java-util-Collections" rel="up" title="java util Collections">
+<link href="Collection-Interfaces.html#Collection-Interfaces" rel="next" title="Collection Interfaces">
+<link href="java-util-Collections.html#java-util-Collections" rel="prev" title="java util Collections">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Collections-Overview"></a>
+<div class="header">
+<p>
+Next: <a href="Collection-Interfaces.html#Collection-Interfaces" accesskey="n" rel="next">Collection Interfaces</a>, Up: <a href="java-util-Collections.html#java-util-Collections" accesskey="u" rel="up">java util Collections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Collections-Overview-1"></a>
+<h3 class="section">13.1 Collections Overview</h3>
+<a name="index-Collections-overview"></a>
+<a name="index-J2SE-1_002e2"></a>
+<a name="index-Dictionary"></a>
+<a name="index-Vector"></a>
+<a name="index-Stack"></a>
+<a name="index-Properties"></a>
+
+<p>The Java Collections Framework standardizes the way in whcih groups of
+objects are handled by programs.  Collections were not part of the original
+Java release, but were added by J2SE 1.2.  Prior to the Collections
+Framework, Java provided ad hoc classes such as <samp>Dictionary</samp>,
+<samp>Vector</samp>, <samp>Stack</samp>, and <samp>Properties</samp> to stored and manipulate
+groups of objects.  These classes lacked a central unifying theme.  The way
+that you used <samp>Vector</samp> was different from the way that you used
+<samp>Properties</samp>.  This early, ad hoc approach was not designed to be easily
+extended or adapted.  Collections were an answer to these (and other)
+problems.
+</p>
+<a name="Collections-Goals"></a>
+<h4 class="subheading">Collections Goals</h4>
+<a name="index-Collections-Framekwork-goals"></a>
+
+<p>The Collections Framework was designed to meet several goals.  <em>First</em>,
+the framework had to be high-performance.  The implementations for the
+fundamental collections (dynamic arrays, linked lists, trees, and hash
+tables) are highly efficient.  You seldom, if ever, need to code one of these
+&ldquo;data engines&rdquo; manually.  <em>Second</em>, the framework had to allow
+different types of collections to work in a similar manner and with a high
+degree of interoperability.  <em>Third</em>, extending and/or adapting a
+collection had to be easy.  Toward this end, the entire Collections Framework
+is built upon a set of standard interfaces.  Several standard implementations
+(such as <samp>LinkedList</samp>, <samp>HashSet</samp>, and <samp>TreeSet</samp> of these
+interfaces are provided that you may use as-is.  You may also implement your
+own collection.  Various special-purpose implementations are created for your
+convenience, and some partial implementations are provided that make creating
+your own collection class easier.  <em>Finally</em>, mechanisms were added that
+allow the integration of standard arrays into the Collections Framework.
+</p>
+<ol>
+<li> high-performance
+</li><li> interoperatibility
+</li><li> standard interfaces and implementations; easily extensibible
+</li><li> integration of arrays
+</li></ol>
+
+<a name="Algorithms"></a>
+<h4 class="subheading">Algorithms</h4>
+<a name="index-Algorithms_002c-Collections-Framework"></a>
+
+<p><em>Algorithms</em> are another important part of the collection mechanism.
+Algorithms operate on collections and are defined as static methods within
+the <samp>Collections</samp> class.  Thus, they are available for all collections.
+Each collection class need not implement its own versions.  The algorithms
+provide a standard means of manipulating collections.
+</p>
+<a name="Iterator-Interface"></a>
+<h4 class="subheading"><samp>Iterator</samp> Interface</h4>
+<a name="index-Iterator-interface"></a>
+<a name="index-iterator"></a>
+
+<p>Antoher item closely associated with the Collections Framework is the
+<samp>Iterator</samp> interface.  An <em>iterator</em> offers a general-purpose
+standardized way of accessing the elements within a collection, one at a
+time.  Thus, an iterator provides a means of <em>enumerating the contents
+of a collection</em>.  Because each collection provides an iterator, the elements
+of any collection class can be accessed through the methods defined by
+<samp>Iterator</samp>.  Thus, with only small changes, the code that cycles through
+a set can also be used to cycle through a list.
+</p>
+<a name="Splitarator"></a>
+<h4 class="subheading"><samp>Splitarator</samp></h4>
+<a name="index-Spliterator"></a>
+<a name="index-PrimitiveIterator"></a>
+<a name="index-PrimitiveIterator_002eOfDouble"></a>
+<a name="index-JDK-8-1"></a>
+<a name="index-primitive-type-iterators"></a>
+<a name="index-iterators_002c-primitive-types"></a>
+
+<p>JDK 8 added another type of iterator called a <em>spliterator</em>.  These are
+iterators that provide support for parallel iteration.  The interfaces that
+support spliterators are <samp>Spliterator</samp> and several nested interfaces
+that support primitive types.  JDK 8 also added iterator interfaces designed
+for use with primitive types such as <samp>PrimitiveIterator</samp> and
+<samp>PrimitiveIterator.OfDouble</samp>.  
+</p>
+<a name="Map-Interfaces-and-Classes"></a>
+<h4 class="subheading">Map Interfaces and Classes</h4>
+<a name="index-maps"></a>
+<a name="index-collection_002dview-of-a-map"></a>
+
+<p>In addition to collections, the framework defines several map interfaces and
+classes.  <em>Maps</em> store key/value pairs.  Although maps are part of the
+Collections Framework, they are not &ldquo;collections&rdquo; in the strict use of the
+term.  You can, however, obtain a <em>collection-view</em> of a map.  Such a
+view contains the elements from the map stored in a collection.  Thus, you
+can process the contents of a map as a collection.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Collection-Interfaces.html#Collection-Interfaces" accesskey="n" rel="next">Collection Interfaces</a>, Up: <a href="java-util-Collections.html#java-util-Collections" accesskey="u" rel="up">java util Collections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
