@@ -2,6 +2,70 @@ This is JavaSE9.info, produced by makeinfo version 6.5 from
 JavaSE9.texi.
 
 
+File: JavaSE9.info,  Node: ReflectionDemo1 Class forName Call,  Next: ReflectionDemo1 getConstructors Call,  Up: Reflection Demonstration
+
+25.1.3.1 ReflectionDemo1 Class forName Call
+...........................................
+
+<ReflectionDemo1 Class forName Call> ==
+     Class<?> c = Class.forName("java.awt.Dimension");
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: ReflectionDemo1 getConstructors Call,  Next: ReflectionDem1 getFields Call,  Prev: ReflectionDemo1 Class forName Call,  Up: Reflection Demonstration
+
+25.1.3.2 ReflectionDemo1 getConstructors Call
+.............................................
+
+<ReflectionDemo1 getConstructors Call> ==
+     Constructor<?> constructors[] = c.getConstructors();
+
+     for (int i = 0; i < constructors.length; i++) {
+       System.out.println(" " + constructors[i]);
+     }
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: ReflectionDem1 getFields Call,  Next: ReflectionDemo1 getMethods Call,  Prev: ReflectionDemo1 getConstructors Call,  Up: Reflection Demonstration
+
+25.1.3.3 ReflectionDem1 getFields Call
+......................................
+
+<ReflectionDemo1 getFields Call> ==
+     Filed fields[] = c.getFields();
+
+     for (int i = 0; i < fields.length; i++) {
+       System.out.println(" " + fields[i]);
+     }
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: ReflectionDemo1 getMethods Call,  Next: Catch Exception,  Prev: ReflectionDem1 getFields Call,  Up: Reflection Demonstration
+
+25.1.3.4 ReflectionDemo1 getMethods Call
+........................................
+
+<ReflectionDemo1 getMethods Call> ==
+     Method methods[] = c.getMethods();
+
+     for (int i = 0; i < methods.length; i++) {
+       System.out.print.n(" " + methods[i]);
+     }
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
 File: JavaSE9.info,  Node: Catch Exception,  Next: Import java.lang.reflect,  Prev: ReflectionDemo1 getMethods Call,  Up: Reflection Demonstration
 
 25.1.3.5 Catch Exception
@@ -1996,6 +2060,7 @@ List of Tables
 * Table 13.3: CollectionCoreClasses.     Collection Core Classes
 * Table 13.4: IteratorMethods.           The Methods Provided by ...
 * Table 13.5: ListIteratorMethods.       The Methods Declared by ...
+* Table 13.6: SpliteratorMethods.        The Methods Declared by ...
 * Table 15.1: 'File'-Methods.            'File' Property Methods
 * Table 15.2: 'File'-Utility-Methods.    File Utility Methods
 * Table 15.3: InputStreamMethods.        The Methods Defined by ...
@@ -3290,6 +3355,7 @@ Index
                                                             (line  32)
 * JDK 8 <1>:                             Collections Overview.
                                                             (line  69)
+* JDK 8 <2>:                             Spliterators.      (line   6)
 * JDK 8, default method in interface:    Default Interface Methods.
                                                             (line   6)
 * JDK 8, static interface method:        Interface Static Methods.
@@ -3451,6 +3517,8 @@ Index
 * packages, import:                      Packages.          (line   6)
 * packages, importing:                   Importing.         (line   6)
 * packages, purposes, prevent collisions: Packages.         (line   6)
+* parallel iteration:                    Spliterators.      (line   6)
+* parallel programming:                  Spliterators.      (line   6)
 * parallelStream():                      Collection Interface.
                                                             (line 101)
 * parameter list, method:                Methods.           (line  15)
@@ -3570,10 +3638,15 @@ Index
                                                             (line   5)
 * Spliterator:                           Collections Overview.
                                                             (line  69)
+* spliterator subinterfaces:             Spliterators.      (line  84)
 * spliterator():                         Iterable Interface.
                                                             (line  40)
 * spliterator() <1>:                     Collection Interface.
                                                             (line 101)
+* Spliterator.OfDouble:                  Spliterators.      (line  84)
+* Spliterator.OfInt:                     Spliterators.      (line  84)
+* Spliterator.OfLong:                    Spliterators.      (line  84)
+* Spliterator.OfPrimitive:               Spliterators.      (line  84)
 * Spliterators:                          Spliterators.      (line   6)
 * Stack:                                 Collections Overview.
                                                             (line   6)

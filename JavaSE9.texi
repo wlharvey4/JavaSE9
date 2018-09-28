@@ -43,7 +43,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.2.7
+@set VERSION 0.2.8
 
 @iftex
 @set DOCUMENT book
@@ -8733,6 +8733,9 @@ classes implement this inteface, they can all be operated upon by @code{for}.
 @node Spliterators
 @section Spliterators
 @cindex Spliterators
+@cindex JDK 8
+@cindex parallel iteration
+@cindex parallel programming
 
 JDK 8 added a new type of iterator called a @dfn{spliterator} that is defined
 by the @file{Spliterator} interface.  A spliterator cycles through a sequence
@@ -8740,7 +8743,95 @@ of elements and in this regard it is similar to the iterators.  However, the
 techniques required to use it differ.  Furthermore, it offers substantially
 more functionality than does either @file{Iterator} or @file{ListIterator}.
 Perhaps the most important aspect of @file{Spliterator} is its ability to
-provide support parallel iteration of portions of the sequence.
+provide support for parallel iteration of portions of the sequence.  Thus,
+@file{Spliterator} supports parallel programming.
+
+However, you can use @file{Spliterator} even if you won't be using parallel
+execution.  One reason you might want to do is because it offers a
+streamlined approach that combines the @code{hasNext()} and @code{next()}
+operations in one method.
+
+@file{Spliterator} is a generic interface that is declared thus:
+
+@example
+interface Spliterator<T>
+@end example
+
+@noindent
+@file{Spliterator} declares the methods shown in @ref{SpliteratorMethods}.
+
+@float Table,SpliteratorMethods
+@multitable @columnfractions 0.4 0.6
+@item
+int characteristics() @tab Returns the characteristics of the invoking
+spliterator, encoded into an integer.
+@item
+long estimateSize() @tab Estimates the number of elements left to iterate and
+returns the result.  Returns @code{Long.MAX_VALUE} if the count cannot be
+obtained for any reason.
+@item
+default void forEachRemaining(Consumer<? super T> @ii{action}) @tab Applies
+@ii{action} to each unprocessed element in the data source.
+@item
+default Comparator<? super T> getComparator() @tab Returns the comparator
+used by the invoking spliterator or @code{null} if natural ordering is used.
+If the sequence is unordered, @file{IllegalStateException} is thrown.
+@item
+default long getExactSizeIfKnown() @tab If the invoking spliterator is sized,
+returns the number of elements left to iterate.  Returns -1 otherwise.
+@item
+default boolean hasCharacteristics(int @ii{val}) @tab Returns @code{true} if
+the invoking spliterator has the characteristics passed in @ii{val}.  Returns
+@code{false} otherwise.
+@item
+boolean tryAdvance(Consumer<? super T> @ii{action}) @tab Executes @ii{action}
+on the next element in the iteation.  Returns @code{true} if there is a next
+element.  Returns @code{false} if no elements remain.
+@item
+Spliterator<T> trySplit() @tab If possible, split the invoking spliterator,
+returning a reference to a new spliterator for the partition.  Otherwise,
+returns @code{null}.  Thus, if successful, the original spliterator iterates
+over one portion of the sequence and the returned spliterator iterates over
+the other portion.
+@end multitable
+@caption{The Methods Declared by Spliterator}
+@end float
+
+@subheading Characteristics
+
+Each @file{Spliterator} has a set of attributes, called
+@dfn{characteristics}, associated with it.  These are defined by static
+@code{int} fields in @file{Spliterator}, such as
+
+@itemize
+@item
+SORTED
+@item
+DISTINCT
+@item
+SIZED
+@item
+IMMUTABLE
+@end itemize
+
+@noindent
+to name a few.  You can obtain the characteristics by calling
+@code{characteristics()}.  You can determine if a characteristic is present
+by calling @code{hasCharacteristics()}.
+
+@subheading Spliterator Subinterfaces
+@cindex spliterator subinterfaces
+@cindex @file{Spliterator.OfDouble}
+@cindex @file{Spliterator.OfInt}
+@cindex @file{Spliterator.OfLong}
+@cindex @file{Spliterator.OfPrimitive}
+
+There are several nested subinterfaces of @file{Spliterator} designed for use
+with the primitive types @code{double}, @code{int}, and @code{long}.  These
+are called @file{Spliterator.OfDouble}, @file{Spliterator.OfInt}, and
+@file{Spliterator.OfLong}.  There is also a generalized version called
+@file{Spliterator.OfPrimitive}, which offers additional flexibility and
+servers as a superinterface.
 
 @c -----------------------------------------------------------------------------
 

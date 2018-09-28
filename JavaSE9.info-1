@@ -6586,8 +6586,84 @@ a sequence of elements and in this regard it is similar to the
 iterators.  However, the techniques required to use it differ.
 Furthermore, it offers substantially more functionality than does
 either 'Iterator' or 'ListIterator'.  Perhaps the most important
-aspect of 'Spliterator' is its ability to provide support parallel
-iteration of portions of the sequence.
+aspect of 'Spliterator' is its ability to provide support for parallel
+iteration of portions of the sequence.  Thus, 'Spliterator' supports
+parallel programming.
+
+   However, you can use 'Spliterator' even if you won't be using
+parallel execution.  One reason you might want to do is because it
+offers a streamlined approach that combines the 'hasNext()' and
+'next()' operations in one method.
+
+   'Spliterator' is a generic interface that is declared thus:
+
+     interface Spliterator<T>
+
+'Spliterator' declares the methods shown in *note Table 13.6:
+SpliteratorMethods.
+
+int characteristics()        Returns the characteristics of the
+                             invoking spliterator, encoded into an
+                             integer.
+long estimateSize()          Estimates the number of elements left to
+                             iterate and returns the result.  Returns
+                             'Long.MAX_VALUE' if the count cannot be
+                             obtained for any reason.
+default void                 Applies action to each unprocessed
+forEachRemaining(Consumer<?  element in the data source.
+super T> action)
+default Comparator<?         Returns the comparator used by the
+super T> getComparator()     invoking spliterator or 'null' if
+                             natural ordering is used.  If the
+                             sequence is unordered,
+                             'IllegalStateException' is thrown.
+default long                 If the invoking spliterator is sized,
+getExactSizeIfKnown()        returns the number of elements left to
+                             iterate.  Returns -1 otherwise.
+default boolean              Returns 'true' if the invoking
+hasCharacteristics(int       spliterator has the characteristics
+val)                         passed in val.  Returns 'false'
+                             otherwise.
+boolean                      Executes action on the next element in
+tryAdvance(Consumer<?        the iteation.  Returns 'true' if there
+super T> action)             is a next element.  Returns 'false' if
+                             no elements remain.
+Spliterator<T> trySplit()    If possible, split the invoking
+                             spliterator, returning a reference to a
+                             new spliterator for the partition.
+                             Otherwise, returns 'null'.  Thus, if
+                             successful, the original spliterator
+                             iterates over one portion of the
+                             sequence and the returned spliterator
+                             iterates over the other portion.
+
+Table 13.6: The Methods Declared by Spliterator
+
+Characteristics
+---------------
+
+Each 'Spliterator' has a set of attributes, called "characteristics",
+associated with it.  These are defined by static 'int' fields in
+'Spliterator', such as
+
+   * SORTED
+   * DISTINCT
+   * SIZED
+   * IMMUTABLE
+
+to name a few.  You can obtain the characteristics by calling
+'characteristics()'.  You can determine if a characteristic is present
+by calling 'hasCharacteristics()'.
+
+Spliterator Subinterfaces
+-------------------------
+
+There are several nested subinterfaces of 'Spliterator' designed for
+use with the primitive types 'double', 'int', and 'long'.  These are
+called 'Spliterator.OfDouble', 'Spliterator.OfInt', and
+'Spliterator.OfLong'.  There is also a generalized version called
+'Spliterator.OfPrimitive', which offers additional flexibility and
+servers as a superinterface.
 
 
 File: JavaSE9.info,  Node: Storing User-Defined Classes,  Next: RandomAccess Interface,  Prev: Spliterators,  Up: java util Collections
@@ -8741,68 +8817,4 @@ getMethods Call>
 * ReflectionDemo1 getMethods Call::
 * Catch Exception::
 * Import java.lang.reflect::
-
-
-File: JavaSE9.info,  Node: ReflectionDemo1 Class forName Call,  Next: ReflectionDemo1 getConstructors Call,  Up: Reflection Demonstration
-
-25.1.3.1 ReflectionDemo1 Class forName Call
-...........................................
-
-<ReflectionDemo1 Class forName Call> ==
-     Class<?> c = Class.forName("java.awt.Dimension");
-
-
-This chunk is called by {'ReflectionDemo1.java'}; see its first
-definition at *note ReflectionDemo1-java::.
-
-
-File: JavaSE9.info,  Node: ReflectionDemo1 getConstructors Call,  Next: ReflectionDem1 getFields Call,  Prev: ReflectionDemo1 Class forName Call,  Up: Reflection Demonstration
-
-25.1.3.2 ReflectionDemo1 getConstructors Call
-.............................................
-
-<ReflectionDemo1 getConstructors Call> ==
-     Constructor<?> constructors[] = c.getConstructors();
-
-     for (int i = 0; i < constructors.length; i++) {
-       System.out.println(" " + constructors[i]);
-     }
-
-
-This chunk is called by {'ReflectionDemo1.java'}; see its first
-definition at *note ReflectionDemo1-java::.
-
-
-File: JavaSE9.info,  Node: ReflectionDem1 getFields Call,  Next: ReflectionDemo1 getMethods Call,  Prev: ReflectionDemo1 getConstructors Call,  Up: Reflection Demonstration
-
-25.1.3.3 ReflectionDem1 getFields Call
-......................................
-
-<ReflectionDemo1 getFields Call> ==
-     Filed fields[] = c.getFields();
-
-     for (int i = 0; i < fields.length; i++) {
-       System.out.println(" " + fields[i]);
-     }
-
-
-This chunk is called by {'ReflectionDemo1.java'}; see its first
-definition at *note ReflectionDemo1-java::.
-
-
-File: JavaSE9.info,  Node: ReflectionDemo1 getMethods Call,  Next: Catch Exception,  Prev: ReflectionDem1 getFields Call,  Up: Reflection Demonstration
-
-25.1.3.4 ReflectionDemo1 getMethods Call
-........................................
-
-<ReflectionDemo1 getMethods Call> ==
-     Method methods[] = c.getMethods();
-
-     for (int i = 0; i < methods.length; i++) {
-       System.out.print.n(" " + methods[i]);
-     }
-
-
-This chunk is called by {'ReflectionDemo1.java'}; see its first
-definition at *note ReflectionDemo1-java::.
 
