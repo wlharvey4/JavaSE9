@@ -22,11 +22,11 @@ This file documents Outline Covering Java SE 9.
 * Generics::
 * Enumerations::
 * Strings::
-* Exploring java-lang::
-* java util Collections::
-* java util Utility Classes::
-* Input/Output java.io::
-* NIO::
+* java.lang::
+* java.util Part 1 --- Collections Framework::
+* java.util Part 2 --- Utility Classes::
+* java.io --- Input/Output::
+* java.nio --- NIO::
 * Networking::
 * Event Handling::
 * AWT::
@@ -44,6 +44,7 @@ This file documents Outline Covering Java SE 9.
 * Bibliography::
 * Concept Index::
 * Function Index::
+* Program Index::
 
  -- The Detailed Node Listing --
 
@@ -376,7 +377,36 @@ Accessing a Collection via an Interator
 * Using an Iterator::
 * ForEach Alternative to Iterators::
 
-Input/Output -- 'java.io'
+Iterator Example
+
+* Import java.util::
+* IteratorDemo---Create an Array List::
+* IteratorDemo---Use Iterator To Display Contents of Array List::
+* IteratorDemo---Modify Objects Being Iterated::
+* IteratorDemo---Use ListIterator to Display Modified Contents::
+* IteratorDemo---Display the List Backwards::
+
+Example Using a 'for' Loop
+
+* ForEachDemo---Create an Array List For Integers::
+* ForEachDemo---Use for Loop to Display the Values::
+* ForEachDemo---Sum the Values by Using a for Loop::
+
+Spliterators
+
+* Spliterator Methods::
+* Using Spliterator for Iteration::
+* Spliterator Characteristics::
+* Spliterator Subinterfaces::
+
+Example Using 'Spliterator' for Iteration
+
+* SpliteratorDemo---Create an Array List for Doubles::
+* SpliteratorDemo---Use tryAdvance() to Display Contents::
+* SpliteratorDemo---Create New List::
+* SpliteratorDemo---Use forEachRemaining() to Display Contents::
+
+Input/Output -- Exploring 'java.io'
 
 * I/O Classes and Interfaces::
 * File::
@@ -505,18 +535,18 @@ Drawbacks of Reflection
 
 'java.lang.reflect' Package
 
-* Classes Defined in java-lang-reflect::
-* Interfaces Defined in java-lang-reflect::
+* Classes Defined in java.lang.reflect::
+* Interfaces Defined in java.lang.reflect::
 * Reflection Demonstration::
 
 ReflectionDemo1.java
 
-* ReflectionDemo1 Class forName Call::
-* ReflectionDemo1 getConstructors Call::
-* ReflectionDem1 getFields Call::
-* ReflectionDemo1 getMethods Call::
-* Catch Exception::
 * Import java.lang.reflect::
+* ReflectionDemo1---Class forName() Call::
+* ReflectionDemo1---getConstructors() Call::
+* ReflectionDemo1---getFields() Call::
+* ReflectionDemo1---getMethods() Call::
+* Catch Exception::
 
 Classes and Reflection
 
@@ -1528,7 +1558,7 @@ To access the command-line arguments inside a Java program, access the
 first command-line argument is stored at 'args[0]', the second at
 'args[1]', and so on.  All command-line arguments are passed as
 strings.  You must convert numeric values to their internal forms
-manually.  *Note Exploring java-lang::.
+manually.  *Note java.lang::.
 
 
 File: JavaSE9.info,  Node: Varargs,  Prev: Command-Line Arguments,  Up: Methods and Classes
@@ -3054,7 +3084,7 @@ just not that useful in real-world Java programming.
 relates to files and networks.  Java's I/O system is cohesive and
 consistent.  A general overview of I/O is presented here.  A detailed
 description is found in chapters describing the Java Library: *Note
-Input/Output java.io:: and *Note NIO::.
+java.io --- Input/Output:: and *Note java.nio --- NIO::.
 
 * Menu:
 
@@ -5905,13 +5935,13 @@ same enumeration.  (In other words, 'equals' does not just compare
 ordinal values in general.)
 
 
-File: JavaSE9.info,  Node: Strings,  Next: Exploring java-lang,  Prev: Enumerations,  Up: Top
+File: JavaSE9.info,  Node: Strings,  Next: java.lang,  Prev: Enumerations,  Up: Top
 
 11 String Handling
 ******************
 
 
-File: JavaSE9.info,  Node: Exploring java-lang,  Next: java util Collections,  Prev: Strings,  Up: Top
+File: JavaSE9.info,  Node: java.lang,  Next: java.util Part 1 --- Collections Framework,  Prev: Strings,  Up: Top
 
 12 Exploring 'java.lang'
 ************************
@@ -5992,7 +6022,7 @@ fundamental to all of Java programming.  Beginning with JDK 9, all of
 * Iterable Interface::
 
 
-File: JavaSE9.info,  Node: Primitive Wrappers,  Next: Iterable Interface,  Up: Exploring java-lang
+File: JavaSE9.info,  Node: Primitive Wrappers,  Next: Iterable Interface,  Up: java.lang
 
 12.1 Primitive Type Wrappers
 ============================
@@ -6046,7 +6076,7 @@ File: JavaSE9.info,  Node: Numbers to from String,  Prev: Byte Short Integer Lon
 --------------------------------------------
 
 
-File: JavaSE9.info,  Node: Iterable Interface,  Prev: Primitive Wrappers,  Up: Exploring java-lang
+File: JavaSE9.info,  Node: Iterable Interface,  Prev: Primitive Wrappers,  Up: java.lang
 
 12.2 The 'Iterable' Interface
 =============================
@@ -6092,10 +6122,10 @@ The second default method is 'spliterator()':
    It returns a 'Spliterator' to the sequence being iterated.
 
 
-File: JavaSE9.info,  Node: java util Collections,  Next: java util Utility Classes,  Prev: Exploring java-lang,  Up: Top
+File: JavaSE9.info,  Node: java.util Part 1 --- Collections Framework,  Next: java.util Part 2 --- Utility Classes,  Prev: java.lang,  Up: Top
 
-13 'java.util' -- Part 1: The Collections Framework
-***************************************************
+13 'java.util' Part 1: The Collections Framework
+************************************************
 
 The package 'java.util' contains a large assortment of classes and
 interfaces that support a braod range of functionality.  For example,
@@ -6133,7 +6163,7 @@ technology for managing groups of objects.  Beginning with JDK 9,
 * Legacy Classes and Interfaces::
 
 
-File: JavaSE9.info,  Node: Collections Overview,  Next: Collection Interfaces,  Up: java util Collections
+File: JavaSE9.info,  Node: Collections Overview,  Next: Collection Interfaces,  Up: java.util Part 1 --- Collections Framework
 
 13.1 Collections Overview
 =========================
@@ -6220,7 +6250,7 @@ the map stored in a collection.  Thus, you can process the contents of
 a map as a collection.
 
 
-File: JavaSE9.info,  Node: Collection Interfaces,  Next: Collection Classes,  Prev: Collections Overview,  Up: java util Collections
+File: JavaSE9.info,  Node: Collection Interfaces,  Next: Collection Classes,  Prev: Collections Overview,  Up: java.util Part 1 --- Collections Framework
 
 13.2 The Collection Interfaces
 ==============================
@@ -6429,7 +6459,7 @@ File: JavaSE9.info,  Node: Dequeue Interface,  Prev: Queue Interface,  Up: Colle
 ------------------------------
 
 
-File: JavaSE9.info,  Node: Collection Classes,  Next: Accessing a Collection via Iterator,  Prev: Collection Interfaces,  Up: java util Collections
+File: JavaSE9.info,  Node: Collection Classes,  Next: Accessing a Collection via Iterator,  Prev: Collection Interfaces,  Up: java.util Part 1 --- Collections Framework
 
 13.3 The Collection Classes
 ===========================
@@ -6456,14 +6486,14 @@ Classes
 Table 13.3: Collection Core Classes
 
 
-File: JavaSE9.info,  Node: Accessing a Collection via Iterator,  Next: Spliterators,  Prev: Collection Classes,  Up: java util Collections
+File: JavaSE9.info,  Node: Accessing a Collection via Iterator,  Next: Spliterators,  Prev: Collection Classes,  Up: java.util Part 1 --- Collections Framework
 
 13.4 Accessing a Collection via an Interator
 ============================================
 
 Often you will want to cycle through the elements in a collection.
-One way to do this is to employ an "iterator", which is an object that
-implements either the 'Iterator' of the 'ListIterator' interface.
+(1) One way to do this is to employ an "iterator", which is an object
+that implements either the 'Iterator' of the 'ListIterator' interface.
 'Iterator' enables you to cycle through a collection, obtaining or
 removing elements.  'ListIterator' extends 'Iterator' to allow
 bidirectional traversal of a list, and the modification of elements.
@@ -6533,6 +6563,12 @@ Table 13.5: The Methods Declared by 'ListIterator'
 * Using an Iterator::
 * ForEach Alternative to Iterators::
 
+   ---------- Footnotes ----------
+
+   (1) Beginning with JDK 8, you can also use a 'Spliterator' to cycle
+through a collection.  It is described later in this chapter in *note
+Spliterators::.
+
 
 File: JavaSE9.info,  Node: Using an Iterator,  Next: ForEach Alternative to Iterators,  Up: Accessing a Collection via Iterator
 
@@ -6560,6 +6596,170 @@ access a collection in either the forward or backward direction and
 lets you modify an element.  Otherwise, 'ListIterator' is used just
 like 'Iterator'.
 
+Iterator Example
+................
+
+The follwoing example implements these steps, demonstrating both the
+'Iterator' and 'ListIterator' interfaces.  The general principles
+apply to any type of collection.
+
+{'IteratorDemo.java'} ==
+     <Import java.util>
+
+     class IteratorDemo {
+       public static void main (String[] args) {
+         <IteratorDemo--Create an Array List>
+         <IteratorDemo--Use Iterator To Display Contents of Array List>
+         <IteratorDemo--Modify Objects Being Iterated>
+         <IteratorDemo--Use ListIterator to Display Modified Contents>
+         <IteratorDemo--Display the List Backwards>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Import java.util>        See *note Import-java-util::.
+<IteratorDemo--Create     See
+an Array List>            *note IteratorDemo---Create-an-Array-List::.
+<IteratorDemo--Display    See
+the List Backwards>       *note IteratorDemo---Display-the-List-Backwards::.
+<IteratorDemo--Modify     See
+Objects Being Iterated>   *note IteratorDemo---Modify-Objects-Being-Iterated::.
+<IteratorDemo--Use        See
+Iterator To Display       *note IteratorDemo---Use-Iterator-To-Display-Contents-of-Array-List::.
+Contents of Array List>
+<IteratorDemo--Use        See
+ListIterator to Display   *note IteratorDemo---Use-ListIterator-to-Display-Modified-Contents::.
+Modified Contents>
+
+* Menu:
+
+* Import java.util::
+* IteratorDemo---Create an Array List::
+* IteratorDemo---Use Iterator To Display Contents of Array List::
+* IteratorDemo---Modify Objects Being Iterated::
+* IteratorDemo---Use ListIterator to Display Modified Contents::
+* IteratorDemo---Display the List Backwards::
+
+
+File: JavaSE9.info,  Node: Import java.util,  Next: IteratorDemo---Create an Array List,  Up: Using an Iterator
+
+13.4.1.1 Import java.util
+.........................
+
+<Import java.util> ==
+     import java.util.*;
+
+
+This chunk is called by the following chunks:
+
+Chunk name                First definition point
+-------------------------------------------------------------------------
+{'ForEachDemo.java'}      See *note ForEachDemo-java::.
+{'IteratorDemo.java'}     See *note IteratorDemo-java::.
+{'SpliteratorDemo.java'}  See *note SpliteratorDemo-java::.
+
+
+File: JavaSE9.info,  Node: IteratorDemo---Create an Array List,  Next: IteratorDemo---Use Iterator To Display Contents of Array List,  Prev: Import java.util,  Up: Using an Iterator
+
+13.4.1.2 IteratorDemo--Create an Array List
+...........................................
+
+<IteratorDemo--Create an Array List> ==
+     ArrayList<String> al = new ArrayList<String>();
+
+     al.add("C");
+     al.add("A");
+     al.add("E");
+     al.add("B");
+     al.add("D");
+     al.add("F");
+
+
+This chunk is called by {'IteratorDemo.java'}; see its first
+definition at *note IteratorDemo-java::.
+
+
+File: JavaSE9.info,  Node: IteratorDemo---Use Iterator To Display Contents of Array List,  Next: IteratorDemo---Modify Objects Being Iterated,  Prev: IteratorDemo---Create an Array List,  Up: Using an Iterator
+
+13.4.1.3 IteratorDemo--Use Iterator To Display Contents of Array List
+.....................................................................
+
+<IteratorDemo--Use Iterator To Display Contents of Array List> ==
+     System.out.print("Original contents of al: ");
+
+     Iterator<String> itr = al.iterator();
+
+     while (itr.hasNext()) {
+     12  String element = itr.next();
+       System.out.print(element + " ");
+     }
+     System.out.println();
+
+
+This chunk is called by {'IteratorDemo.java'}; see its first
+definition at *note IteratorDemo-java::.
+
+
+File: JavaSE9.info,  Node: IteratorDemo---Modify Objects Being Iterated,  Next: IteratorDemo---Use ListIterator to Display Modified Contents,  Prev: IteratorDemo---Use Iterator To Display Contents of Array List,  Up: Using an Iterator
+
+13.4.1.4 IteratorDemo--Modify Objects Being Iterated
+....................................................
+
+<IteratorDemo--Modify Objects Being Iterated> ==
+     ListIterator<String> litr = al.listIterator();
+
+     while (litr.hasNext()) {
+       String element = litr.next();
+       litr.set(element + "+");
+     }
+
+
+This chunk is called by {'IteratorDemo.java'}; see its first
+definition at *note IteratorDemo-java::.
+
+
+File: JavaSE9.info,  Node: IteratorDemo---Use ListIterator to Display Modified Contents,  Next: IteratorDemo---Display the List Backwards,  Prev: IteratorDemo---Modify Objects Being Iterated,  Up: Using an Iterator
+
+13.4.1.5 IteratorDemo--Use ListIterator to Display Modified Contents
+....................................................................
+
+<IteratorDemo--Use ListIterator to Display Modified Contents> ==
+     System.out.print("Modified contents of al: ");
+
+     itr = al.iterator();
+
+     while (itr.hasNext()) {
+       String element = itr.next();
+       System.out.print(element + " ");
+     }
+     System.out.println();
+
+
+This chunk is called by {'IteratorDemo.java'}; see its first
+definition at *note IteratorDemo-java::.
+
+
+File: JavaSE9.info,  Node: IteratorDemo---Display the List Backwards,  Prev: IteratorDemo---Use ListIterator to Display Modified Contents,  Up: Using an Iterator
+
+13.4.1.6 IteratorDemo--Display the List Backwards
+.................................................
+
+<IteratorDemo--Display the List Backwards> ==
+     System.out.print("Modified list backwards: ");
+
+     while (litr.hasPrevious()) {
+       String element = litr.previous();
+       System.out.print(element + " ");
+     }
+     System.out.println();
+
+
+This chunk is called by {'IteratorDemo.java'}; see its first
+definition at *note IteratorDemo-java::.
+
 
 File: JavaSE9.info,  Node: ForEach Alternative to Iterators,  Prev: Using an Iterator,  Up: Accessing a Collection via Iterator
 
@@ -6572,10 +6772,104 @@ is often a more convenient alternative to cycling through a collection
 than is using an iterator.  The 'for' can cycle through any collection
 of objects that implement the 'Iterable' interface.  Because all of
 the collection classes implement this inteface, they can all be
-operated upon by 'for'.
+operated upon by 'for'.  The code for a 'for' loop is substantially
+shorter and simpler than the iterator-approach, but cna be used only
+to cycle through a collection in the forward direction and cannot be
+used to modify the contents of the collection.
+
+Example Using a 'for' Loop
+..........................
+
+{'ForEachDemo.java'} ==
+     <Import java.util>
+
+     class ForEachDemo {
+       public static void main (String[] args) {
+         <ForEachDemo--Create an Array List For Integers>
+         <ForEachDemo--Use for Loop to Display the Values>
+         <ForEachDemo--Sum the Values by Using a for Loop>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<ForEachDemo--Create an   See
+Array List For            *note ForEachDemo---Create-an-Array-List-For-Integers::.
+Integers>
+<ForEachDemo--Sum the     See
+Values by Using a for     *note ForEachDemo---Sum-the-Values-by-Using-a-for-Loop::.
+Loop>
+<ForEachDemo--Use for     See
+Loop to Display the       *note ForEachDemo---Use-for-Loop-to-Display-the-Values::.
+Values>
+<Import java.util>        See *note Import-java-util::.
+
+* Menu:
+
+* ForEachDemo---Create an Array List For Integers::
+* ForEachDemo---Use for Loop to Display the Values::
+* ForEachDemo---Sum the Values by Using a for Loop::
 
 
-File: JavaSE9.info,  Node: Spliterators,  Next: Storing User-Defined Classes,  Prev: Accessing a Collection via Iterator,  Up: java util Collections
+File: JavaSE9.info,  Node: ForEachDemo---Create an Array List For Integers,  Next: ForEachDemo---Use for Loop to Display the Values,  Up: ForEach Alternative to Iterators
+
+13.4.2.1 ForEachDemo--Create an Array List For Integers
+.......................................................
+
+<ForEachDemo--Create an Array List For Integers> ==
+     ArrayList<Integer> vals = new ArrayList<Integer>();
+
+     vals.add(1);
+     vals.add(2);
+     vals.add(3);
+     vals.add(4);
+     vals.add(5);
+
+
+This chunk is called by {'ForEachDemo.java'}; see its first definition
+at *note ForEachDemo-java::.
+
+
+File: JavaSE9.info,  Node: ForEachDemo---Use for Loop to Display the Values,  Next: ForEachDemo---Sum the Values by Using a for Loop,  Prev: ForEachDemo---Create an Array List For Integers,  Up: ForEach Alternative to Iterators
+
+13.4.2.2 ForEachDemo--Use for Loop to Display the Values
+........................................................
+
+<ForEachDemo--Use for Loop to Display the Values> ==
+     System.out.print("Contents of vals: ");
+
+     for (int v : vals) {
+       System.out.print(v + " ");
+     }
+     System.out.println();
+
+
+This chunk is called by {'ForEachDemo.java'}; see its first definition
+at *note ForEachDemo-java::.
+
+
+File: JavaSE9.info,  Node: ForEachDemo---Sum the Values by Using a for Loop,  Prev: ForEachDemo---Use for Loop to Display the Values,  Up: ForEach Alternative to Iterators
+
+13.4.2.3 ForEachDemo--Sum the Values by Using a for Loop
+........................................................
+
+<ForEachDemo--Sum the Values by Using a for Loop> ==
+     int sum = 0;
+
+     for (int v : vals) {
+       sum += v;
+     }
+
+     System.out.println("Sum of values: " + sum);
+
+
+This chunk is called by {'ForEachDemo.java'}; see its first definition
+at *note ForEachDemo-java::.
+
+
+File: JavaSE9.info,  Node: Spliterators,  Next: Storing User-Defined Classes,  Prev: Accessing a Collection via Iterator,  Up: java.util Part 1 --- Collections Framework
 
 13.5 Spliterators
 =================
@@ -6599,8 +6893,21 @@ offers a streamlined approach that combines the 'hasNext()' and
 
      interface Spliterator<T>
 
-'Spliterator' declares the methods shown in *note Table 13.6:
-SpliteratorMethods.
+'T' is the type of elements being iterated.  'Spliterator' declares
+the methods shown in *note Table 13.6: SpliteratorMethods.
+
+* Menu:
+
+* Spliterator Methods::
+* Using Spliterator for Iteration::
+* Spliterator Characteristics::
+* Spliterator Subinterfaces::
+
+
+File: JavaSE9.info,  Node: Spliterator Methods,  Next: Using Spliterator for Iteration,  Up: Spliterators
+
+13.5.1 'Spliterator' Methods
+----------------------------
 
 int characteristics()        Returns the characteristics of the
                              invoking spliterator, encoded into an
@@ -6639,8 +6946,148 @@ Spliterator<T> trySplit()    If possible, split the invoking
 
 Table 13.6: The Methods Declared by Spliterator
 
-Characteristics
----------------
+
+File: JavaSE9.info,  Node: Using Spliterator for Iteration,  Next: Spliterator Characteristics,  Prev: Spliterator Methods,  Up: Spliterators
+
+13.5.2 Using 'Spliterator' for Basic Iteration
+----------------------------------------------
+
+To use a 'Spliterator' for basic iteration, call 'tryAdvance()' until
+it returns 'false'.  If you will be applying the same action to each
+element in the sequence, 'forEachRemaining()' offers a streamlined
+alternative.  In both cases, the action that will occur wtih each
+iteration is defined by what the 'Consumer' object does with each
+element.  'Consumer' is a functional interface that applies an action
+to an object.  It is a generic functional interface declared in
+'java.util.function'.  'Consumer' specifies only one abstract method,
+'accept()', which is:
+
+     void accept(T objRef)
+
+   In the case of 'tryAdvance()', each iteration passes the next
+element in the sequence to objRef.  Often, the easiest way to
+implement 'Consumer' is by use of a lambda expression.
+
+Example Using 'Spliterator' for Iteration
+.........................................
+
+The following program provides a simple example of 'Spliterator'.  The
+program demonstrates both 'tryAdvance()' and 'forEachRemaining()'.
+These methods combine the actions of 'Iterator''s 'next()' and
+'hasNext()' methods into a single call.
+
+{'SpliteratorDemo.java'} ==
+     <Import java.util>
+
+     class SpliteratorDemo {
+       public static void main (String[] args) {
+         <SpliteratorDemo--Create an Array List for Doubles>
+         <SpliteratorDemo--Use tryAdvance() to Display Contents>
+         <SpliteratorDemo--Create New List>
+         <SpliteratorDemo--Use forEachRemaining() to Display Contents>
+       {
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Import java.util>        See *note Import-java-util::.
+<SpliteratorDemo--Create  See
+New List>                 *note SpliteratorDemo---Create-New-List::.
+<SpliteratorDemo--Create  See
+an Array List for         *note SpliteratorDemo---Create-an-Array-List-for-Doubles::.
+Doubles>
+<SpliteratorDemo--Use     See
+forEachRemaining() to     *note SpliteratorDemo---Use-forEachRemaining---to-Display-Contents::.
+Display Contents>
+<SpliteratorDemo--Use     See
+tryAdvance() to Display   *note SpliteratorDemo---Use-tryAdvance---to-Display-Contents::.
+Contents>
+
+* Menu:
+
+* SpliteratorDemo---Create an Array List for Doubles::
+* SpliteratorDemo---Use tryAdvance() to Display Contents::
+* SpliteratorDemo---Create New List::
+* SpliteratorDemo---Use forEachRemaining() to Display Contents::
+
+
+File: JavaSE9.info,  Node: SpliteratorDemo---Create an Array List for Doubles,  Next: SpliteratorDemo---Use tryAdvance() to Display Contents,  Up: Using Spliterator for Iteration
+
+13.5.2.1 SpliteratorDemo--Create an Array List for Doubles
+..........................................................
+
+<SpliteratorDemo--Create an Array List for Doubles> ==
+     ArrayList<Double> vals = new ArrayList<>();
+
+     vals.add(1.0);
+     vals.add(2.0);
+     vals.add(3.0);
+     vals.add(4.0);
+     vals.add(5.0);
+
+
+This chunk is called by {'SpliteratorDemo.java'}; see its first
+definition at *note SpliteratorDemo-java::.
+
+
+File: JavaSE9.info,  Node: SpliteratorDemo---Use tryAdvance() to Display Contents,  Next: SpliteratorDemo---Create New List,  Prev: SpliteratorDemo---Create an Array List for Doubles,  Up: Using Spliterator for Iteration
+
+13.5.2.2 SpliteratorDemo--Use tryAdvance() to Display Contents
+..............................................................
+
+<SpliteratorDemo--Use tryAdvance() to Display Contents> ==
+     System.out.println("Contents of vals: ");
+     Spliterator<Double> spltitr = vals.spliterator();
+
+     while (spltitr.tryAdvance((n) -> System.out.println(n)));
+
+     System.out.println();
+
+
+This chunk is called by {'SpliteratorDemo.java'}; see its first
+definition at *note SpliteratorDemo-java::.
+
+
+File: JavaSE9.info,  Node: SpliteratorDemo---Create New List,  Next: SpliteratorDemo---Use forEachRemaining() to Display Contents,  Prev: SpliteratorDemo---Use tryAdvance() to Display Contents,  Up: Using Spliterator for Iteration
+
+13.5.2.3 SpliteratorDemo--Create New List
+.........................................
+
+<SpliteratorDemo--Create New List> ==
+     spltitr = vals.spliterator();
+     ArrayList<Double> sqrs = new ArrayList<>();
+
+     while (spltitr.tryAdvance((n) -> sqrs.add(Math.sqrt(n))));
+
+
+This chunk is called by {'SpliteratorDemo.java'}; see its first
+definition at *note SpliteratorDemo-java::.
+
+
+File: JavaSE9.info,  Node: SpliteratorDemo---Use forEachRemaining() to Display Contents,  Prev: SpliteratorDemo---Create New List,  Up: Using Spliterator for Iteration
+
+13.5.2.4 SpliteratorDemo--Use forEachRemaining() to Display Contents
+....................................................................
+
+<SpliteratorDemo--Use forEachRemaining() to Display Contents> ==
+     System.out.println("Contents of sqrs: ");
+     spltitr = sqrs.spliterator();
+
+     spltitr.forEachRemaining((n) -> System.out.println(n));
+
+     System.out.println();
+
+
+This chunk is called by {'SpliteratorDemo.java'}; see its first
+definition at *note SpliteratorDemo-java::.
+
+
+File: JavaSE9.info,  Node: Spliterator Characteristics,  Next: Spliterator Subinterfaces,  Prev: Using Spliterator for Iteration,  Up: Spliterators
+
+13.5.3 'Spliterator' Characteristics
+------------------------------------
 
 Each 'Spliterator' has a set of attributes, called "characteristics",
 associated with it.  These are defined by static 'int' fields in
@@ -6655,69 +7102,74 @@ to name a few.  You can obtain the characteristics by calling
 'characteristics()'.  You can determine if a characteristic is present
 by calling 'hasCharacteristics()'.
 
-Spliterator Subinterfaces
--------------------------
+
+File: JavaSE9.info,  Node: Spliterator Subinterfaces,  Prev: Spliterator Characteristics,  Up: Spliterators
+
+13.5.4 'Spliterator' Subinterfaces
+----------------------------------
 
 There are several nested subinterfaces of 'Spliterator' designed for
 use with the primitive types 'double', 'int', and 'long'.  These are
-called 'Spliterator.OfDouble', 'Spliterator.OfInt', and
-'Spliterator.OfLong'.  There is also a generalized version called
-'Spliterator.OfPrimitive', which offers additional flexibility and
-servers as a superinterface.
+called
+
+   * 'Spliterator.OfDouble',
+   * 'Spliterator.OfInt', and
+   * 'Spliterator.OfLong'.
+   * 'Spliterator.OfPrimitive' (serves as a superinterface)
 
 
-File: JavaSE9.info,  Node: Storing User-Defined Classes,  Next: RandomAccess Interface,  Prev: Spliterators,  Up: java util Collections
+File: JavaSE9.info,  Node: Storing User-Defined Classes,  Next: RandomAccess Interface,  Prev: Spliterators,  Up: java.util Part 1 --- Collections Framework
 
 13.6 Storing User-Defined Classes in Collections
 ================================================
 
 
-File: JavaSE9.info,  Node: RandomAccess Interface,  Next: Working with Maps,  Prev: Storing User-Defined Classes,  Up: java util Collections
+File: JavaSE9.info,  Node: RandomAccess Interface,  Next: Working with Maps,  Prev: Storing User-Defined Classes,  Up: java.util Part 1 --- Collections Framework
 
 13.7 RandomAccess Interface
 ===========================
 
 
-File: JavaSE9.info,  Node: Working with Maps,  Next: Comparators,  Prev: RandomAccess Interface,  Up: java util Collections
+File: JavaSE9.info,  Node: Working with Maps,  Next: Comparators,  Prev: RandomAccess Interface,  Up: java.util Part 1 --- Collections Framework
 
 13.8 Working with Maps
 ======================
 
 
-File: JavaSE9.info,  Node: Comparators,  Next: Collection Algorithms,  Prev: Working with Maps,  Up: java util Collections
+File: JavaSE9.info,  Node: Comparators,  Next: Collection Algorithms,  Prev: Working with Maps,  Up: java.util Part 1 --- Collections Framework
 
 13.9 Comparators
 ================
 
 
-File: JavaSE9.info,  Node: Collection Algorithms,  Next: Arrays Class,  Prev: Comparators,  Up: java util Collections
+File: JavaSE9.info,  Node: Collection Algorithms,  Next: Arrays Class,  Prev: Comparators,  Up: java.util Part 1 --- Collections Framework
 
 13.10 The Collection Algorithms
 ===============================
 
 
-File: JavaSE9.info,  Node: Arrays Class,  Next: Legacy Classes and Interfaces,  Prev: Collection Algorithms,  Up: java util Collections
+File: JavaSE9.info,  Node: Arrays Class,  Next: Legacy Classes and Interfaces,  Prev: Collection Algorithms,  Up: java.util Part 1 --- Collections Framework
 
 13.11 Arrays Class
 ==================
 
 
-File: JavaSE9.info,  Node: Legacy Classes and Interfaces,  Prev: Arrays Class,  Up: java util Collections
+File: JavaSE9.info,  Node: Legacy Classes and Interfaces,  Prev: Arrays Class,  Up: java.util Part 1 --- Collections Framework
 
 13.12 Legacy Classes and Interfaces
 ===================================
 
 
-File: JavaSE9.info,  Node: java util Utility Classes,  Next: Input/Output java.io,  Prev: java util Collections,  Up: Top
+File: JavaSE9.info,  Node: java.util Part 2 --- Utility Classes,  Next: java.io --- Input/Output,  Prev: java.util Part 1 --- Collections Framework,  Up: Top
 
-14 'java.util' -- Part 2: Utility Classes
-*****************************************
+14 'java.util' Part 2: Utility Classes
+**************************************
 
 
-File: JavaSE9.info,  Node: Input/Output java.io,  Next: NIO,  Prev: java util Utility Classes,  Up: Top
+File: JavaSE9.info,  Node: java.io --- Input/Output,  Next: java.nio --- NIO,  Prev: java.util Part 2 --- Utility Classes,  Up: Top
 
-15 Input/Output -- 'java.io'
-****************************
+15 Input/Output -- Exploring 'java.io'
+**************************************
 
 This chapter explores 'java.io', which provides support for I/O
 operations.  Data is retrieved from an _input_ source.  The results of
@@ -6731,7 +7183,7 @@ if the phyiscal devices they are linked to differ.
 
    Beginning with version 1.4, a second I/O system was added to Java,
 called NIO (which meant New I/O). NIO is packaged in 'java.nio' and
-its subpackages.  The NIO is described in *note NIO::.
+its subpackages.  The NIO is described in *note java.nio --- NIO::.
 
 * Menu:
 
@@ -6748,7 +7200,7 @@ its subpackages.  The NIO is described in *note NIO::.
 * Stream Benefits::
 
 
-File: JavaSE9.info,  Node: I/O Classes and Interfaces,  Next: File,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: I/O Classes and Interfaces,  Next: File,  Up: java.io --- Input/Output
 
 15.1 I/O Classes and Interfaces
 ===============================
@@ -6816,7 +7268,7 @@ File: JavaSE9.info,  Node: I/O Interfaces,  Prev: I/O Classes,  Up: I/O Classes 
    * Serializable
 
 
-File: JavaSE9.info,  Node: File,  Next: AutoCloseable Closeable Flushable Interfaces,  Prev: I/O Classes and Interfaces,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: File,  Next: AutoCloseable Closeable Flushable Interfaces,  Prev: I/O Classes and Interfaces,  Up: java.io --- Input/Output
 
 15.2 File
 =========
@@ -6876,7 +7328,7 @@ the same file as 'f2'.
    ---------- Footnotes ----------
 
    (1) The 'Path' interface and 'Files' class, part of the NIO system,
-offer a powerful alternative to 'File'.  *Note NIO::.
+offer a powerful alternative to 'File'.  *Note java.nio --- NIO::.
 
 
 File: JavaSE9.info,  Node: File Methods,  Next: File Utility Methods,  Up: File
@@ -6970,7 +7422,7 @@ Table 15.2: File Utility Methods
    ---------- Footnotes ----------
 
    (1) 'toPath()' forms a bridge between the older 'File' class and
-the newer 'Path' interface; *Note NIO::.
+the newer 'Path' interface; *Note java.nio --- NIO::.
 
 
 File: JavaSE9.info,  Node: Directories,  Next: Examine Directory Contents,  Prev: File Utility Methods,  Up: File
@@ -7374,13 +7826,13 @@ File: JavaSE9.info,  Node: Creating Directories,  Prev: listFiles() Alternative,
    * boolen mkdirs()
 
 
-File: JavaSE9.info,  Node: AutoCloseable Closeable Flushable Interfaces,  Next: I/O Exceptions,  Prev: File,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: AutoCloseable Closeable Flushable Interfaces,  Next: I/O Exceptions,  Prev: File,  Up: java.io --- Input/Output
 
 15.3 The 'AutoCloseable', 'Closeable', and 'Flushable' Interfaces
 =================================================================
 
 
-File: JavaSE9.info,  Node: I/O Exceptions,  Next: Closing a Stream,  Prev: AutoCloseable Closeable Flushable Interfaces,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: I/O Exceptions,  Next: Closing a Stream,  Prev: AutoCloseable Closeable Flushable Interfaces,  Up: java.io --- Input/Output
 
 15.4 I/O Exceptions
 ===================
@@ -7409,7 +7861,7 @@ Other applications could generate a 'SecurityExcpetion', which will
 need to be handled.
 
 
-File: JavaSE9.info,  Node: Closing a Stream,  Next: Stream Classes,  Prev: I/O Exceptions,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: Closing a Stream,  Next: Stream Classes,  Prev: I/O Exceptions,  Up: java.io --- Input/Output
 
 15.5 Two Ways to Close a Stream
 ===============================
@@ -7488,7 +7940,7 @@ possible to forget to close a stream.  Another advantage is that the
 easier-to-maintain source code.
 
 
-File: JavaSE9.info,  Node: Stream Classes,  Next: Byte Streams,  Prev: Closing a Stream,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: Stream Classes,  Next: Byte Streams,  Prev: Closing a Stream,  Up: java.io --- Input/Output
 
 15.6 The Stream Classes
 =======================
@@ -7509,7 +7961,7 @@ classes when working with characters or strings and use the byte
 stream classes when working with bytes or other binary objects.
 
 
-File: JavaSE9.info,  Node: Byte Streams,  Next: Character Streams,  Prev: Stream Classes,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: Byte Streams,  Next: Character Streams,  Prev: Stream Classes,  Up: java.io --- Input/Output
 
 15.7 The Byte Streams
 =====================
@@ -8012,7 +8464,7 @@ File: JavaSE9.info,  Node: RandomAccessFile,  Prev: DataOutputStream DataInputSt
 --------------------------
 
 
-File: JavaSE9.info,  Node: Character Streams,  Next: Console Class,  Prev: Byte Streams,  Up: Input/Output java.io
+File: JavaSE9.info,  Node: Character Streams,  Next: Console Class,  Prev: Byte Streams,  Up: java.io --- Input/Output
 
 15.8 The Character Streams
 ==========================
@@ -8336,485 +8788,4 @@ BufferedReader>
 * BufferedReaderDemo Instance Variables::
 * BufferedReaderDemo Buffer::
 * BufferedReaderDemo TryWithResources BufferedReader::
-
-
-File: JavaSE9.info,  Node: BufferedReaderDemo Instance Variables,  Next: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
-
-15.8.8.1 BufferedReaderDemo Instance Variables
-..............................................
-
-The String is copied directly from the prior implementation.
-
-=========================================================================
-
-<BufferedReaderDemo Instance Variables> ==
-     <BufferedInputStreamDemo String>
-     <BufferedReaderDemo Buffer>
-
-
-This chunk is called by {'BufferedReaderDemo.java'}; see its first
-definition at *note BufferedReaderDemo-java::.
-
-The following table lists called chunk definition points.
-Chunk name                First definition point
--------------------------------------------------------------------------
-<BufferedInputStreamDemo  See *note BufferedInputStreamDemo-String::.
-String>
-<BufferedReaderDemo       See *note BufferedReaderDemo-Buffer::.
-Buffer>
-
-
-File: JavaSE9.info,  Node: BufferedReaderDemo Buffer,  Next: BufferedReaderDemo TryWithResources BufferedReader,  Prev: BufferedReaderDemo Instance Variables,  Up: Buffered Reader Demo
-
-15.8.8.2 BufferedReaderDemo Buffer
-..................................
-
-Notice that this implementation uses a 'char' buffer, with a
-'getChars()' method to transfer the string characters, while the
-'BufferedInputStream' implementation uses a 'byte' buffer, and a
-'getBytes()' method to transfer the string bytes.  *Note
-BufferedInputStreamDemo Buffer::.
-
-=========================================================================
-
-<BufferedReaderDemo Buffer> ==
-     char buf[] = new char[s.length()];
-     s.getChars(0, s.length(), buf, 0);
-
-
-This chunk is called by <BufferedReaderDemo Instance Variables>; see
-its first definition at *note BufferedReaderDemo-Instance-Variables::.
-
-
-File: JavaSE9.info,  Node: BufferedReaderDemo TryWithResources BufferedReader,  Prev: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
-
-15.8.8.3 BufferedReaderDemo TryWithResources BufferedReader
-...........................................................
-
-Notice that the Switch code is identical to the byte stream example.
-
-==========================================================================
-
-<BufferedReaderDemo TryWithResources BufferedReader> ==
-     try ( BufferedReader f = new BufferedReader(in) ) {
-       while ( (c = f.read()) != -1 ) {
-         <BufferedInputStreamDemo Switch on Character>
-       }
-     }
-
-
-This chunk is called by {'BufferedReaderDemo.java'}; see its first
-definition at *note BufferedReaderDemo-java::.
-
-The called chunk <BufferedInputStreamDemo Switch on Character> is
-first defined at *note BufferedInputStreamDemo-Switch-on-Character::.
-
-
-File: JavaSE9.info,  Node: BufferedWriter,  Next: PushbackReader,  Prev: Buffered Reader Demo,  Up: Character Streams
-
-15.8.9 'BufferedWriter'
------------------------
-
-A 'BufferedWriter' is a 'Writer' that buffers output.  Using a
-'BufferedWriter' can improve performance by reducing the number of
-times data is actually phyiscally written to the output device.  A
-'BufferedWriter' has these constructors:
-
-     BufferedWriter (Writer outputStream)
-     BufferedWriter (Writer outputStream, int bufSize)
-
-
-File: JavaSE9.info,  Node: PushbackReader,  Next: PrintWriter,  Prev: BufferedWriter,  Up: Character Streams
-
-15.8.10 'PushbackReader'
-------------------------
-
-
-File: JavaSE9.info,  Node: PrintWriter,  Prev: PushbackReader,  Up: Character Streams
-
-15.8.11 'PrintWriter'
----------------------
-
-
-File: JavaSE9.info,  Node: Console Class,  Next: Serialization,  Prev: Character Streams,  Up: Input/Output java.io
-
-15.9 The Console Class
-======================
-
-
-File: JavaSE9.info,  Node: Serialization,  Next: Stream Benefits,  Prev: Console Class,  Up: Input/Output java.io
-
-15.10 Serialization
-===================
-
-"Serialization" is the process of writing the state of an object to a
-byte stream.  This is useful when you want to save the state of your
-program to a persistent storage area, such as a file.  At a later
-time, you may restore these objects by using the process of
-deserialization.
-
-   Assume that an object to be serialized has references to other
-objects, which, in turn, have references to still more objects.  This
-set of objects and the relationships among them form a directed graph.
-There may also be circular references within this object graph.
-Objects may also contain references to themselves.  The object
-serialization and deserialization facilities have been designed to
-work correctly in these scenarios.  If you attempt to serialize an
-object at the top of an object graph, all of the other referenced
-objects are recurseively located and serialized.  Similarly, during
-the process of deserialization, all of these objects and their
-references are correctly restored.
-
-* Menu:
-
-* Serializable::
-* Externalizable::
-* ObjectOutput::
-* ObjectOutputStream::
-* ObjectInput::
-* ObjectInputStream::
-* Serializable Example::
-
-
-File: JavaSE9.info,  Node: Serializable,  Next: Externalizable,  Up: Serialization
-
-15.10.1 'Serializable'
-----------------------
-
-Only an object that implements the 'Serializable' interface can be
-saved and restored by the serialization facilities.  The
-'Serializable' interface defines no members.  It is simply used to
-indicate that a class may be serialized.  If a class is serializable,
-all of its subclasses are also serializable.
-
-   Variables that are declared as 'transient' are not saved by the
-serialization facilities.  Also 'static' variables are not saved.
-
-
-File: JavaSE9.info,  Node: Externalizable,  Next: ObjectOutput,  Prev: Serializable,  Up: Serialization
-
-15.10.2 'Externalizable'
-------------------------
-
-The Java facilities for serialization and deserialization have been
-designed so that much of the work to save and restore the state of an
-object occurs automatically.  However, there are cases in which the
-programmer may need to have control over these processes.  The
-'Externalizable' interface is designed for these sitautions.
-
-   The 'Externalizable' interface defines these two methods:
-
-     void readExternal (ObjectInput inStream) throws IOException, ClassNotFoundException
-     void writeExternal (ObjectOutput outStream throws IOException
-
-
-File: JavaSE9.info,  Node: ObjectOutput,  Next: ObjectOutputStream,  Prev: Externalizable,  Up: Serialization
-
-15.10.3 'ObjectOutput'
-----------------------
-
-
-File: JavaSE9.info,  Node: ObjectOutputStream,  Next: ObjectInput,  Prev: ObjectOutput,  Up: Serialization
-
-15.10.4 'ObjectOutputStream'
-----------------------------
-
-
-File: JavaSE9.info,  Node: ObjectInput,  Next: ObjectInputStream,  Prev: ObjectOutputStream,  Up: Serialization
-
-15.10.5 'ObjectInput'
----------------------
-
-
-File: JavaSE9.info,  Node: ObjectInputStream,  Next: Serializable Example,  Prev: ObjectInput,  Up: Serialization
-
-15.10.6 'ObjectInputStream'
----------------------------
-
-
-File: JavaSE9.info,  Node: Serializable Example,  Prev: ObjectInputStream,  Up: Serialization
-
-15.10.7 A Serializable Example
-------------------------------
-
-
-File: JavaSE9.info,  Node: Stream Benefits,  Prev: Serialization,  Up: Input/Output java.io
-
-15.11 Stream Benefits
-=====================
-
-
-File: JavaSE9.info,  Node: NIO,  Next: Networking,  Prev: Input/Output java.io,  Up: Top
-
-16 NIO
-******
-
-
-File: JavaSE9.info,  Node: Networking,  Next: Event Handling,  Prev: NIO,  Up: Top
-
-17 Networking
-*************
-
-
-File: JavaSE9.info,  Node: Event Handling,  Next: AWT,  Prev: Networking,  Up: Top
-
-18 Event Handling
-*****************
-
-
-File: JavaSE9.info,  Node: AWT,  Next: AWT Controls,  Prev: Event Handling,  Up: Top
-
-19 AWT: Working with Windows, Graphics, and Text
-************************************************
-
-
-File: JavaSE9.info,  Node: AWT Controls,  Next: Images,  Prev: AWT,  Up: Top
-
-20 Using AWT Controls, Layout Managers, and Menus
-*************************************************
-
-
-File: JavaSE9.info,  Node: Images,  Next: Concurrency,  Prev: AWT Controls,  Up: Top
-
-21 Images
-*********
-
-
-File: JavaSE9.info,  Node: Concurrency,  Next: Streams API,  Prev: Images,  Up: Top
-
-22 The Concurrency Utilities
-****************************
-
-
-File: JavaSE9.info,  Node: Streams API,  Next: Regular Expressions,  Prev: Concurrency,  Up: Top
-
-23 The Stream API
-*****************
-
-
-File: JavaSE9.info,  Node: Regular Expressions,  Next: Reflection,  Prev: Streams API,  Up: Top
-
-24 Regular Expressions
-**********************
-
-
-File: JavaSE9.info,  Node: Reflection,  Next: Swing,  Prev: Regular Expressions,  Up: Top
-
-25 Reflection
-*************
-
-"Reflection" is the ability of software to analyze or modify itself at
-runtime rather than at compile time.  This is provided by the
-'java.lang.reflect' package and elements in 'Class'.  Beginning with
-JDK 9, 'java.lang.reflect' is part of the 'java.base' module.
-Reflection allows you to analyze a software component and describe its
-capabilities dynamcically at run-time rather than at compile time.
-For example, by using reflection, you can determine what methods,
-constructors, and fields a class supports.
-
-Drawbacks of Reflection
-=======================
-
-Because reflection is dynamic, the java virtual machine is unable to
-make certain optimizations and could therefor run slower.  Also, since
-reflection allows code to perform operations that would be illegal in
-non-reflective code, such as accessing private fields and methods, the
-use of reflection can result in unexpected behavior.  Reflection
-breaks abstractions.
-
-* Menu:
-
-* java.lang.reflect Package::
-* Classes and Reflection::
-* Members and Reflection::
-* Arays and Enumerated Types and Reflection::
-
-
-File: JavaSE9.info,  Node: java.lang.reflect Package,  Next: Classes and Reflection,  Up: Reflection
-
-25.1 'java.lang.reflect' Package
-================================
-
-This package provides classes and interfaces for obtaining reflective
-information about classes and objects.  Reflection allows programmatic
-access to information about the fields, methods and constructors of
-loaded classes, and the use of reflected fields, methods, and
-constructors to operate on their underlying counterparts, within
-encapsulation and security restrictions.
-
-   The package 'java.lang.reflect' includes several interfaces.  Of
-special interest is 'Member', which defines methods that allow you to
-get information abouta field, constructor, or method of a class.
-There are also ten classes in this package.
-
-   Classes in this package, along with java.lang.Class accommodate
-applications such as debuggers, interpreters, object inspectors, class
-browsers, and services such as Object Serialization and JavaBeans that
-need access to either the public members of a target object (based on
-its runtime class) or the members declared by a given class.
-
-   Note that none of the classes in 'java.lang.reflect' offer any
-public constructors.  All reflection interactions must go through
-'java.lang.Class'.  Note also that 'java.lang.Class' does not offer
-any public constructors.  Instances of this class are created by the
-Java Virtual Machine.
-
-* Menu:
-
-* Classes Defined in java-lang-reflect::
-* Interfaces Defined in java-lang-reflect::
-* Reflection Demonstration::
-
-
-File: JavaSE9.info,  Node: Classes Defined in java-lang-reflect,  Next: Interfaces Defined in java-lang-reflect,  Up: java.lang.reflect Package
-
-25.1.1 Classes Defined in 'java.lang.reflect'
----------------------------------------------
-
-AccessibleObject
-     Allows you to bypass the default access control checks
-Array
-     Allows you to dynamically create and manipulate arrays
-Constructor
-     Provides information about a constructor
-Executable
-     An abstract superclass extended by 'Member' and 'Constructor'
-Field
-     Provides information about a field
-Method
-     Provides information about a method
-Modifier
-     Provides information about class and member access modifiers
-Parameter
-     Provides information about parameters
-Proxy
-     Supports dynamic proxy classes
-ReflectPermission
-     Allows reflection of private or protected members of a class
-
-Table 25.1: Classes Defined in 'java.lang.reflect'
-
-
-File: JavaSE9.info,  Node: Interfaces Defined in java-lang-reflect,  Next: Reflection Demonstration,  Prev: Classes Defined in java-lang-reflect,  Up: java.lang.reflect Package
-
-25.1.2 Interfaces Defined in 'java.lang.reflect'
-------------------------------------------------
-
-AnnotatedArrayType
-     represents the potentially annotated use of an array type, whose
-     component type may itself represent the annotated use of a type.
-AnnotatedElement
-     represents an annotated element of the program currently running
-     in this VM.
-AnnotatedParameterizedType
-     represents the potentially annotated use of a parameterized type,
-     whose type arguments may themselves represent annotated uses of
-     types.
-AnnotatedType
-     represents the potentially annotated use of a type in the program
-     currently running in this VM.
-AnnotatedTypeVariable
-     represents the potentially annotated use of a type variable,
-     whose declaration may have bounds which themselves represent
-     annotated uses of types.
-AnnotatedWildcardType
-     represents the potentially annotated use of a wildcard type
-     argument, whose upper or lower bounds may themselves represent
-     annotated uses of types.
-GenericArrayType
-     represents an array type whose component type is either a
-     parameterized type or a type variable.
-GenericDeclaration
-     A common interface for all entities that declare type variables.
-InvocationHandler
-     the interface implemented by the invocation handler of a proxy
-     instance.
-Member
-     an interface that reflects identifying information about a single
-     member (a field or a method) or a constructor.
-ParameterizedType
-     ParameterizedType represents a parameterized type such as
-     Collection<String>.
-Type
-     Type is the common superinterface for all types in the Java
-     programming language.
-TypeVariable<D extends GenericDeclaration>
-     the common superinterface for type variables of kinds.
-WildcardType
-     WildcardType represents a wildcard type expression, such as ?, ?
-     extends Number, or ?  super Integer.
-
-Table 25.2: Interfaces Defined in 'java.lang.reflect'
-
-
-File: JavaSE9.info,  Node: Reflection Demonstration,  Prev: Interfaces Defined in java-lang-reflect,  Up: java.lang.reflect Package
-
-25.1.3 Reflection Demonstration
--------------------------------
-
-The following application illustrates a simple use of the Java
-reflection capabilities.  It prints the constructors, fields, and
-methods of the class 'java.awt.Dimension'.  The program begins by
-using the 'forName()' mthod of 'Class' to get a class object for
-'java.awt.Dimension'.  Once this is obtained, 'getConstructors()',
-'getFields()', and 'getMethods()' are used to analyze this class
-object.  They return arrays of 'Constructor', 'Field', and 'Method'
-objects that provide the information about the object.  The
-'Constructor', 'Field', and 'Method' classes define several methods
-that can be used to obtain information about an object.  Each supports
-the 'toString()' method.  Therefore, using these objects as arguments
-tot he 'println()' method is straightforward.
-
-ReflectionDemo1.java
-....................
-
-{'ReflectionDemo1.java'} ==
-     <Import java.lang.reflect>
-
-     public class ReflectionDemo1 {
-       public static void main(String[] args) {
-
-         try {
-
-           <ReflectionDemo1 Class forName Call>
-
-           System.out.println("Constructors:");
-           <ReflectionDemo1 getConstructors Call>
-
-           System.out.println("Fields:");
-           <ReflectionDemo1 getFields Call>
-
-           System.out.println("Methods:");
-           <ReflectionDemo1 getMethods Call>
-
-         }
-         <Catch Exception>
-
-       }
-     }
-
-
-The following table lists called chunk definition points.
-Chunk name                First definition point
--------------------------------------------------------------------------
-<Catch Exception>         See *note Catch-Exception::.
-<Import                   See *note Import-java-lang-reflect::.
-java.lang.reflect>
-<ReflectionDemo1 Class    See
-forName Call>             *note ReflectionDemo1-Class-forName-Call::.
-<ReflectionDemo1          See
-getConstructors Call>     *note ReflectionDemo1-getConstructors-Call::.
-<ReflectionDemo1          See *note ReflectionDemo1-getFields-Call::.
-getFields Call>
-<ReflectionDemo1          See *note ReflectionDemo1-getMethods-Call::.
-getMethods Call>
-
-* Menu:
-
-* ReflectionDemo1 Class forName Call::
-* ReflectionDemo1 getConstructors Call::
-* ReflectionDem1 getFields Call::
-* ReflectionDemo1 getMethods Call::
-* Catch Exception::
-* Import java.lang.reflect::
 

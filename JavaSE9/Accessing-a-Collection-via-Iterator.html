@@ -13,7 +13,7 @@
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="java-util-Collections.html#java-util-Collections" rel="up" title="java util Collections">
+<link href="java_002eutil-Part-1-_002d_002d_002d-Collections-Framework.html#java_002eutil-Part-1-_002d_002d_002d-Collections-Framework" rel="up" title="java.util Part 1 --- Collections Framework">
 <link href="Using-an-Iterator.html#Using-an-Iterator" rel="next" title="Using an Iterator">
 <link href="Collection-Classes.html#Collection-Classes" rel="prev" title="Collection Classes">
 <style type="text/css">
@@ -51,24 +51,24 @@ ul.no-bullet {list-style: none}
 <a name="Accessing-a-Collection-via-Iterator"></a>
 <div class="header">
 <p>
-Next: <a href="Spliterators.html#Spliterators" accesskey="n" rel="next">Spliterators</a>, Previous: <a href="Collection-Classes.html#Collection-Classes" accesskey="p" rel="prev">Collection Classes</a>, Up: <a href="java-util-Collections.html#java-util-Collections" accesskey="u" rel="up">java util Collections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Spliterators.html#Spliterators" accesskey="n" rel="next">Spliterators</a>, Previous: <a href="Collection-Classes.html#Collection-Classes" accesskey="p" rel="prev">Collection Classes</a>, Up: <a href="java_002eutil-Part-1-_002d_002d_002d-Collections-Framework.html#java_002eutil-Part-1-_002d_002d_002d-Collections-Framework" accesskey="u" rel="up">java.util Part 1 --- Collections Framework</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="Accessing-a-Collection-via-an-Interator"></a>
 <h3 class="section">13.4 Accessing a Collection via an Interator</h3>
 <a name="index-Iterator_002c-accessing-a-Collection"></a>
 
-<p>Often you will want to cycle through the elements in a collection.  One way
-to do this is to employ an <em>iterator</em>, which is an object that implements
-either the <samp>Iterator</samp> of the <samp>ListIterator</samp> interface.
-<samp>Iterator</samp> enables you to cycle through a collection, obtaining or
-removing elements.  <samp>ListIterator</samp> extends <samp>Iterator</samp> to allow
-bidirectional traversal of a list, and the modification of elements.
-<samp>Iterator</samp> and <samp>ListIterator</samp> are generic interfaces which are
-declared as shown:
+<p>Often you will want to cycle through the elements in a
+collection. <a name="DOCF3" href="#FOOT3"><sup>3</sup></a>  One way to do this is to employ
+an <em>iterator</em>, which is an object that implements either the
+<samp>Iterator</samp> of the <samp>ListIterator</samp> interface.  <samp>Iterator</samp>
+enables you to cycle through a collection, obtaining or removing elements.
+<samp>ListIterator</samp> extends <samp>Iterator</samp> to allow bidirectional traversal
+of a list, and the modification of elements.  <samp>Iterator</samp> and
+<samp>ListIterator</samp> are generic interfaces which are declared as shown:
 </p>
-<div class="example">
-<pre class="example">interface Iterator&lt;E&gt;
+<div class="display">
+<pre class="display">interface Iterator&lt;E&gt;
 interface ListIterator&lt;E&gt;
 </pre></div>
 
@@ -123,6 +123,7 @@ the element last returned by a call to either <code>next()</code> or
 
 <div class="float-caption"><p><strong>Table 13.5: </strong>The Methods Declared by <samp>ListIterator</samp></p></div></div>
 
+
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="Using-an-Iterator.html#Using-an-Iterator" accesskey="1">Using an Iterator</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -130,10 +131,19 @@ the element last returned by a call to either <code>next()</code> or
 </td></tr>
 </table>
 
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT3" href="#DOCF3">(3)</a></h3>
+<p>Beginning with JDK 8, you can also use a
+<samp>Spliterator</samp> to cycle through a collection.  It is described later in
+this chapter in <a href="Spliterators.html#Spliterators">Spliterators</a>.</p>
+</div>
 <hr>
 <div class="header">
 <p>
-Next: <a href="Spliterators.html#Spliterators" accesskey="n" rel="next">Spliterators</a>, Previous: <a href="Collection-Classes.html#Collection-Classes" accesskey="p" rel="prev">Collection Classes</a>, Up: <a href="java-util-Collections.html#java-util-Collections" accesskey="u" rel="up">java util Collections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Spliterators.html#Spliterators" accesskey="n" rel="next">Spliterators</a>, Previous: <a href="Collection-Classes.html#Collection-Classes" accesskey="p" rel="prev">Collection Classes</a>, Up: <a href="java_002eutil-Part-1-_002d_002d_002d-Collections-Framework.html#java_002eutil-Part-1-_002d_002d_002d-Collections-Framework" accesskey="u" rel="up">java.util Part 1 --- Collections Framework</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

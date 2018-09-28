@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Using Spliterator for Iteration (About Java SE 9)</title>
+
+<meta name="description" content="Using Spliterator for Iteration (About Java SE 9)">
+<meta name="keywords" content="Using Spliterator for Iteration (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Spliterators.html#Spliterators" rel="up" title="Spliterators">
+<link href="SpliteratorDemo_002d_002d_002dCreate-an-Array-List-for-Doubles.html#SpliteratorDemo_002d_002d_002dCreate-an-Array-List-for-Doubles" rel="next" title="SpliteratorDemo---Create an Array List for Doubles">
+<link href="Spliterator-Methods.html#Spliterator-Methods" rel="prev" title="Spliterator Methods">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Using-Spliterator-for-Iteration"></a>
+<div class="header">
+<p>
+Next: <a href="Spliterator-Characteristics.html#Spliterator-Characteristics" accesskey="n" rel="next">Spliterator Characteristics</a>, Previous: <a href="Spliterator-Methods.html#Spliterator-Methods" accesskey="p" rel="prev">Spliterator Methods</a>, Up: <a href="Spliterators.html#Spliterators" accesskey="u" rel="up">Spliterators</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Using-Spliterator-for-Basic-Iteration"></a>
+<h4 class="subsection">13.5.2 Using <samp>Spliterator</samp> for Basic Iteration</h4>
+<a name="index-basic-iteration-using-Spliterator"></a>
+
+<p>To use a <samp>Spliterator</samp> for basic iteration, call <code>tryAdvance()</code>
+until it returns <code>false</code>.  If you will be applying the same action to
+each element in the sequence, <code>forEachRemaining()</code> offers a streamlined
+alternative.  In both cases, the action that will occur wtih each iteration
+is defined by what the <samp>Consumer</samp> object does with each element.
+<samp>Consumer</samp> is a functional interface that applies an action to an
+object.  It is a generic functional interface declared in
+<samp>java.util.function</samp>.  <samp>Consumer</samp> specifies only one abstract
+method, <code>accept()</code>, which is:
+</p>
+<div class="display">
+<pre class="display">void accept(T <i>objRef</i>)
+</pre></div>
+
+<p>In the case of <code>tryAdvance()</code>, each iteration passes the next element in
+the sequence to <i>objRef</i>.  Often, the easiest way to implement
+<samp>Consumer</samp> is by use of a lambda expression.
+</p>
+<a name="Example-Using-Spliterator-for-Iteration"></a>
+<h4 class="subsubheading">Example Using <samp>Spliterator</samp> for Iteration</h4>
+<a name="index-SpliteratorDemo_002ejava"></a>
+
+<table class="cartouche" border="1"><tr><td>
+<p>The following program provides a simple example of <samp>Spliterator</samp>.  The
+program demonstrates both <code>tryAdvance()</code> and <code>forEachRemaining()</code>.
+These methods combine the actions of <samp>Iterator</samp>&rsquo;s <code>next()</code> and
+<code>hasNext()</code> methods into a single call.
+</p></td></tr></table>
+
+<a name="SpliteratorDemo_002djava"></a><a name="index-_003cImport-java_002eutil_003e_002c-use-2"></a>
+<a name="index-_003cSpliteratorDemo_002d_002d_002dCreate-an-Array-List-for-Doubles_003e_002c-use"></a>
+<a name="index-_003cSpliteratorDemo_002d_002d_002dUse-tryAdvance_0028_0029-to-Display-Contents_003e_002c-use"></a>
+<a name="index-_003cSpliteratorDemo_002d_002d_002dCreate-New-List_003e_002c-use"></a>
+<a name="index-_003cSpliteratorDemo_002d_002d_002dUse-forEachRemaining_0028_0029-to-Display-Contents_003e_002c-use"></a>
+<a name="index-_007bSpliteratorDemo_002ejava_007d_002c-definition"></a>
+<p><span class="roman">{<samp>SpliteratorDemo.java</samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example"><span class="roman">&lt;<i>Import java.util</i>&gt;</span>
+
+class SpliteratorDemo {
+  public static void main (String[] args) {
+    <span class="roman">&lt;<i>SpliteratorDemo&mdash;Create an Array List for Doubles</i>&gt;</span>
+    <span class="roman">&lt;<i>SpliteratorDemo&mdash;Use tryAdvance() to Display Contents</i>&gt;</span>
+    <span class="roman">&lt;<i>SpliteratorDemo&mdash;Create New List</i>&gt;</span>
+    <span class="roman">&lt;<i>SpliteratorDemo&mdash;Use forEachRemaining() to Display Contents</i>&gt;</span>
+  {
+}
+
+</pre></div>
+
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>Import java.util</i>&gt;</span></td><td width="65%">See <a href="Import-java_002eutil.html#Import_002djava_002dutil">Import-java-util</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>SpliteratorDemo&mdash;Create New List</i>&gt;</span></td><td width="65%">See <a href="SpliteratorDemo_002d_002d_002dCreate-New-List.html#SpliteratorDemo_002d_002d_002dCreate_002dNew_002dList">SpliteratorDemo---Create-New-List</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>SpliteratorDemo&mdash;Create an Array List for Doubles</i>&gt;</span></td><td width="65%">See <a href="SpliteratorDemo_002d_002d_002dCreate-an-Array-List-for-Doubles.html#SpliteratorDemo_002d_002d_002dCreate_002dan_002dArray_002dList_002dfor_002dDoubles">SpliteratorDemo---Create-an-Array-List-for-Doubles</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>SpliteratorDemo&mdash;Use forEachRemaining() to Display Contents</i>&gt;</span></td><td width="65%">See <a href="SpliteratorDemo_002d_002d_002dUse-forEachRemaining_0028_0029-to-Display-Contents.html#SpliteratorDemo_002d_002d_002dUse_002dforEachRemaining_002d_002d_002dto_002dDisplay_002dContents">SpliteratorDemo---Use-forEachRemaining---to-Display-Contents</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>SpliteratorDemo&mdash;Use tryAdvance() to Display Contents</i>&gt;</span></td><td width="65%">See <a href="SpliteratorDemo_002d_002d_002dUse-tryAdvance_0028_0029-to-Display-Contents.html#SpliteratorDemo_002d_002d_002dUse_002dtryAdvance_002d_002d_002dto_002dDisplay_002dContents">SpliteratorDemo---Use-tryAdvance---to-Display-Contents</a>.</td></tr>
+</table>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="SpliteratorDemo_002d_002d_002dCreate-an-Array-List-for-Doubles.html#SpliteratorDemo_002d_002d_002dCreate-an-Array-List-for-Doubles" accesskey="1">SpliteratorDemo---Create an Array List for Doubles</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="SpliteratorDemo_002d_002d_002dUse-tryAdvance_0028_0029-to-Display-Contents.html#SpliteratorDemo_002d_002d_002dUse-tryAdvance_0028_0029-to-Display-Contents" accesskey="2">SpliteratorDemo---Use tryAdvance() to Display Contents</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="SpliteratorDemo_002d_002d_002dCreate-New-List.html#SpliteratorDemo_002d_002d_002dCreate-New-List" accesskey="3">SpliteratorDemo---Create New List</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="SpliteratorDemo_002d_002d_002dUse-forEachRemaining_0028_0029-to-Display-Contents.html#SpliteratorDemo_002d_002d_002dUse-forEachRemaining_0028_0029-to-Display-Contents" accesskey="4">SpliteratorDemo---Use forEachRemaining() to Display Contents</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Spliterator-Characteristics.html#Spliterator-Characteristics" accesskey="n" rel="next">Spliterator Characteristics</a>, Previous: <a href="Spliterator-Methods.html#Spliterator-Methods" accesskey="p" rel="prev">Spliterator Methods</a>, Up: <a href="Spliterators.html#Spliterators" accesskey="u" rel="up">Spliterators</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

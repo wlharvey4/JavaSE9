@@ -43,7 +43,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.2.8
+@set VERSION 0.3.0
 
 @iftex
 @set DOCUMENT book
@@ -238,11 +238,11 @@ This file documents @value{TITLE}.
 * Generics::
 * Enumerations::
 * Strings::
-* Exploring java-lang::
-* java util Collections::
-* java util Utility Classes::
-* Input/Output java.io::
-* NIO::
+* java.lang::
+* java.util Part 1 --- Collections Framework::
+* java.util Part 2 --- Utility Classes::
+* java.io --- Input/Output::
+* java.nio --- NIO::
 * Networking::
 * Event Handling::
 * AWT::
@@ -260,6 +260,7 @@ This file documents @value{TITLE}.
 * Bibliography::
 * Concept Index::
 * Function Index::
+* Program Index::
 
 @detailmenu
  --- The Detailed Node Listing ---
@@ -593,7 +594,36 @@ Accessing a Collection via an Interator
 * Using an Iterator::
 * ForEach Alternative to Iterators::
 
-Input/Output --- @file{java.io}
+Iterator Example
+
+* Import java.util::
+* IteratorDemo---Create an Array List::
+* IteratorDemo---Use Iterator To Display Contents of Array List::
+* IteratorDemo---Modify Objects Being Iterated::
+* IteratorDemo---Use ListIterator to Display Modified Contents::
+* IteratorDemo---Display the List Backwards::
+
+Example Using a @code{for} Loop
+
+* ForEachDemo---Create an Array List For Integers::
+* ForEachDemo---Use for Loop to Display the Values::
+* ForEachDemo---Sum the Values by Using a for Loop::
+
+Spliterators
+
+* Spliterator Methods::
+* Using Spliterator for Iteration::
+* Spliterator Characteristics::
+* Spliterator Subinterfaces::
+
+Example Using @file{Spliterator} for Iteration
+
+* SpliteratorDemo---Create an Array List for Doubles::
+* SpliteratorDemo---Use tryAdvance() to Display Contents::
+* SpliteratorDemo---Create New List::
+* SpliteratorDemo---Use forEachRemaining() to Display Contents::
+
+Input/Output --- Exploring @file{java.io}
 
 * I/O Classes and Interfaces::
 * File::
@@ -722,18 +752,18 @@ Drawbacks of Reflection
 
 @file{java.lang.reflect} Package
 
-* Classes Defined in java-lang-reflect::
-* Interfaces Defined in java-lang-reflect::
+* Classes Defined in java.lang.reflect::
+* Interfaces Defined in java.lang.reflect::
 * Reflection Demonstration::
 
 ReflectionDemo1.java
 
-* ReflectionDemo1 Class forName Call::
-* ReflectionDemo1 getConstructors Call::
-* ReflectionDem1 getFields Call::
-* ReflectionDemo1 getMethods Call::
-* Catch Exception::
 * Import java.lang.reflect::
+* ReflectionDemo1---Class forName() Call::
+* ReflectionDemo1---getConstructors() Call::
+* ReflectionDemo1---getFields() Call::
+* ReflectionDemo1---getMethods() Call::
+* Catch Exception::
 
 Classes and Reflection
 
@@ -1148,6 +1178,7 @@ Here is a class called @code{Stack} that implements a stack for up to ten
 integers, plus test class called @code{TestStack}:
 
 @heading Stack.java
+@pindex @file{Stack.java}
 
 @need 400
 @anchor{Stack-java}
@@ -1182,6 +1213,7 @@ The following table lists called chunk definition points.
 @end iftex
 
 @heading TestStack.java
+@pindex @file{TestStack.java}
 
 @need 400
 @anchor{TestStack-java}
@@ -1712,6 +1744,7 @@ control in relation to inheritance.
 @cindex @code{Stack} class, improved
 
 @subheading StackImproved.java
+@pindex @file{StackImproved.java}
 
 Compare this code with that of @ref{Stack Class}.  @footnote{Notice how all
 of the prior code except what is changed can easily be reused using
@@ -2026,7 +2059,7 @@ access the command-line arguments inside a Java program, access the
 @code{main()}.  The first command-line argument is stored at @code{args[0]},
 the second at @code{args[1]}, and so on.  All command-line arguments are
 passed as strings.  You must convert numeric values to their internal forms
-manually.  @xref{Exploring java-lang}.
+manually.  @xref{java.lang}.
 
 @c -----------------------------------------------------------------------------
 
@@ -2373,6 +2406,7 @@ profoundly powerful tool.
 
 @node Applying Method Overriding
 @subsection Applying
+@pindex @file{FindAreas.java}
 
 Let's look at a practical example that uses method overriding.  The following
 program creates a superclass called @code{Figure} that stores the dimensions
@@ -2972,6 +3006,7 @@ be used to point to a subclass object.
 
 @node Improved Figure Class
 @subsection Improved Figure Class
+@pindex @file{AbstractAreas.java}
 
 Using the abstract class, you can improve the @code{Figure} class.  Since
 there is no meaningful concept of area for an undefined two-dimensional
@@ -4031,8 +4066,8 @@ programming.
 Java does, however, provide strong, flexible support for I/O as it relates to
 files and networks.  Java's I/O system is cohesive and consistent.  A general
 overview of I/O is presented here.  A detailed description is found in
-chapters describing the Java Library: @xref{Input/Output java.io} and
-@xref{NIO}.  
+chapters describing the Java Library: @xref{java.io --- Input/Output} and
+@xref{java.nio --- NIO}.
 
 
 @c .....................................
@@ -4382,7 +4417,7 @@ It returns -1 when an attempt is made to read at the end of the stream.  It
 can throw an @code{IOException}.
 
 @subsubheading Program Demonstrating Reading Characters from Console
-@cindex @file{BRRead.java}
+@pindex @file{BRRead.java}
 
 The following program demonstrates @code{read()} by reading characters from
 the console until the user types a ``q''.  Any I/O exceptions that might be
@@ -4545,7 +4580,7 @@ String readLine() throws IOException
 @noindent It returns a @code{String} object.
 
 @subsubheading Program Demonstrating Reading a String from Console
-@cindex @file{BRReadLines.java}
+@pindex @file{BRReadLines.java}
 
 The following program demonstrates @file{BufferedReader} and the
 @code{readLine()} method; the program reas and displays lines of text until
@@ -4770,6 +4805,7 @@ PrintWriter pw = new PrintWriter(System.out, true);
 @node Demonstration Using PrintWriter
 @subsection Demonstration Using a @file{PrintWriter} for Console Output
 @cindex demonstration using @file{PrintWriter}
+@pindex @file{PrintWriterDemo.java}
 
 @need 400
 @anchor{PrinterWriterDemo-java}
@@ -4996,6 +5032,7 @@ written to th file.
 @node Demonstration Reading From a File
 @subsection Demonstration Reading From a File
 @cindex reading from file demonstration
+@pindex @file{ShowFile.java}
 
 The following program uses @code{read()} to input and display the contents of
 a file that contains ASCII test.  The name of the file is specified as a
@@ -5251,6 +5288,7 @@ there is a variation that is often useful.  The variation is to call
 methods that access the file are contained within a @code{try} block, and the
 @code{finally} block is used to close the file.  This way, no matter how the
 @code{try} block terminates, the file is closed.
+@pindex @file{ShowFileAlt.java}
 
 One advantage tothis approach in general is that if the code that accesses a
 file terminates because of some non-I/O related exception, the file is still
@@ -5512,6 +5550,7 @@ The next example uses @code{write()} to copy a file.
 @subsection Demonstration Writing to a File
 @cindex write to file demonstration
 @cindex exceptions for I/O errors
+@pindex @file{CopyFile.java}
 
 This example uses @code{write()} to copy a file.
 
@@ -5779,6 +5818,7 @@ Simply separate each resource specification with a semicolon.
 
 @node Demonstration of Automatically Closing a File
 @subsection Demonstration of Automatically Closing a File
+@pindex @file{ShowFileTryWR.java}
 
 Here is a reworked verion of the @file{ShowFile} program using
 @code{try-with-resources}.
@@ -6027,6 +6067,7 @@ This chunk is called by @r{@{@file{ShowFileTryWR.java}@}}; see its first definit
 
 @node Demonstration of Multiple Resources
 @subsection Demonstration of Multiple Resources
+@pindex @file{CopyFileMultTryWR.java}
 
 The following program shows an example of handling multiple resources in a
 single @code{try} statement.  It reworks the @code{CopyFile} program shown
@@ -6404,6 +6445,7 @@ upon.  Wtih generics, all casts are automatic and implicit.
 @cindex generics example
 @cindex example, generics
 @cindex generic class
+@pindex @file{SimpleGenerics.java}
 
 The following program defines two classes.  The first is the generic class
 @code{Gen}, and the second is @code{GenDemo}, which uses @code{Gen}.
@@ -7027,6 +7069,7 @@ parameters.  The type arguments can be the same or different.
 
 @node Two Types Example Code
 @subsection Example of Code with Two Type Parameters
+@pindex @file{TwoTypeParameters.java}
 
 @need 400
 @anchor{TwoTypeParameters-java}
@@ -7517,6 +7560,7 @@ is enclosed within a non-generic class.
 @subsection Example of Generic Method
 @cindex generic method, example
 @cindex example generic method
+@pindex @file{GenMethDemo.java}
 
 The following program declares a non-generic class called @code{GenMethDemo}
 and a static @strong{generic method} within that class called @code{isIn()}.
@@ -7955,7 +7999,7 @@ not just compare ordinal values in general.)
 
 @c *****************************************************************************
 
-@node Exploring java-lang
+@node java.lang
 @chapter Exploring @file{java.lang}
 @cindex @file{java.lang}
 
@@ -8107,6 +8151,8 @@ class.  They are commonly referred to as @dfn{type wrappers}.
 @subsection Converting Numbers to and from String
 
 
+
+
 @c -----------------------------------------------------------------------------
 
 @node Iterable Interface
@@ -8122,16 +8168,16 @@ an object to be used within a for-each style @code{for} loop, its class must
 implement @file{Iterable}.  @file{Iterable} is a generic interface that has
 this declaration:
 
-@example
+@display
 interface Iterable<T>
-@end example
+@end display
 
 Here, @code{T} is the type of the object being iterated.  It defines one
 abstract method, @code{iterator()}, which is declared as:
 
-@example
+@display
 Iterator<T> iterator()
-@end example
+@end display
 
 It returns an iterator to the elements contained in the invoking object.
 
@@ -8142,9 +8188,9 @@ It returns an iterator to the elements contained in the invoking object.
 Beginning with JDK 8, @file{Iterable} also defines two default methods.  The
 first is called @code{forEach()}:
 
-@example
+@display
 default void forEach(Consumer<? super T> @ii{action})
-@end example
+@end display
 @cindex @file{Consumer}
 @cindex JDK 8
 @cindex @file{java.util.function}
@@ -8158,9 +8204,9 @@ and defined in @file{java.util.function}.)
 
 The second default method is @code{spliterator()}:
 
-@example
+@display
 default Spliterator<T> spliterator()
-@end example
+@end display
 
 It returns a @file{Spliterator} to the sequence being iterated.
 
@@ -8168,8 +8214,8 @@ It returns a @file{Spliterator} to the sequence being iterated.
 
 @c *****************************************************************************
 
-@node java util Collections
-@chapter @file{java.util} --- Part 1: The Collections Framework
+@node java.util Part 1 --- Collections Framework
+@chapter @file{java.util} Part 1: The Collections Framework
 @cindex @file{java.util} Collections Framework
 
 The package @file{java.util} contains a large assortment of classes and
@@ -8405,9 +8451,9 @@ Framework is build because it must be implemented by any class that defines a
 collection.  @file{Collection} is a generic interface that has this
 declaration:
 
-@example
+@display
 interface Collection<E>
-@end example
+@end display
 
 Here, @code{E} specifies the type of objects that the collection will hold.
 @file{Collections} extends the @file{Iterable} interface.  This means that
@@ -8483,10 +8529,10 @@ currently held in a collection can be determined by calling @code{size()}.
 @subheading @code{toArray()} Methods
 @cindex @code{toArray()}
 
-@example
+@display
 Object[] toArray()
 <T> T[] toArray(T @ii{array}[])
-@end example
+@end display
 
 The @code{toArray()} methods return an array that contains the elements
 stored in the collection.  The first returns an array of @file{Object}.  The
@@ -8591,19 +8637,21 @@ the @file{Queue} interface
 @section Accessing a Collection via an Interator
 @cindex Iterator, accessing a Collection
 
-Often you will want to cycle through the elements in a collection.  One way
-to do this is to employ an @dfn{iterator}, which is an object that implements
-either the @file{Iterator} of the @file{ListIterator} interface.
-@file{Iterator} enables you to cycle through a collection, obtaining or
-removing elements.  @file{ListIterator} extends @file{Iterator} to allow
-bidirectional traversal of a list, and the modification of elements.
-@file{Iterator} and @file{ListIterator} are generic interfaces which are
-declared as shown:
+Often you will want to cycle through the elements in a
+collection. @footnote{Beginning with JDK 8, you can also use a
+@file{Spliterator} to cycle through a collection.  It is described later in
+this chapter in @ref{Spliterators}.}  One way to do this is to employ
+an @dfn{iterator}, which is an object that implements either the
+@file{Iterator} of the @file{ListIterator} interface.  @file{Iterator}
+enables you to cycle through a collection, obtaining or removing elements.
+@file{ListIterator} extends @file{Iterator} to allow bidirectional traversal
+of a list, and the modification of elements.  @file{Iterator} and
+@file{ListIterator} are generic interfaces which are declared as shown:
 
-@example
+@display
 interface Iterator<E>
 interface ListIterator<E>
-@end example
+@end display
 
 @noindent
 Here, @code{E} specifies the type of objects being iterated.  The
@@ -8672,6 +8720,7 @@ the element last returned by a call to either @code{next()} or
 @caption{The Methods Declared by @file{ListIterator}}
 @end float
 
+
 @c .....................................
 
 @menu
@@ -8712,7 +8761,254 @@ access a collection in either the forward or backward direction and lets you
 modify an element.  Otherwise, @file{ListIterator} is used just like
 @file{Iterator}.
 
+@subsubheading Iterator Example
+@pindex @file{IteratorDemo.java}
+
+The follwoing example implements these steps, demonstrating both the
+@file{Iterator} and @file{ListIterator} interfaces.  The general principles
+apply to any type of collection.
+
+@need 400
+@anchor{IteratorDemo-java}
+@crindex @r{<@i{Import java.util}>}, use
+@crindex @r{<@i{IteratorDemo---Create an Array List}>}, use
+@crindex @r{<@i{IteratorDemo---Use Iterator To Display Contents of Array List}>}, use
+@crindex @r{<@i{IteratorDemo---Modify Objects Being Iterated}>}, use
+@crindex @r{<@i{IteratorDemo---Use ListIterator to Display Modified Contents}>}, use
+@crindex @r{<@i{IteratorDemo---Display the List Backwards}>}, use
+@cdindex @r{@{@file{IteratorDemo.java}@}}, definition
+@noindent
+@r{@{@file{IteratorDemo.java}@}} @equiv{}
+@example
+@r{<@i{Import java.util}>}
+
+class IteratorDemo @{
+  public static void main (String[] args) @{
+    @r{<@i{IteratorDemo---Create an Array List}>}
+    @r{<@i{IteratorDemo---Use Iterator To Display Contents of Array List}>}
+    @r{<@i{IteratorDemo---Modify Objects Being Iterated}>}
+    @r{<@i{IteratorDemo---Use ListIterator to Display Modified Contents}>}
+    @r{<@i{IteratorDemo---Display the List Backwards}>}
+  @}
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{Import java.util}>} @tab See @ref{Import-java-util}.
+@item @r{<@i{IteratorDemo---Create an Array List}>} @tab See @ref{IteratorDemo---Create-an-Array-List}.
+@item @r{<@i{IteratorDemo---Display the List Backwards}>} @tab See @ref{IteratorDemo---Display-the-List-Backwards}.
+@item @r{<@i{IteratorDemo---Modify Objects Being Iterated}>} @tab See @ref{IteratorDemo---Modify-Objects-Being-Iterated}.
+@item @r{<@i{IteratorDemo---Use Iterator To Display Contents of Array List}>} @tab See @ref{IteratorDemo---Use-Iterator-To-Display-Contents-of-Array-List}.
+@item @r{<@i{IteratorDemo---Use ListIterator to Display Modified Contents}>} @tab See @ref{IteratorDemo---Use-ListIterator-to-Display-Modified-Contents}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@menu
+* Import java.util::
+* IteratorDemo---Create an Array List::
+* IteratorDemo---Use Iterator To Display Contents of Array List::
+* IteratorDemo---Modify Objects Being Iterated::
+* IteratorDemo---Use ListIterator to Display Modified Contents::
+* IteratorDemo---Display the List Backwards::
+@end menu
+
+@node Import java.util
+@subsubsection Import java.util
+
+@need 400
+@anchor{Import-java-util}
+@cdindex @r{<@i{Import java.util}>}, definition
+@noindent
+@r{<@i{Import java.util}>} @equiv{}
+@example
+import java.util.*;
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by the following chunks:
+
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{@{@file{ForEachDemo.java}@}} @tab See @ref{ForEachDemo-java}.
+@item @r{@{@file{IteratorDemo.java}@}} @tab See @ref{IteratorDemo-java}.
+@item @r{@{@file{SpliteratorDemo.java}@}} @tab See @ref{SpliteratorDemo-java}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node IteratorDemo---Create an Array List
+@subsubsection IteratorDemo---Create an Array List
+
+@need 400
+@anchor{IteratorDemo---Create-an-Array-List}
+@cdindex @r{<@i{IteratorDemo---Create an Array List}>}, definition
+@noindent
+@r{<@i{IteratorDemo---Create an Array List}>} @equiv{}
+@example
+ArrayList<String> al = new ArrayList<String>();
+
+al.add("C");
+al.add("A");
+al.add("E");
+al.add("B");
+al.add("D");
+al.add("F");
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{IteratorDemo.java}@}}; see its first definition at @ref{IteratorDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node IteratorDemo---Use Iterator To Display Contents of Array List
+@subsubsection IteratorDemo---Use Iterator To Display Contents of Array List
+
+@need 400
+@anchor{IteratorDemo---Use-Iterator-To-Display-Contents-of-Array-List}
+@cdindex @r{<@i{IteratorDemo---Use Iterator To Display Contents of Array List}>}, definition
+@noindent
+@r{<@i{IteratorDemo---Use Iterator To Display Contents of Array List}>} @equiv{}
+@example
+System.out.print("Original contents of al: ");
+
+Iterator<String> itr = al.iterator();
+
+while (itr.hasNext()) @{
+12  String element = itr.next();
+  System.out.print(element + " ");
+@}
+System.out.println();
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{IteratorDemo.java}@}}; see its first definition at @ref{IteratorDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node IteratorDemo---Modify Objects Being Iterated
+@subsubsection IteratorDemo---Modify Objects Being Iterated
+
+@need 400
+@anchor{IteratorDemo---Modify-Objects-Being-Iterated}
+@cdindex @r{<@i{IteratorDemo---Modify Objects Being Iterated}>}, definition
+@noindent
+@r{<@i{IteratorDemo---Modify Objects Being Iterated}>} @equiv{}
+@example
+ListIterator<String> litr = al.listIterator();
+
+while (litr.hasNext()) @{
+  String element = litr.next();
+  litr.set(element + "+");
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{IteratorDemo.java}@}}; see its first definition at @ref{IteratorDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node IteratorDemo---Use ListIterator to Display Modified Contents
+@subsubsection IteratorDemo---Use ListIterator to Display Modified Contents
+
+@need 400
+@anchor{IteratorDemo---Use-ListIterator-to-Display-Modified-Contents}
+@cdindex @r{<@i{IteratorDemo---Use ListIterator to Display Modified Contents}>}, definition
+@noindent
+@r{<@i{IteratorDemo---Use ListIterator to Display Modified Contents}>} @equiv{}
+@example
+System.out.print("Modified contents of al: ");
+
+itr = al.iterator();
+
+while (itr.hasNext()) @{
+  String element = itr.next();
+  System.out.print(element + " ");
+@}
+System.out.println();
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{IteratorDemo.java}@}}; see its first definition at @ref{IteratorDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node IteratorDemo---Display the List Backwards
+@subsubsection IteratorDemo---Display the List Backwards
+
+@need 400
+@anchor{IteratorDemo---Display-the-List-Backwards}
+@cdindex @r{<@i{IteratorDemo---Display the List Backwards}>}, definition
+@noindent
+@r{<@i{IteratorDemo---Display the List Backwards}>} @equiv{}
+@example
+System.out.print("Modified list backwards: ");
+
+while (litr.hasPrevious()) @{
+  String element = litr.previous();
+  System.out.print(element + " ");
+@}
+System.out.println();
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{IteratorDemo.java}@}}; see its first definition at @ref{IteratorDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+
 @c .....................................
+
 
 @node ForEach Alternative to Iterators
 @subsection The For-Each Alternative to Iterators
@@ -8725,6 +9021,147 @@ more convenient alternative to cycling through a collection than is using an
 iterator.  The @code{for} can cycle through any collection of objects that
 implement the @file{Iterable} interface.  Because all of the collection
 classes implement this inteface, they can all be operated upon by @code{for}.
+The code for a @code{for} loop is substantially shorter and simpler than the
+iterator-approach, but cna be used only to cycle through a collection in the
+forward direction and cannot be used to modify the contents of the
+collection.  
+
+@subsubheading Example Using a @code{for} Loop
+@pindex @file{ForEachDemo.java}
+
+@need 400
+@anchor{ForEachDemo-java}
+@crindex @r{<@i{Import java.util}>}, use
+@crindex @r{<@i{ForEachDemo---Create an Array List For Integers}>}, use
+@crindex @r{<@i{ForEachDemo---Use for Loop to Display the Values}>}, use
+@crindex @r{<@i{ForEachDemo---Sum the Values by Using a for Loop}>}, use
+@cdindex @r{@{@file{ForEachDemo.java}@}}, definition
+@noindent
+@r{@{@file{ForEachDemo.java}@}} @equiv{}
+@example
+@r{<@i{Import java.util}>}
+
+class ForEachDemo @{
+  public static void main (String[] args) @{
+    @r{<@i{ForEachDemo---Create an Array List For Integers}>}
+    @r{<@i{ForEachDemo---Use for Loop to Display the Values}>}
+    @r{<@i{ForEachDemo---Sum the Values by Using a for Loop}>}
+  @}
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{ForEachDemo---Create an Array List For Integers}>} @tab See @ref{ForEachDemo---Create-an-Array-List-For-Integers}.
+@item @r{<@i{ForEachDemo---Sum the Values by Using a for Loop}>} @tab See @ref{ForEachDemo---Sum-the-Values-by-Using-a-for-Loop}.
+@item @r{<@i{ForEachDemo---Use for Loop to Display the Values}>} @tab See @ref{ForEachDemo---Use-for-Loop-to-Display-the-Values}.
+@item @r{<@i{Import java.util}>} @tab See @ref{Import-java-util}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@menu
+* ForEachDemo---Create an Array List For Integers::
+* ForEachDemo---Use for Loop to Display the Values::
+* ForEachDemo---Sum the Values by Using a for Loop::
+@end menu
+
+@node ForEachDemo---Create an Array List For Integers
+@subsubsection ForEachDemo---Create an Array List For Integers
+
+@need 400
+@anchor{ForEachDemo---Create-an-Array-List-For-Integers}
+@cdindex @r{<@i{ForEachDemo---Create an Array List For Integers}>}, definition
+@noindent
+@r{<@i{ForEachDemo---Create an Array List For Integers}>} @equiv{}
+@example
+ArrayList<Integer> vals = new ArrayList<Integer>();
+
+vals.add(1);
+vals.add(2);
+vals.add(3);
+vals.add(4);
+vals.add(5);
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{ForEachDemo.java}@}}; see its first definition at @ref{ForEachDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node ForEachDemo---Use for Loop to Display the Values
+@subsubsection ForEachDemo---Use for Loop to Display the Values
+
+@need 400
+@anchor{ForEachDemo---Use-for-Loop-to-Display-the-Values}
+@cdindex @r{<@i{ForEachDemo---Use for Loop to Display the Values}>}, definition
+@noindent
+@r{<@i{ForEachDemo---Use for Loop to Display the Values}>} @equiv{}
+@example
+System.out.print("Contents of vals: ");
+
+for (int v : vals) @{
+  System.out.print(v + " ");
+@}
+System.out.println();
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{ForEachDemo.java}@}}; see its first definition at @ref{ForEachDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node ForEachDemo---Sum the Values by Using a for Loop
+@subsubsection ForEachDemo---Sum the Values by Using a for Loop
+
+@need 400
+@anchor{ForEachDemo---Sum-the-Values-by-Using-a-for-Loop}
+@cdindex @r{<@i{ForEachDemo---Sum the Values by Using a for Loop}>}, definition
+@noindent
+@r{<@i{ForEachDemo---Sum the Values by Using a for Loop}>} @equiv{}
+@example
+int sum = 0;
+
+for (int v : vals) @{
+  sum += v;
+@}
+
+System.out.println("Sum of values: " + sum);
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{ForEachDemo.java}@}}; see its first definition at @ref{ForEachDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
 
 
 
@@ -8753,12 +9190,27 @@ operations in one method.
 
 @file{Spliterator} is a generic interface that is declared thus:
 
-@example
+@display
 interface Spliterator<T>
-@end example
+@end display
 
 @noindent
-@file{Spliterator} declares the methods shown in @ref{SpliteratorMethods}.
+@code{T} is the type of elements being iterated.  @file{Spliterator} declares
+the methods shown in @ref{SpliteratorMethods}.
+
+
+@c .....................................
+
+@menu
+* Spliterator Methods::
+* Using Spliterator for Iteration::
+* Spliterator Characteristics::
+* Spliterator Subinterfaces::
+@end menu
+
+@node Spliterator Methods
+@subsection @file{Spliterator} Methods
+@cindex @file{Spliterator} Methods
 
 @float Table,SpliteratorMethods
 @multitable @columnfractions 0.4 0.6
@@ -8797,7 +9249,211 @@ the other portion.
 @caption{The Methods Declared by Spliterator}
 @end float
 
-@subheading Characteristics
+
+@c .....................................
+
+@node Using Spliterator for Iteration
+@subsection Using @file{Spliterator} for Basic Iteration
+@cindex basic iteration using @file{Spliterator}
+
+To use a @file{Spliterator} for basic iteration, call @code{tryAdvance()}
+until it returns @code{false}.  If you will be applying the same action to
+each element in the sequence, @code{forEachRemaining()} offers a streamlined
+alternative.  In both cases, the action that will occur wtih each iteration
+is defined by what the @file{Consumer} object does with each element.
+@file{Consumer} is a functional interface that applies an action to an
+object.  It is a generic functional interface declared in
+@file{java.util.function}.  @file{Consumer} specifies only one abstract
+method, @code{accept()}, which is:
+
+@display
+void accept(T @ii{objRef})
+@end display
+
+In the case of @code{tryAdvance()}, each iteration passes the next element in
+the sequence to @ii{objRef}.  Often, the easiest way to implement
+@file{Consumer} is by use of a lambda expression.
+
+@subsubheading Example Using @file{Spliterator} for Iteration
+@pindex @file{SpliteratorDemo.java}
+
+@cartouche
+The following program provides a simple example of @file{Spliterator}.  The
+program demonstrates both @code{tryAdvance()} and @code{forEachRemaining()}.
+These methods combine the actions of @file{Iterator}'s @code{next()} and
+@code{hasNext()} methods into a single call.
+@end cartouche
+
+@need 400
+@anchor{SpliteratorDemo-java}
+@crindex @r{<@i{Import java.util}>}, use
+@crindex @r{<@i{SpliteratorDemo---Create an Array List for Doubles}>}, use
+@crindex @r{<@i{SpliteratorDemo---Use tryAdvance() to Display Contents}>}, use
+@crindex @r{<@i{SpliteratorDemo---Create New List}>}, use
+@crindex @r{<@i{SpliteratorDemo---Use forEachRemaining() to Display Contents}>}, use
+@cdindex @r{@{@file{SpliteratorDemo.java}@}}, definition
+@noindent
+@r{@{@file{SpliteratorDemo.java}@}} @equiv{}
+@example
+@r{<@i{Import java.util}>}
+
+class SpliteratorDemo @{
+  public static void main (String[] args) @{
+    @r{<@i{SpliteratorDemo---Create an Array List for Doubles}>}
+    @r{<@i{SpliteratorDemo---Use tryAdvance() to Display Contents}>}
+    @r{<@i{SpliteratorDemo---Create New List}>}
+    @r{<@i{SpliteratorDemo---Use forEachRemaining() to Display Contents}>}
+  @{
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{Import java.util}>} @tab See @ref{Import-java-util}.
+@item @r{<@i{SpliteratorDemo---Create New List}>} @tab See @ref{SpliteratorDemo---Create-New-List}.
+@item @r{<@i{SpliteratorDemo---Create an Array List for Doubles}>} @tab See @ref{SpliteratorDemo---Create-an-Array-List-for-Doubles}.
+@item @r{<@i{SpliteratorDemo---Use forEachRemaining() to Display Contents}>} @tab See @ref{SpliteratorDemo---Use-forEachRemaining---to-Display-Contents}.
+@item @r{<@i{SpliteratorDemo---Use tryAdvance() to Display Contents}>} @tab See @ref{SpliteratorDemo---Use-tryAdvance---to-Display-Contents}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@menu
+* SpliteratorDemo---Create an Array List for Doubles::
+* SpliteratorDemo---Use tryAdvance() to Display Contents::
+* SpliteratorDemo---Create New List::
+* SpliteratorDemo---Use forEachRemaining() to Display Contents::
+@end menu
+
+@node SpliteratorDemo---Create an Array List for Doubles
+@subsubsection SpliteratorDemo---Create an Array List for Doubles
+
+@need 400
+@anchor{SpliteratorDemo---Create-an-Array-List-for-Doubles}
+@cdindex @r{<@i{SpliteratorDemo---Create an Array List for Doubles}>}, definition
+@noindent
+@r{<@i{SpliteratorDemo---Create an Array List for Doubles}>} @equiv{}
+@example
+ArrayList<Double> vals = new ArrayList<>();
+
+vals.add(1.0);
+vals.add(2.0);
+vals.add(3.0);
+vals.add(4.0);
+vals.add(5.0);
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{SpliteratorDemo.java}@}}; see its first definition at @ref{SpliteratorDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node SpliteratorDemo---Use tryAdvance() to Display Contents
+@subsubsection SpliteratorDemo---Use tryAdvance() to Display Contents
+
+@need 400
+@anchor{SpliteratorDemo---Use-tryAdvance---to-Display-Contents}
+@cdindex @r{<@i{SpliteratorDemo---Use tryAdvance() to Display Contents}>}, definition
+@noindent
+@r{<@i{SpliteratorDemo---Use tryAdvance() to Display Contents}>} @equiv{}
+@example
+System.out.println("Contents of vals: ");
+Spliterator<Double> spltitr = vals.spliterator();
+
+while (spltitr.tryAdvance((n) -> System.out.println(n)));
+
+System.out.println();
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{SpliteratorDemo.java}@}}; see its first definition at @ref{SpliteratorDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node SpliteratorDemo---Create New List
+@subsubsection SpliteratorDemo---Create New List
+
+@need 400
+@anchor{SpliteratorDemo---Create-New-List}
+@cdindex @r{<@i{SpliteratorDemo---Create New List}>}, definition
+@noindent
+@r{<@i{SpliteratorDemo---Create New List}>} @equiv{}
+@example
+spltitr = vals.spliterator();
+ArrayList<Double> sqrs = new ArrayList<>();
+
+while (spltitr.tryAdvance((n) -> sqrs.add(Math.sqrt(n))));
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{SpliteratorDemo.java}@}}; see its first definition at @ref{SpliteratorDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node SpliteratorDemo---Use forEachRemaining() to Display Contents
+@subsubsection SpliteratorDemo---Use forEachRemaining() to Display Contents
+
+@need 400
+@anchor{SpliteratorDemo---Use-forEachRemaining---to-Display-Contents}
+@cdindex @r{<@i{SpliteratorDemo---Use forEachRemaining() to Display Contents}>}, definition
+@noindent
+@r{<@i{SpliteratorDemo---Use forEachRemaining() to Display Contents}>} @equiv{}
+@example
+System.out.println("Contents of sqrs: ");
+spltitr = sqrs.spliterator();
+
+spltitr.forEachRemaining((n) -> System.out.println(n));
+
+System.out.println();
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{SpliteratorDemo.java}@}}; see its first definition at @ref{SpliteratorDemo-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+
+@c .....................................
+
+@node Spliterator Characteristics
+@subsection @file{Spliterator} Characteristics
+@cindex Characteristics, @file{Spliterator}
+@cindex @file{Spliterator} Characteristics
 
 Each @file{Spliterator} has a set of attributes, called
 @dfn{characteristics}, associated with it.  These are defined by static
@@ -8819,7 +9475,11 @@ to name a few.  You can obtain the characteristics by calling
 @code{characteristics()}.  You can determine if a characteristic is present
 by calling @code{hasCharacteristics()}.
 
-@subheading Spliterator Subinterfaces
+
+@c .....................................
+
+@node Spliterator Subinterfaces
+@subsection @file{Spliterator} Subinterfaces
 @cindex spliterator subinterfaces
 @cindex @file{Spliterator.OfDouble}
 @cindex @file{Spliterator.OfInt}
@@ -8828,16 +9488,29 @@ by calling @code{hasCharacteristics()}.
 
 There are several nested subinterfaces of @file{Spliterator} designed for use
 with the primitive types @code{double}, @code{int}, and @code{long}.  These
-are called @file{Spliterator.OfDouble}, @file{Spliterator.OfInt}, and
-@file{Spliterator.OfLong}.  There is also a generalized version called
-@file{Spliterator.OfPrimitive}, which offers additional flexibility and
-servers as a superinterface.
+are called
+
+@itemize
+@item
+@file{Spliterator.OfDouble}, 
+@item
+@file{Spliterator.OfInt}, and
+@item
+@file{Spliterator.OfLong}.
+@item
+@file{Spliterator.OfPrimitive} (serves as a superinterface)
+@end itemize
+
+
+
 
 @c -----------------------------------------------------------------------------
 
 @node Storing User-Defined Classes
 @section Storing User-Defined Classes in Collections
 @cindex User-Defined Classes, storing in Collections
+
+
 
 
 @c -----------------------------------------------------------------------------
@@ -8847,11 +9520,15 @@ servers as a superinterface.
 @cindex RandomAccess Interface
 
 
+
+
 @c -----------------------------------------------------------------------------
 
 @node Working with Maps
 @section Working with Maps
 @cindex Maps, working with
+
+
 
 
 @c -----------------------------------------------------------------------------
@@ -8861,6 +9538,8 @@ servers as a superinterface.
 @cindex Comparators
 
 
+
+
 @c -----------------------------------------------------------------------------
 
 @node Collection Algorithms
@@ -8868,11 +9547,15 @@ servers as a superinterface.
 @cindex Collection Algorithms
 
 
+
+
 @c -----------------------------------------------------------------------------
 
 @node Arrays Class
 @section Arrays Class
 @cindex Arrays Class
+
+
 
 
 @c -----------------------------------------------------------------------------
@@ -8884,19 +9567,27 @@ servers as a superinterface.
 
 
 
+
+
+
+
 @c *****************************************************************************
 
-@node java util Utility Classes
-@chapter @file{java.util} --- Part 2: Utility Classes
+@node java.util Part 2 --- Utility Classes
+@chapter @file{java.util} Part 2: Utility Classes
 @cindex @file{java.util} Utility Classes
 
 
 
 
+
+
+
+
 @c *****************************************************************************
 
-@node  Input/Output java.io
-@chapter Input/Output --- @file{java.io}
+@node  java.io --- Input/Output
+@chapter Input/Output --- Exploring @file{java.io}
 @cindex @file{java.io}
 @cindex @file{java.nio}
 @cindex stream
@@ -8915,7 +9606,9 @@ linked to differ.
 Beginning with version 1.4, a second I/O system was added to Java, called
 @acronym{NIO} (which meant New I/O).  @acronym{NIO} is packaged in
 @file{java.nio} and its subpackages.  The @acronym{NIO} is described in
-@ref{NIO}.  
+@ref{java.nio --- NIO}.  
+
+
 
 
 @c -----------------------------------------------------------------------------
@@ -8937,6 +9630,7 @@ Beginning with version 1.4, a second I/O system was added to Java, called
 @node I/O Classes and Interfaces
 @section I/O Classes and Interfaces
 @cindex I/O Classes and Interfaces
+
 
 @c .....................................
 
@@ -9014,6 +9708,7 @@ StreamTokenizer
 StringReader / StringWriter
 @end itemize
 
+
 @c .....................................
 
 @node I/O Interfaces
@@ -9048,6 +9743,8 @@ Serializable
 @end itemize
 
 
+
+
 @c -----------------------------------------------------------------------------
 
 @node File
@@ -9063,7 +9760,7 @@ manipulate the information associated with a disk file, such as the
 permissions, time, date, and directory path, and to navigate subdirectory
 hierarchies.@footnote{The @file{Path} interface and @file{Files} class, part
 of the @acronym{NIO} system, offer a powerful alternative to @file{File}. 
-@xref{NIO}.}
+@xref{java.nio --- NIO}.}
 
 @subheading Files and Directories in Java
 @cindex files
@@ -9106,6 +9803,7 @@ File f1 = new File("/");
 File f2 = new File("/", "autoexec.bat");
 File f3 = new File(f1, "autoexec.bat");
 @end example
+
 
 @c .....................................
 
@@ -9158,6 +9856,7 @@ returns the file's size
 @caption{@file{File} Property Methods}
 @end float
 
+
 @c .....................................
 
 @node File Utility Methods
@@ -9205,7 +9904,7 @@ returns a @file{Path} object that represents the file encapsulated by
 the invoking @file{File} object; (in other words, @code{toPath()}
 converts a @file{File} into a @file{Path});@footnote{@code{toPath()}
 forms a bridge between the older @file{File} class and the newer
-@file{Path} interface; @xref{NIO}.}
+@file{Path} interface; @xref{java.nio --- NIO}.}
 @item mkdir()
 @itemx mkdirs()
 the first creates a directory, returning @code{true} on success and @code{false} on
@@ -9244,6 +9943,7 @@ inside the calling File object
 @node Examine Directory Contents
 @subsection Using @code{list()} to Examine Directory Contents
 @cindex directory contents, examine using @code{list()}
+@pindex @file{DirList.java}
 
 This program illustrates how to use @code{list()} to examine the
 contents of a directory.
@@ -9494,6 +10194,7 @@ The @file{OnlyExt} class implements @file{FilenameFilter} by defining an
 program listing the contents of a directory to filter the directory listing.
 
 @subsubheading OnlyExt Class
+@pindex @file{OnlyExt.java}
 
 @need 400
 @anchor{OnlyExt-java}
@@ -10242,6 +10943,7 @@ methods.  This support is reflected by the
 
 @node Buffered Input Example
 @subsubsection Buffered Input Example
+@pindex @file{BufferedInputStreamDemo.java}
 
 @cartouche
 The following example contrives a situation where we can use @code{mark()} to
@@ -10761,6 +11463,7 @@ FileReader (File @ii{fileObj})
 Either can throw a @file{FileNotFoundException}.
 
 @subsubheading Example Reading Lines From a File
+@pindex @file{FileReaderDemo.java}
 
 @cartouche
 This example shows how to read lines from a file and display them on the
@@ -10950,6 +11653,7 @@ API}.
 
 @node Buffered Reader Demo
 @subsection Buffered Reader Demo
+@pindex @file{BufferedReaderDemo.java}
 
 @cartouche
 This example reworks the @file{BufferedInputStream} example (@pxref{Buffered
@@ -11290,9 +11994,15 @@ void writeExternal (ObjectOutput @ii{outStream} throws IOException
 
 @c *****************************************************************************
 
-@node NIO
-@chapter NIO
+@node java.nio --- NIO
+@chapter Exploring NIO
 @cindex NIO
+@cindex @file{java.nio}
+
+
+
+
+
 
 
 
@@ -11304,11 +12014,21 @@ void writeExternal (ObjectOutput @ii{outStream} throws IOException
 
 
 
+
+
+
+
+
 @c *****************************************************************************
 
 @node Event Handling
 @chapter Event Handling
 @cindex Event Handling
+
+
+
+
+
 
 
 
@@ -11323,12 +12043,22 @@ void writeExternal (ObjectOutput @ii{outStream} throws IOException
 
 
 
+
+
+
+
+
 @c *****************************************************************************
 
 @node AWT Controls
 @chapter Using AWT Controls, Layout Managers, and Menus
 @cindex AWT Controls
 @cindex AWT Layout Managers, Menus
+
+
+
+
+
 
 
 
@@ -11340,11 +12070,21 @@ void writeExternal (ObjectOutput @ii{outStream} throws IOException
 
 
 
+
+
+
+
+
 @c *****************************************************************************
 
 @node Concurrency
 @chapter The Concurrency Utilities
 @cindex Concurrency Utilities
+
+
+
+
+
 
 
 
@@ -11357,11 +12097,21 @@ void writeExternal (ObjectOutput @ii{outStream} throws IOException
 
 
 
+
+
+
+
+
 @c *****************************************************************************
 
 @node Regular Expressions
 @chapter Regular Expressions
 @cindex Regular Expressions
+
+
+
+
+
 
 
 
@@ -11392,6 +12142,9 @@ allows code to perform operations that would be illegal in non-reflective
 code, such as accessing private fields and methods, the use of reflection can
 result in unexpected behavior.  Reflection breaks abstractions.
 
+
+
+
 @c -----------------------------------------------------------------------------
 
 @menu
@@ -11405,7 +12158,6 @@ result in unexpected behavior.  Reflection breaks abstractions.
 @section @file{java.lang.reflect} Package
 @cindex @file{java.lang.reflect} Package
 @cindex @file{Member} interface
-
 
 This package provides classes and interfaces for obtaining reflective
 information about classes and objects.  Reflection allows programmatic access
@@ -11431,18 +12183,19 @@ constructors.  All reflection interactions must go through
 any public constructors.  Instances of this class are created by the Java
 Virtual Machine.
 
+
 @c .....................................
 
 @menu
-* Classes Defined in java-lang-reflect::
-* Interfaces Defined in java-lang-reflect::
+* Classes Defined in java.lang.reflect::
+* Interfaces Defined in java.lang.reflect::
 * Reflection Demonstration::
 @end menu
 
-@node Classes Defined in java-lang-reflect
+@node Classes Defined in java.lang.reflect
 @subsection Classes Defined in @file{java.lang.reflect}
 
-@float Table,java-lang-reflect-Classes
+@float Table,java.lang-reflect-Classes
 @table @b
 @item AccessibleObject
 Allows you to bypass the default access control checks
@@ -11468,12 +12221,13 @@ Allows reflection of private or protected members of a class
 @caption{Classes Defined in @file{java.lang.reflect}}
 @end float
 
+
 @c .....................................
 
-@node Interfaces Defined in java-lang-reflect
+@node Interfaces Defined in java.lang.reflect
 @subsection Interfaces Defined in @file{java.lang.reflect}
 
-@float Table,java-lang-reflect_Interfaces
+@float Table,java.lang.reflect_Interfaces
 @table @b
 @item  AnnotatedArrayType
 represents the potentially annotated use of an array type, whose component
@@ -11517,6 +12271,7 @@ Number, or ? super Integer.
 @caption{Interfaces Defined in @file{java.lang.reflect}}
 @end float
 
+
 @c .....................................
 
 @node Reflection Demonstration
@@ -11537,14 +12292,15 @@ used to obtain information about an object.  Each supports the
 @code{println()} method is straightforward.
 
 @subsubheading ReflectionDemo1.java
+@pindex @file{ReflectionDemo1.java}
 
 @need 400
 @anchor{ReflectionDemo1-java}
 @crindex @r{<@i{Import java.lang.reflect}>}, use
-@crindex @r{<@i{ReflectionDemo1 Class forName Call}>}, use
-@crindex @r{<@i{ReflectionDemo1 getConstructors Call}>}, use
-@crindex @r{<@i{ReflectionDemo1 getFields Call}>}, use
-@crindex @r{<@i{ReflectionDemo1 getMethods Call}>}, use
+@crindex @r{<@i{ReflectionDemo1---Class forName() Call}>}, use
+@crindex @r{<@i{ReflectionDemo1---getConstructors() Call}>}, use
+@crindex @r{<@i{ReflectionDemo1---getFields() Call}>}, use
+@crindex @r{<@i{ReflectionDemo1---getMethods() Call}>}, use
 @crindex @r{<@i{Catch Exception}>}, use
 @cdindex @r{@{@file{ReflectionDemo1.java}@}}, definition
 @noindent
@@ -11554,23 +12310,13 @@ used to obtain information about an object.  Each supports the
 
 public class ReflectionDemo1 @{
   public static void main(String[] args) @{
-
     try @{
-
-      @r{<@i{ReflectionDemo1 Class forName Call}>}
-
-      System.out.println("Constructors:");
-      @r{<@i{ReflectionDemo1 getConstructors Call}>}
-
-      System.out.println("Fields:");
-      @r{<@i{ReflectionDemo1 getFields Call}>}
-
-      System.out.println("Methods:");
-      @r{<@i{ReflectionDemo1 getMethods Call}>}
-
+      @r{<@i{ReflectionDemo1---Class forName() Call}>}
+      @r{<@i{ReflectionDemo1---getConstructors() Call}>}
+      @r{<@i{ReflectionDemo1---getFields() Call}>}
+      @r{<@i{ReflectionDemo1---getMethods() Call}>}
     @}
     @r{<@i{Catch Exception}>}
-
   @}
 @}
 
@@ -11585,10 +12331,10 @@ The following table lists called chunk definition points.
 @headitem Chunk name @tab First definition point
 @item @r{<@i{Catch Exception}>} @tab See @ref{Catch-Exception}.
 @item @r{<@i{Import java.lang.reflect}>} @tab See @ref{Import-java-lang-reflect}.
-@item @r{<@i{ReflectionDemo1 Class forName Call}>} @tab See @ref{ReflectionDemo1-Class-forName-Call}.
-@item @r{<@i{ReflectionDemo1 getConstructors Call}>} @tab See @ref{ReflectionDemo1-getConstructors-Call}.
-@item @r{<@i{ReflectionDemo1 getFields Call}>} @tab See @ref{ReflectionDemo1-getFields-Call}.
-@item @r{<@i{ReflectionDemo1 getMethods Call}>} @tab See @ref{ReflectionDemo1-getMethods-Call}.
+@item @r{<@i{ReflectionDemo1---Class forName() Call}>} @tab See @ref{ReflectionDemo1---Class-forName---Call}.
+@item @r{<@i{ReflectionDemo1---getConstructors() Call}>} @tab See @ref{ReflectionDemo1---getConstructors---Call}.
+@item @r{<@i{ReflectionDemo1---getFields() Call}>} @tab See @ref{ReflectionDemo1---getFields---Call}.
+@item @r{<@i{ReflectionDemo1---getMethods() Call}>} @tab See @ref{ReflectionDemo1---getMethods---Call}.
 @end multitable
 @iftex
 @textfonts @rm
@@ -11597,22 +12343,46 @@ The following table lists called chunk definition points.
 @c _____________________________________
 
 @menu
-* ReflectionDemo1 Class forName Call::
-* ReflectionDemo1 getConstructors Call::
-* ReflectionDem1 getFields Call::
-* ReflectionDemo1 getMethods Call::
-* Catch Exception::
 * Import java.lang.reflect::
+* ReflectionDemo1---Class forName() Call::
+* ReflectionDemo1---getConstructors() Call::
+* ReflectionDemo1---getFields() Call::
+* ReflectionDemo1---getMethods() Call::
+* Catch Exception::
 @end menu
 
-@node ReflectionDemo1 Class forName Call
-@subsubsection ReflectionDemo1 Class forName Call
+@node Import java.lang.reflect
+@subsubsection Import java.lang.reflect
 
 @need 400
-@anchor{ReflectionDemo1-Class-forName-Call}
-@cdindex @r{<@i{ReflectionDemo1 Class forName Call}>}, definition
+@anchor{Import-java-lang-reflect}
+@cdindex @r{<@i{Import java.lang.reflect}>}, definition
 @noindent
-@r{<@i{ReflectionDemo1 Class forName Call}>} @equiv{}
+@r{<@i{Import java.lang.reflect}>} @equiv{}
+@example
+import java.lang.reflect.*;
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@node ReflectionDemo1---Class forName() Call
+@subsubsection ReflectionDemo1---Class forName() Call
+
+@need 400
+@anchor{ReflectionDemo1---Class-forName---Call}
+@cdindex @r{<@i{ReflectionDemo1---Class forName() Call}>}, definition
+@noindent
+@r{<@i{ReflectionDemo1---Class forName() Call}>} @equiv{}
 @example
 Class<?> c = Class.forName("java.awt.Dimension");
 
@@ -11629,15 +12399,16 @@ This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first defin
 
 @c _____________________________________
 
-@node ReflectionDemo1 getConstructors Call
-@subsubsection ReflectionDemo1 getConstructors Call
+@node ReflectionDemo1---getConstructors() Call
+@subsubsection ReflectionDemo1---getConstructors() Call
 
 @need 400
-@anchor{ReflectionDemo1-getConstructors-Call}
-@cdindex @r{<@i{ReflectionDemo1 getConstructors Call}>}, definition
+@anchor{ReflectionDemo1---getConstructors---Call}
+@cdindex @r{<@i{ReflectionDemo1---getConstructors() Call}>}, definition
 @noindent
-@r{<@i{ReflectionDemo1 getConstructors Call}>} @equiv{}
+@r{<@i{ReflectionDemo1---getConstructors() Call}>} @equiv{}
 @example
+System.out.println("Constructors:");
 Constructor<?> constructors[] = c.getConstructors();
 
 for (int i = 0; i < constructors.length; i++) @{
@@ -11657,15 +12428,16 @@ This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first defin
 
 @c _____________________________________
 
-@node ReflectionDem1 getFields Call
-@subsubsection ReflectionDem1 getFields Call
+@node ReflectionDemo1---getFields() Call
+@subsubsection ReflectionDemo1---getFields() Call
 
 @need 400
-@anchor{ReflectionDemo1-getFields-Call}
-@cdindex @r{<@i{ReflectionDemo1 getFields Call}>}, definition
+@anchor{ReflectionDemo1---getFields---Call}
+@cdindex @r{<@i{ReflectionDemo1---getFields() Call}>}, definition
 @noindent
-@r{<@i{ReflectionDemo1 getFields Call}>} @equiv{}
+@r{<@i{ReflectionDemo1---getFields() Call}>} @equiv{}
 @example
+System.out.println("Fields:");
 Filed fields[] = c.getFields();
 
 for (int i = 0; i < fields.length; i++) @{
@@ -11685,15 +12457,16 @@ This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first defin
 
 @c _____________________________________
 
-@node ReflectionDemo1 getMethods Call
-@subsubsection ReflectionDemo1 getMethods Call
+@node ReflectionDemo1---getMethods() Call
+@subsubsection ReflectionDemo1---getMethods() Call
 
 @need 400
-@anchor{ReflectionDemo1-getMethods-Call}
-@cdindex @r{<@i{ReflectionDemo1 getMethods Call}>}, definition
+@anchor{ReflectionDemo1---getMethods---Call}
+@cdindex @r{<@i{ReflectionDemo1---getMethods() Call}>}, definition
 @noindent
-@r{<@i{ReflectionDemo1 getMethods Call}>} @equiv{}
+@r{<@i{ReflectionDemo1---getMethods() Call}>} @equiv{}
 @example
+System.out.println("Methods:");
 Method methods[] = c.getMethods();
 
 for (int i = 0; i < methods.length; i++) @{
@@ -11737,29 +12510,6 @@ This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first defin
 @textfonts @rm
 @end iftex
 
-@c _____________________________________
-
-@node Import java.lang.reflect
-@subsubsection Import java.lang.reflect
-
-@need 400
-@anchor{Import-java-lang-reflect}
-@cdindex @r{<@i{Import java.lang.reflect}>}, definition
-@noindent
-@r{<@i{Import java.lang.reflect}>} @equiv{}
-@example
-import java.lang.reflect.*;
-
-@end example
-@iftex
-@smallfonts @rm
-@end iftex
-
-@noindent
-This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
-@iftex
-@textfonts @rm
-@end iftex
 
 
 
@@ -12233,6 +12983,9 @@ their characteristics.
 @shortcaption{Class Methods Locating}
 @end float
 
+
+
+
 @c -----------------------------------------------------------------------------
 
 @node Members and Reflection
@@ -12263,6 +13016,7 @@ including fields, methods, nested classes, interfaces, and enumerated
 types. Since constructors are not inherited, they are not members. This
 differs from the implementing classes of @file{java.lang.reflect.Member}.
 
+
 @c .....................................
 
 @menu
@@ -12280,6 +13034,7 @@ Fields have a type and a value. The @file{java.lang.reflect.Field} class
 provides methods for accessing type information and setting and getting
 values of a field on a given object.
 
+
 @c .....................................
 
 @node reflect Methods
@@ -12291,6 +13046,7 @@ Methods have return values, parameters, and may throw exceptions. The
 @file{java.lang.reflect.Method} class provides methods for obtaining the type
 information for the parameters and return value. It may also be used to
 invoke methods on a given object.
+
 
 @c .....................................
 
@@ -12417,6 +13173,7 @@ enums.  This lesson uses a series of code samples to describe how to
 distinguish each of these objects from other classes and operate on
 them.  Various errors are also be examined.
 
+
 @c .....................................
 
 @menu
@@ -12490,6 +13247,7 @@ array, int index)}.
 @subsubheading Setting a Field of Type Array
 
 @subsubheading Accessing Elements of a Multidimensional Array
+
 
 @c .....................................
 
@@ -12568,11 +13326,22 @@ type, using @code{Field.set()} and @code{Field.get()}. For more information
 on accessing fields, see the Fields section.  @xref{reflect Fields}
 
 
+
+
+
+
+
+
 @c *****************************************************************************
 
 @node Swing
 @chapter Introducinvg Swing
 @cindex Swing
+
+
+
+
+
 
 
 
@@ -13038,9 +13807,15 @@ This chunk is defined in
 @item @r{@{@file{FindAreas.java }@}}
 This chunk is defined in
 @ref{FindAreas-java-}.
+@item @r{@{@file{ForEachDemo.java}@}}
+This chunk is defined in
+@ref{ForEachDemo-java}.
 @item @r{@{@file{GenMethDemo.java}@}}
 This chunk is defined in
 @ref{GenMethDemo-java}.
+@item @r{@{@file{IteratorDemo.java}@}}
+This chunk is defined in
+@ref{IteratorDemo-java}.
 @item @r{@{@file{Makefile}@}}
 This chunk is defined in
 @ref{Makefile}.
@@ -13068,6 +13843,9 @@ This chunk is defined in
 @item @r{@{@file{SimpleGenerics.java}@}}
 This chunk is defined in
 @ref{SimpleGenerics-java}.
+@item @r{@{@file{SpliteratorDemo.java}@}}
+This chunk is defined in
+@ref{SpliteratorDemo-java}.
 @item @r{@{@file{Stack.java}@}}
 This chunk is defined in
 @ref{Stack-java}.
@@ -13257,6 +14035,15 @@ This chunk is defined in
 @item @r{<@i{FindAreas SuperClass Figure }>}
 This chunk is defined in
 @ref{FindAreas-SuperClass-Figure-}.
+@item @r{<@i{ForEachDemo---Create an Array List For Integers}>}
+This chunk is defined in
+@ref{ForEachDemo---Create-an-Array-List-For-Integers}.
+@item @r{<@i{ForEachDemo---Sum the Values by Using a for Loop}>}
+This chunk is defined in
+@ref{ForEachDemo---Sum-the-Values-by-Using-a-for-Loop}.
+@item @r{<@i{ForEachDemo---Use for Loop to Display the Values}>}
+This chunk is defined in
+@ref{ForEachDemo---Use-for-Loop-to-Display-the-Values}.
 @item @r{<@i{GenMethDemo Main}>}
 This chunk is defined in
 @ref{GenMethDemo-Main}.
@@ -13272,6 +14059,9 @@ This chunk is defined in
 @item @r{<@i{Import java.lang.reflect}>}
 This chunk is defined in
 @ref{Import-java-lang-reflect}.
+@item @r{<@i{Import java.util}>}
+This chunk is defined in
+@ref{Import-java-util}.
 @item @r{<@i{Instance Methods Show and Get}>}
 This chunk is defined in
 @ref{Instance-Methods-Show-and-Get}.
@@ -13281,6 +14071,21 @@ This chunk is defined in
 @item @r{<@i{Integer Type Parameter}>}
 This chunk is defined in
 @ref{Integer-Type-Parameter}.
+@item @r{<@i{IteratorDemo---Create an Array List}>}
+This chunk is defined in
+@ref{IteratorDemo---Create-an-Array-List}.
+@item @r{<@i{IteratorDemo---Display the List Backwards}>}
+This chunk is defined in
+@ref{IteratorDemo---Display-the-List-Backwards}.
+@item @r{<@i{IteratorDemo---Modify Objects Being Iterated}>}
+This chunk is defined in
+@ref{IteratorDemo---Modify-Objects-Being-Iterated}.
+@item @r{<@i{IteratorDemo---Use Iterator To Display Contents of Array List}>}
+This chunk is defined in
+@ref{IteratorDemo---Use-Iterator-To-Display-Contents-of-Array-List}.
+@item @r{<@i{IteratorDemo---Use ListIterator to Display Modified Contents}>}
+This chunk is defined in
+@ref{IteratorDemo---Use-ListIterator-to-Display-Modified-Contents}.
 @item @r{<@i{Makefile CLEAN}>}
 This chunk is defined in
 @ref{Makefile-CLEAN}.
@@ -13353,18 +14158,18 @@ This chunk is defined in
 @item @r{<@i{Reference to Integer Instance}>}
 This chunk is defined in
 @ref{Reference-to-Integer-Instance}.
-@item @r{<@i{ReflectionDemo1 Class forName Call}>}
+@item @r{<@i{ReflectionDemo1---Class forName() Call}>}
 This chunk is defined in
-@ref{ReflectionDemo1-Class-forName-Call}.
-@item @r{<@i{ReflectionDemo1 getConstructors Call}>}
+@ref{ReflectionDemo1---Class-forName---Call}.
+@item @r{<@i{ReflectionDemo1---getConstructors() Call}>}
 This chunk is defined in
-@ref{ReflectionDemo1-getConstructors-Call}.
-@item @r{<@i{ReflectionDemo1 getFields Call}>}
+@ref{ReflectionDemo1---getConstructors---Call}.
+@item @r{<@i{ReflectionDemo1---getFields() Call}>}
 This chunk is defined in
-@ref{ReflectionDemo1-getFields-Call}.
-@item @r{<@i{ReflectionDemo1 getMethods Call}>}
+@ref{ReflectionDemo1---getFields---Call}.
+@item @r{<@i{ReflectionDemo1---getMethods() Call}>}
 This chunk is defined in
-@ref{ReflectionDemo1-getMethods-Call}.
+@ref{ReflectionDemo1---getMethods---Call}.
 @item @r{<@i{Show Type}>}
 This chunk is defined in
 @ref{Show-Type}.
@@ -13407,6 +14212,18 @@ This chunk is defined in
 @item @r{<@i{ShowFileTryWR Open a File TryWR}>}
 This chunk is defined in
 @ref{ShowFileTryWR-Open-a-File-TryWR}.
+@item @r{<@i{SpliteratorDemo---Create New List}>}
+This chunk is defined in
+@ref{SpliteratorDemo---Create-New-List}.
+@item @r{<@i{SpliteratorDemo---Create an Array List for Doubles}>}
+This chunk is defined in
+@ref{SpliteratorDemo---Create-an-Array-List-for-Doubles}.
+@item @r{<@i{SpliteratorDemo---Use forEachRemaining() to Display Contents}>}
+This chunk is defined in
+@ref{SpliteratorDemo---Use-forEachRemaining---to-Display-Contents}.
+@item @r{<@i{SpliteratorDemo---Use tryAdvance() to Display Contents}>}
+This chunk is defined in
+@ref{SpliteratorDemo---Use-tryAdvance---to-Display-Contents}.
 @item @r{<@i{Stack Constructor}>}
 This chunk is defined in
 @ref{Stack-Constructor}.
@@ -13729,6 +14546,18 @@ This chunk is called by the following chunks:
 
 @noindent
 This chunk is called by @r{@{@file{FindAreas.java }@}}; see its first definition at @ref{FindAreas-java-}.
+@item @r{<@i{ForEachDemo---Create an Array List For Integers}>}
+
+@noindent
+This chunk is called by @r{@{@file{ForEachDemo.java}@}}; see its first definition at @ref{ForEachDemo-java}.
+@item @r{<@i{ForEachDemo---Sum the Values by Using a for Loop}>}
+
+@noindent
+This chunk is called by @r{@{@file{ForEachDemo.java}@}}; see its first definition at @ref{ForEachDemo-java}.
+@item @r{<@i{ForEachDemo---Use for Loop to Display the Values}>}
+
+@noindent
+This chunk is called by @r{@{@file{ForEachDemo.java}@}}; see its first definition at @ref{ForEachDemo-java}.
 @item @r{<@i{GenMethDemo Main}>}
 
 @noindent
@@ -13767,6 +14596,17 @@ This chunk is called by @r{@{@file{DirList.java}@}}; see its first definition at
 
 @noindent
 This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
+@item @r{<@i{Import java.util}>}
+
+@noindent
+This chunk is called by the following chunks:
+
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{@{@file{ForEachDemo.java}@}} @tab See @ref{ForEachDemo-java}.
+@item @r{@{@file{IteratorDemo.java}@}} @tab See @ref{IteratorDemo-java}.
+@item @r{@{@file{SpliteratorDemo.java}@}} @tab See @ref{SpliteratorDemo-java}.
+@end multitable
 @item @r{<@i{Instance Methods Show and Get}>}
 
 @noindent
@@ -13779,6 +14619,26 @@ This chunk is called by @r{<@i{Class Gen}>}; see its first definition at @ref{Cl
 
 @noindent
 This chunk is called by @r{<@i{Create a Gen object for Integers}>}; see its first definition at @ref{Create-a-Gen-object-for-Integers}.
+@item @r{<@i{IteratorDemo---Create an Array List}>}
+
+@noindent
+This chunk is called by @r{@{@file{IteratorDemo.java}@}}; see its first definition at @ref{IteratorDemo-java}.
+@item @r{<@i{IteratorDemo---Display the List Backwards}>}
+
+@noindent
+This chunk is called by @r{@{@file{IteratorDemo.java}@}}; see its first definition at @ref{IteratorDemo-java}.
+@item @r{<@i{IteratorDemo---Modify Objects Being Iterated}>}
+
+@noindent
+This chunk is called by @r{@{@file{IteratorDemo.java}@}}; see its first definition at @ref{IteratorDemo-java}.
+@item @r{<@i{IteratorDemo---Use Iterator To Display Contents of Array List}>}
+
+@noindent
+This chunk is called by @r{@{@file{IteratorDemo.java}@}}; see its first definition at @ref{IteratorDemo-java}.
+@item @r{<@i{IteratorDemo---Use ListIterator to Display Modified Contents}>}
+
+@noindent
+This chunk is called by @r{@{@file{IteratorDemo.java}@}}; see its first definition at @ref{IteratorDemo-java}.
 @item @r{<@i{Makefile CLEAN}>}
 
 @noindent
@@ -13875,19 +14735,19 @@ This chunk is called by @r{<@i{FindAreas SubClass Rectangle }>}; see its first d
 
 @noindent
 This chunk is called by @r{<@i{Create a Gen object for Integers}>}; see its first definition at @ref{Create-a-Gen-object-for-Integers}.
-@item @r{<@i{ReflectionDemo1 Class forName Call}>}
+@item @r{<@i{ReflectionDemo1---Class forName() Call}>}
 
 @noindent
 This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
-@item @r{<@i{ReflectionDemo1 getConstructors Call}>}
+@item @r{<@i{ReflectionDemo1---getConstructors() Call}>}
 
 @noindent
 This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
-@item @r{<@i{ReflectionDemo1 getFields Call}>}
+@item @r{<@i{ReflectionDemo1---getFields() Call}>}
 
 @noindent
 This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
-@item @r{<@i{ReflectionDemo1 getMethods Call}>}
+@item @r{<@i{ReflectionDemo1---getMethods() Call}>}
 
 @noindent
 This chunk is called by @r{@{@file{ReflectionDemo1.java}@}}; see its first definition at @ref{ReflectionDemo1-java}.
@@ -13992,6 +14852,22 @@ This chunk is called by the following chunks:
 
 @noindent
 This chunk is called by @r{@{@file{ShowFileTryWR.java}@}}; see its first definition at @ref{ShowFileTryWR-java}.
+@item @r{<@i{SpliteratorDemo---Create New List}>}
+
+@noindent
+This chunk is called by @r{@{@file{SpliteratorDemo.java}@}}; see its first definition at @ref{SpliteratorDemo-java}.
+@item @r{<@i{SpliteratorDemo---Create an Array List for Doubles}>}
+
+@noindent
+This chunk is called by @r{@{@file{SpliteratorDemo.java}@}}; see its first definition at @ref{SpliteratorDemo-java}.
+@item @r{<@i{SpliteratorDemo---Use forEachRemaining() to Display Contents}>}
+
+@noindent
+This chunk is called by @r{@{@file{SpliteratorDemo.java}@}}; see its first definition at @ref{SpliteratorDemo-java}.
+@item @r{<@i{SpliteratorDemo---Use tryAdvance() to Display Contents}>}
+
+@noindent
+This chunk is called by @r{@{@file{SpliteratorDemo.java}@}}; see its first definition at @ref{SpliteratorDemo-java}.
 @item @r{<@i{Stack Constructor}>}
 
 @noindent
@@ -14070,6 +14946,11 @@ This chunk is called by @r{<@i{Class TwoGen}>}; see its first definition at @ref
 @unnumbered Function Index
 
 @printindex fn
+
+@node Program Index
+@unnumbered Program Index
+
+@printindex pg
 
 @bye
 

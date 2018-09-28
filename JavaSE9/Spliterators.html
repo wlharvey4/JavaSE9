@@ -13,9 +13,9 @@
 <link href="index.html#Top" rel="start" title="Top">
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="java-util-Collections.html#java-util-Collections" rel="up" title="java util Collections">
-<link href="Storing-User_002dDefined-Classes.html#Storing-User_002dDefined-Classes" rel="next" title="Storing User-Defined Classes">
-<link href="ForEach-Alternative-to-Iterators.html#ForEach-Alternative-to-Iterators" rel="prev" title="ForEach Alternative to Iterators">
+<link href="java_002eutil-Part-1-_002d_002d_002d-Collections-Framework.html#java_002eutil-Part-1-_002d_002d_002d-Collections-Framework" rel="up" title="java.util Part 1 --- Collections Framework">
+<link href="Spliterator-Methods.html#Spliterator-Methods" rel="next" title="Spliterator Methods">
+<link href="ForEachDemo_002d_002d_002dSum-the-Values-by-Using-a-for-Loop.html#ForEachDemo_002d_002d_002dSum-the-Values-by-Using-a-for-Loop" rel="prev" title="ForEachDemo---Sum the Values by Using a for Loop">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -51,7 +51,7 @@ ul.no-bullet {list-style: none}
 <a name="Spliterators"></a>
 <div class="header">
 <p>
-Next: <a href="Storing-User_002dDefined-Classes.html#Storing-User_002dDefined-Classes" accesskey="n" rel="next">Storing User-Defined Classes</a>, Previous: <a href="Accessing-a-Collection-via-Iterator.html#Accessing-a-Collection-via-Iterator" accesskey="p" rel="prev">Accessing a Collection via Iterator</a>, Up: <a href="java-util-Collections.html#java-util-Collections" accesskey="u" rel="up">java util Collections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Storing-User_002dDefined-Classes.html#Storing-User_002dDefined-Classes" accesskey="n" rel="next">Storing User-Defined Classes</a>, Previous: <a href="Accessing-a-Collection-via-Iterator.html#Accessing-a-Collection-via-Iterator" accesskey="p" rel="prev">Accessing a Collection via Iterator</a>, Up: <a href="java_002eutil-Part-1-_002d_002d_002d-Collections-Framework.html#java_002eutil-Part-1-_002d_002d_002d-Collections-Framework" accesskey="u" rel="up">java.util Part 1 --- Collections Framework</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="Spliterators-1"></a>
@@ -77,79 +77,26 @@ operations in one method.
 </p>
 <p><samp>Spliterator</samp> is a generic interface that is declared thus:
 </p>
-<div class="example">
-<pre class="example">interface Spliterator&lt;T&gt;
+<div class="display">
+<pre class="display">interface Spliterator&lt;T&gt;
 </pre></div>
 
-<p><samp>Spliterator</samp> declares the methods shown in <a href="#SpliteratorMethods">Table 13.6</a>.
+<p><code>T</code> is the type of elements being iterated.  <samp>Spliterator</samp> declares
+the methods shown in <a href="Spliterator-Methods.html#SpliteratorMethods">Table 13.6</a>.
 </p>
-<div class="float"><a name="SpliteratorMethods"></a>
-<table>
-<tr><td width="40%">int characteristics()</td><td width="60%">Returns the characteristics of the invoking
-spliterator, encoded into an integer.</td></tr>
-<tr><td width="40%">long estimateSize()</td><td width="60%">Estimates the number of elements left to iterate and
-returns the result.  Returns <code>Long.MAX_VALUE</code> if the count cannot be
-obtained for any reason.</td></tr>
-<tr><td width="40%">default void forEachRemaining(Consumer&lt;? super T&gt; <i>action</i>)</td><td width="60%">Applies
-<i>action</i> to each unprocessed element in the data source.</td></tr>
-<tr><td width="40%">default Comparator&lt;? super T&gt; getComparator()</td><td width="60%">Returns the comparator
-used by the invoking spliterator or <code>null</code> if natural ordering is used.
-If the sequence is unordered, <samp>IllegalStateException</samp> is thrown.</td></tr>
-<tr><td width="40%">default long getExactSizeIfKnown()</td><td width="60%">If the invoking spliterator is sized,
-returns the number of elements left to iterate.  Returns -1 otherwise.</td></tr>
-<tr><td width="40%">default boolean hasCharacteristics(int <i>val</i>)</td><td width="60%">Returns <code>true</code> if
-the invoking spliterator has the characteristics passed in <i>val</i>.  Returns
-<code>false</code> otherwise.</td></tr>
-<tr><td width="40%">boolean tryAdvance(Consumer&lt;? super T&gt; <i>action</i>)</td><td width="60%">Executes <i>action</i>
-on the next element in the iteation.  Returns <code>true</code> if there is a next
-element.  Returns <code>false</code> if no elements remain.</td></tr>
-<tr><td width="40%">Spliterator&lt;T&gt; trySplit()</td><td width="60%">If possible, split the invoking spliterator,
-returning a reference to a new spliterator for the partition.  Otherwise,
-returns <code>null</code>.  Thus, if successful, the original spliterator iterates
-over one portion of the sequence and the returned spliterator iterates over
-the other portion.</td></tr>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Spliterator-Methods.html#Spliterator-Methods" accesskey="1">Spliterator Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Using-Spliterator-for-Iteration.html#Using-Spliterator-for-Iteration" accesskey="2">Using Spliterator for Iteration</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Spliterator-Characteristics.html#Spliterator-Characteristics" accesskey="3">Spliterator Characteristics</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Spliterator-Subinterfaces.html#Spliterator-Subinterfaces" accesskey="4">Spliterator Subinterfaces</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
 </table>
 
-<div class="float-caption"><p><strong>Table 13.6: </strong>The Methods Declared by Spliterator</p></div></div>
-<a name="Characteristics"></a>
-<h4 class="subheading">Characteristics</h4>
-
-<p>Each <samp>Spliterator</samp> has a set of attributes, called
-<em>characteristics</em>, associated with it.  These are defined by static
-<code>int</code> fields in <samp>Spliterator</samp>, such as
-</p>
-<ul>
-<li> SORTED
-</li><li> DISTINCT
-</li><li> SIZED
-</li><li> IMMUTABLE
-</li></ul>
-
-<p>to name a few.  You can obtain the characteristics by calling
-<code>characteristics()</code>.  You can determine if a characteristic is present
-by calling <code>hasCharacteristics()</code>.
-</p>
-<a name="Spliterator-Subinterfaces"></a>
-<h4 class="subheading">Spliterator Subinterfaces</h4>
-<a name="index-spliterator-subinterfaces"></a>
-<a name="index-Spliterator_002eOfDouble"></a>
-<a name="index-Spliterator_002eOfInt"></a>
-<a name="index-Spliterator_002eOfLong"></a>
-<a name="index-Spliterator_002eOfPrimitive"></a>
-
-<p>There are several nested subinterfaces of <samp>Spliterator</samp> designed for use
-with the primitive types <code>double</code>, <code>int</code>, and <code>long</code>.  These
-are called <samp>Spliterator.OfDouble</samp>, <samp>Spliterator.OfInt</samp>, and
-<samp>Spliterator.OfLong</samp>.  There is also a generalized version called
-<samp>Spliterator.OfPrimitive</samp>, which offers additional flexibility and
-servers as a superinterface.
-</p>
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="Storing-User_002dDefined-Classes.html#Storing-User_002dDefined-Classes" accesskey="n" rel="next">Storing User-Defined Classes</a>, Previous: <a href="Accessing-a-Collection-via-Iterator.html#Accessing-a-Collection-via-Iterator" accesskey="p" rel="prev">Accessing a Collection via Iterator</a>, Up: <a href="java-util-Collections.html#java-util-Collections" accesskey="u" rel="up">java util Collections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
-</div>
 
 
 

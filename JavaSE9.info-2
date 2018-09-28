@@ -2,12 +2,496 @@ This is JavaSE9.info, produced by makeinfo version 6.5 from
 JavaSE9.texi.
 
 
-File: JavaSE9.info,  Node: ReflectionDemo1 Class forName Call,  Next: ReflectionDemo1 getConstructors Call,  Up: Reflection Demonstration
+File: JavaSE9.info,  Node: BufferedReaderDemo Instance Variables,  Next: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
 
-25.1.3.1 ReflectionDemo1 Class forName Call
-...........................................
+15.8.8.1 BufferedReaderDemo Instance Variables
+..............................................
 
-<ReflectionDemo1 Class forName Call> ==
+The String is copied directly from the prior implementation.
+
+=========================================================================
+
+<BufferedReaderDemo Instance Variables> ==
+     <BufferedInputStreamDemo String>
+     <BufferedReaderDemo Buffer>
+
+
+This chunk is called by {'BufferedReaderDemo.java'}; see its first
+definition at *note BufferedReaderDemo-java::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<BufferedInputStreamDemo  See *note BufferedInputStreamDemo-String::.
+String>
+<BufferedReaderDemo       See *note BufferedReaderDemo-Buffer::.
+Buffer>
+
+
+File: JavaSE9.info,  Node: BufferedReaderDemo Buffer,  Next: BufferedReaderDemo TryWithResources BufferedReader,  Prev: BufferedReaderDemo Instance Variables,  Up: Buffered Reader Demo
+
+15.8.8.2 BufferedReaderDemo Buffer
+..................................
+
+Notice that this implementation uses a 'char' buffer, with a
+'getChars()' method to transfer the string characters, while the
+'BufferedInputStream' implementation uses a 'byte' buffer, and a
+'getBytes()' method to transfer the string bytes.  *Note
+BufferedInputStreamDemo Buffer::.
+
+=========================================================================
+
+<BufferedReaderDemo Buffer> ==
+     char buf[] = new char[s.length()];
+     s.getChars(0, s.length(), buf, 0);
+
+
+This chunk is called by <BufferedReaderDemo Instance Variables>; see
+its first definition at *note BufferedReaderDemo-Instance-Variables::.
+
+
+File: JavaSE9.info,  Node: BufferedReaderDemo TryWithResources BufferedReader,  Prev: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
+
+15.8.8.3 BufferedReaderDemo TryWithResources BufferedReader
+...........................................................
+
+Notice that the Switch code is identical to the byte stream example.
+
+==========================================================================
+
+<BufferedReaderDemo TryWithResources BufferedReader> ==
+     try ( BufferedReader f = new BufferedReader(in) ) {
+       while ( (c = f.read()) != -1 ) {
+         <BufferedInputStreamDemo Switch on Character>
+       }
+     }
+
+
+This chunk is called by {'BufferedReaderDemo.java'}; see its first
+definition at *note BufferedReaderDemo-java::.
+
+The called chunk <BufferedInputStreamDemo Switch on Character> is
+first defined at *note BufferedInputStreamDemo-Switch-on-Character::.
+
+
+File: JavaSE9.info,  Node: BufferedWriter,  Next: PushbackReader,  Prev: Buffered Reader Demo,  Up: Character Streams
+
+15.8.9 'BufferedWriter'
+-----------------------
+
+A 'BufferedWriter' is a 'Writer' that buffers output.  Using a
+'BufferedWriter' can improve performance by reducing the number of
+times data is actually phyiscally written to the output device.  A
+'BufferedWriter' has these constructors:
+
+     BufferedWriter (Writer outputStream)
+     BufferedWriter (Writer outputStream, int bufSize)
+
+
+File: JavaSE9.info,  Node: PushbackReader,  Next: PrintWriter,  Prev: BufferedWriter,  Up: Character Streams
+
+15.8.10 'PushbackReader'
+------------------------
+
+
+File: JavaSE9.info,  Node: PrintWriter,  Prev: PushbackReader,  Up: Character Streams
+
+15.8.11 'PrintWriter'
+---------------------
+
+
+File: JavaSE9.info,  Node: Console Class,  Next: Serialization,  Prev: Character Streams,  Up: java.io --- Input/Output
+
+15.9 The Console Class
+======================
+
+
+File: JavaSE9.info,  Node: Serialization,  Next: Stream Benefits,  Prev: Console Class,  Up: java.io --- Input/Output
+
+15.10 Serialization
+===================
+
+"Serialization" is the process of writing the state of an object to a
+byte stream.  This is useful when you want to save the state of your
+program to a persistent storage area, such as a file.  At a later
+time, you may restore these objects by using the process of
+deserialization.
+
+   Assume that an object to be serialized has references to other
+objects, which, in turn, have references to still more objects.  This
+set of objects and the relationships among them form a directed graph.
+There may also be circular references within this object graph.
+Objects may also contain references to themselves.  The object
+serialization and deserialization facilities have been designed to
+work correctly in these scenarios.  If you attempt to serialize an
+object at the top of an object graph, all of the other referenced
+objects are recurseively located and serialized.  Similarly, during
+the process of deserialization, all of these objects and their
+references are correctly restored.
+
+* Menu:
+
+* Serializable::
+* Externalizable::
+* ObjectOutput::
+* ObjectOutputStream::
+* ObjectInput::
+* ObjectInputStream::
+* Serializable Example::
+
+
+File: JavaSE9.info,  Node: Serializable,  Next: Externalizable,  Up: Serialization
+
+15.10.1 'Serializable'
+----------------------
+
+Only an object that implements the 'Serializable' interface can be
+saved and restored by the serialization facilities.  The
+'Serializable' interface defines no members.  It is simply used to
+indicate that a class may be serialized.  If a class is serializable,
+all of its subclasses are also serializable.
+
+   Variables that are declared as 'transient' are not saved by the
+serialization facilities.  Also 'static' variables are not saved.
+
+
+File: JavaSE9.info,  Node: Externalizable,  Next: ObjectOutput,  Prev: Serializable,  Up: Serialization
+
+15.10.2 'Externalizable'
+------------------------
+
+The Java facilities for serialization and deserialization have been
+designed so that much of the work to save and restore the state of an
+object occurs automatically.  However, there are cases in which the
+programmer may need to have control over these processes.  The
+'Externalizable' interface is designed for these sitautions.
+
+   The 'Externalizable' interface defines these two methods:
+
+     void readExternal (ObjectInput inStream) throws IOException, ClassNotFoundException
+     void writeExternal (ObjectOutput outStream throws IOException
+
+
+File: JavaSE9.info,  Node: ObjectOutput,  Next: ObjectOutputStream,  Prev: Externalizable,  Up: Serialization
+
+15.10.3 'ObjectOutput'
+----------------------
+
+
+File: JavaSE9.info,  Node: ObjectOutputStream,  Next: ObjectInput,  Prev: ObjectOutput,  Up: Serialization
+
+15.10.4 'ObjectOutputStream'
+----------------------------
+
+
+File: JavaSE9.info,  Node: ObjectInput,  Next: ObjectInputStream,  Prev: ObjectOutputStream,  Up: Serialization
+
+15.10.5 'ObjectInput'
+---------------------
+
+
+File: JavaSE9.info,  Node: ObjectInputStream,  Next: Serializable Example,  Prev: ObjectInput,  Up: Serialization
+
+15.10.6 'ObjectInputStream'
+---------------------------
+
+
+File: JavaSE9.info,  Node: Serializable Example,  Prev: ObjectInputStream,  Up: Serialization
+
+15.10.7 A Serializable Example
+------------------------------
+
+
+File: JavaSE9.info,  Node: Stream Benefits,  Prev: Serialization,  Up: java.io --- Input/Output
+
+15.11 Stream Benefits
+=====================
+
+
+File: JavaSE9.info,  Node: java.nio --- NIO,  Next: Networking,  Prev: java.io --- Input/Output,  Up: Top
+
+16 Exploring NIO
+****************
+
+
+File: JavaSE9.info,  Node: Networking,  Next: Event Handling,  Prev: java.nio --- NIO,  Up: Top
+
+17 Networking
+*************
+
+
+File: JavaSE9.info,  Node: Event Handling,  Next: AWT,  Prev: Networking,  Up: Top
+
+18 Event Handling
+*****************
+
+
+File: JavaSE9.info,  Node: AWT,  Next: AWT Controls,  Prev: Event Handling,  Up: Top
+
+19 AWT: Working with Windows, Graphics, and Text
+************************************************
+
+
+File: JavaSE9.info,  Node: AWT Controls,  Next: Images,  Prev: AWT,  Up: Top
+
+20 Using AWT Controls, Layout Managers, and Menus
+*************************************************
+
+
+File: JavaSE9.info,  Node: Images,  Next: Concurrency,  Prev: AWT Controls,  Up: Top
+
+21 Images
+*********
+
+
+File: JavaSE9.info,  Node: Concurrency,  Next: Streams API,  Prev: Images,  Up: Top
+
+22 The Concurrency Utilities
+****************************
+
+
+File: JavaSE9.info,  Node: Streams API,  Next: Regular Expressions,  Prev: Concurrency,  Up: Top
+
+23 The Stream API
+*****************
+
+
+File: JavaSE9.info,  Node: Regular Expressions,  Next: Reflection,  Prev: Streams API,  Up: Top
+
+24 Regular Expressions
+**********************
+
+
+File: JavaSE9.info,  Node: Reflection,  Next: Swing,  Prev: Regular Expressions,  Up: Top
+
+25 Reflection
+*************
+
+"Reflection" is the ability of software to analyze or modify itself at
+runtime rather than at compile time.  This is provided by the
+'java.lang.reflect' package and elements in 'Class'.  Beginning with
+JDK 9, 'java.lang.reflect' is part of the 'java.base' module.
+Reflection allows you to analyze a software component and describe its
+capabilities dynamcically at run-time rather than at compile time.
+For example, by using reflection, you can determine what methods,
+constructors, and fields a class supports.
+
+Drawbacks of Reflection
+=======================
+
+Because reflection is dynamic, the java virtual machine is unable to
+make certain optimizations and could therefor run slower.  Also, since
+reflection allows code to perform operations that would be illegal in
+non-reflective code, such as accessing private fields and methods, the
+use of reflection can result in unexpected behavior.  Reflection
+breaks abstractions.
+
+* Menu:
+
+* java.lang.reflect Package::
+* Classes and Reflection::
+* Members and Reflection::
+* Arays and Enumerated Types and Reflection::
+
+
+File: JavaSE9.info,  Node: java.lang.reflect Package,  Next: Classes and Reflection,  Up: Reflection
+
+25.1 'java.lang.reflect' Package
+================================
+
+This package provides classes and interfaces for obtaining reflective
+information about classes and objects.  Reflection allows programmatic
+access to information about the fields, methods and constructors of
+loaded classes, and the use of reflected fields, methods, and
+constructors to operate on their underlying counterparts, within
+encapsulation and security restrictions.
+
+   The package 'java.lang.reflect' includes several interfaces.  Of
+special interest is 'Member', which defines methods that allow you to
+get information abouta field, constructor, or method of a class.
+There are also ten classes in this package.
+
+   Classes in this package, along with java.lang.Class accommodate
+applications such as debuggers, interpreters, object inspectors, class
+browsers, and services such as Object Serialization and JavaBeans that
+need access to either the public members of a target object (based on
+its runtime class) or the members declared by a given class.
+
+   Note that none of the classes in 'java.lang.reflect' offer any
+public constructors.  All reflection interactions must go through
+'java.lang.Class'.  Note also that 'java.lang.Class' does not offer
+any public constructors.  Instances of this class are created by the
+Java Virtual Machine.
+
+* Menu:
+
+* Classes Defined in java.lang.reflect::
+* Interfaces Defined in java.lang.reflect::
+* Reflection Demonstration::
+
+
+File: JavaSE9.info,  Node: Classes Defined in java.lang.reflect,  Next: Interfaces Defined in java.lang.reflect,  Up: java.lang.reflect Package
+
+25.1.1 Classes Defined in 'java.lang.reflect'
+---------------------------------------------
+
+AccessibleObject
+     Allows you to bypass the default access control checks
+Array
+     Allows you to dynamically create and manipulate arrays
+Constructor
+     Provides information about a constructor
+Executable
+     An abstract superclass extended by 'Member' and 'Constructor'
+Field
+     Provides information about a field
+Method
+     Provides information about a method
+Modifier
+     Provides information about class and member access modifiers
+Parameter
+     Provides information about parameters
+Proxy
+     Supports dynamic proxy classes
+ReflectPermission
+     Allows reflection of private or protected members of a class
+
+Table 25.1: Classes Defined in 'java.lang.reflect'
+
+
+File: JavaSE9.info,  Node: Interfaces Defined in java.lang.reflect,  Next: Reflection Demonstration,  Prev: Classes Defined in java.lang.reflect,  Up: java.lang.reflect Package
+
+25.1.2 Interfaces Defined in 'java.lang.reflect'
+------------------------------------------------
+
+AnnotatedArrayType
+     represents the potentially annotated use of an array type, whose
+     component type may itself represent the annotated use of a type.
+AnnotatedElement
+     represents an annotated element of the program currently running
+     in this VM.
+AnnotatedParameterizedType
+     represents the potentially annotated use of a parameterized type,
+     whose type arguments may themselves represent annotated uses of
+     types.
+AnnotatedType
+     represents the potentially annotated use of a type in the program
+     currently running in this VM.
+AnnotatedTypeVariable
+     represents the potentially annotated use of a type variable,
+     whose declaration may have bounds which themselves represent
+     annotated uses of types.
+AnnotatedWildcardType
+     represents the potentially annotated use of a wildcard type
+     argument, whose upper or lower bounds may themselves represent
+     annotated uses of types.
+GenericArrayType
+     represents an array type whose component type is either a
+     parameterized type or a type variable.
+GenericDeclaration
+     A common interface for all entities that declare type variables.
+InvocationHandler
+     the interface implemented by the invocation handler of a proxy
+     instance.
+Member
+     an interface that reflects identifying information about a single
+     member (a field or a method) or a constructor.
+ParameterizedType
+     ParameterizedType represents a parameterized type such as
+     Collection<String>.
+Type
+     Type is the common superinterface for all types in the Java
+     programming language.
+TypeVariable<D extends GenericDeclaration>
+     the common superinterface for type variables of kinds.
+WildcardType
+     WildcardType represents a wildcard type expression, such as ?, ?
+     extends Number, or ?  super Integer.
+
+Table 25.2: Interfaces Defined in 'java.lang.reflect'
+
+
+File: JavaSE9.info,  Node: Reflection Demonstration,  Prev: Interfaces Defined in java.lang.reflect,  Up: java.lang.reflect Package
+
+25.1.3 Reflection Demonstration
+-------------------------------
+
+The following application illustrates a simple use of the Java
+reflection capabilities.  It prints the constructors, fields, and
+methods of the class 'java.awt.Dimension'.  The program begins by
+using the 'forName()' mthod of 'Class' to get a class object for
+'java.awt.Dimension'.  Once this is obtained, 'getConstructors()',
+'getFields()', and 'getMethods()' are used to analyze this class
+object.  They return arrays of 'Constructor', 'Field', and 'Method'
+objects that provide the information about the object.  The
+'Constructor', 'Field', and 'Method' classes define several methods
+that can be used to obtain information about an object.  Each supports
+the 'toString()' method.  Therefore, using these objects as arguments
+tot he 'println()' method is straightforward.
+
+ReflectionDemo1.java
+....................
+
+{'ReflectionDemo1.java'} ==
+     <Import java.lang.reflect>
+
+     public class ReflectionDemo1 {
+       public static void main(String[] args) {
+         try {
+           <ReflectionDemo1--Class forName() Call>
+           <ReflectionDemo1--getConstructors() Call>
+           <ReflectionDemo1--getFields() Call>
+           <ReflectionDemo1--getMethods() Call>
+         }
+         <Catch Exception>
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Catch Exception>         See *note Catch-Exception::.
+<Import                   See *note Import-java-lang-reflect::.
+java.lang.reflect>
+<ReflectionDemo1--Class   See
+forName() Call>           *note ReflectionDemo1---Class-forName---Call::.
+<ReflectionDemo1--getConstructors()See
+Call>                     *note ReflectionDemo1---getConstructors---Call::.
+<ReflectionDemo1--getFields()See
+Call>                     *note ReflectionDemo1---getFields---Call::.
+<ReflectionDemo1--getMethods()See
+Call>                     *note ReflectionDemo1---getMethods---Call::.
+
+* Menu:
+
+* Import java.lang.reflect::
+* ReflectionDemo1---Class forName() Call::
+* ReflectionDemo1---getConstructors() Call::
+* ReflectionDemo1---getFields() Call::
+* ReflectionDemo1---getMethods() Call::
+* Catch Exception::
+
+
+File: JavaSE9.info,  Node: Import java.lang.reflect,  Next: ReflectionDemo1---Class forName() Call,  Up: Reflection Demonstration
+
+25.1.3.1 Import java.lang.reflect
+.................................
+
+<Import java.lang.reflect> ==
+     import java.lang.reflect.*;
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: ReflectionDemo1---Class forName() Call,  Next: ReflectionDemo1---getConstructors() Call,  Prev: Import java.lang.reflect,  Up: Reflection Demonstration
+
+25.1.3.2 ReflectionDemo1--Class forName() Call
+..............................................
+
+<ReflectionDemo1--Class forName() Call> ==
      Class<?> c = Class.forName("java.awt.Dimension");
 
 
@@ -15,12 +499,13 @@ This chunk is called by {'ReflectionDemo1.java'}; see its first
 definition at *note ReflectionDemo1-java::.
 
 
-File: JavaSE9.info,  Node: ReflectionDemo1 getConstructors Call,  Next: ReflectionDem1 getFields Call,  Prev: ReflectionDemo1 Class forName Call,  Up: Reflection Demonstration
+File: JavaSE9.info,  Node: ReflectionDemo1---getConstructors() Call,  Next: ReflectionDemo1---getFields() Call,  Prev: ReflectionDemo1---Class forName() Call,  Up: Reflection Demonstration
 
-25.1.3.2 ReflectionDemo1 getConstructors Call
-.............................................
+25.1.3.3 ReflectionDemo1--getConstructors() Call
+................................................
 
-<ReflectionDemo1 getConstructors Call> ==
+<ReflectionDemo1--getConstructors() Call> ==
+     System.out.println("Constructors:");
      Constructor<?> constructors[] = c.getConstructors();
 
      for (int i = 0; i < constructors.length; i++) {
@@ -32,12 +517,13 @@ This chunk is called by {'ReflectionDemo1.java'}; see its first
 definition at *note ReflectionDemo1-java::.
 
 
-File: JavaSE9.info,  Node: ReflectionDem1 getFields Call,  Next: ReflectionDemo1 getMethods Call,  Prev: ReflectionDemo1 getConstructors Call,  Up: Reflection Demonstration
+File: JavaSE9.info,  Node: ReflectionDemo1---getFields() Call,  Next: ReflectionDemo1---getMethods() Call,  Prev: ReflectionDemo1---getConstructors() Call,  Up: Reflection Demonstration
 
-25.1.3.3 ReflectionDem1 getFields Call
-......................................
+25.1.3.4 ReflectionDemo1--getFields() Call
+..........................................
 
-<ReflectionDemo1 getFields Call> ==
+<ReflectionDemo1--getFields() Call> ==
+     System.out.println("Fields:");
      Filed fields[] = c.getFields();
 
      for (int i = 0; i < fields.length; i++) {
@@ -49,12 +535,13 @@ This chunk is called by {'ReflectionDemo1.java'}; see its first
 definition at *note ReflectionDemo1-java::.
 
 
-File: JavaSE9.info,  Node: ReflectionDemo1 getMethods Call,  Next: Catch Exception,  Prev: ReflectionDem1 getFields Call,  Up: Reflection Demonstration
+File: JavaSE9.info,  Node: ReflectionDemo1---getMethods() Call,  Next: Catch Exception,  Prev: ReflectionDemo1---getFields() Call,  Up: Reflection Demonstration
 
-25.1.3.4 ReflectionDemo1 getMethods Call
-........................................
+25.1.3.5 ReflectionDemo1--getMethods() Call
+...........................................
 
-<ReflectionDemo1 getMethods Call> ==
+<ReflectionDemo1--getMethods() Call> ==
+     System.out.println("Methods:");
      Method methods[] = c.getMethods();
 
      for (int i = 0; i < methods.length; i++) {
@@ -66,28 +553,15 @@ This chunk is called by {'ReflectionDemo1.java'}; see its first
 definition at *note ReflectionDemo1-java::.
 
 
-File: JavaSE9.info,  Node: Catch Exception,  Next: Import java.lang.reflect,  Prev: ReflectionDemo1 getMethods Call,  Up: Reflection Demonstration
+File: JavaSE9.info,  Node: Catch Exception,  Prev: ReflectionDemo1---getMethods() Call,  Up: Reflection Demonstration
 
-25.1.3.5 Catch Exception
+25.1.3.6 Catch Exception
 ........................
 
 <Catch Exception> ==
      catch (Exception e) {
        System.out.println("Exception: " + e);
      }
-
-
-This chunk is called by {'ReflectionDemo1.java'}; see its first
-definition at *note ReflectionDemo1-java::.
-
-
-File: JavaSE9.info,  Node: Import java.lang.reflect,  Prev: Catch Exception,  Up: Reflection Demonstration
-
-25.1.3.6 Import java.lang.reflect
-.................................
-
-<Import java.lang.reflect> ==
-     import java.lang.reflect.*;
 
 
 This chunk is called by {'ReflectionDemo1.java'}; see its first
@@ -1133,8 +1607,12 @@ B.1 Source File Definitions
      This chunk is defined in *note FileReaderDemo-java::.
 {'FindAreas.java '}
      This chunk is defined in *note FindAreas-java-::.
+{'ForEachDemo.java'}
+     This chunk is defined in *note ForEachDemo-java::.
 {'GenMethDemo.java'}
      This chunk is defined in *note GenMethDemo-java::.
+{'IteratorDemo.java'}
+     This chunk is defined in *note IteratorDemo-java::.
 {'Makefile'}
      This chunk is defined in *note Makefile::.
 {'OnlyExt.java'}
@@ -1153,6 +1631,8 @@ B.1 Source File Definitions
      This chunk is defined in *note ShowFileTryWR-java::.
 {'SimpleGenerics.java'}
      This chunk is defined in *note SimpleGenerics-java::.
+{'SpliteratorDemo.java'}
+     This chunk is defined in *note SpliteratorDemo-java::.
 {'Stack.java'}
      This chunk is defined in *note Stack-java::.
 {'StackImproved.java'}
@@ -1313,6 +1793,15 @@ B.2 Code Chunk Definitions
      This chunk is defined in *note FindAreas-SubClass-Triangle-::.
 <FindAreas SuperClass Figure >
      This chunk is defined in *note FindAreas-SuperClass-Figure-::.
+<ForEachDemo--Create an Array List For Integers>
+     This chunk is defined in *note
+     ForEachDemo---Create-an-Array-List-For-Integers::.
+<ForEachDemo--Sum the Values by Using a for Loop>
+     This chunk is defined in *note
+     ForEachDemo---Sum-the-Values-by-Using-a-for-Loop::.
+<ForEachDemo--Use for Loop to Display the Values>
+     This chunk is defined in *note
+     ForEachDemo---Use-for-Loop-to-Display-the-Values::.
 <GenMethDemo Main>
      This chunk is defined in *note GenMethDemo-Main::.
 <Get Value>
@@ -1323,12 +1812,29 @@ B.2 Code Chunk Definitions
      This chunk is defined in *note Import-java-io-File::.
 <Import java.lang.reflect>
      This chunk is defined in *note Import-java-lang-reflect::.
+<Import java.util>
+     This chunk is defined in *note Import-java-util::.
 <Instance Methods Show and Get>
      This chunk is defined in *note Instance-Methods-Show-and-Get::.
 <Instance Variable ob of Type T>
      This chunk is defined in *note Instance-Variable-ob-of-Type-T::.
 <Integer Type Parameter>
      This chunk is defined in *note Integer-Type-Parameter::.
+<IteratorDemo--Create an Array List>
+     This chunk is defined in *note
+     IteratorDemo---Create-an-Array-List::.
+<IteratorDemo--Display the List Backwards>
+     This chunk is defined in *note
+     IteratorDemo---Display-the-List-Backwards::.
+<IteratorDemo--Modify Objects Being Iterated>
+     This chunk is defined in *note
+     IteratorDemo---Modify-Objects-Being-Iterated::.
+<IteratorDemo--Use Iterator To Display Contents of Array List>
+     This chunk is defined in *note
+     IteratorDemo---Use-Iterator-To-Display-Contents-of-Array-List::.
+<IteratorDemo--Use ListIterator to Display Modified Contents>
+     This chunk is defined in *note
+     IteratorDemo---Use-ListIterator-to-Display-Modified-Contents::.
 <Makefile CLEAN>
      This chunk is defined in *note Makefile-CLEAN::.
 <Makefile CLEAN Targets>
@@ -1383,16 +1889,18 @@ B.2 Code Chunk Definitions
      This chunk is defined in *note Rectangle-Constructor-::.
 <Reference to Integer Instance>
      This chunk is defined in *note Reference-to-Integer-Instance::.
-<ReflectionDemo1 Class forName Call>
+<ReflectionDemo1--Class forName() Call>
      This chunk is defined in *note
-     ReflectionDemo1-Class-forName-Call::.
-<ReflectionDemo1 getConstructors Call>
+     ReflectionDemo1---Class-forName---Call::.
+<ReflectionDemo1--getConstructors() Call>
      This chunk is defined in *note
-     ReflectionDemo1-getConstructors-Call::.
-<ReflectionDemo1 getFields Call>
-     This chunk is defined in *note ReflectionDemo1-getFields-Call::.
-<ReflectionDemo1 getMethods Call>
-     This chunk is defined in *note ReflectionDemo1-getMethods-Call::.
+     ReflectionDemo1---getConstructors---Call::.
+<ReflectionDemo1--getFields() Call>
+     This chunk is defined in *note
+     ReflectionDemo1---getFields---Call::.
+<ReflectionDemo1--getMethods() Call>
+     This chunk is defined in *note
+     ReflectionDemo1---getMethods---Call::.
 <Show Type>
      This chunk is defined in *note Show-Type::.
 <ShowFile Close a File>
@@ -1424,6 +1932,18 @@ B.2 Code Chunk Definitions
      ShowFileTryWR-Instance-Variable-Declaration::.
 <ShowFileTryWR Open a File TryWR>
      This chunk is defined in *note ShowFileTryWR-Open-a-File-TryWR::.
+<SpliteratorDemo--Create New List>
+     This chunk is defined in *note
+     SpliteratorDemo---Create-New-List::.
+<SpliteratorDemo--Create an Array List for Doubles>
+     This chunk is defined in *note
+     SpliteratorDemo---Create-an-Array-List-for-Doubles::.
+<SpliteratorDemo--Use forEachRemaining() to Display Contents>
+     This chunk is defined in *note
+     SpliteratorDemo---Use-forEachRemaining---to-Display-Contents::.
+<SpliteratorDemo--Use tryAdvance() to Display Contents>
+     This chunk is defined in *note
+     SpliteratorDemo---Use-tryAdvance---to-Display-Contents::.
 <Stack Constructor>
      This chunk is defined in *note Stack-Constructor::.
 <Stack Instance Methods>
@@ -1744,6 +2264,18 @@ B.3 Code Chunk References
 
      This chunk is called by {'FindAreas.java '}; see its first
      definition at *note FindAreas-java-::.
+<ForEachDemo--Create an Array List For Integers>
+
+     This chunk is called by {'ForEachDemo.java'}; see its first
+     definition at *note ForEachDemo-java::.
+<ForEachDemo--Sum the Values by Using a for Loop>
+
+     This chunk is called by {'ForEachDemo.java'}; see its first
+     definition at *note ForEachDemo-java::.
+<ForEachDemo--Use for Loop to Display the Values>
+
+     This chunk is called by {'ForEachDemo.java'}; see its first
+     definition at *note ForEachDemo-java::.
 <GenMethDemo Main>
 
      This chunk is called by {'GenMethDemo.java'}; see its first
@@ -1780,6 +2312,15 @@ B.3 Code Chunk References
 
      This chunk is called by {'ReflectionDemo1.java'}; see its first
      definition at *note ReflectionDemo1-java::.
+<Import java.util>
+
+     This chunk is called by the following chunks:
+
+     Chunk name                First definition point
+     -------------------------------------------------------------------------
+     {'ForEachDemo.java'}      See *note ForEachDemo-java::.
+     {'IteratorDemo.java'}     See *note IteratorDemo-java::.
+     {'SpliteratorDemo.java'}  See *note SpliteratorDemo-java::.
 <Instance Methods Show and Get>
 
      This chunk is called by <Class TwoGen>; see its first definition
@@ -1792,6 +2333,26 @@ B.3 Code Chunk References
 
      This chunk is called by <Create a Gen object for Integers>; see
      its first definition at *note Create-a-Gen-object-for-Integers::.
+<IteratorDemo--Create an Array List>
+
+     This chunk is called by {'IteratorDemo.java'}; see its first
+     definition at *note IteratorDemo-java::.
+<IteratorDemo--Display the List Backwards>
+
+     This chunk is called by {'IteratorDemo.java'}; see its first
+     definition at *note IteratorDemo-java::.
+<IteratorDemo--Modify Objects Being Iterated>
+
+     This chunk is called by {'IteratorDemo.java'}; see its first
+     definition at *note IteratorDemo-java::.
+<IteratorDemo--Use Iterator To Display Contents of Array List>
+
+     This chunk is called by {'IteratorDemo.java'}; see its first
+     definition at *note IteratorDemo-java::.
+<IteratorDemo--Use ListIterator to Display Modified Contents>
+
+     This chunk is called by {'IteratorDemo.java'}; see its first
+     definition at *note IteratorDemo-java::.
 <Makefile CLEAN>
 
      This chunk is called by <Makefile CLEAN Targets>; see its first
@@ -1888,19 +2449,19 @@ B.3 Code Chunk References
 
      This chunk is called by <Create a Gen object for Integers>; see
      its first definition at *note Create-a-Gen-object-for-Integers::.
-<ReflectionDemo1 Class forName Call>
+<ReflectionDemo1--Class forName() Call>
 
      This chunk is called by {'ReflectionDemo1.java'}; see its first
      definition at *note ReflectionDemo1-java::.
-<ReflectionDemo1 getConstructors Call>
+<ReflectionDemo1--getConstructors() Call>
 
      This chunk is called by {'ReflectionDemo1.java'}; see its first
      definition at *note ReflectionDemo1-java::.
-<ReflectionDemo1 getFields Call>
+<ReflectionDemo1--getFields() Call>
 
      This chunk is called by {'ReflectionDemo1.java'}; see its first
      definition at *note ReflectionDemo1-java::.
-<ReflectionDemo1 getMethods Call>
+<ReflectionDemo1--getMethods() Call>
 
      This chunk is called by {'ReflectionDemo1.java'}; see its first
      definition at *note ReflectionDemo1-java::.
@@ -1991,6 +2552,22 @@ B.3 Code Chunk References
 
      This chunk is called by {'ShowFileTryWR.java'}; see its first
      definition at *note ShowFileTryWR-java::.
+<SpliteratorDemo--Create New List>
+
+     This chunk is called by {'SpliteratorDemo.java'}; see its first
+     definition at *note SpliteratorDemo-java::.
+<SpliteratorDemo--Create an Array List for Doubles>
+
+     This chunk is called by {'SpliteratorDemo.java'}; see its first
+     definition at *note SpliteratorDemo-java::.
+<SpliteratorDemo--Use forEachRemaining() to Display Contents>
+
+     This chunk is called by {'SpliteratorDemo.java'}; see its first
+     definition at *note SpliteratorDemo-java::.
+<SpliteratorDemo--Use tryAdvance() to Display Contents>
+
+     This chunk is called by {'SpliteratorDemo.java'}; see its first
+     definition at *note SpliteratorDemo-java::.
 <Stack Constructor>
 
      This chunk is called by the following chunks:
@@ -2067,8 +2644,8 @@ List of Tables
 * Table 15.4: OutputStreamMethods.       The Methods Defined by ...
 * Table 15.5: ReaderMethods.             The Methods Defined by ...
 * Table 15.6: WriterMethods.             The Methods Defined by ...
-* Table 25.1: java-lang-reflect-Classes. Classes Defined in ...
-* Table 25.2: java-lang-reflect_Interfaces.
+* Table 25.1: java.lang-reflect-Classes. Classes Defined in ...
+* Table 25.2: java.lang.reflect_Interfaces.
                                          Interfaces Defined in ...
 * Table 25.3: ClassMethodsLocating.      Class Methods Locating
 
@@ -2364,6 +2941,18 @@ Index
                                                             (line   6)
 * <FindAreas SuperClass Figure >, use:   Applying Method Overriding.
                                                             (line  15)
+* <ForEachDemo--Create an Array List For Integers>, definition: ForEachDemo---Create an Array List For Integers.
+                                                            (line   6)
+* <ForEachDemo--Create an Array List For Integers>, use: ForEach Alternative to Iterators.
+                                                            (line  20)
+* <ForEachDemo--Sum the Values by Using a for Loop>, definition: ForEachDemo---Sum the Values by Using a for Loop.
+                                                            (line   6)
+* <ForEachDemo--Sum the Values by Using a for Loop>, use: ForEach Alternative to Iterators.
+                                                            (line  20)
+* <ForEachDemo--Use for Loop to Display the Values>, definition: ForEachDemo---Use for Loop to Display the Values.
+                                                            (line   6)
+* <ForEachDemo--Use for Loop to Display the Values>, use: ForEach Alternative to Iterators.
+                                                            (line  20)
 * <GenMethDemo Main>, definition:        GenMethDemo Main.  (line   6)
 * <GenMethDemo Main>, use:               Example of Generic Method.
                                                             (line  13)
@@ -2406,6 +2995,12 @@ Index
                                                             (line   6)
 * <Import java.lang.reflect>, use:       Reflection Demonstration.
                                                             (line  22)
+* <Import java.util>, definition:        Import java.util.  (line   6)
+* <Import java.util>, use:               Using an Iterator. (line  34)
+* <Import java.util>, use <1>:           ForEach Alternative to Iterators.
+                                                            (line  20)
+* <Import java.util>, use <2>:           Using Spliterator for Iteration.
+                                                            (line  30)
 * <Instance Methods Show and Get>, definition: Class TwoGen.
                                                             (line  67)
 * <Instance Methods Show and Get>, use:  Class TwoGen.      (line   6)
@@ -2416,6 +3011,26 @@ Index
                                                             (line  36)
 * <Integer Type Parameter>, use:         GenDemo as Integer.
                                                             (line   6)
+* <IteratorDemo--Create an Array List>, definition: IteratorDemo---Create an Array List.
+                                                            (line   6)
+* <IteratorDemo--Create an Array List>, use: Using an Iterator.
+                                                            (line  34)
+* <IteratorDemo--Display the List Backwards>, definition: IteratorDemo---Display the List Backwards.
+                                                            (line   6)
+* <IteratorDemo--Display the List Backwards>, use: Using an Iterator.
+                                                            (line  34)
+* <IteratorDemo--Modify Objects Being Iterated>, definition: IteratorDemo---Modify Objects Being Iterated.
+                                                            (line   6)
+* <IteratorDemo--Modify Objects Being Iterated>, use: Using an Iterator.
+                                                            (line  34)
+* <IteratorDemo--Use Iterator To Display Contents of Array List>, definition: IteratorDemo---Use Iterator To Display Contents of Array List.
+                                                            (line   6)
+* <IteratorDemo--Use Iterator To Display Contents of Array List>, use: Using an Iterator.
+                                                            (line  34)
+* <IteratorDemo--Use ListIterator to Display Modified Contents>, definition: IteratorDemo---Use ListIterator to Display Modified Contents.
+                                                            (line   6)
+* <IteratorDemo--Use ListIterator to Display Modified Contents>, use: Using an Iterator.
+                                                            (line  34)
 * <Makefile CLEAN Targets>, definition:  Makefile Clean Targets.
                                                             (line   6)
 * <Makefile CLEAN Targets>, use:         The Makefile.      (line   6)
@@ -2494,21 +3109,21 @@ Index
                                                             (line  58)
 * <Reference to Integer Instance>, use:  GenDemo as Integer.
                                                             (line   6)
-* <ReflectionDemo1 Class forName Call>, definition: ReflectionDemo1 Class forName Call.
+* <ReflectionDemo1--Class forName() Call>, definition: ReflectionDemo1---Class forName() Call.
                                                             (line   6)
-* <ReflectionDemo1 Class forName Call>, use: Reflection Demonstration.
+* <ReflectionDemo1--Class forName() Call>, use: Reflection Demonstration.
                                                             (line  22)
-* <ReflectionDemo1 getConstructors Call>, definition: ReflectionDemo1 getConstructors Call.
+* <ReflectionDemo1--getConstructors() Call>, definition: ReflectionDemo1---getConstructors() Call.
                                                             (line   6)
-* <ReflectionDemo1 getConstructors Call>, use: Reflection Demonstration.
+* <ReflectionDemo1--getConstructors() Call>, use: Reflection Demonstration.
                                                             (line  22)
-* <ReflectionDemo1 getFields Call>, definition: ReflectionDem1 getFields Call.
+* <ReflectionDemo1--getFields() Call>, definition: ReflectionDemo1---getFields() Call.
                                                             (line   6)
-* <ReflectionDemo1 getFields Call>, use: Reflection Demonstration.
+* <ReflectionDemo1--getFields() Call>, use: Reflection Demonstration.
                                                             (line  22)
-* <ReflectionDemo1 getMethods Call>, definition: ReflectionDemo1 getMethods Call.
+* <ReflectionDemo1--getMethods() Call>, definition: ReflectionDemo1---getMethods() Call.
                                                             (line   6)
-* <ReflectionDemo1 getMethods Call>, use: Reflection Demonstration.
+* <ReflectionDemo1--getMethods() Call>, use: Reflection Demonstration.
                                                             (line  22)
 * <Show Type>, definition:               GenDemo as Integer.
                                                             (line  76)
@@ -2586,6 +3201,22 @@ Index
                                                             (line  18)
 * <ShowFileTryWR Open a File TryWR>, use: Demonstration of Automatically Closing a File.
                                                             (line   9)
+* <SpliteratorDemo--Create an Array List for Doubles>, definition: SpliteratorDemo---Create an Array List for Doubles.
+                                                            (line   6)
+* <SpliteratorDemo--Create an Array List for Doubles>, use: Using Spliterator for Iteration.
+                                                            (line  30)
+* <SpliteratorDemo--Create New List>, definition: SpliteratorDemo---Create New List.
+                                                            (line   6)
+* <SpliteratorDemo--Create New List>, use: Using Spliterator for Iteration.
+                                                            (line  30)
+* <SpliteratorDemo--Use forEachRemaining() to Display Contents>, definition: SpliteratorDemo---Use forEachRemaining() to Display Contents.
+                                                            (line   6)
+* <SpliteratorDemo--Use forEachRemaining() to Display Contents>, use: Using Spliterator for Iteration.
+                                                            (line  30)
+* <SpliteratorDemo--Use tryAdvance() to Display Contents>, definition: SpliteratorDemo---Use tryAdvance() to Display Contents.
+                                                            (line   6)
+* <SpliteratorDemo--Use tryAdvance() to Display Contents>, use: Using Spliterator for Iteration.
+                                                            (line  30)
 * <Stack Constructor>, definition:       Stack Constructor Node.
                                                             (line   6)
 * <Stack Constructor>, use:              Stack Class.       (line  22)
@@ -2650,8 +3281,11 @@ Index
 * {FileReaderDemo.java}, definition:     FileReader.        (line  23)
 * {FindAreas.java }, definition:         Applying Method Overriding.
                                                             (line  15)
+* {ForEachDemo.java}, definition:        ForEach Alternative to Iterators.
+                                                            (line  20)
 * {GenMethDemo.java}, definition:        Example of Generic Method.
                                                             (line  13)
+* {IteratorDemo.java}, definition:       Using an Iterator. (line  34)
 * {Makefile}, definition:                The Makefile.      (line   6)
 * {OnlyExt.java}, definition:            Example Using FilenameFilter Interface.
                                                             (line  14)
@@ -2669,6 +3303,8 @@ Index
                                                             (line   9)
 * {SimpleGenerics.java}, definition:     Simple Generics Example.
                                                             (line   9)
+* {SpliteratorDemo.java}, definition:    Using Spliterator for Iteration.
+                                                            (line  30)
 * {Stack.java}, definition:              Stack Class.       (line  22)
 * {StackImproved.java}, definition:      Improved Stack Class.
                                                             (line  11)
@@ -2735,6 +3371,8 @@ Index
 * AWT:                                   AWT.               (line   6)
 * AWT Controls:                          AWT Controls.      (line   6)
 * AWT Layout Managers, Menus:            AWT Controls.      (line   5)
+* basic iteration using Spliterator:     Using Spliterator for Iteration.
+                                                            (line   6)
 * binary data, reading and writing:      Byte Streams Character Streams.
                                                             (line   6)
 * binding, late, early:                  final to Prevent Overriding.
@@ -2748,13 +3386,10 @@ Index
                                                             (line   6)
 * BRRead Enter Characters:               BRRead Enter Characters Node.
                                                             (line   6)
-* BRRead.java:                           Reading Characters.
-                                                            (line  19)
 * BRReadLines BufferedReader Constructor: BRReadLines BufferedReader Constructor.
                                                             (line   6)
 * BRReadLines Enter Lines:               BRReadLines Enter Lines.
                                                             (line   6)
-* BRReadLines.java:                      Reading Strings.   (line  16)
 * Buffered Byte Streams:                 Buffered Byte Streams.
                                                             (line   6)
 * buffered stream:                       Buffered Byte Streams.
@@ -2803,6 +3438,8 @@ Index
                                                             (line   6)
 * character-based stream class, PrintWriter: PrintWriter Class.
                                                             (line   6)
+* Characteristics, Spliterator:          Spliterator Characteristics.
+                                                            (line   6)
 * characters, reading:                   Reading Characters.
                                                             (line   6)
 * CharArrayReader:                       CharArrayReader.   (line   5)
@@ -2846,8 +3483,7 @@ Index
                                                             (line   6)
 * Class.newInstance():                   Creating New Class Instances.
                                                             (line   6)
-* classed in java.lang:                  Exploring java-lang.
-                                                            (line  14)
+* classed in java.lang:                  java.lang.         (line  14)
 * Classes:                               Classes.           (line   6)
 * Classes and Reflection:                Classes and Reflection.
                                                             (line   6)
@@ -2877,7 +3513,7 @@ Index
 * Collections Framekwork goals:          Collections Overview.
                                                             (line  20)
 * Collections Framework:                 Generics.          (line   6)
-* Collections Framework <1>:             java util Collections.
+* Collections Framework <1>:             java.util Part 1 --- Collections Framework.
                                                             (line  20)
 * Collections overview:                  Collections Overview.
                                                             (line   6)
@@ -3247,8 +3883,7 @@ Index
 * interface, traditional form:           Default Interface Methods.
                                                             (line   6)
 * Interfaces (chapter):                  Interfaces.        (line   6)
-* interfaces in java.lang:               Exploring java-lang.
-                                                            (line  62)
+* interfaces in java.lang:               java.lang.         (line  62)
 * interfaces, defining:                  Defining Interfaces.
                                                             (line   6)
 * interfaces, extending:                 Extending Interfaces.
@@ -3307,12 +3942,11 @@ Index
 * java.io:                               I/O.               (line   6)
 * java.io <1>:                           Character Stream Class.
                                                             (line   6)
-* java.io <2>:                           Input/Output java.io.
+* java.io <2>:                           java.io --- Input/Output.
                                                             (line   6)
 * java.io package:                       Streams.           (line   6)
 * java.lang:                             Importing.         (line  29)
-* java.lang <1>:                         Exploring java-lang.
-                                                            (line   6)
+* java.lang <1>:                         java.lang.         (line   6)
 * java.lang.Class:                       Classes and Reflection.
                                                             (line   6)
 * java.lang.Class <1>:                   java.lang.Class.   (line   6)
@@ -3341,11 +3975,12 @@ Index
 * java.lang.reflect.Member interface:    Members and Reflection.
                                                             (line   6)
 * java.lang.reflect.Method class:        reflect Methods.   (line   6)
-* java.nio:                              Input/Output java.io.
+* java.nio:                              java.io --- Input/Output.
                                                             (line   6)
-* java.util Collections Framework:       java util Collections.
+* java.nio <1>:                          java.nio --- NIO.  (line   5)
+* java.util Collections Framework:       java.util Part 1 --- Collections Framework.
                                                             (line   6)
-* java.util Utility Classes:             java util Utility Classes.
+* java.util Utility Classes:             java.util Part 2 --- Utility Classes.
                                                             (line   5)
 * java.util.function:                    Iterable Interface.
                                                             (line  32)
@@ -3360,7 +3995,7 @@ Index
                                                             (line   6)
 * JDK 8, static interface method:        Interface Static Methods.
                                                             (line   6)
-* JDK 9:                                 java util Collections.
+* JDK 9:                                 java.util Part 1 --- Collections Framework.
                                                             (line  20)
 * JDK 9 <1>:                             Reflection.        (line   6)
 * JDK 9, package part of module:         Classpath.         (line   6)
@@ -3452,9 +4087,9 @@ Index
 * Networking:                            Networking.        (line   5)
 * new operator:                          Declaring Objects. (line   6)
 * next():                                Using an Iterator. (line  15)
-* NIO:                                   Input/Output java.io.
+* NIO:                                   java.io --- Input/Output.
                                                             (line   6)
-* NIO <1>:                               NIO.               (line   5)
+* NIO <1>:                               java.nio --- NIO.  (line   6)
 * Object:                                Class Gen<T>.      (line 107)
 * Object class:                          Object Class.      (line   6)
 * object references, interfaces:         Interface References.
@@ -3638,15 +4273,24 @@ Index
                                                             (line   5)
 * Spliterator:                           Collections Overview.
                                                             (line  69)
-* spliterator subinterfaces:             Spliterators.      (line  84)
+* Spliterator Characteristics:           Spliterator Characteristics.
+                                                            (line   6)
+* Spliterator Methods:                   Spliterator Methods.
+                                                            (line   6)
+* spliterator subinterfaces:             Spliterator Subinterfaces.
+                                                            (line   6)
 * spliterator():                         Iterable Interface.
                                                             (line  40)
 * spliterator() <1>:                     Collection Interface.
                                                             (line 101)
-* Spliterator.OfDouble:                  Spliterators.      (line  84)
-* Spliterator.OfInt:                     Spliterators.      (line  84)
-* Spliterator.OfLong:                    Spliterators.      (line  84)
-* Spliterator.OfPrimitive:               Spliterators.      (line  84)
+* Spliterator.OfDouble:                  Spliterator Subinterfaces.
+                                                            (line   6)
+* Spliterator.OfInt:                     Spliterator Subinterfaces.
+                                                            (line   6)
+* Spliterator.OfLong:                    Spliterator Subinterfaces.
+                                                            (line   6)
+* Spliterator.OfPrimitive:               Spliterator Subinterfaces.
+                                                            (line   6)
 * Spliterators:                          Spliterators.      (line   6)
 * Stack:                                 Collections Overview.
                                                             (line   6)
@@ -3669,7 +4313,7 @@ Index
 * static variable, not serialized:       Serializable.      (line   6)
 * Stream:                                Collection Interface.
                                                             (line 101)
-* stream:                                Input/Output java.io.
+* stream:                                java.io --- Input/Output.
                                                             (line   6)
 * Stream API:                            Streams API.       (line   6)
 * Stream Benefits:                       Stream Benefits.   (line   5)
@@ -3818,7 +4462,7 @@ Index
 * Wrtier:                                Writer.            (line   6)
 
 
-File: JavaSE9.info,  Node: Function Index,  Prev: Concept Index,  Up: Top
+File: JavaSE9.info,  Node: Function Index,  Next: Program Index,  Prev: Concept Index,  Up: Top
 
 Function Index
 **************
@@ -3857,4 +4501,58 @@ Function Index
 * void wait(long millisconds, int nanoseconds): Object Class.
                                                              (line 38)
 * void wait(long milliseconds):          Object Class.       (line 37)
+
+
+File: JavaSE9.info,  Node: Program Index,  Prev: Function Index,  Up: Top
+
+Program Index
+*************
+
+ [index ]
+* Menu:
+
+* AbstractAreas.java:                    Improved Figure Class.
+                                                             (line  6)
+* BRRead.java:                           Reading Characters. (line 19)
+* BRReadLines.java:                      Reading Strings.    (line 16)
+* BufferedInputStreamDemo.java:          Buffered Input Example.
+                                                             (line  6)
+* BufferedReaderDemo.java:               Buffered Reader Demo.
+                                                             (line  6)
+* CopyFile.java:                         Demonstration Writing to a File.
+                                                             (line  6)
+* CopyFileMultTryWR.java:                Demonstration of Multiple Resources.
+                                                             (line  6)
+* DirList.java:                          Examine Directory Contents.
+                                                             (line  6)
+* FileReaderDemo.java:                   FileReader.         (line 17)
+* FindAreas.java:                        Applying Method Overriding.
+                                                             (line  6)
+* ForEachDemo.java:                      ForEach Alternative to Iterators.
+                                                             (line 20)
+* GenMethDemo.java:                      Example of Generic Method.
+                                                             (line  6)
+* IteratorDemo.java:                     Using an Iterator.  (line 30)
+* OnlyExt.java:                          Example Using FilenameFilter Interface.
+                                                             (line 14)
+* PrintWriterDemo.java:                  Demonstration Using PrintWriter.
+                                                             (line  6)
+* ReflectionDemo1.java:                  Reflection Demonstration.
+                                                             (line 22)
+* ShowFile.java:                         Demonstration Reading From a File.
+                                                             (line  6)
+* ShowFileAlt.java:                      close() Within finally.
+                                                             (line 11)
+* ShowFileTryWR.java:                    Demonstration of Automatically Closing a File.
+                                                             (line  6)
+* SimpleGenerics.java:                   Simple Generics Example.
+                                                             (line  6)
+* SpliteratorDemo.java:                  Using Spliterator for Iteration.
+                                                             (line 25)
+* Stack.java:                            Stack Class.        (line 22)
+* StackImproved.java:                    Improved Stack Class.
+                                                             (line  9)
+* TestStack.java:                        Stack Class.        (line 42)
+* TwoTypeParameters.java:                Two Types Example Code.
+                                                             (line  6)
 

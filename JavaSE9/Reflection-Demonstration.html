@@ -14,8 +14,8 @@
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="java_002elang_002ereflect-Package.html#java_002elang_002ereflect-Package" rel="up" title="java.lang.reflect Package">
-<link href="ReflectionDemo1-Class-forName-Call.html#ReflectionDemo1-Class-forName-Call" rel="next" title="ReflectionDemo1 Class forName Call">
-<link href="Interfaces-Defined-in-java_002dlang_002dreflect.html#Interfaces-Defined-in-java_002dlang_002dreflect" rel="prev" title="Interfaces Defined in java-lang-reflect">
+<link href="Import-java_002elang_002ereflect.html#Import-java_002elang_002ereflect" rel="next" title="Import java.lang.reflect">
+<link href="Interfaces-Defined-in-java_002elang_002ereflect.html#Interfaces-Defined-in-java_002elang_002ereflect" rel="prev" title="Interfaces Defined in java.lang.reflect">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -51,7 +51,7 @@ ul.no-bullet {list-style: none}
 <a name="Reflection-Demonstration"></a>
 <div class="header">
 <p>
-Previous: <a href="Interfaces-Defined-in-java_002dlang_002dreflect.html#Interfaces-Defined-in-java_002dlang_002dreflect" accesskey="p" rel="prev">Interfaces Defined in java-lang-reflect</a>, Up: <a href="java_002elang_002ereflect-Package.html#java_002elang_002ereflect-Package" accesskey="u" rel="up">java.lang.reflect Package</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Interfaces-Defined-in-java_002elang_002ereflect.html#Interfaces-Defined-in-java_002elang_002ereflect" accesskey="p" rel="prev">Interfaces Defined in java.lang.reflect</a>, Up: <a href="java_002elang_002ereflect-Package.html#java_002elang_002ereflect-Package" accesskey="u" rel="up">java.lang.reflect Package</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
 <a name="Reflection-Demonstration-1"></a>
@@ -73,12 +73,13 @@ used to obtain information about an object.  Each supports the
 </p>
 <a name="ReflectionDemo1_002ejava"></a>
 <h4 class="subsubheading">ReflectionDemo1.java</h4>
+<a name="index-ReflectionDemo1_002ejava"></a>
 
 <a name="ReflectionDemo1_002djava"></a><a name="index-_003cImport-java_002elang_002ereflect_003e_002c-use"></a>
-<a name="index-_003cReflectionDemo1-Class-forName-Call_003e_002c-use"></a>
-<a name="index-_003cReflectionDemo1-getConstructors-Call_003e_002c-use"></a>
-<a name="index-_003cReflectionDemo1-getFields-Call_003e_002c-use"></a>
-<a name="index-_003cReflectionDemo1-getMethods-Call_003e_002c-use"></a>
+<a name="index-_003cReflectionDemo1_002d_002d_002dClass-forName_0028_0029-Call_003e_002c-use"></a>
+<a name="index-_003cReflectionDemo1_002d_002d_002dgetConstructors_0028_0029-Call_003e_002c-use"></a>
+<a name="index-_003cReflectionDemo1_002d_002d_002dgetFields_0028_0029-Call_003e_002c-use"></a>
+<a name="index-_003cReflectionDemo1_002d_002d_002dgetMethods_0028_0029-Call_003e_002c-use"></a>
 <a name="index-_003cCatch-Exception_003e_002c-use"></a>
 <a name="index-_007bReflectionDemo1_002ejava_007d_002c-definition"></a>
 <p><span class="roman">{<samp>ReflectionDemo1.java</samp>}</span> &equiv;
@@ -87,23 +88,13 @@ used to obtain information about an object.  Each supports the
 
 public class ReflectionDemo1 {
   public static void main(String[] args) {
-
     try {
-
-      <span class="roman">&lt;<i>ReflectionDemo1 Class forName Call</i>&gt;</span>
-
-      System.out.println(&quot;Constructors:&quot;);
-      <span class="roman">&lt;<i>ReflectionDemo1 getConstructors Call</i>&gt;</span>
-
-      System.out.println(&quot;Fields:&quot;);
-      <span class="roman">&lt;<i>ReflectionDemo1 getFields Call</i>&gt;</span>
-
-      System.out.println(&quot;Methods:&quot;);
-      <span class="roman">&lt;<i>ReflectionDemo1 getMethods Call</i>&gt;</span>
-
+      <span class="roman">&lt;<i>ReflectionDemo1&mdash;Class forName() Call</i>&gt;</span>
+      <span class="roman">&lt;<i>ReflectionDemo1&mdash;getConstructors() Call</i>&gt;</span>
+      <span class="roman">&lt;<i>ReflectionDemo1&mdash;getFields() Call</i>&gt;</span>
+      <span class="roman">&lt;<i>ReflectionDemo1&mdash;getMethods() Call</i>&gt;</span>
     }
     <span class="roman">&lt;<i>Catch Exception</i>&gt;</span>
-
   }
 }
 
@@ -114,32 +105,32 @@ public class ReflectionDemo1 {
 <thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
 <tr><td width="35%"><span class="roman">&lt;<i>Catch Exception</i>&gt;</span></td><td width="65%">See <a href="Catch-Exception.html#Catch_002dException">Catch-Exception</a>.</td></tr>
 <tr><td width="35%"><span class="roman">&lt;<i>Import java.lang.reflect</i>&gt;</span></td><td width="65%">See <a href="Import-java_002elang_002ereflect.html#Import_002djava_002dlang_002dreflect">Import-java-lang-reflect</a>.</td></tr>
-<tr><td width="35%"><span class="roman">&lt;<i>ReflectionDemo1 Class forName Call</i>&gt;</span></td><td width="65%">See <a href="ReflectionDemo1-Class-forName-Call.html#ReflectionDemo1_002dClass_002dforName_002dCall">ReflectionDemo1-Class-forName-Call</a>.</td></tr>
-<tr><td width="35%"><span class="roman">&lt;<i>ReflectionDemo1 getConstructors Call</i>&gt;</span></td><td width="65%">See <a href="ReflectionDemo1-getConstructors-Call.html#ReflectionDemo1_002dgetConstructors_002dCall">ReflectionDemo1-getConstructors-Call</a>.</td></tr>
-<tr><td width="35%"><span class="roman">&lt;<i>ReflectionDemo1 getFields Call</i>&gt;</span></td><td width="65%">See <a href="ReflectionDem1-getFields-Call.html#ReflectionDemo1_002dgetFields_002dCall">ReflectionDemo1-getFields-Call</a>.</td></tr>
-<tr><td width="35%"><span class="roman">&lt;<i>ReflectionDemo1 getMethods Call</i>&gt;</span></td><td width="65%">See <a href="ReflectionDemo1-getMethods-Call.html#ReflectionDemo1_002dgetMethods_002dCall">ReflectionDemo1-getMethods-Call</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ReflectionDemo1&mdash;Class forName() Call</i>&gt;</span></td><td width="65%">See <a href="ReflectionDemo1_002d_002d_002dClass-forName_0028_0029-Call.html#ReflectionDemo1_002d_002d_002dClass_002dforName_002d_002d_002dCall">ReflectionDemo1---Class-forName---Call</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ReflectionDemo1&mdash;getConstructors() Call</i>&gt;</span></td><td width="65%">See <a href="ReflectionDemo1_002d_002d_002dgetConstructors_0028_0029-Call.html#ReflectionDemo1_002d_002d_002dgetConstructors_002d_002d_002dCall">ReflectionDemo1---getConstructors---Call</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ReflectionDemo1&mdash;getFields() Call</i>&gt;</span></td><td width="65%">See <a href="ReflectionDemo1_002d_002d_002dgetFields_0028_0029-Call.html#ReflectionDemo1_002d_002d_002dgetFields_002d_002d_002dCall">ReflectionDemo1---getFields---Call</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>ReflectionDemo1&mdash;getMethods() Call</i>&gt;</span></td><td width="65%">See <a href="ReflectionDemo1_002d_002d_002dgetMethods_0028_0029-Call.html#ReflectionDemo1_002d_002d_002dgetMethods_002d_002d_002dCall">ReflectionDemo1---getMethods---Call</a>.</td></tr>
 </table>
 
 
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="ReflectionDemo1-Class-forName-Call.html#ReflectionDemo1-Class-forName-Call" accesskey="1">ReflectionDemo1 Class forName Call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="Import-java_002elang_002ereflect.html#Import-java_002elang_002ereflect" accesskey="1">Import java.lang.reflect</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="ReflectionDemo1-getConstructors-Call.html#ReflectionDemo1-getConstructors-Call" accesskey="2">ReflectionDemo1 getConstructors Call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="ReflectionDemo1_002d_002d_002dClass-forName_0028_0029-Call.html#ReflectionDemo1_002d_002d_002dClass-forName_0028_0029-Call" accesskey="2">ReflectionDemo1---Class forName() Call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="ReflectionDem1-getFields-Call.html#ReflectionDem1-getFields-Call" accesskey="3">ReflectionDem1 getFields Call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="ReflectionDemo1_002d_002d_002dgetConstructors_0028_0029-Call.html#ReflectionDemo1_002d_002d_002dgetConstructors_0028_0029-Call" accesskey="3">ReflectionDemo1---getConstructors() Call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="ReflectionDemo1-getMethods-Call.html#ReflectionDemo1-getMethods-Call" accesskey="4">ReflectionDemo1 getMethods Call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="ReflectionDemo1_002d_002d_002dgetFields_0028_0029-Call.html#ReflectionDemo1_002d_002d_002dgetFields_0028_0029-Call" accesskey="4">ReflectionDemo1---getFields() Call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Catch-Exception.html#Catch-Exception" accesskey="5">Catch Exception</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="ReflectionDemo1_002d_002d_002dgetMethods_0028_0029-Call.html#ReflectionDemo1_002d_002d_002dgetMethods_0028_0029-Call" accesskey="5">ReflectionDemo1---getMethods() Call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Import-java_002elang_002ereflect.html#Import-java_002elang_002ereflect" accesskey="6">Import java.lang.reflect</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="Catch-Exception.html#Catch-Exception" accesskey="6">Catch Exception</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
 <hr>
 <div class="header">
 <p>
-Previous: <a href="Interfaces-Defined-in-java_002dlang_002dreflect.html#Interfaces-Defined-in-java_002dlang_002dreflect" accesskey="p" rel="prev">Interfaces Defined in java-lang-reflect</a>, Up: <a href="java_002elang_002ereflect-Package.html#java_002elang_002ereflect-Package" accesskey="u" rel="up">java.lang.reflect Package</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Interfaces-Defined-in-java_002elang_002ereflect.html#Interfaces-Defined-in-java_002elang_002ereflect" accesskey="p" rel="prev">Interfaces Defined in java.lang.reflect</a>, Up: <a href="java_002elang_002ereflect-Package.html#java_002elang_002ereflect-Package" accesskey="u" rel="up">java.lang.reflect Package</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -14,7 +14,7 @@
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Accessing-a-Collection-via-Iterator.html#Accessing-a-Collection-via-Iterator" rel="up" title="Accessing a Collection via Iterator">
-<link href="ForEach-Alternative-to-Iterators.html#ForEach-Alternative-to-Iterators" rel="next" title="ForEach Alternative to Iterators">
+<link href="Import-java_002eutil.html#Import-java_002eutil" rel="next" title="Import java.util">
 <link href="Accessing-a-Collection-via-Iterator.html#Accessing-a-Collection-via-Iterator" rel="prev" title="Accessing a Collection via Iterator">
 <style type="text/css">
 <!--
@@ -85,7 +85,69 @@ access a collection in either the forward or backward direction and lets you
 modify an element.  Otherwise, <samp>ListIterator</samp> is used just like
 <samp>Iterator</samp>.
 </p>
+<a name="Iterator-Example"></a>
+<h4 class="subsubheading">Iterator Example</h4>
+<a name="index-IteratorDemo_002ejava"></a>
 
+<p>The follwoing example implements these steps, demonstrating both the
+<samp>Iterator</samp> and <samp>ListIterator</samp> interfaces.  The general principles
+apply to any type of collection.
+</p>
+<a name="IteratorDemo_002djava"></a><a name="index-_003cImport-java_002eutil_003e_002c-use"></a>
+<a name="index-_003cIteratorDemo_002d_002d_002dCreate-an-Array-List_003e_002c-use"></a>
+<a name="index-_003cIteratorDemo_002d_002d_002dUse-Iterator-To-Display-Contents-of-Array-List_003e_002c-use"></a>
+<a name="index-_003cIteratorDemo_002d_002d_002dModify-Objects-Being-Iterated_003e_002c-use"></a>
+<a name="index-_003cIteratorDemo_002d_002d_002dUse-ListIterator-to-Display-Modified-Contents_003e_002c-use"></a>
+<a name="index-_003cIteratorDemo_002d_002d_002dDisplay-the-List-Backwards_003e_002c-use"></a>
+<a name="index-_007bIteratorDemo_002ejava_007d_002c-definition"></a>
+<p><span class="roman">{<samp>IteratorDemo.java</samp>}</span> &equiv;
+</p><div class="example">
+<pre class="example"><span class="roman">&lt;<i>Import java.util</i>&gt;</span>
+
+class IteratorDemo {
+  public static void main (String[] args) {
+    <span class="roman">&lt;<i>IteratorDemo&mdash;Create an Array List</i>&gt;</span>
+    <span class="roman">&lt;<i>IteratorDemo&mdash;Use Iterator To Display Contents of Array List</i>&gt;</span>
+    <span class="roman">&lt;<i>IteratorDemo&mdash;Modify Objects Being Iterated</i>&gt;</span>
+    <span class="roman">&lt;<i>IteratorDemo&mdash;Use ListIterator to Display Modified Contents</i>&gt;</span>
+    <span class="roman">&lt;<i>IteratorDemo&mdash;Display the List Backwards</i>&gt;</span>
+  }
+}
+
+</pre></div>
+
+<p>The following table lists called chunk definition points.
+</p><table>
+<thead><tr><th width="35%">Chunk name</th><th width="65%">First definition point</th></tr></thead>
+<tr><td width="35%"><span class="roman">&lt;<i>Import java.util</i>&gt;</span></td><td width="65%">See <a href="Import-java_002eutil.html#Import_002djava_002dutil">Import-java-util</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>IteratorDemo&mdash;Create an Array List</i>&gt;</span></td><td width="65%">See <a href="IteratorDemo_002d_002d_002dCreate-an-Array-List.html#IteratorDemo_002d_002d_002dCreate_002dan_002dArray_002dList">IteratorDemo---Create-an-Array-List</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>IteratorDemo&mdash;Display the List Backwards</i>&gt;</span></td><td width="65%">See <a href="IteratorDemo_002d_002d_002dDisplay-the-List-Backwards.html#IteratorDemo_002d_002d_002dDisplay_002dthe_002dList_002dBackwards">IteratorDemo---Display-the-List-Backwards</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>IteratorDemo&mdash;Modify Objects Being Iterated</i>&gt;</span></td><td width="65%">See <a href="IteratorDemo_002d_002d_002dModify-Objects-Being-Iterated.html#IteratorDemo_002d_002d_002dModify_002dObjects_002dBeing_002dIterated">IteratorDemo---Modify-Objects-Being-Iterated</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>IteratorDemo&mdash;Use Iterator To Display Contents of Array List</i>&gt;</span></td><td width="65%">See <a href="IteratorDemo_002d_002d_002dUse-Iterator-To-Display-Contents-of-Array-List.html#IteratorDemo_002d_002d_002dUse_002dIterator_002dTo_002dDisplay_002dContents_002dof_002dArray_002dList">IteratorDemo---Use-Iterator-To-Display-Contents-of-Array-List</a>.</td></tr>
+<tr><td width="35%"><span class="roman">&lt;<i>IteratorDemo&mdash;Use ListIterator to Display Modified Contents</i>&gt;</span></td><td width="65%">See <a href="IteratorDemo_002d_002d_002dUse-ListIterator-to-Display-Modified-Contents.html#IteratorDemo_002d_002d_002dUse_002dListIterator_002dto_002dDisplay_002dModified_002dContents">IteratorDemo---Use-ListIterator-to-Display-Modified-Contents</a>.</td></tr>
+</table>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Import-java_002eutil.html#Import-java_002eutil" accesskey="1">Import java.util</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="IteratorDemo_002d_002d_002dCreate-an-Array-List.html#IteratorDemo_002d_002d_002dCreate-an-Array-List" accesskey="2">IteratorDemo---Create an Array List</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="IteratorDemo_002d_002d_002dUse-Iterator-To-Display-Contents-of-Array-List.html#IteratorDemo_002d_002d_002dUse-Iterator-To-Display-Contents-of-Array-List" accesskey="3">IteratorDemo---Use Iterator To Display Contents of Array List</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="IteratorDemo_002d_002d_002dModify-Objects-Being-Iterated.html#IteratorDemo_002d_002d_002dModify-Objects-Being-Iterated" accesskey="4">IteratorDemo---Modify Objects Being Iterated</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="IteratorDemo_002d_002d_002dUse-ListIterator-to-Display-Modified-Contents.html#IteratorDemo_002d_002d_002dUse-ListIterator-to-Display-Modified-Contents" accesskey="5">IteratorDemo---Use ListIterator to Display Modified Contents</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="IteratorDemo_002d_002d_002dDisplay-the-List-Backwards.html#IteratorDemo_002d_002d_002dDisplay-the-List-Backwards" accesskey="6">IteratorDemo---Display the List Backwards</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="ForEach-Alternative-to-Iterators.html#ForEach-Alternative-to-Iterators" accesskey="n" rel="next">ForEach Alternative to Iterators</a>, Up: <a href="Accessing-a-Collection-via-Iterator.html#Accessing-a-Collection-via-Iterator" accesskey="u" rel="up">Accessing a Collection via Iterator</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

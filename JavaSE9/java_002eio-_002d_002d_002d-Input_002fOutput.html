@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>java.io --- Input/Output (About Java SE 9)</title>
+
+<meta name="description" content="java.io --- Input/Output (About Java SE 9)">
+<meta name="keywords" content="java.io --- Input/Output (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="I_002fO-Classes-and-Interfaces.html#I_002fO-Classes-and-Interfaces" rel="next" title="I/O Classes and Interfaces">
+<link href="java_002eutil-Part-2-_002d_002d_002d-Utility-Classes.html#java_002eutil-Part-2-_002d_002d_002d-Utility-Classes" rel="prev" title="java.util Part 2 --- Utility Classes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="java_002eio-_002d_002d_002d-Input_002fOutput"></a>
+<div class="header">
+<p>
+Next: <a href="java_002enio-_002d_002d_002d-NIO.html#java_002enio-_002d_002d_002d-NIO" accesskey="n" rel="next">java.nio --- NIO</a>, Previous: <a href="java_002eutil-Part-2-_002d_002d_002d-Utility-Classes.html#java_002eutil-Part-2-_002d_002d_002d-Utility-Classes" accesskey="p" rel="prev">java.util Part 2 --- Utility Classes</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Input_002fOutput-_002d_002d_002d-Exploring-java_002eio"></a>
+<h2 class="chapter">15 Input/Output &mdash; Exploring <samp>java.io</samp></h2>
+<a name="index-java_002eio-2"></a>
+<a name="index-java_002enio"></a>
+<a name="index-stream"></a>
+<a name="index-NIO"></a>
+
+<p>This chapter explores <samp>java.io</samp>, which provides support for I/O
+operations.  Data is retrieved from an <em>input</em> source.  The results of a
+program are sent to an <em>output</em> destination.  In Java, these sources or
+destinations are defined very broadly.  Although physically different, these
+devices are all handled by the same abstraction: the <em>stream</em>.  An I/O
+stream is a logical entity that either produces or consumes information.  An
+I/O stream is linked to a physical device by the Java I/O system.  All I/O
+streams behave in the same manner, even if the phyiscal devices they are
+linked to differ.
+</p>
+<p>Beginning with version 1.4, a second I/O system was added to Java, called
+<acronym>NIO</acronym> (which meant New I/O).  <acronym>NIO</acronym> is packaged in
+<samp>java.nio</samp> and its subpackages.  The <acronym>NIO</acronym> is described in
+<a href="java_002enio-_002d_002d_002d-NIO.html#java_002enio-_002d_002d_002d-NIO">Exploring NIO</a>.  
+</p>
+
+
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="I_002fO-Classes-and-Interfaces.html#I_002fO-Classes-and-Interfaces" accesskey="1">I/O Classes and Interfaces</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="File.html#File" accesskey="2">File</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="AutoCloseable-Closeable-Flushable-Interfaces.html#AutoCloseable-Closeable-Flushable-Interfaces" accesskey="3">AutoCloseable Closeable Flushable Interfaces</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="I_002fO-Exceptions.html#I_002fO-Exceptions" accesskey="4">I/O Exceptions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Closing-a-Stream.html#Closing-a-Stream" accesskey="5">Closing a Stream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Stream-Classes.html#Stream-Classes" accesskey="6">Stream Classes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Byte-Streams.html#Byte-Streams" accesskey="7">Byte Streams</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Character-Streams.html#Character-Streams" accesskey="8">Character Streams</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Console-Class.html#Console-Class" accesskey="9">Console Class</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Serialization.html#Serialization">Serialization</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Stream-Benefits.html#Stream-Benefits">Stream Benefits</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="java_002enio-_002d_002d_002d-NIO.html#java_002enio-_002d_002d_002d-NIO" accesskey="n" rel="next">java.nio --- NIO</a>, Previous: <a href="java_002eutil-Part-2-_002d_002d_002d-Utility-Classes.html#java_002eutil-Part-2-_002d_002d_002d-Utility-Classes" accesskey="p" rel="prev">java.util Part 2 --- Utility Classes</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

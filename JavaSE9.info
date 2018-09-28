@@ -4,550 +4,585 @@ JavaSE9.texi.
 
 Indirect:
 JavaSE9.info-1: 75
-JavaSE9.info-2: 301597
+JavaSE9.info-2: 301258
 
 Tag Table:
 (Indirect)
 Node: Top75
-Node: Java SE 9 Introduction11606
-Node: Classes11748
-Node: Class Fundamentals12192
-Node: General Form12608
-Ref: ClassDeclaration12948
-Node: Declaring Objects14463
-Node: Methods15857
-Ref: MethodDeclaration16056
-Node: Constructors16899
-Node: this Keyword17663
-Node: Instance Variable Hiding18216
-Node: Stack Class19020
-Ref: Stack-java19844
-Ref: TestStack-java20399
-Node: Stack Instance Variables20700
-Ref: Stack-Instance-Variables20867
-Node: Stack Constructor Node21033
-Ref: Stack-Constructor21244
-Node: Stack Instance Methods Node21623
-Ref: Stack-Instance-Methods21840
-Node: Stack Push and Pop Node22502
-Ref: Stack-Push22673
-Ref: Stack-Pop22981
-Node: Stack TestStack Node23310
-Ref: TestStack-Main-Method23482
-Node: Methods and Classes24210
-Node: Overloading Methods24916
-Node: Overloading Constructors27226
-Node: Objects as Parameters27414
-Node: Argument Passing28090
-Node: Returning Objects29432
-Node: Recursion30059
-Node: Access Control31571
-Node: Improved Stack Class34516
-Ref: StackImproved-java34750
-Ref: Stack-Private-Instance-Variables35388
-Ref: Improved Stack Class-Footnote-136412
-Node: static Keyword36531
-Node: final Keyword38970
-Node: Arrays 239873
-Node: Nested and Inner Classes40570
-Node: String Class42695
-Node: Command-Line Arguments43952
-Node: Varargs44786
-Node: Inheritance46602
-Node: Inheritance Basics47557
-Ref: Subclass48153
-Node: Member Access and Inheritance48483
-Node: Superclass Referencing Subclass49259
-Node: Using super50039
-Node: super Calling Superclass Constructor50567
-Ref: SuperCallingConstructor50896
-Node: super Referencing Superclass51203
-Ref: SuperReferencingSuperclass51539
-Node: Multilevel Hierarchy51965
-Node: Constructors Executed52720
-Node: Method Overriding53030
-Node: Dynamic Method Dispatch53916
-Node: Why Overridden Methods55363
-Node: Applying Method Overriding56913
-Ref: FindAreas-java-57545
-Node: FindAreas SuperClass Figure Node58916
-Ref: FindAreas-SuperClass-Figure-59143
-Ref: Figure-Instance-Variable-Declarations-59930
-Ref: Figure-Constructor-60401
-Ref: Figure-Area-Method-Declaration-61216
-Node: FindAreas SubClass Rectangle Node61483
-Ref: FindAreas-SubClass-Rectangle-61753
-Ref: Rectangle-Constructor-62587
-Ref: Rectangle-Area-Method-Declaration-62876
-Node: FindAreas SubClass Triangle Node63190
-Ref: FindAreas-SubClass-Triangle-63451
-Ref: Triangle-Constructor-64275
-Ref: Triangle-Area-Method-Declaration-64558
-Node: FindAreas Main Class Node64879
-Ref: FindAreas-Main-Class-65084
-Ref: FindAreas-Main-Method-Declaration-65474
-Ref: Create-Basic-Figure-Objects-66336
-Ref: Create-Basic-Figure-Reference-Variable-66965
-Ref: Call-Overridden-Methods-One-By-One-67478
-Node: Using Abstract Classes67868
-Ref: AbstractMethodDeclaration69378
-Node: Improved Figure Class70601
-Ref: AbstractAreas-java-71048
-Node: AbstractAreas Abstract Class Figure Node71828
-Ref: AbstractAreas-Abstract-Class-Figure-72249
-Ref: AbstractAreas-Abstract-Area-Method-Declaration-73125
-Node: AbstractAreas Main Class73389
-Ref: AbstractAreas-Main-Class-73578
-Ref: AbstractAreas-Main-Method-Declaration-74004
-Ref: Create-Basic-Figure-Objects-Except-Figure-75345
-Ref: Call-Overridden-Methods-One-By-One-Except-Figure-75908
-Node: final with Inheritance76329
-Node: final to Prevent Overriding76732
-Node: final to Prevent Inheritance77645
-Node: Object Class78065
-Node: Packages80202
-Node: Packages Intro80660
-Node: Defining Packages81204
-Ref: PackageStatement81806
-Ref: PackageStatementMulti82776
-Node: Classpath83199
-Node: Member Access84739
-Ref: PackageAccess85714
-Node: Importing86315
-Ref: Import86939
-Node: Interfaces88214
-Node: Defining Interfaces90317
-Ref: InterfaceSimple90572
-Node: Implementing Interfaces91902
-Ref: ClassImplementsInterface92396
-Node: Interface References92881
-Node: Partial Implementations93872
-Node: Nested Interfaces94306
-Node: Applying Interfaces95080
-Node: Variables in Interfaces95280
-Node: Extending Interfaces96010
-Node: Default Interface Methods96489
-Node: Interface Static Methods98593
-Ref: InterfaceStaticMethod99325
-Node: Private Interface Methods99607
-Node: I/O100363
-Node: I/O Basics101059
-Node: Streams102068
-Node: Byte Streams Character Streams102874
-Node: Byte Stream Class103958
-Ref: ByteStreamClasses104596
-Node: Character Stream Class106060
-Ref: CharacterStreamClasses106611
-Node: Predefined Streams107919
-Node: Reading Console Input108756
-Node: Reading Characters110337
-Ref: BRRead-java111238
-Ref: Reading Characters-Footnote-1112017
-Node: Import java.io112247
-Ref: Import-java-io112415
-Node: BRRead BufferedReader Constructor Node113439
-Ref: BRRead-BufferedReader-Constructor113694
-Node: BRRead Enter Characters Node113913
-Ref: BRRead-Enter-Characters114125
-Node: Reading Strings114354
-Ref: BRReadLines-java114978
-Node: BRReadLines BufferedReader Constructor115724
-Ref: BRReadLines-BufferedReader-Constructor115942
-Node: BRReadLines Enter Lines116223
-Ref: BRReadLines-Enter-Lines116411
-Node: Writing Console Output116768
-Node: PrintWriter Class118037
-Node: PrinterWriter Constructors118709
-Node: Demonstration Using PrintWriter119811
-Ref: PrinterWriterDemo-java120095
-Node: PrintWriterDemo PrintWriter Constructor120898
-Ref: PrintWriterDemo-PrintWriter-Constructor121147
-Node: PrintWriterDemo Printing To Console121365
-Ref: PrintWriterDemo-Printing-To-Console121606
-Node: PrintWriter Concluding Comments121880
-Node: Reading and Writing Files122360
-Node: FileInputStream and FileOutputStream123054
-Node: Demonstration Reading From a File125798
-Ref: ShowFile-java126246
-Node: ShowFile Initial Comments127343
-Ref: ShowFile-Initial-Comments127556
-Node: ShowFile Instance Variable Declarations128176
-Ref: ShowFile-Instance-Variable-Declarations128446
-Node: ShowFile Open a File128868
-Ref: ShowFile-Open-a-File129270
-Node: ShowFile Read a File129998
-Ref: ShowFile-Read-a-File130207
-Node: ShowFile Close a File130664
-Ref: ShowFile-Close-a-File130877
-Node: close() Within finally131327
-Ref: ShowFileAlt-java132192
-Ref: ShowFileAlt-Read-a-File133169
-Node: Demonstration Reading From File with Single try133715
-Ref: ShowFileSingleTry134302
-Node: ShowFileSingleTry Additional Initial Comment135421
-Ref: ShowFileSingleTry-Additional-Initial-Comment135697
-Node: ShowFileSingleTry Read a File136016
-Ref: ShowFileSingleTry-Read-a-File136549
-Node: Demonstration Writing to a File138459
-Ref: CopyFile-java139029
-Node: CopyFile Initial Comments140004
-Ref: CopyFile-Initial-Comments140215
-Node: CopyFile Instance Variable Declarations140645
-Ref: CopyFile-Instance-Variable-Declarations140919
-Node: CopyFile Check for 2 Files141141
-Ref: CopyFile-Check-For-2-Files141384
-Node: CopyFile Copy a File141677
-Ref: CopyFile-Copy-a-File142035
-Node: Automatically Closing Files142825
-Ref: AutomaticResourceManagement143544
-Node: Demonstration of Automatically Closing a File145388
-Ref: ShowFileTryWR-java145728
-Node: ShowFileTryWR Initial Comments146962
-Ref: ShowFileTryWR-Initial-Comments147179
-Node: ShowFileTryWR Instance Variable Declarations147480
-Ref: ShowFileTryWR-Instance-Variable-Declaration147759
-Node: ShowFileTryWR Check CL Args148113
-Ref: ShowFileTryWR-Check-CL-Args148361
-Ref: ShowFileTryWR-Check-CL-Args-End148769
-Ref: Number-1149185
-Node: ShowFileTryWR Open a File TryWR149312
-Ref: ShowFileTryWR-Open-a-File-TryWR150198
-Node: Demonstration of Multiple Resources150850
-Ref: CopyFileMultTryWR-java151327
-Ref: Number-2152470
-Node: CopyFileMultTryWR Initial Comments152693
-Ref: CopyFileMultTryWR-Initial-Comments152930
-Node: CopyFileMultTryWR Manage Two Files153261
-Ref: CopyFileMultTryWR-Manage-Two-Files153837
-Node: Miscellaneous Java Keywords154364
-Node: transient and volatile Modifiers154850
-Node: Using instanceof155063
-Node: strictfp155249
-Node: Native Methods155401
-Node: Using assert155557
-Node: Static Import155718
-Node: Overloaded Constructors with this155896
-Node: Compact API Profiles156154
-Node: Generics156332
-Node: Motivation158189
-Node: What are Generics160165
-Node: Simple Generics Example161232
-Ref: SimpleGenerics-java161547
-Node: Class Gen<T>161942
-Ref: Class-Gen162937
-Ref: Instance-Variable-ob-of-Type-T164049
-Ref: generics-constructor164249
-Ref: Constructor-taking-parameter-of-Type-T164595
-Ref: Method-returning-object-of-type-T165131
-Ref: Method-showing-type-of-T165756
-Node: Class GenDemo165995
-Ref: Class-GenDemo166774
-Node: GenDemo as Integer167531
-Ref: Create-a-Gen-object-for-Integers167743
-Ref: Integer-Type-Parameter168873
-Ref: Reference-to-Integer-Instance169720
-Ref: Show-Type170263
-Ref: Get-Value170755
-Node: GenDemo as String170996
-Ref: Create-a-Gen-object-for-Strings171206
-Node: Notes about Generics171661
-Node: Reference Types171917
-Node: Type Arguments172443
-Node: Subtyping173006
-Node: Type Safety174140
-Node: Two Type Parameters174499
-Node: Two Types Example Code175047
-Ref: TwoTypeParameters-java175221
-Node: Class TwoGen175625
-Ref: Class-TwoGen175762
-Ref: Class-Declaration176792
-Ref: Two-Instance-Variables-Declarations176998
-Ref: Constructor-of-Two-Parameters177181
-Ref: Instance-Methods-Show-and-Get177437
-Node: Class SimpGen177828
-Ref: Class-SimpGen178091
-Node: Generic Class General Form178660
-Ref: GenericClass178967
-Node: Bounded Types179291
-Node: Wildcard Arguments180689
-Node: Wildcard Motivation180934
-Node: Wildcard Syntax183481
-Node: Bounded Wildcards184399
-Ref: UpperBoundedWildcard185220
-Ref: LowerBoundedWildcard185600
-Node: Generic Methods185765
-Ref: GenericMethod186165
-Node: Example of Generic Method186333
-Ref: GenMethDemo-java186834
-Node: Method isIn187288
-Ref: Static-Method-isIn187508
-Node: GenMethDemo Main188879
-Ref: GenMethDemo-Main189029
-Node: Generic Constructors189924
-Node: Enumerations190291
-Node: Enumeration Basics191167
-Node: Enum Methods192764
-Node: Enumerations as Class Types193993
-Node: Inherit Enum195869
-Node: Strings197707
-Node: Exploring java-lang197843
-Node: Primitive Wrappers199541
-Node: Number200366
-Node: Double and Float200482
-Node: isInfinite() and isNaN()200651
-Node: Byte Short Integer Long200853
-Node: Numbers to from String201065
-Node: Iterable Interface201266
-Node: java util Collections202582
-Node: Collections Overview203819
-Node: Collection Interfaces207725
-Ref: CollectionsInterfaces208260
-Node: Collection Interface210091
-Ref: CollectionsCoreMethods211792
-Node: List Interface214874
-Node: Set Interface215055
-Node: SortedSed Interface215233
-Node: NavigableSet Interface215431
-Node: Queue Interface215637
-Node: Dequeue Interface215827
-Node: Collection Classes215990
-Ref: CollectionCoreClasses216566
-Node: Accessing a Collection via Iterator217036
-Ref: IteratorMethods218128
-Ref: ListIteratorMethods219066
-Node: Using an Iterator221044
-Node: ForEach Alternative to Iterators222215
-Node: Spliterators222875
-Ref: SpliteratorMethods224030
-Node: Storing User-Defined Classes226972
-Node: RandomAccess Interface227210
-Node: Working with Maps227411
-Node: Comparators227585
-Node: Collection Algorithms227746
-Node: Arrays Class227932
-Node: Legacy Classes and Interfaces228110
-Node: java util Utility Classes228292
-Node: Input/Output java.io228502
-Node: I/O Classes and Interfaces229716
-Node: I/O Classes229923
-Node: I/O Interfaces231103
-Node: File231561
-Ref: File-Footnote-1233618
-Node: File Methods233744
-Ref: File-Methods233957
-Node: File Utility Methods234726
-Ref: File-Utility-Methods234890
-Ref: File Utility Methods-Footnote-1236753
-Node: Directories236863
-Ref: Directory-List237360
-Node: Examine Directory Contents237587
-Ref: DirList-java237889
-Node: Import java.io.File238772
-Ref: Import-java-io-File238965
-Node: DirList Instance Variable Declarations239111
-Ref: DirList-Instance-Variable-Declarations239381
-Node: DirList Examine Directory Contents239785
-Ref: DirList-Examine-Directory-Contents240063
-Node: Examine Directory Contents For-Loop240586
-Ref: DirList-Examine-Directory-Contents-For-Loop240875
-Node: DirList Obtain Directory From Command-Line Args241319
-Ref: DirList-Obtain-Directory-From-Command-Line-Args241589
-Node: FilenameFilter242083
-Ref: Directory-List-With-Filter242469
-Ref: FilenameFilter.Accept242940
-Node: Example Using FilenameFilter Interface243358
-Ref: OnlyExt-java243842
-Ref: DirListOnly244714
-Node: DirListOnly FilenameFilter Object245905
-Ref: DirListOnly-FilenameFilter-Object246148
-Node: DirListOnly FilenameFilter Object List246328
-Ref: DirListOnly-FilenameFilter-Object-List246712
-Node: DirListOnly Print List246882
-Ref: DirListOnly-Print-List247139
-Node: OnlyExt Instance Variable Declarations247342
-Ref: OnlyExt-Instance-Variable-Declarations247612
-Node: OnlyExt Constructor247768
-Ref: OnlyExt-Constructor248014
-Node: OnlyExt Accept Method Implementation248204
-Ref: OnlyExt-Accept-Method-Implementation248437
-Node: listFiles() Alternative248667
-Ref: listFiles248965
-Ref: FileFilter-accept()249808
-Node: Creating Directories250137
-Node: AutoCloseable Closeable Flushable Interfaces250331
-Node: I/O Exceptions250602
-Node: Closing a Stream251768
-Ref: CloseStreamWithClose252485
-Ref: TryWithResourcesClose252993
-Node: Stream Classes254768
-Node: Byte Streams255389
-Node: InputStream256058
-Ref: InputStream-Footnote-1256495
-Node: InputStream Methods256554
-Ref: InputStreamMethods256685
-Node: OutputStream258618
-Node: OutputStream Methods259061
-Ref: OutputStreamMethods259196
-Node: FileInputStream259912
-Node: FileOutputStream260331
-Node: ByteArrayInputStream260503
-Node: ByteArrayOutputStream260689
-Node: Filtered Byte Streams260882
-Node: Buffered Byte Streams261628
-Node: BufferedInputStream262762
-Node: Buffered Input Example264232
-Ref: BufferedInputStreamDemo-java265008
-Node: BufferedInputStreamDemo Instance Variables265875
-Ref: BufferedInputStreamDemo-Instance-Variables266181
-Node: BufferedInputStreamDemo TryWithResources BufferedInputStream267087
-Ref: BufferedInputStreamDemo-TryWithResources-BufferedInputStream267441
-Node: BufferedInputStreamDemo While Loop267871
-Ref: BufferedInputStreamDemo-While-Loop268174
-Node: BufferedInputStreamDemo Switch on Character268641
-Ref: BufferedInputStreamDemo-Switch-on-Character268944
-Node: BufferedInputStreamDemo String Into Buffer269995
-Ref: BufferedInputStreamDemo-String270292
-Node: BufferedInputStreamDemo Buffer270793
-Ref: BufferedInputStreamDemo-Buffer271067
-Node: BufferedInputStreamDemo ByteArrayInputStream271288
-Ref: BufferedInputStreamDemo-ByteArrayInputStream271589
-Node: BufferedInputStreamDemo Utility Variables271854
-Ref: BufferedInputStreamDemo-Utility-Variables272141
-Node: BufferedOutputStream272382
-Node: PushbackInputStream272606
-Node: SequenceInputStream272778
-Node: PrintStream272956
-Node: DataOutputStream DataInputStream273131
-Node: RandomAccessFile273357
-Node: Character Streams273519
-Node: Reader274378
-Ref: ReaderMethods274790
-Node: Writer276289
-Ref: WriterMethods276694
-Node: FileReader278254
-Ref: FileReaderDemo-java278950
-Node: FileReaderDemo TryWithResources FileReader279669
-Ref: FileReaderDemo-TryWithResources-FileReader279890
-Node: Catch IOException280210
-Ref: Catch-IOException280381
-Node: FileWriter280856
-Node: CharArrayReader281639
-Node: CharArrayWriter281803
-Node: BufferedReader281971
-Node: Buffered Reader Demo283063
-Ref: BufferedReaderDemo-java283830
-Node: BufferedReaderDemo Instance Variables284809
-Ref: BufferedReaderDemo-Instance-Variables285170
-Node: BufferedReaderDemo Buffer285734
-Ref: BufferedReaderDemo-Buffer286351
-Node: BufferedReaderDemo TryWithResources BufferedReader286605
-Ref: BufferedReaderDemo-TryWithResources-BufferedReader287014
-Node: BufferedWriter287492
-Node: PushbackReader287999
-Node: PrintWriter288162
-Node: Console Class288296
-Node: Serialization288462
-Node: Serializable289753
-Node: Externalizable290327
-Node: ObjectOutput291035
-Node: ObjectOutputStream291195
-Node: ObjectInput291364
-Node: ObjectInputStream291524
-Node: Serializable Example291698
-Node: Stream Benefits291858
-Node: NIO291998
-Node: Networking292105
-Node: Event Handling292220
-Node: AWT292343
-Node: AWT Controls292530
-Node: Images292711
-Node: Concurrency292820
-Node: Streams API292966
-Node: Regular Expressions293103
-Node: Reflection293249
-Node: java.lang.reflect Package294440
-Node: Classes Defined in java-lang-reflect295994
-Ref: java-lang-reflect-Classes296234
-Node: Interfaces Defined in java-lang-reflect296914
-Ref: java-lang-reflect_Interfaces297193
-Node: Reflection Demonstration299055
-Ref: ReflectionDemo1-java300074
-Node: ReflectionDemo1 Class forName Call301597
-Ref: ReflectionDemo1-Class-forName-Call301827
-Node: ReflectionDemo1 getConstructors Call302033
-Ref: ReflectionDemo1-getConstructors-Call302305
-Node: ReflectionDem1 getFields Call302627
-Ref: ReflectionDemo1-getFields-Call302882
-Node: ReflectionDemo1 getMethods Call303165
-Ref: ReflectionDemo1-getMethods-Call303403
-Node: Catch Exception303692
-Ref: Catch-Exception303893
-Node: Import java.lang.reflect304105
-Ref: Import-java-lang-reflect304284
-Node: Classes and Reflection304458
-Node: java.lang.Class305138
-Node: Class Constructor306472
-Node: Retrieving Class Objects307122
-Ref: Retrieving Class Objects-Footnote-1307907
-Node: Object.getClass307976
-Ref: Object.getClass-Footnote-1309262
-Node: .class Syntax309393
-Node: Class.forName() and Class.getName() Methods310523
-Node: TYPE Field for Primitive Wrappers311789
-Node: Methods that Return Classes312877
-Node: Examining Class Modifiers315083
-Node: Discovering Class Members316004
-Ref: ClassMethodsLocating316691
-Ref: Discovering Class Members-Footnote-1318290
-Node: Members and Reflection318329
-Node: reflect Fields319603
-Node: reflect Methods319929
-Node: reflect Constructors320357
-Node: Finding Constructors321400
-Node: Constructor Modifiers321842
-Node: Creating New Class Instances322432
-Node: Arays and Enumerated Types and Reflection323540
-Node: Arrays and Reflection324221
-Node: Identifying Array Types324748
-Node: Creating New Arrays325086
-Node: Getting and Setting Arrays325676
-Node: Enumerate Types and Reflection326720
-Node: Enumerated Types Reflection327281
-Node: Swing329721
-Node: The Makefile329852
-Ref: Makefile329997
-Node: Makefile Constants330968
-Ref: Makefile-CONSTANTS331135
-Node: Makefile Defaults331357
-Ref: Makefile-DEFAULTS331536
-Node: Make the Makefile331686
-Ref: Makefile-MAKEFILE-Target331854
-Node: Makefile Tangle Weave332030
-Ref: Makefile-TANGLE-WEAVE332217
-Node: Makefile PDF332632
-Ref: Makefile-PDF332781
-Node: Makefile MAKEPDF333259
-Ref: Makefile-MAKEPDF333372
-Node: Makefile OPENPDF333650
-Ref: Makefile-OPENPDF333771
-Node: Makefile HTML333953
-Ref: Makefile-HTML334105
-Node: Makefile Clean Targets334300
-Ref: Makefile-CLEAN-Targets334449
-Node: Makefile Clean335069
-Ref: Makefile-CLEAN335213
-Node: Makefile DistClean335425
-Ref: Makefile-DISTCLEAN335605
-Node: Makefile WorldClean335824
-Ref: Makefile-WORLDCLEAN335983
-Node: Code Chunk Summaries336421
-Node: File Definitions336911
-Node: Code Chunk Definitions339027
-Node: Code Chunk References351085
-Node: List of Tables374037
-Node: List of General Forms375441
-Node: Bibliography377561
-Node: Concept Index377693
-Node: Function Index497654
+Node: Java SE 9 Introduction12581
+Node: Classes12723
+Node: Class Fundamentals13167
+Node: General Form13583
+Ref: ClassDeclaration13923
+Node: Declaring Objects15438
+Node: Methods16832
+Ref: MethodDeclaration17031
+Node: Constructors17874
+Node: this Keyword18638
+Node: Instance Variable Hiding19191
+Node: Stack Class19995
+Ref: Stack-java20819
+Ref: TestStack-java21374
+Node: Stack Instance Variables21675
+Ref: Stack-Instance-Variables21842
+Node: Stack Constructor Node22008
+Ref: Stack-Constructor22219
+Node: Stack Instance Methods Node22598
+Ref: Stack-Instance-Methods22815
+Node: Stack Push and Pop Node23477
+Ref: Stack-Push23648
+Ref: Stack-Pop23956
+Node: Stack TestStack Node24285
+Ref: TestStack-Main-Method24457
+Node: Methods and Classes25185
+Node: Overloading Methods25891
+Node: Overloading Constructors28201
+Node: Objects as Parameters28389
+Node: Argument Passing29065
+Node: Returning Objects30407
+Node: Recursion31034
+Node: Access Control32546
+Node: Improved Stack Class35491
+Ref: StackImproved-java35725
+Ref: Stack-Private-Instance-Variables36363
+Ref: Improved Stack Class-Footnote-137387
+Node: static Keyword37506
+Node: final Keyword39945
+Node: Arrays 240848
+Node: Nested and Inner Classes41545
+Node: String Class43670
+Node: Command-Line Arguments44927
+Node: Varargs45751
+Node: Inheritance47567
+Node: Inheritance Basics48522
+Ref: Subclass49118
+Node: Member Access and Inheritance49448
+Node: Superclass Referencing Subclass50224
+Node: Using super51004
+Node: super Calling Superclass Constructor51532
+Ref: SuperCallingConstructor51861
+Node: super Referencing Superclass52168
+Ref: SuperReferencingSuperclass52504
+Node: Multilevel Hierarchy52930
+Node: Constructors Executed53685
+Node: Method Overriding53995
+Node: Dynamic Method Dispatch54881
+Node: Why Overridden Methods56328
+Node: Applying Method Overriding57878
+Ref: FindAreas-java-58510
+Node: FindAreas SuperClass Figure Node59881
+Ref: FindAreas-SuperClass-Figure-60108
+Ref: Figure-Instance-Variable-Declarations-60895
+Ref: Figure-Constructor-61366
+Ref: Figure-Area-Method-Declaration-62181
+Node: FindAreas SubClass Rectangle Node62448
+Ref: FindAreas-SubClass-Rectangle-62718
+Ref: Rectangle-Constructor-63552
+Ref: Rectangle-Area-Method-Declaration-63841
+Node: FindAreas SubClass Triangle Node64155
+Ref: FindAreas-SubClass-Triangle-64416
+Ref: Triangle-Constructor-65240
+Ref: Triangle-Area-Method-Declaration-65523
+Node: FindAreas Main Class Node65844
+Ref: FindAreas-Main-Class-66049
+Ref: FindAreas-Main-Method-Declaration-66439
+Ref: Create-Basic-Figure-Objects-67301
+Ref: Create-Basic-Figure-Reference-Variable-67930
+Ref: Call-Overridden-Methods-One-By-One-68443
+Node: Using Abstract Classes68833
+Ref: AbstractMethodDeclaration70343
+Node: Improved Figure Class71566
+Ref: AbstractAreas-java-72013
+Node: AbstractAreas Abstract Class Figure Node72793
+Ref: AbstractAreas-Abstract-Class-Figure-73214
+Ref: AbstractAreas-Abstract-Area-Method-Declaration-74090
+Node: AbstractAreas Main Class74354
+Ref: AbstractAreas-Main-Class-74543
+Ref: AbstractAreas-Main-Method-Declaration-74969
+Ref: Create-Basic-Figure-Objects-Except-Figure-76310
+Ref: Call-Overridden-Methods-One-By-One-Except-Figure-76873
+Node: final with Inheritance77294
+Node: final to Prevent Overriding77697
+Node: final to Prevent Inheritance78610
+Node: Object Class79030
+Node: Packages81167
+Node: Packages Intro81625
+Node: Defining Packages82169
+Ref: PackageStatement82771
+Ref: PackageStatementMulti83741
+Node: Classpath84164
+Node: Member Access85704
+Ref: PackageAccess86679
+Node: Importing87280
+Ref: Import87904
+Node: Interfaces89179
+Node: Defining Interfaces91282
+Ref: InterfaceSimple91537
+Node: Implementing Interfaces92867
+Ref: ClassImplementsInterface93361
+Node: Interface References93846
+Node: Partial Implementations94837
+Node: Nested Interfaces95271
+Node: Applying Interfaces96045
+Node: Variables in Interfaces96245
+Node: Extending Interfaces96975
+Node: Default Interface Methods97454
+Node: Interface Static Methods99558
+Ref: InterfaceStaticMethod100290
+Node: Private Interface Methods100572
+Node: I/O101328
+Node: I/O Basics102024
+Node: Streams103050
+Node: Byte Streams Character Streams103856
+Node: Byte Stream Class104940
+Ref: ByteStreamClasses105578
+Node: Character Stream Class107042
+Ref: CharacterStreamClasses107593
+Node: Predefined Streams108901
+Node: Reading Console Input109738
+Node: Reading Characters111319
+Ref: BRRead-java112220
+Ref: Reading Characters-Footnote-1112999
+Node: Import java.io113229
+Ref: Import-java-io113397
+Node: BRRead BufferedReader Constructor Node114421
+Ref: BRRead-BufferedReader-Constructor114676
+Node: BRRead Enter Characters Node114895
+Ref: BRRead-Enter-Characters115107
+Node: Reading Strings115336
+Ref: BRReadLines-java115960
+Node: BRReadLines BufferedReader Constructor116706
+Ref: BRReadLines-BufferedReader-Constructor116924
+Node: BRReadLines Enter Lines117205
+Ref: BRReadLines-Enter-Lines117393
+Node: Writing Console Output117750
+Node: PrintWriter Class119019
+Node: PrinterWriter Constructors119691
+Node: Demonstration Using PrintWriter120793
+Ref: PrinterWriterDemo-java121077
+Node: PrintWriterDemo PrintWriter Constructor121880
+Ref: PrintWriterDemo-PrintWriter-Constructor122129
+Node: PrintWriterDemo Printing To Console122347
+Ref: PrintWriterDemo-Printing-To-Console122588
+Node: PrintWriter Concluding Comments122862
+Node: Reading and Writing Files123342
+Node: FileInputStream and FileOutputStream124036
+Node: Demonstration Reading From a File126780
+Ref: ShowFile-java127228
+Node: ShowFile Initial Comments128325
+Ref: ShowFile-Initial-Comments128538
+Node: ShowFile Instance Variable Declarations129158
+Ref: ShowFile-Instance-Variable-Declarations129428
+Node: ShowFile Open a File129850
+Ref: ShowFile-Open-a-File130252
+Node: ShowFile Read a File130980
+Ref: ShowFile-Read-a-File131189
+Node: ShowFile Close a File131646
+Ref: ShowFile-Close-a-File131859
+Node: close() Within finally132309
+Ref: ShowFileAlt-java133174
+Ref: ShowFileAlt-Read-a-File134151
+Node: Demonstration Reading From File with Single try134697
+Ref: ShowFileSingleTry135284
+Node: ShowFileSingleTry Additional Initial Comment136403
+Ref: ShowFileSingleTry-Additional-Initial-Comment136679
+Node: ShowFileSingleTry Read a File136998
+Ref: ShowFileSingleTry-Read-a-File137531
+Node: Demonstration Writing to a File139441
+Ref: CopyFile-java140011
+Node: CopyFile Initial Comments140986
+Ref: CopyFile-Initial-Comments141197
+Node: CopyFile Instance Variable Declarations141627
+Ref: CopyFile-Instance-Variable-Declarations141901
+Node: CopyFile Check for 2 Files142123
+Ref: CopyFile-Check-For-2-Files142366
+Node: CopyFile Copy a File142659
+Ref: CopyFile-Copy-a-File143017
+Node: Automatically Closing Files143807
+Ref: AutomaticResourceManagement144526
+Node: Demonstration of Automatically Closing a File146370
+Ref: ShowFileTryWR-java146710
+Node: ShowFileTryWR Initial Comments147944
+Ref: ShowFileTryWR-Initial-Comments148161
+Node: ShowFileTryWR Instance Variable Declarations148462
+Ref: ShowFileTryWR-Instance-Variable-Declaration148741
+Node: ShowFileTryWR Check CL Args149095
+Ref: ShowFileTryWR-Check-CL-Args149343
+Ref: ShowFileTryWR-Check-CL-Args-End149751
+Ref: Number-1150167
+Node: ShowFileTryWR Open a File TryWR150294
+Ref: ShowFileTryWR-Open-a-File-TryWR151180
+Node: Demonstration of Multiple Resources151832
+Ref: CopyFileMultTryWR-java152309
+Ref: Number-2153452
+Node: CopyFileMultTryWR Initial Comments153675
+Ref: CopyFileMultTryWR-Initial-Comments153912
+Node: CopyFileMultTryWR Manage Two Files154243
+Ref: CopyFileMultTryWR-Manage-Two-Files154819
+Node: Miscellaneous Java Keywords155346
+Node: transient and volatile Modifiers155832
+Node: Using instanceof156045
+Node: strictfp156231
+Node: Native Methods156383
+Node: Using assert156539
+Node: Static Import156700
+Node: Overloaded Constructors with this156878
+Node: Compact API Profiles157136
+Node: Generics157314
+Node: Motivation159171
+Node: What are Generics161147
+Node: Simple Generics Example162214
+Ref: SimpleGenerics-java162529
+Node: Class Gen<T>162924
+Ref: Class-Gen163919
+Ref: Instance-Variable-ob-of-Type-T165031
+Ref: generics-constructor165231
+Ref: Constructor-taking-parameter-of-Type-T165577
+Ref: Method-returning-object-of-type-T166113
+Ref: Method-showing-type-of-T166738
+Node: Class GenDemo166977
+Ref: Class-GenDemo167756
+Node: GenDemo as Integer168513
+Ref: Create-a-Gen-object-for-Integers168725
+Ref: Integer-Type-Parameter169855
+Ref: Reference-to-Integer-Instance170702
+Ref: Show-Type171245
+Ref: Get-Value171737
+Node: GenDemo as String171978
+Ref: Create-a-Gen-object-for-Strings172188
+Node: Notes about Generics172643
+Node: Reference Types172899
+Node: Type Arguments173425
+Node: Subtyping173988
+Node: Type Safety175122
+Node: Two Type Parameters175481
+Node: Two Types Example Code176029
+Ref: TwoTypeParameters-java176203
+Node: Class TwoGen176607
+Ref: Class-TwoGen176744
+Ref: Class-Declaration177774
+Ref: Two-Instance-Variables-Declarations177980
+Ref: Constructor-of-Two-Parameters178163
+Ref: Instance-Methods-Show-and-Get178419
+Node: Class SimpGen178810
+Ref: Class-SimpGen179073
+Node: Generic Class General Form179642
+Ref: GenericClass179949
+Node: Bounded Types180273
+Node: Wildcard Arguments181671
+Node: Wildcard Motivation181916
+Node: Wildcard Syntax184463
+Node: Bounded Wildcards185381
+Ref: UpperBoundedWildcard186202
+Ref: LowerBoundedWildcard186582
+Node: Generic Methods186747
+Ref: GenericMethod187147
+Node: Example of Generic Method187315
+Ref: GenMethDemo-java187816
+Node: Method isIn188270
+Ref: Static-Method-isIn188490
+Node: GenMethDemo Main189861
+Ref: GenMethDemo-Main190011
+Node: Generic Constructors190906
+Node: Enumerations191273
+Node: Enumeration Basics192149
+Node: Enum Methods193746
+Node: Enumerations as Class Types194975
+Node: Inherit Enum196851
+Node: Strings198689
+Node: java.lang198815
+Node: Primitive Wrappers200524
+Node: Number201339
+Node: Double and Float201455
+Node: isInfinite() and isNaN()201624
+Node: Byte Short Integer Long201826
+Node: Numbers to from String202038
+Node: Iterable Interface202239
+Node: java.util Part 1 --- Collections Framework203545
+Node: Collections Overview204798
+Node: Collection Interfaces208725
+Ref: CollectionsInterfaces209281
+Node: Collection Interface211112
+Ref: CollectionsCoreMethods212813
+Node: List Interface215895
+Node: Set Interface216076
+Node: SortedSed Interface216254
+Node: NavigableSet Interface216452
+Node: Queue Interface216658
+Node: Dequeue Interface216848
+Node: Collection Classes217011
+Ref: CollectionCoreClasses217608
+Node: Accessing a Collection via Iterator218078
+Ref: IteratorMethods219195
+Ref: ListIteratorMethods220133
+Ref: Accessing a Collection via Iterator-Footnote-1222147
+Node: Using an Iterator222305
+Ref: IteratorDemo-java223680
+Node: Import java.util225268
+Ref: Import-java-util225436
+Node: IteratorDemo---Create an Array List225829
+Ref: IteratorDemo---Create-an-Array-List226103
+Node: IteratorDemo---Use Iterator To Display Contents of Array List226410
+Ref: IteratorDemo---Use-Iterator-To-Display-Contents-of-Array-List226764
+Node: IteratorDemo---Modify Objects Being Iterated227173
+Ref: IteratorDemo---Modify-Objects-Being-Iterated227518
+Node: IteratorDemo---Use ListIterator to Display Modified Contents227831
+Ref: IteratorDemo---Use-ListIterator-to-Display-Modified-Contents228188
+Node: IteratorDemo---Display the List Backwards228577
+Ref: IteratorDemo---Display-the-List-Backwards228843
+Node: ForEach Alternative to Iterators229196
+Ref: ForEachDemo-java230140
+Node: ForEachDemo---Create an Array List For Integers231228
+Ref: ForEachDemo---Create-an-Array-List-For-Integers231515
+Node: ForEachDemo---Use for Loop to Display the Values231818
+Ref: ForEachDemo---Use-for-Loop-to-Display-the-Values232164
+Node: ForEachDemo---Sum the Values by Using a for Loop232460
+Ref: ForEachDemo---Sum-the-Values-by-Using-a-for-Loop232750
+Node: Spliterators233026
+Node: Spliterator Methods234379
+Ref: SpliteratorMethods234547
+Node: Using Spliterator for Iteration236665
+Ref: SpliteratorDemo-java238008
+Node: SpliteratorDemo---Create an Array List for Doubles239361
+Ref: SpliteratorDemo---Create-an-Array-List-for-Doubles239662
+Node: SpliteratorDemo---Use tryAdvance() to Display Contents239978
+Ref: SpliteratorDemo---Use-tryAdvance---to-Display-Contents240329
+Node: SpliteratorDemo---Create New List240693
+Ref: SpliteratorDemo---Create-New-List241012
+Node: SpliteratorDemo---Use forEachRemaining() to Display Contents241310
+Ref: SpliteratorDemo---Use-forEachRemaining---to-Display-Contents241620
+Node: Spliterator Characteristics241968
+Node: Spliterator Subinterfaces242575
+Node: Storing User-Defined Classes243050
+Node: RandomAccess Interface243309
+Node: Working with Maps243531
+Node: Comparators243726
+Node: Collection Algorithms243908
+Node: Arrays Class244115
+Node: Legacy Classes and Interfaces244314
+Node: java.util Part 2 --- Utility Classes244517
+Node: java.io --- Input/Output244757
+Node: I/O Classes and Interfaces246032
+Node: I/O Classes246243
+Node: I/O Interfaces247423
+Node: File247881
+Ref: File-Footnote-1249942
+Node: File Methods250081
+Ref: File-Methods250294
+Node: File Utility Methods251063
+Ref: File-Utility-Methods251227
+Ref: File Utility Methods-Footnote-1253090
+Node: Directories253213
+Ref: Directory-List253710
+Node: Examine Directory Contents253937
+Ref: DirList-java254239
+Node: Import java.io.File255122
+Ref: Import-java-io-File255315
+Node: DirList Instance Variable Declarations255461
+Ref: DirList-Instance-Variable-Declarations255731
+Node: DirList Examine Directory Contents256135
+Ref: DirList-Examine-Directory-Contents256413
+Node: Examine Directory Contents For-Loop256936
+Ref: DirList-Examine-Directory-Contents-For-Loop257225
+Node: DirList Obtain Directory From Command-Line Args257669
+Ref: DirList-Obtain-Directory-From-Command-Line-Args257939
+Node: FilenameFilter258433
+Ref: Directory-List-With-Filter258819
+Ref: FilenameFilter.Accept259290
+Node: Example Using FilenameFilter Interface259708
+Ref: OnlyExt-java260192
+Ref: DirListOnly261064
+Node: DirListOnly FilenameFilter Object262255
+Ref: DirListOnly-FilenameFilter-Object262498
+Node: DirListOnly FilenameFilter Object List262678
+Ref: DirListOnly-FilenameFilter-Object-List263062
+Node: DirListOnly Print List263232
+Ref: DirListOnly-Print-List263489
+Node: OnlyExt Instance Variable Declarations263692
+Ref: OnlyExt-Instance-Variable-Declarations263962
+Node: OnlyExt Constructor264118
+Ref: OnlyExt-Constructor264364
+Node: OnlyExt Accept Method Implementation264554
+Ref: OnlyExt-Accept-Method-Implementation264787
+Node: listFiles() Alternative265017
+Ref: listFiles265315
+Ref: FileFilter-accept()266158
+Node: Creating Directories266487
+Node: AutoCloseable Closeable Flushable Interfaces266681
+Node: I/O Exceptions266956
+Node: Closing a Stream268126
+Ref: CloseStreamWithClose268847
+Ref: TryWithResourcesClose269355
+Node: Stream Classes271130
+Node: Byte Streams271755
+Node: InputStream272428
+Ref: InputStream-Footnote-1272865
+Node: InputStream Methods272924
+Ref: InputStreamMethods273055
+Node: OutputStream274988
+Node: OutputStream Methods275431
+Ref: OutputStreamMethods275566
+Node: FileInputStream276282
+Node: FileOutputStream276701
+Node: ByteArrayInputStream276873
+Node: ByteArrayOutputStream277059
+Node: Filtered Byte Streams277252
+Node: Buffered Byte Streams277998
+Node: BufferedInputStream279132
+Node: Buffered Input Example280602
+Ref: BufferedInputStreamDemo-java281378
+Node: BufferedInputStreamDemo Instance Variables282245
+Ref: BufferedInputStreamDemo-Instance-Variables282551
+Node: BufferedInputStreamDemo TryWithResources BufferedInputStream283457
+Ref: BufferedInputStreamDemo-TryWithResources-BufferedInputStream283811
+Node: BufferedInputStreamDemo While Loop284241
+Ref: BufferedInputStreamDemo-While-Loop284544
+Node: BufferedInputStreamDemo Switch on Character285011
+Ref: BufferedInputStreamDemo-Switch-on-Character285314
+Node: BufferedInputStreamDemo String Into Buffer286365
+Ref: BufferedInputStreamDemo-String286662
+Node: BufferedInputStreamDemo Buffer287163
+Ref: BufferedInputStreamDemo-Buffer287437
+Node: BufferedInputStreamDemo ByteArrayInputStream287658
+Ref: BufferedInputStreamDemo-ByteArrayInputStream287959
+Node: BufferedInputStreamDemo Utility Variables288224
+Ref: BufferedInputStreamDemo-Utility-Variables288511
+Node: BufferedOutputStream288752
+Node: PushbackInputStream288976
+Node: SequenceInputStream289148
+Node: PrintStream289326
+Node: DataOutputStream DataInputStream289501
+Node: RandomAccessFile289727
+Node: Character Streams289889
+Node: Reader290752
+Ref: ReaderMethods291164
+Node: Writer292663
+Ref: WriterMethods293068
+Node: FileReader294628
+Ref: FileReaderDemo-java295324
+Node: FileReaderDemo TryWithResources FileReader296043
+Ref: FileReaderDemo-TryWithResources-FileReader296264
+Node: Catch IOException296584
+Ref: Catch-IOException296755
+Node: FileWriter297230
+Node: CharArrayReader298013
+Node: CharArrayWriter298177
+Node: BufferedReader298345
+Node: Buffered Reader Demo299437
+Ref: BufferedReaderDemo-java300204
+Node: BufferedReaderDemo Instance Variables301258
+Ref: BufferedReaderDemo-Instance-Variables301619
+Node: BufferedReaderDemo Buffer302183
+Ref: BufferedReaderDemo-Buffer302800
+Node: BufferedReaderDemo TryWithResources BufferedReader303054
+Ref: BufferedReaderDemo-TryWithResources-BufferedReader303463
+Node: BufferedWriter303941
+Node: PushbackReader304448
+Node: PrintWriter304611
+Node: Console Class304745
+Node: Serialization304915
+Node: Serializable306210
+Node: Externalizable306784
+Node: ObjectOutput307492
+Node: ObjectOutputStream307652
+Node: ObjectInput307821
+Node: ObjectInputStream307981
+Node: Serializable Example308155
+Node: Stream Benefits308315
+Node: java.nio --- NIO308459
+Node: Networking308603
+Node: Event Handling308731
+Node: AWT308854
+Node: AWT Controls309041
+Node: Images309222
+Node: Concurrency309331
+Node: Streams API309477
+Node: Regular Expressions309614
+Node: Reflection309760
+Node: java.lang.reflect Package310951
+Node: Classes Defined in java.lang.reflect312505
+Ref: java.lang-reflect-Classes312745
+Node: Interfaces Defined in java.lang.reflect313425
+Ref: java.lang.reflect_Interfaces313704
+Node: Reflection Demonstration315566
+Ref: ReflectionDemo1-java316585
+Node: Import java.lang.reflect317973
+Ref: Import-java-lang-reflect318175
+Node: ReflectionDemo1---Class forName() Call318349
+Ref: ReflectionDemo1---Class-forName---Call318626
+Node: ReflectionDemo1---getConstructors() Call318835
+Ref: ReflectionDemo1---getConstructors---Call319126
+Node: ReflectionDemo1---getFields() Call319493
+Ref: ReflectionDemo1---getFields---Call319769
+Node: ReflectionDemo1---getMethods() Call320091
+Ref: ReflectionDemo1---getMethods---Call320344
+Node: Catch Exception320673
+Ref: Catch-Exception320845
+Node: Classes and Reflection321057
+Node: java.lang.Class321737
+Node: Class Constructor323071
+Node: Retrieving Class Objects323721
+Ref: Retrieving Class Objects-Footnote-1324506
+Node: Object.getClass324575
+Ref: Object.getClass-Footnote-1325861
+Node: .class Syntax325992
+Node: Class.forName() and Class.getName() Methods327122
+Node: TYPE Field for Primitive Wrappers328388
+Node: Methods that Return Classes329476
+Node: Examining Class Modifiers331682
+Node: Discovering Class Members332603
+Ref: ClassMethodsLocating333290
+Ref: Discovering Class Members-Footnote-1334889
+Node: Members and Reflection334928
+Node: reflect Fields336202
+Node: reflect Methods336528
+Node: reflect Constructors336956
+Node: Finding Constructors337999
+Node: Constructor Modifiers338441
+Node: Creating New Class Instances339031
+Node: Arays and Enumerated Types and Reflection340139
+Node: Arrays and Reflection340820
+Node: Identifying Array Types341347
+Node: Creating New Arrays341685
+Node: Getting and Setting Arrays342275
+Node: Enumerate Types and Reflection343319
+Node: Enumerated Types Reflection343880
+Node: Swing346320
+Node: The Makefile346451
+Ref: Makefile346596
+Node: Makefile Constants347567
+Ref: Makefile-CONSTANTS347734
+Node: Makefile Defaults347956
+Ref: Makefile-DEFAULTS348135
+Node: Make the Makefile348285
+Ref: Makefile-MAKEFILE-Target348453
+Node: Makefile Tangle Weave348629
+Ref: Makefile-TANGLE-WEAVE348816
+Node: Makefile PDF349231
+Ref: Makefile-PDF349380
+Node: Makefile MAKEPDF349858
+Ref: Makefile-MAKEPDF349971
+Node: Makefile OPENPDF350249
+Ref: Makefile-OPENPDF350370
+Node: Makefile HTML350552
+Ref: Makefile-HTML350704
+Node: Makefile Clean Targets350899
+Ref: Makefile-CLEAN-Targets351048
+Node: Makefile Clean351668
+Ref: Makefile-CLEAN351812
+Node: Makefile DistClean352024
+Ref: Makefile-DISTCLEAN352204
+Node: Makefile WorldClean352423
+Ref: Makefile-WORLDCLEAN352582
+Node: Code Chunk Summaries353020
+Node: File Definitions353510
+Node: Code Chunk Definitions355867
+Node: Code Chunk References369764
+Node: List of Tables395100
+Node: List of General Forms396504
+Node: Bibliography398624
+Node: Concept Index398756
+Node: Function Index524349
+Node: Program Index526673
 
 End Tag Table
