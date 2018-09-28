@@ -2,6 +2,92 @@ This is JavaSE9.info, produced by makeinfo version 6.5 from
 JavaSE9.texi.
 
 
+File: JavaSE9.info,  Node: Catch Exception,  Next: Import java.lang.reflect,  Prev: ReflectionDemo1 getMethods Call,  Up: Reflection Demonstration
+
+25.1.3.5 Catch Exception
+........................
+
+<Catch Exception> ==
+     catch (Exception e) {
+       System.out.println("Exception: " + e);
+     }
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: Import java.lang.reflect,  Prev: Catch Exception,  Up: Reflection Demonstration
+
+25.1.3.6 Import java.lang.reflect
+.................................
+
+<Import java.lang.reflect> ==
+     import java.lang.reflect.*;
+
+
+This chunk is called by {'ReflectionDemo1.java'}; see its first
+definition at *note ReflectionDemo1-java::.
+
+
+File: JavaSE9.info,  Node: Classes and Reflection,  Next: Members and Reflection,  Prev: java.lang.reflect Package,  Up: Reflection
+
+25.2 Classes and Reflection
+===========================
+
+For every type of object, the Java virtual machine instantiates an
+immutable instance of 'java.lang.Class' which provides methods to
+examine the runtime properties of the object including its members and
+type information.
+
+   'Class' also provides the ability to create new classes and
+objects.  Most importantly, it is the entry point for all of the
+Reflective APIs.
+
+* Menu:
+
+* java.lang.Class::
+* Retrieving Class Objects::
+* Examining Class Modifiers::
+* Discovering Class Members::
+
+
+File: JavaSE9.info,  Node: java.lang.Class,  Next: Retrieving Class Objects,  Up: Classes and Reflection
+
+25.2.1 'java.lang.Class'
+------------------------
+
+Instances of the class 'Class' represent classes and interfaces in a
+running Java application.  An 'enum' is a kind of class and an
+'annotation' is a kind of interface.  Every array also belongs to a
+class that is reflected as a 'Class' object that is shared by all
+arrays with the same element type and number of dimensions.  The
+primitive Java types ('boolean', 'byte', 'char', 'short', 'int',
+'long', 'float', and 'double'), and the keyword 'void' are also
+represented as 'Class' objects.
+
+   'Class' has no public constructor.  Instead 'Class' objects are
+constructed automatically by the Java Virtual Machine as classes are
+loaded and by calls to the 'defineClass' method in the class loader.
+
+   The following example uses a Class object to print the class name
+of an object:
+
+     void printClassName(Object obj) {
+              System.out.println("The class of " + obj +
+                                 " is " + obj.getClass().getName());
+          }
+
+   It is also possible to get the 'Class' object for a named type (or
+for 'void') using a class literal.
+
+     System.out.println("The name of class Foo is: "+Foo.class.getName());
+
+* Menu:
+
+* Class Constructor::
+
+
 File: JavaSE9.info,  Node: Class Constructor,  Up: java.lang.Class
 
 25.2.1.1 'Class' getConstructor
@@ -2926,7 +3012,11 @@ Index
                                                             (line   6)
 * flushingOn:                            PrinterWriter Constructors.
                                                             (line   6)
+* for loop:                              ForEach Alternative to Iterators.
+                                                            (line   6)
 * for loop, for-each version:            Iterable Interface.
+                                                            (line   6)
+* for-each alternative to iterators:     ForEach Alternative to Iterators.
                                                             (line   6)
 * for-each version of for loop:          Iterable Interface.
                                                             (line   6)
@@ -2999,6 +3089,7 @@ Index
                                                             (line  13)
 * global members:                        static Keyword.    (line  55)
 * Graphics:                              AWT.               (line   6)
+* hasNext():                             Using an Iterator. (line  15)
 * hiding, instance variables:            Instance Variable Hiding.
                                                             (line   6)
 * hierarchical classifications:          Inheritance.       (line   6)
@@ -3132,10 +3223,13 @@ Index
                                                             (line  56)
 * Iterator iterator:                     Iterable Interface.
                                                             (line   6)
+* iterator process:                      Using an Iterator. (line  15)
 * iterator():                            Collection Interface.
                                                             (line 101)
+* iterator() method:                     Using an Iterator. (line  15)
 * Iterator, accessing a Collection:      Accessing a Collection via Iterator.
                                                             (line   6)
+* iterator, using:                       Using an Iterator. (line   6)
 * iterators, primitive types:            Collections Overview.
                                                             (line  69)
 * J2SE 1.2:                              Collections Overview.
@@ -3226,6 +3320,7 @@ Index
 * list() method for directories:         File.              (line  17)
 * listFiles() Alternative:               listFiles() Alternative.
                                                             (line   6)
+* listIterator() method:                 Using an Iterator. (line  15)
 * lower bounded wildcard:                Bounded Wildcards. (line  32)
 * main() method, class:                  General Form.      (line  45)
 * Make the Makefile:                     Make the Makefile. (line   6)
@@ -3290,6 +3385,7 @@ Index
 * nested interfaces:                     Nested Interfaces. (line   6)
 * Networking:                            Networking.        (line   5)
 * new operator:                          Declaring Objects. (line   6)
+* next():                                Using an Iterator. (line  15)
 * NIO:                                   Input/Output java.io.
                                                             (line   6)
 * NIO <1>:                               NIO.               (line   5)
@@ -3478,7 +3574,7 @@ Index
                                                             (line  40)
 * spliterator() <1>:                     Collection Interface.
                                                             (line 101)
-* Spliterators:                          Spliterators.      (line   5)
+* Spliterators:                          Spliterators.      (line   6)
 * Stack:                                 Collections Overview.
                                                             (line   6)
 * Stack Class:                           Stack Class.       (line   6)

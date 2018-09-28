@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Using an Iterator (About Java SE 9)</title>
+
+<meta name="description" content="Using an Iterator (About Java SE 9)">
+<meta name="keywords" content="Using an Iterator (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Accessing-a-Collection-via-Iterator.html#Accessing-a-Collection-via-Iterator" rel="up" title="Accessing a Collection via Iterator">
+<link href="ForEach-Alternative-to-Iterators.html#ForEach-Alternative-to-Iterators" rel="next" title="ForEach Alternative to Iterators">
+<link href="Accessing-a-Collection-via-Iterator.html#Accessing-a-Collection-via-Iterator" rel="prev" title="Accessing a Collection via Iterator">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Using-an-Iterator"></a>
+<div class="header">
+<p>
+Next: <a href="ForEach-Alternative-to-Iterators.html#ForEach-Alternative-to-Iterators" accesskey="n" rel="next">ForEach Alternative to Iterators</a>, Up: <a href="Accessing-a-Collection-via-Iterator.html#Accessing-a-Collection-via-Iterator" accesskey="u" rel="up">Accessing a Collection via Iterator</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Using-an-Iterator-1"></a>
+<h4 class="subsection">13.4.1 Using an Iterator</h4>
+<a name="index-iterator_002c-using"></a>
+
+<p>You must obtain an iterator to access a collection through iteration.  Each
+of the collection classes provides an <code>iterator()</code> method that returns
+an iterator to the start of the collection.  By using this iterator object,
+you can access each element in the collection, one element at a time.
+</p>
+<a name="Process-To-Cycle-Through-the-Contents-of-a-Collection"></a>
+<h4 class="subheading">Process To Cycle Through the Contents of a Collection</h4>
+<a name="index-iterator-process"></a>
+<a name="index-iterator_0028_0029-method"></a>
+<a name="index-listIterator_0028_0029-method"></a>
+<a name="index-hasNext_0028_0029"></a>
+<a name="index-next_0028_0029"></a>
+
+<ol>
+<li> Obtain an iterator to the start of the collection by calling the collection&rsquo;s
+<code>iterator()</code> method;
+</li><li> Set up a loop that makes a call to <code>hasNext()</code>.  Have the loop iterate
+as long as <code>hasNext()</code> returns <code>true</code>;
+</li><li> Within the loop, obtain each element by calling <code>next()</code>.
+</li></ol>
+
+<p>For collections that implement <samp>List</samp>, you can obtain an iterator by
+calling <code>listIterator()</code>.  A list iterator gives you the ability to
+access a collection in either the forward or backward direction and lets you
+modify an element.  Otherwise, <samp>ListIterator</samp> is used just like
+<samp>Iterator</samp>.
+</p>
+
+
+
+
+</body>
+</html>

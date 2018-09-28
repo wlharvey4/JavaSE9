@@ -5986,12 +5986,70 @@ the element last returned by a call to either @code{next()} or
 @caption{The Methods Declared by @file{ListIterator}}
 @end float
 
+@c .....................................
+
+@node Using an Iterator
+@subsection Using an Iterator
+@cindex iterator, using
+
+You must obtain an iterator to access a collection through iteration.  Each
+of the collection classes provides an @code{iterator()} method that returns
+an iterator to the start of the collection.  By using this iterator object,
+you can access each element in the collection, one element at a time.
+
+@subheading Process To Cycle Through the Contents of a Collection
+@cindex iterator process
+@cindex @code{iterator()} method
+@cindex @code{listIterator()} method
+@cindex @code{hasNext()}
+@cindex @code{next()}
+
+@enumerate
+@item
+Obtain an iterator to the start of the collection by calling the collection's
+@code{iterator()} method;
+@item
+Set up a loop that makes a call to @code{hasNext()}.  Have the loop iterate
+as long as @code{hasNext()} returns @code{true};
+@item
+Within the loop, obtain each element by calling @code{next()}.
+@end enumerate
+
+For collections that implement @file{List}, you can obtain an iterator by
+calling @code{listIterator()}.  A list iterator gives you the ability to
+access a collection in either the forward or backward direction and lets you
+modify an element.  Otherwise, @file{ListIterator} is used just like
+@file{Iterator}.
+
+@c .....................................
+
+@node ForEach Alternative to Iterators
+@subsection The For-Each Alternative to Iterators
+@cindex for-each alternative to iterators
+@cindex @code{for} loop
+
+If you won't be modifying the contents of a collection or obtaining elements
+in reverse order, then the for-each version of the @code{for} loop is often a
+more convenient alternative to cycling through a collection than is using an
+iterator.  The @code{for} can cycle through any collection of objects that
+implement the @file{Iterable} interface.  Because all of the collection
+classes implement this inteface, they can all be operated upon by @code{for}.
+
+
+
 @c -----------------------------------------------------------------------------
 
 @node Spliterators
 @section Spliterators
 @cindex Spliterators
 
+JDK 8 added a new type of iterator called a @dfn{spliterator} that is defined
+by the @file{Spliterator} interface.  A spliterator cycles through a sequence
+of elements and in this regard it is similar to the iterators.  However, the
+techniques required to use it differ.  Furthermore, it offers substantially
+more functionality than does either @file{Iterator} or @file{ListIterator}.
+Perhaps the most important aspect of @file{Spliterator} is its ability to
+provide support parallel iteration of portions of the sequence.
 
 @c -----------------------------------------------------------------------------
 
