@@ -6468,7 +6468,60 @@ declared as shown:
      interface Iterator<E>
      interface ListIterator<E>
 
-Here, 'E' specifies the type of objects being iterated.
+Here, 'E' specifies the type of objects being iterated.  The
+'Iterator' interface declares the methods shown in *note Table 13.4:
+IteratorMethods, while the 'ListIterator' methods are shown in *note
+Table 13.5: ListIteratorMethods.  In both cases, operations which
+modify the underlying collections are optional.
+
+default void                 The action specified by action is
+forEachRemaining(Consumer<?  executed on each unprocessed element in
+super E> action)             the collection.  (Added by JDK 8.)
+boolean hasNext()            Returns 'true' if there are more
+                             elements.  Otherwise, returns 'false'.
+E next()                     Returns the next element.  Throws
+                             'NoSuchElementException' if there is not
+                             a next element.
+default void remove()        Removes the current element.  Throws
+                             'IllegalStateException' if an attempt is
+                             made to call 'remove()' that is not
+                             preceded by a call to 'next()'.  The
+                             default version throws an
+                             'UnsupporterdOperationException'.
+
+Table 13.4: The Methods Provided by 'Iterator'
+
+void add(E obj)              Inserts obj into the list in front of
+                             the element that will be returned by the
+                             next call to 'next()'.
+default void                 The action specified by action is
+forEachRemaining(Consumer<?  executed on each unprocessed element in
+super E> action)             the collection.  (Added by JDK 8.)
+boolean hasNext()            Returns 'true' if there is a next
+                             element.  Otherwise returns 'false'.
+boolean hasPrevious()        Returns 'true' if there is a previous
+                             element.  Otherwise returns 'false'.
+E next()                     Returns the next element.  A
+                             'NoSuchElementException' is thrown if
+                             there is not a next element.
+int nextIndex()              Returns the index of the next element.
+                             If there is not a next element, returns
+                             the size of the list.
+E previous()                 Returns the previous element.  A
+                             'NoSuchElementException' is thrown if
+                             there is not a previous element.
+int previousIndex()          Returns the index of the previous
+                             element.  If there is not a previous
+                             element, returns -1.
+void remove()                Removes the current element from the
+                             list.  An 'IllegalStateException' is
+                             thrown if 'remove()' is called before
+                             'next()' or 'previous()' is invoked.
+void set(E obj)              Assigns obj to the current element.
+                             This is the element last returned by a
+                             call to either 'next()' or 'previous()'.
+
+Table 13.5: The Methods Declared by 'ListIterator'
 
 
 File: JavaSE9.info,  Node: Spliterators,  Next: Storing User-Defined Classes,  Prev: Accessing a Collection via Iterator,  Up: java util Collections
@@ -8778,105 +8831,4 @@ for 'void') using a class literal.
 * Menu:
 
 * Class Constructor::
-
-
-File: JavaSE9.info,  Node: Class Constructor,  Up: java.lang.Class
-
-25.2.1.1 'Class' getConstructor
-...............................
-
- -- Constructor on Class:
-          Constructor<T>
-          getConstructor (parameterType)
-     Returns a 'Constructor' object that reflects the specified public
-     constructor of the class represented by this 'Class' object.
-
-'Class' getConstructors
-.......................
-
- -- Constructor on Class:
-          Constructor<?>[]
-          getConstructors ()
-     Returns an array containing 'Constructor' objects reflecting all
-     the public constructors of the class represented by this 'Class'
-     object.
-
-
-File: JavaSE9.info,  Node: Retrieving Class Objects,  Next: Examining Class Modifiers,  Prev: java.lang.Class,  Up: Classes and Reflection
-
-25.2.2 Retrieving Class Objects
--------------------------------
-
-The entry point for all reflection operations is 'java.lang.Class'.
-None of the classes in 'java.lang.reflect' have public constructors.
-(1) To get to these classes, it is necessary to invoke appropriate
-methods on 'Class'.  There are several ways to get a 'Class' depending
-on whether the code has access to an object, the name of the class, a
-type, or an existing 'Class'.
-
-* Menu:
-
-* Object.getClass::
-* .class Syntax::
-* Class.forName() and Class.getName() Methods::
-* TYPE Field for Primitive Wrappers::
-* Methods that Return Classes::
-
-   ---------- Footnotes ----------
-
-   (1) with the exception of 'java.lang.reflect.ReflectPermission'.
-
-
-File: JavaSE9.info,  Node: Object.getClass,  Next: .class Syntax,  Up: Retrieving Class Objects
-
-25.2.2.1 'Object.getClass()'
-............................
-
-If an instance of an object is available, then the simplest way to get
-its 'Class' is to invoke 'Object.getClass()'.
-
-String.getClass()
-.................
-
-     Class c = "foo".getClass();
-
-returns the 'Class' for 'String';
-
-System.console.getClass()
-.........................
-
-     Class c = System.console().getClass();
-
-returns the 'Class' corresponding to 'java.io.Console'.  (1)
-
-Enum.getClass()
-...............
-
-     enum E { A, B }
-     Class c  = A.getClass();
-
-'A' is an instance of the 'enum' 'E'; thus, 'getClass()' returns the
-'Class' corresponding to the enumeration type 'E'.
-
-Array.getClass()
-................
-
-Since arrays are 'Object's, it is possible to invoke 'getClass()' on
-an instance of an array.  The returned 'Class' corresponds to an array
-with component type 'byte'.
-
-     import java.util.HashSet;
-     import java.util.Set;
-
-     Set<String> s = new HashSet<String>();
-     Class c = s.getClass();
-
-   'java.util.Set' is an interface to an object of type
-'java.util.HashSet'.  The value returned by 'getClass()' is the class
-corresponding to 'java.util.HashSet'.
-
-   ---------- Footnotes ----------
-
-   (1) There is a unique console associated with the virtual machine
-which is returned by the 'static' method 'System.console()'.
 

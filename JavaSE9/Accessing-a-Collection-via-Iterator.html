@@ -72,10 +72,62 @@ declared as shown:
 interface ListIterator&lt;E&gt;
 </pre></div>
 
-<p>Here, <code>E</code> specifies the type of objects being iterated.  
+<p>Here, <code>E</code> specifies the type of objects being iterated.  The
+<samp>Iterator</samp> interface declares the methods shown in
+<a href="#IteratorMethods">Table 13.4</a>, while the <samp>ListIterator</samp> methods are shown in
+<a href="#ListIteratorMethods">Table 13.5</a>.  In both cases, operations which modify the
+underlying collections are optional.
 </p>
+<div class="float"><a name="IteratorMethods"></a>
+<table>
+<tr><td width="40%">default void forEachRemaining(Consumer&lt;? super E&gt; <i>action</i>)</td><td width="60%">The
+action specified by <i>action</i> is executed on each unprocessed element in
+the collection.  (Added by JDK 8.)</td></tr>
+<tr><td width="40%">boolean hasNext()</td><td width="60%">Returns <code>true</code> if there are more elements.
+Otherwise, returns <code>false</code>.</td></tr>
+<tr><td width="40%">E next()</td><td width="60%">Returns the next element.  Throws <samp>NoSuchElementException</samp>
+if there is not a next element.</td></tr>
+<tr><td width="40%">default void remove()</td><td width="60%">Removes the current element.  Throws
+<samp>IllegalStateException</samp> if an attempt is made to call <code>remove()</code>
+that is not preceded by a call to <code>next()</code>.  The default version throws
+an <samp>UnsupporterdOperationException</samp>.</td></tr>
+</table>
 
+<div class="float-caption"><p><strong>Table 13.4: </strong>The Methods Provided by <samp>Iterator</samp></p></div></div>
+<div class="float"><a name="ListIteratorMethods"></a>
+<table>
+<tr><td width="40%">void add(E <i>obj</i>)</td><td width="60%">Inserts <i>obj</i> into the list in front of the
+element that will be returned by the next call to <code>next()</code>.</td></tr>
+<tr><td width="40%">default void forEachRemaining(Consumer&lt;? super E&gt; <i>action</i>)</td><td width="60%">The
+action specified by <i>action</i> is executed on each unprocessed element in
+the collection.  (Added by JDK 8.)</td></tr>
+<tr><td width="40%">boolean hasNext()</td><td width="60%">Returns <code>true</code> if there is a next element.
+Otherwise returns <code>false</code>.</td></tr>
+<tr><td width="40%">boolean hasPrevious()</td><td width="60%">Returns <code>true</code> if there is a previous
+element.  Otherwise returns <code>false</code>.</td></tr>
+<tr><td width="40%">E next()</td><td width="60%">Returns the next element.  A <samp>NoSuchElementException</samp> is
+thrown if there is not a next element.</td></tr>
+<tr><td width="40%">int nextIndex()</td><td width="60%">Returns the index of the next element.  If there is not
+a next element, returns the size of the list.</td></tr>
+<tr><td width="40%">E previous()</td><td width="60%">Returns the previous element.  A
+<samp>NoSuchElementException</samp> is thrown if there is not a previous element.</td></tr>
+<tr><td width="40%">int previousIndex()</td><td width="60%">Returns the index of the previous element.  If there
+is not a previous element, returns -1.</td></tr>
+<tr><td width="40%">void remove()</td><td width="60%">Removes the current element from the list.  An
+<samp>IllegalStateException</samp> is thrown if <code>remove()</code> is called before
+<code>next()</code> or <code>previous()</code> is invoked.</td></tr>
+<tr><td width="40%">void set(E <i>obj</i>)</td><td width="60%">Assigns <i>obj</i> to the current element.  This is
+the element last returned by a call to either <code>next()</code> or
+<code>previous()</code>.</td></tr>
+</table>
 
+<div class="float-caption"><p><strong>Table 13.5: </strong>The Methods Declared by <samp>ListIterator</samp></p></div></div>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Spliterators.html#Spliterators" accesskey="n" rel="next">Spliterators</a>, Previous: <a href="Collection-Classes.html#Collection-Classes" accesskey="p" rel="prev">Collection Classes</a>, Up: <a href="java-util-Collections.html#java-util-Collections" accesskey="u" rel="up">java util Collections</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

@@ -5920,8 +5920,71 @@ interface ListIterator<E>
 @end example
 
 @noindent
-Here, @code{E} specifies the type of objects being iterated.  
+Here, @code{E} specifies the type of objects being iterated.  The
+@file{Iterator} interface declares the methods shown in
+@ref{IteratorMethods}, while the @file{ListIterator} methods are shown in
+@ref{ListIteratorMethods}.  In both cases, operations which modify the
+underlying collections are optional.
 
+@float Table,IteratorMethods
+@multitable @columnfractions 0.4 0.6
+@item
+default void forEachRemaining(Consumer<? super E> @ii{action}) @tab The
+action specified by @ii{action} is executed on each unprocessed element in
+the collection.  (Added by JDK 8.)
+@item
+boolean hasNext() @tab Returns @code{true} if there are more elements.
+Otherwise, returns @code{false}.
+@item
+E next() @tab Returns the next element.  Throws @file{NoSuchElementException}
+if there is not a next element.
+@item
+default void remove() @tab Removes the current element.  Throws
+@file{IllegalStateException} if an attempt is made to call @code{remove()}
+that is not preceded by a call to @code{next()}.  The default version throws
+an @file{UnsupporterdOperationException}.
+@end multitable
+@caption{The Methods Provided by @file{Iterator}}
+@end float
+
+@float Table,ListIteratorMethods
+@multitable @columnfractions 0.4 0.6
+@item
+void add(E @ii{obj}) @tab Inserts @ii{obj} into the list in front of the
+element that will be returned by the next call to @code{next()}.
+@item
+default void forEachRemaining(Consumer<? super E> @ii{action}) @tab The
+action specified by @ii{action} is executed on each unprocessed element in
+the collection.  (Added by JDK 8.)
+@item
+boolean hasNext() @tab Returns @code{true} if there is a next element.
+Otherwise returns @code{false}.
+@item
+boolean hasPrevious() @tab Returns @code{true} if there is a previous
+element.  Otherwise returns @code{false}.
+@item
+E next() @tab Returns the next element.  A @file{NoSuchElementException} is
+thrown if there is not a next element.
+@item
+int nextIndex() @tab Returns the index of the next element.  If there is not
+a next element, returns the size of the list.
+@item
+E previous() @tab Returns the previous element.  A
+@file{NoSuchElementException} is thrown if there is not a previous element.
+@item
+int previousIndex() @tab Returns the index of the previous element.  If there
+is not a previous element, returns -1.
+@item
+void remove() @tab Removes the current element from the list.  An
+@file{IllegalStateException} is thrown if @code{remove()} is called before
+@code{next()} or @code{previous()} is invoked.
+@item
+void set(E @ii{obj}) @tab Assigns @ii{obj} to the current element.  This is
+the element last returned by a call to either @code{next()} or
+@code{previous()}.  
+@end multitable
+@caption{The Methods Declared by @file{ListIterator}}
+@end float
 
 @c -----------------------------------------------------------------------------
 
@@ -7971,7 +8034,7 @@ public class ReflectionDemo1 {
 
 @
 
-@c_____________________________________
+@c _____________________________________
 
 @node ReflectionDemo1 Class forName Call
 @subsubsection ReflectionDemo1 Class forName Call

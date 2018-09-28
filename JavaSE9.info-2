@@ -2,6 +2,107 @@ This is JavaSE9.info, produced by makeinfo version 6.5 from
 JavaSE9.texi.
 
 
+File: JavaSE9.info,  Node: Class Constructor,  Up: java.lang.Class
+
+25.2.1.1 'Class' getConstructor
+...............................
+
+ -- Constructor on Class:
+          Constructor<T>
+          getConstructor (parameterType)
+     Returns a 'Constructor' object that reflects the specified public
+     constructor of the class represented by this 'Class' object.
+
+'Class' getConstructors
+.......................
+
+ -- Constructor on Class:
+          Constructor<?>[]
+          getConstructors ()
+     Returns an array containing 'Constructor' objects reflecting all
+     the public constructors of the class represented by this 'Class'
+     object.
+
+
+File: JavaSE9.info,  Node: Retrieving Class Objects,  Next: Examining Class Modifiers,  Prev: java.lang.Class,  Up: Classes and Reflection
+
+25.2.2 Retrieving Class Objects
+-------------------------------
+
+The entry point for all reflection operations is 'java.lang.Class'.
+None of the classes in 'java.lang.reflect' have public constructors.
+(1) To get to these classes, it is necessary to invoke appropriate
+methods on 'Class'.  There are several ways to get a 'Class' depending
+on whether the code has access to an object, the name of the class, a
+type, or an existing 'Class'.
+
+* Menu:
+
+* Object.getClass::
+* .class Syntax::
+* Class.forName() and Class.getName() Methods::
+* TYPE Field for Primitive Wrappers::
+* Methods that Return Classes::
+
+   ---------- Footnotes ----------
+
+   (1) with the exception of 'java.lang.reflect.ReflectPermission'.
+
+
+File: JavaSE9.info,  Node: Object.getClass,  Next: .class Syntax,  Up: Retrieving Class Objects
+
+25.2.2.1 'Object.getClass()'
+............................
+
+If an instance of an object is available, then the simplest way to get
+its 'Class' is to invoke 'Object.getClass()'.
+
+String.getClass()
+.................
+
+     Class c = "foo".getClass();
+
+returns the 'Class' for 'String';
+
+System.console.getClass()
+.........................
+
+     Class c = System.console().getClass();
+
+returns the 'Class' corresponding to 'java.io.Console'.  (1)
+
+Enum.getClass()
+...............
+
+     enum E { A, B }
+     Class c  = A.getClass();
+
+'A' is an instance of the 'enum' 'E'; thus, 'getClass()' returns the
+'Class' corresponding to the enumeration type 'E'.
+
+Array.getClass()
+................
+
+Since arrays are 'Object's, it is possible to invoke 'getClass()' on
+an instance of an array.  The returned 'Class' corresponds to an array
+with component type 'byte'.
+
+     import java.util.HashSet;
+     import java.util.Set;
+
+     Set<String> s = new HashSet<String>();
+     Class c = s.getClass();
+
+   'java.util.Set' is an interface to an object of type
+'java.util.HashSet'.  The value returned by 'getClass()' is the class
+corresponding to 'java.util.HashSet'.
+
+   ---------- Footnotes ----------
+
+   (1) There is a unique console associated with the virtual machine
+which is returned by the 'static' method 'System.console()'.
+
+
 File: JavaSE9.info,  Node: .class Syntax,  Next: Class.forName() and Class.getName() Methods,  Prev: Object.getClass,  Up: Retrieving Class Objects
 
 25.2.2.2 The '.class' Syntax
@@ -1807,6 +1908,8 @@ List of Tables
 * Table 13.1: CollectionsInterfaces.     Summary of 'Collection' ...
 * Table 13.2: CollectionsCoreMethods.    The Methods Declared by ...
 * Table 13.3: CollectionCoreClasses.     Collection Core Classes
+* Table 13.4: IteratorMethods.           The Methods Provided by ...
+* Table 13.5: ListIteratorMethods.       The Methods Declared by ...
 * Table 15.1: 'File'-Methods.            'File' Property Methods
 * Table 15.2: 'File'-Utility-Methods.    File Utility Methods
 * Table 15.3: InputStreamMethods.        The Methods Defined by ...
