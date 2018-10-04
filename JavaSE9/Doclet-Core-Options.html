@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Doclet Core Options (About Java SE 9)</title>
+
+<meta name="description" content="Doclet Core Options (About Java SE 9)">
+<meta name="keywords" content="Doclet Core Options (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Javadoc-Doclets.html#Javadoc-Doclets" rel="up" title="Javadoc Doclets">
+<link href="Standard-Doclet.html#Standard-Doclet" rel="next" title="Standard Doclet">
+<link href="Customizing-javadoc-Output-with-Doclets.html#Customizing-javadoc-Output-with-Doclets" rel="prev" title="Customizing javadoc Output with Doclets">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Doclet-Core-Options"></a>
+<div class="header">
+<p>
+Previous: <a href="Customizing-javadoc-Output-with-Doclets.html#Customizing-javadoc-Output-with-Doclets" accesskey="p" rel="prev">Customizing <code>javadoc</code> Output with Doclets</a>, Up: <a href="Javadoc-Doclets.html#Javadoc-Doclets" accesskey="u" rel="up">Javadoc Doclets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Doclet-Core-Options-1"></a>
+<h4 class="subsubsection">A.5.1.7 Doclet Core Options</h4>
+<a name="index-doclet-core-options"></a>
+
+<p>The following options are the <em>core options</em> that are available to all
+doclets:
+</p>
+<dl compact="compact">
+<dt><samp>--add-modules module(,module)*</samp></dt>
+<dd><p>Specifies the root modules to resolve in addition to the initial modules, or all
+modules on the module path if <code>&lt;module&gt;</code> is <code>ALL-MODULE-PATH</code>.
+</p></dd>
+<dt><samp>--add-exports module/package=other-module(,other-module)*</samp></dt>
+<dd><p>Specifies a package that&rsquo;s to be considered as exported from its defining module
+to additional modules, or to all unnamed modules if <code>other-module</code> is
+<code>ALL-UNNAMED</code>.
+</p></dd>
+<dt><samp>--add-reads module/package=other-module(,other-module)</samp></dt>
+<dd><p>Specifies additional modules to be considered as required by a given
+module. <code>other-module</code> is <code>ALL-UNNAMED</code> to require the unnamed module.
+</p></dd>
+<dt><samp>-bootclasspath classpathlist</samp></dt>
+<dd><p>Specifies the paths where the boot classes reside. These are typically the Java
+platform classes.  The <code>bootclasspath</code> is part of the search path that the
+<code>javadoc</code> command uses to look up source and class files.<a name="DOCF10" href="#FOOT10"><sup>10</sup></a>
+</p>
+<p>To separate directories in the classpathlist parameters, use one of the
+following delimiters:
+</p>
+<dl compact="compact">
+<dt><samp>Oracle Solaris, Linux, and macOS:</samp></dt>
+<dd><p>colon (<kbd>:</kbd>)
+</p></dd>
+<dt><samp>Windows</samp></dt>
+<dd><p>semicolon (<kbd>;</kbd>)
+</p></dd>
+</dl>
+
+</dd>
+<dt><samp>-breakiterator</samp></dt>
+<dd><p>Uses the internationalized sentence boundary of <samp>java.text.BreakIterator</samp>
+to determine the end of the first sentence in the main description of a package,
+class, or member for English.  All other locales already use the
+<samp>BreakIterator</samp> class, rather than an English language, locale-specific
+algorithm.  The first sentence is copied to the package, class, or member
+summary and to the alphabetic index.  The <samp>BreakIterator</samp> class is used to
+determine the end of a sentence for all languages except for English as follows:
+</p><ul>
+<li> English default sentence-break algorithm: Stops at a period followed by a space
+or an HTML block tag, such as &lsquo;<samp>&lt;P&gt;</samp>&rsquo;.
+</li><li> Break iterator sentence-break algorithm: Stops at a period, question mark, or
+exclamation point followed by a space when the next word starts with a capital
+letter.  This is meant to handle most abbreviations (such as &quot;The serial no. is
+valid&quot;, but won&rsquo;t handle &quot;Mr. Smith&quot;).  The <samp>-breakiterator</samp> option
+doesn&rsquo;t stop at HTML tags or sentences that begin with numbers or symbols.  The
+algorithm stops at the last period in <samp>../filename</samp>, even when it&rsquo;s
+embedded in an HTML tag.
+</li><li> A question mark always ends the first sentence: If a double quotation mark
+follows the question mark, then the double quotation mark also gets included in
+the first sentence, but that character then ends the sentence.
+</li></ul>
+</dd>
+<dt><samp>-classpath path or --class-path path or -cp path</samp></dt>
+<dd><p>Specifies the paths where the <code>javadoc</code> command searches for referenced
+classes.  These are the documented classes plus any classes referenced by those
+classes.
+</p>
+<p><code>CLASSPATH</code> is the environment variable that provides the path that the
+<code>javadoc</code> command uses to find user class files.  This environment
+variable is overridden by the <samp>-classpath</samp> option.  To separate
+directories, use one of the following delimiters: a semicolon for Windows or a
+colon for Oracle Solaris.
+</p>
+<p>The <code>javadoc</code> command searches all subdirectories of the specified
+paths.
+</p>
+<p>If you omit <samp>-sourcepath</samp>, then the <code>javadoc</code> command uses
+<samp>-classpath</samp> to find the source files and class files (for backward
+compatibility).  If you want to search for source and class files in separate
+paths, then use both <samp>-sourcepath</samp> and <samp>-classpath</samp>.
+</p>
+<p>For example, if you want to document <samp>com.mypackage</samp>, whose source files
+reside in the directory <samp>/home/user/src/com/mypackage</samp>, and if this package
+relies on a library in <samp>/home/user/lib</samp>, then you use the following
+command:
+</p>
+<div class="example">
+<pre class="example">javadoc -sourcepath /home/user/src -classpath /home/user/lib com.mypackage
+</pre></div>
+
+<p>Similar to other tools, if you don&rsquo;t specify <samp>-classpath</samp>, then the
+<code>javadoc</code> command uses the <code>CLASSPATH</code> environment variable when
+it&rsquo;s set.  If both aren&rsquo;t set, then the <code>javadoc</code> command searches for
+classes from the current directory.
+</p>
+<p>A class path element that contains a base name of <kbd>*</kbd> is considered
+equivalent to specifying a list of all the files in the directory with the
+extension <samp>.jar</samp> or <samp>.JAR</samp>.
+</p>
+<p>For example, if the directory <samp>mydir</samp> contains <samp>a.jar</samp> and
+<samp>b.jar</samp>, then the class path element <samp>foo/*</samp> is expanded to a
+<samp>a.jar:b.JAR</samp>, except that the order of JAR files is unspecified.  All JAR
+files in the specified directory including hidden files are included in the
+list.  A class path entry that consists of <kbd>*</kbd> expands to a list of all the
+JAR files in the current directory.  The <code>CLASSPATH</code> environment variable is
+similarly expanded.  Any class path wildcard expansion occurs before the Java
+Virtual Machine (JVM) starts.  No Java program ever sees unexpanded wild cards
+except by querying the environment, for example, by calling <code>System.getenv
+(&quot;CLASSPATH&quot;)</code>.
+</p>
+</dd>
+<dt><samp>-doclet class</samp></dt>
+<dt><samp>-docletpath path</samp></dt>
+<dt><samp>-encoding name</samp></dt>
+<dt><samp>-exclude pkglist</samp></dt>
+<dt><samp>--expand-requires value</samp></dt>
+<dt><samp>-extdirs dirlist</samp></dt>
+<dt><samp>-help OR --help</samp></dt>
+<dt><samp>-J flag</samp></dt>
+<dt><samp>--limit-modules module(,module)*</samp></dt>
+<dt><samp>-locale name</samp></dt>
+<dt><samp>--module module(,module)*</samp></dt>
+<dt><samp>--module-path path OR -p path</samp></dt>
+<dt><samp>--module-source-path path</samp></dt>
+<dt><samp>-package</samp></dt>
+<dt><samp>--patch-module module=file(file*)</samp></dt>
+<dt><samp>-private</samp></dt>
+<dt><samp>-protected</samp></dt>
+<dt><samp>-public</samp></dt>
+<dt><samp>-quiet</samp></dt>
+<dt><samp>--release release</samp></dt>
+<dt><samp>--show-members value</samp></dt>
+<dt><samp>--show-module-contents value</samp></dt>
+<dt><samp>--show-packages value</samp></dt>
+<dt><samp>--show-types value</samp></dt>
+<dt><samp>-source release</samp></dt>
+<dt><samp>--source-path path OR -sourcepath path</samp></dt>
+<dt><samp>-subpackages subpkglist</samp></dt>
+<dt><samp>--system jdk</samp></dt>
+<dt><samp>--upgrade-module-path path</samp></dt>
+<dt><samp>-verbose</samp></dt>
+<dt><samp>âX</samp></dt>
+<dt><samp>-Xmaxerrs number</samp></dt>
+<dt><samp>-Xmaxwarns number</samp></dt>
+<dt><samp>-Xold</samp></dt>
+<dt><samp>-javafx</samp></dt>
+</dl>
+
+
+
+
+
+
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT10" href="#DOCF10">(10)</a></h3>
+<p>The
+<samp>-bootclasspath</samp> option is only allowed if you are working to generate
+documentation for older versions of the Java platform, such as using JDK 6, 7,
+or 8 for <samp>-source</samp>, <samp>-target</samp>, or <samp>--release</samp>.</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Customizing-javadoc-Output-with-Doclets.html#Customizing-javadoc-Output-with-Doclets" accesskey="p" rel="prev">Customizing <code>javadoc</code> Output with Doclets</a>, Up: <a href="Javadoc-Doclets.html#Javadoc-Doclets" accesskey="u" rel="up">Javadoc Doclets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

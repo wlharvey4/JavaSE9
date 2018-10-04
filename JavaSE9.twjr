@@ -25,7 +25,7 @@
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.3.1
+@set VERSION 0.3.2
 
 @iftex
 @set DOCUMENT book
@@ -9624,11 +9624,11 @@ on accessing fields, see the Fields section.  @xref{reflect Fields}
 
 @c *****************************************************************************
 
-@node Documentation Comments
+@node javadoc
 @appendix Using Java's Documentation Comments
 @cindex Documentation comments
-@cindex @file{javadoc}
-@cindex JDK 9 modules and @file{javadoc}
+@cindex @command{javadoc}
+@cindex JDK 9 modules and @command{javadoc}
 
 Java supports three types of comments.
 
@@ -9643,9 +9643,9 @@ Java supports three types of comments.
 
 The third is called a @dfn{documwentation comment}.  Documentation comments
 allow you to embed information about your program into the program itself.  You
-can then use the @file{javadoc} utility progrm to extract the information and
+can then use the @command{javadoc} utility progrm to extract the information and
 put it into an HTML file.  Documentation comments make it convenient to
-document your programs.  Beginning with JDK 9,m @file{javadoc} includes support
+document your programs.  Beginning with JDK 9,m @command{javadoc} includes support
 for modules.
 
 
@@ -9654,11 +9654,11 @@ for modules.
 @c -----------------------------------------------------------------------------
 
 @node javadoc Documentation Tags
-@section @file{javadoc} Documentation Tags
-@cindex @file{javadoc} tags
+@section @command{javadoc} Documentation Tags
+@cindex @command{javadoc} tags
 @cindex documentation tags
 
-The @file{javadoc} utility recognizes several tags, including:
+The @command{javadoc} utility recognizes several tags, including:
 
 @float Table,JavaDocTags
 @multitable @columnfractions .25 .75
@@ -9715,7 +9715,7 @@ field.
 @item
 @@version @tab Specifies the version of a program element.
 @end multitable
-@caption{The @file{javadoc} Tags}
+@caption{The @command{javadoc} Tags}
 @end float
 
 @cindex stand-alone tags
@@ -9729,7 +9729,7 @@ their own line.  Tags that begin with a brace, such as @code{@{@@code@}}, are
 called @dfn{in-line} tags, and they can be used within a larger description.
 You may also use other, standard HTML tags in a documentation comment.
 However, some tags, such as headings, should not be used because they disrupt
-the look of the HTML file produced by @file{javadoc}.
+the look of the HTML file produced by @command{javadoc}.
 
 You can use documentation comments to document classes, interfaces, fields,
 constructors, methods, and modules.  In all cases, the documentation comment
@@ -9752,7 +9752,7 @@ following syntax:
 @end display
 
 The @i{description} will usually be the name of the author.  You will need to
-specify the @code{-author} option when executing @file{javadoc} in order for
+specify the @code{-author} option when executing @command{javadoc} in order for
 the @code{@@author} field to be included in the HTML documentation.
 
 
@@ -10110,7 +10110,7 @@ the form:
 
 The @code{@@version} tag specifies the version information, typically a version
 number, such as 2.2.  You will need to specify the @code{-version} option when
-executing @file{javadoc} in order for the @code{@@version} field to be included
+executing @command{javadoc} in order for the @code{@@version} field to be included
 in the HTML documentation.
 
 
@@ -10135,13 +10135,13 @@ used within any description.
 
 @c -----------------------------------------------------------------------------
 
-@node What @file{javadoc} Outputs
-@section What @file{javadoc} Outputs
-@cindex @file{javadoc} output
+@node What @command{javadoc} Outputs
+@section What @command{javadoc} Outputs
+@cindex @command{javadoc} output
 
-The @file{javadoc} program takes as input your Java program's source file and
+The @command{javadoc} program takes as input your Java program's source file and
 outputs several HTML files that contain the program's documentation.
-Information about each class will be in its own HTML file.  @file{javadoc} will
+Information about each class will be in its own HTML file.  @command{javadoc} will
 also output an index and a hierarchy tree.  Other HTML files can be generated.
 Beginning with JDK 9, a search box feature is also included.
 
@@ -10156,7 +10156,7 @@ Beginning with JDK 9, a search box feature is also included.
 
 Following is a sample program that uses documentation comments.  Notice the way
 each comment immediately precedes the item that it describes.  After begin
-processed by @file{javadoc}, the documentation about the @file{SquareNum} class
+processed by @command{javadoc}, the documentation about the @file{SquareNum} class
 will be found in @file{SquareNum.html}.
 
 
@@ -10316,6 +10316,445 @@ public static void main(String[] args) {
   System.out.println("Square value is " + val);
 }
 @
+
+
+
+
+@c ----------------------------------------------------------------------------
+
+@node javadoc Command
+@section @command{javadoc} Command
+@cindex @command{javadoc} Command
+
+The @command{javadoc} command-line synopsis is
+
+@verbatim
+javadoc [options] [packagenames] [sourcefiles] [@files]
+@end verbatim
+
+The options can either be @file{Doclet} options or @file{Standard Doclet}
+options.  The @command{javadoc} command can also be run programmatically.
+
+
+@c .....................................
+
+@node Javadoc Doclets
+@subsection Javadoc Doclets
+@cindex Javadoc Doclets
+@cindex Doclets
+@cindex HTML pages, generate with @command{javadoc}
+
+You use the @command{javadoc} tool and its options to generate HTML pages of API
+documentation from Java source files.
+
+The @command{javadoc} command uses doclets to determine its output and the
+default Standard Doclet unless a custom doclet is specified with the
+@option{-doclet} option.  While option names are not case-sensitive, their
+arguments are.
+
+@subheading Synopsis
+
+@example
+javadoc  [packages|source-files] [options][@@files]
+@end example
+
+@subsubheading packages
+
+Names of packages that you want to document, separated by spaces, for example
+@samp{java.lang java.lang.reflect java.awt}. If you want to also document the
+subpackages, then use the @option{-subpackages} option to specify them.
+
+By default, the @command{javadoc} command looks for the specified packages in
+the current directory and subdirectories.  Use the @option{-sourcepath} option
+to specify the list of directories where to look for packages.
+
+@subsubheading source-files
+
+Names of Java source files that you want to document, separated by spaces, for
+example, @samp{Class.java Object.java Button.java}.  By default, the
+@command{javadoc} command looks for the specified classes in the current
+directory.  However, you can specify the full path to the class file and use
+wildcard characters, for example @samp{/home/src/java/awt/Graphics*.java}. You
+can also specify the path relative to the current directory.
+
+@subsubheading options
+
+Command-line options, separated by spaces.
+
+@subsubheading @@files
+
+Names of files that contain a list of @command{javadoc} command options, package
+names, and source file names in any order.
+
+@c _____________________________________
+
+@node Description
+@subsubsection Description
+
+The @command{javadoc} command parses the declarations and documentation comments
+in a set of Java source files and produces a corresponding set of HTML pages
+that describe (by default)
+
+@itemize
+@item
+the public and protected classes,
+@item
+nested classes (but not anonymous inner classes),
+@item
+interfaces,
+@item
+constructors,
+@item
+methods, and
+@item
+fields.
+@end itemize
+
+You can use the @command{javadoc} command to generate the
+@itemize
+@item
+API documentation or
+@item
+the implementation documentation
+@end itemize
+
+for a set of source files.
+
+You can run the @command{javadoc} command on entire packages, individual source
+files, or both.  When documenting entire packages, you can use either the
+@option{-subpackages} option to recursively traverse a directory and its
+subdirectories, or to pass in an explicit list of package names.  When you
+document individual source files, pass in a list of Java source file names.
+
+@c _____________________________________
+
+@node Conformance
+@subsubsection Conformance
+@cindex @command{doclint}
+
+The Standard Doclet does not validate the content of documentation comments for
+conformance, nor does it attempt to correct any errors in documentation
+comments.
+
+The Standard Doclet does provide the @command{doclint} feature to help
+developers detect common problems in documentation comments.
+
+@c _____________________________________
+
+@node Process Source Files
+@subsubsection Process Source Files
+
+The @command{javadoc} command processes files that end in the source file
+extension and other files described in Source Files.  If you run the javadoc
+command by passing in individual source file names, then you can determine
+exactly which source files are processed.  However, that isn't how most
+developers want to work because it's simpler to pass in package names.
+
+The @command{javadoc} command can be run three ways, without explicitly
+specifying the source file names.
+
+@enumerate
+@item
+You can pass in package names,
+@item
+use the @option{-subpackages} option, or
+@item
+use wild cards with source file names.
+@end enumerate
+
+In these cases, the @command{javadoc} command processes a source file only when
+the file fulfills all of the following requirements:
+
+@itemize
+@item
+The file name prefix (with @code{.java} removed) is a valid class name.
+@item
+The path name relative to the root of the source tree is a valid package name
+after the separators are converted to dots.
+@item
+The package statement contains the valid package name.
+@end itemize
+
+@c _____________________________________
+
+@node Processing Links
+@subsubsection Processing Links
+
+During a run, the @command{javadoc} command adds cross-reference links to
+package, class, and member names that are being documented as part of that
+run.  Links appear in the following places:
+
+@itemize
+@item
+Declarations (return types, argument types, and field types)
+@item
+See Also sections that are generated from @@see tags
+@item
+Inline text generated from @{@@link@} tags
+@item
+Exception names generated from @@throws tags
+@item
+@samp{Specified by} links to interface members and @samp{Overrides} links to
+class members
+@item
+Summary tables listing packages, classes, and members
+@item
+Package and class inheritance trees
+@item
+The index
+@end itemize
+
+@c _____________________________________
+
+@node Processing Details
+@subsubsection Processing Details
+
+The @command{javadoc} command produces one complete document every time it
+runs. It doesn't perform incremental builds that modify or directly incorporate
+the results from earlier runs.  However, the @command{javadoc} command can link
+to results from other runs.
+
+@subsubheading Reliance Upon @command{javac} Compiler
+
+@itemize
+@item
+The @command{javadoc} command implementation requires and relies on the Java
+compiler.
+@item
+The @command{javadoc} command calls part of the @command{javac} command to
+compile the declarations and ignore the member implementations.
+@item
+The @command{javadoc} command builds a rich internal representation of the
+classes that includes the class hierarchy and use relationships to generate the
+HTML documentation.
+@item
+The @command{javadoc} command also picks up user-supplied documentation from
+documentation comments in the source code.
+@item
+The @command{javadoc} command can run on source files that are pure stub files
+with no method bodies. This means that you can write documentation comments and
+run the javadoc command in the early stages of design before API implementation.
+@end itemize
+
+Relying on the compiler ensures that the HTML output corresponds exactly with
+the actual implementation, which may rely on implicit, rather than explicit,
+source code. For example, the javadoc command documents default constructors
+that are present in the compiled class files but not in the source code.
+
+In many cases, the @command{javadoc} command lets you generate documentation for
+source files with incomplete or erroneous code.  You can generate documentation
+before any debugging and troubleshooting is done.  The @command{javadoc} command
+does primitive checking of documentation comments.
+
+When the @command{javadoc} command builds its internal structure for the
+documentation, it loads all referenced classes.  Because of this, the
+@command{javadoc} command must be able to find all referenced classes, and
+whether they're bootstrap classes, extensions, or user classes.
+
+@c _____________________________________
+
+@node Customizing @command{javadoc} Output with Doclets
+@subsubsection Customizing @command{javadoc} Output with Doclets
+@cindex customizing @command{javadoc} output, Doclets
+@cindex @file{Standard Doclet}
+@cindex custom doclets
+
+You can customize the content and format of the @command{javadoc} command output
+with @code{doclets}.  The @command{javadoc} command has a default built-in
+@code{doclet}, called the @file{Standard Doclet}, that generates HTML-formatted
+API documentation.  You can write your own @code{doclet} to generate HTML, XML,
+MIF, RTF or whatever output format you want.
+
+When a custom @code{doclet} isn't specified with the @option{-doclet} option,
+the @command{javadoc} command uses the default @file{Standard Doclet}.  The
+@command{javadoc} command has several options that are available regardless of
+which @code{doclet} is being used.  The @file{Standard Doclet} adds a
+supplementary set of command-line options.
+
+The @command{javadoc} tool supports documentation comments in module
+declarations.  It has command-line options, such as
+
+@itemize
+@item
+@option{--module-path},
+@item
+@option{--upgrade-module-path}, or
+@item
+@option{--module-source-path}
+@end itemize
+
+@noindent
+to configure the set of modules to be documented, and generates a new summary
+page for any modules being documented.  The module-related options are available
+for generating documentation.
+
+@c _____________________________________
+
+@node Doclet Core Options
+@subsubsection Doclet Core Options
+@cindex doclet core options
+
+The following options are the @dfn{core options} that are available to all
+doclets:
+
+@table @option
+@item --add-modules module(,module)*
+Specifies the root modules to resolve in addition to the initial modules, or all
+modules on the module path if @code{<module>} is @env{ALL-MODULE-PATH}.
+@item --add-exports module/package=other-module(,other-module)*
+Specifies a package that's to be considered as exported from its defining module
+to additional modules, or to all unnamed modules if @code{other-module} is
+@env{ALL-UNNAMED}.
+@item --add-reads module/package=other-module(,other-module)
+Specifies additional modules to be considered as required by a given
+module. @code{other-module} is @env{ALL-UNNAMED} to require the unnamed module.
+@item -bootclasspath classpathlist
+Specifies the paths where the boot classes reside. These are typically the Java
+platform classes.  The @code{bootclasspath} is part of the search path that the
+@command{javadoc} command uses to look up source and class files.@footnote{The
+@option{-bootclasspath} option is only allowed if you are working to generate
+documentation for older versions of the Java platform, such as using JDK 6, 7,
+or 8 for @option{-source}, @option{-target}, or @option{--release}.}
+
+To separate directories in the classpathlist parameters, use one of the
+following delimiters:
+
+@table @file
+@item Oracle Solaris, Linux, and macOS:
+colon (@kbd{:})
+@item Windows
+semicolon (@kbd{;})
+@end table
+
+@item -breakiterator
+Uses the internationalized sentence boundary of @file{java.text.BreakIterator}
+to determine the end of the first sentence in the main description of a package,
+class, or member for English.  All other locales already use the
+@file{BreakIterator} class, rather than an English language, locale-specific
+algorithm.  The first sentence is copied to the package, class, or member
+summary and to the alphabetic index.  The @file{BreakIterator} class is used to
+determine the end of a sentence for all languages except for English as follows:
+@itemize
+@item
+English default sentence-break algorithm: Stops at a period followed by a space
+or an HTML block tag, such as @samp{<P>}.
+@item
+Break iterator sentence-break algorithm: Stops at a period, question mark, or
+exclamation point followed by a space when the next word starts with a capital
+letter.  This is meant to handle most abbreviations (such as "The serial no. is
+valid", but won't handle "Mr. Smith").  The @option{-breakiterator} option
+doesn't stop at HTML tags or sentences that begin with numbers or symbols.  The
+algorithm stops at the last period in @file{../filename}, even when it's
+embedded in an HTML tag.
+@item
+A question mark always ends the first sentence: If a double quotation mark
+follows the question mark, then the double quotation mark also gets included in
+the first sentence, but that character then ends the sentence.
+@end itemize
+@item -classpath path or --class-path path or -cp path
+Specifies the paths where the @command{javadoc} command searches for referenced
+classes.  These are the documented classes plus any classes referenced by those
+classes.
+
+@env{CLASSPATH} is the environment variable that provides the path that the
+@command{javadoc} command uses to find user class files.  This environment
+variable is overridden by the @option{-classpath} option.  To separate
+directories, use one of the following delimiters: a semicolon for Windows or a
+colon for Oracle Solaris.
+
+The @command{javadoc} command searches all subdirectories of the specified
+paths.
+
+If you omit @option{-sourcepath}, then the @command{javadoc} command uses
+@option{-classpath} to find the source files and class files (for backward
+compatibility).  If you want to search for source and class files in separate
+paths, then use both @option{-sourcepath} and @option{-classpath}.
+
+For example, if you want to document @file{com.mypackage}, whose source files
+reside in the directory @file{/home/user/src/com/mypackage}, and if this package
+relies on a library in @file{/home/user/lib}, then you use the following
+command:
+
+@example
+javadoc -sourcepath /home/user/src -classpath /home/user/lib com.mypackage
+@end example
+
+Similar to other tools, if you don't specify @option{-classpath}, then the
+@command{javadoc} command uses the @env{CLASSPATH} environment variable when
+it's set.  If both aren't set, then the @command{javadoc} command searches for
+classes from the current directory.
+
+A class path element that contains a base name of @kbd{*} is considered
+equivalent to specifying a list of all the files in the directory with the
+extension @file{.jar} or @file{.JAR}.
+
+For example, if the directory @file{mydir} contains @file{a.jar} and
+@file{b.jar}, then the class path element @file{foo/*} is expanded to a
+@file{a.jar:b.JAR}, except that the order of JAR files is unspecified.  All JAR
+files in the specified directory including hidden files are included in the
+list.  A class path entry that consists of @kbd{*} expands to a list of all the
+JAR files in the current directory.  The @env{CLASSPATH} environment variable is
+similarly expanded.  Any class path wildcard expansion occurs before the Java
+Virtual Machine (JVM) starts.  No Java program ever sees unexpanded wild cards
+except by querying the environment, for example, by calling @code{System.getenv
+("CLASSPATH")}.
+
+@item -doclet class
+@item -docletpath path
+@item -encoding name
+@item -exclude pkglist
+@item --expand-requires value
+@item -extdirs dirlist
+@item -help OR --help
+@item -J flag
+@item --limit-modules module(,module)*
+@item -locale name
+@item --module module(,module)*
+@item --module-path path OR -p path
+@item --module-source-path path
+@item -package
+@item --patch-module module=file(file*)
+@item -private
+@item -protected
+@item -public
+@item -quiet
+@item --release release
+@item --show-members value
+@item --show-module-contents value
+@item --show-packages value
+@item --show-types value
+@item -source release
+@item --source-path path OR -sourcepath path
+@item -subpackages subpkglist
+@item --system jdk
+@item --upgrade-module-path path
+@item -verbose
+@item —X
+@item -Xmaxerrs number
+@item -Xmaxwarns number
+@item -Xold
+@item -javafx
+
+@end table
+
+
+
+
+
+
+@c .....................................
+
+@node Standard Doclet
+@subsection Standard Doclet
+@cindex Standard Doclet
+
+
+@c .....................................
+
+@node Examples Javadoc Command
+@subsection Examples of Running the Javadoc Command
+@cindex examples javadoc command
+@cindex javadoc command examples
 
 
 

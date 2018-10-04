@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Process Source Files (About Java SE 9)</title>
+
+<meta name="description" content="Process Source Files (About Java SE 9)">
+<meta name="keywords" content="Process Source Files (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Javadoc-Doclets.html#Javadoc-Doclets" rel="up" title="Javadoc Doclets">
+<link href="Processing-Links.html#Processing-Links" rel="next" title="Processing Links">
+<link href="Conformance.html#Conformance" rel="prev" title="Conformance">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Process-Source-Files"></a>
+<div class="header">
+<p>
+Next: <a href="Processing-Links.html#Processing-Links" accesskey="n" rel="next">Processing Links</a>, Previous: <a href="Conformance.html#Conformance" accesskey="p" rel="prev">Conformance</a>, Up: <a href="Javadoc-Doclets.html#Javadoc-Doclets" accesskey="u" rel="up">Javadoc Doclets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Process-Source-Files-1"></a>
+<h4 class="subsubsection">A.5.1.3 Process Source Files</h4>
+
+<p>The <code>javadoc</code> command processes files that end in the source file
+extension and other files described in Source Files.  If you run the javadoc
+command by passing in individual source file names, then you can determine
+exactly which source files are processed.  However, that isn&rsquo;t how most
+developers want to work because it&rsquo;s simpler to pass in package names.
+</p>
+<p>The <code>javadoc</code> command can be run three ways, without explicitly
+specifying the source file names.
+</p>
+<ol>
+<li> You can pass in package names,
+</li><li> use the <samp>-subpackages</samp> option, or
+</li><li> use wild cards with source file names.
+</li></ol>
+
+<p>In these cases, the <code>javadoc</code> command processes a source file only when
+the file fulfills all of the following requirements:
+</p>
+<ul>
+<li> The file name prefix (with <code>.java</code> removed) is a valid class name.
+</li><li> The path name relative to the root of the source tree is a valid package name
+after the separators are converted to dots.
+</li><li> The package statement contains the valid package name.
+</li></ul>
+
+
+
+
+
+</body>
+</html>

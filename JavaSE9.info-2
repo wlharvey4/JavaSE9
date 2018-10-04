@@ -1,381 +1,6 @@
 This is JavaSE9.info, produced by makeinfo version 6.5 from
 JavaSE9.texi.
 
-
-File: JavaSE9.info,  Node: Buffered Reader Demo,  Next: BufferedWriter,  Prev: BufferedReader,  Up: Character Streams
-
-15.8.8 Buffered Reader Demo
----------------------------
-
-This example reworks the 'BufferedInputStream' example (*note Buffered
-Input Example::) so that it uses a 'BufferedReader' character stream
-rather than a buffered byte stream.  It uses the 'mark()' and
-'reset()' methods to parse a stream for the HTML-entity reference for
-the copyright symbol.  Such a reference begins with an ampersand ('&')
-and ends with a semicolon (';') without any intervening whitespace.
-The sample has two ampersands to show the case where the 'reset()'
-happens and where it does not.
-
-=============================================================================
-
-{'BufferedReaderDemo.java'} ==
-     <Import java.io>
-     class BufferedReaderDemo {
-       public static void main (String[] args) throws IOException {
-
-         <BufferedReaderDemo Instance Variables>
-
-         <BufferedReaderDemo TryWithResources BufferedReader>
-         <Catch IOException>
-
-       }
-     }
-
-
-The following table lists called chunk definition points.
-Chunk name                First definition point
--------------------------------------------------------------------------
-<BufferedReaderDemo       See
-Instance Variables>       *note BufferedReaderDemo-Instance-Variables::.
-<BufferedReaderDemo       See
-TryWithResources          *note BufferedReaderDemo-TryWithResources-BufferedReader::.
-BufferedReader>
-<Catch IOException>       See *note Catch-IOException::.
-<Import java.io>          See *note Import-java-io::.
-
-* Menu:
-
-* BufferedReaderDemo Instance Variables::
-* BufferedReaderDemo Buffer::
-* BufferedReaderDemo TryWithResources BufferedReader::
-
-
-File: JavaSE9.info,  Node: BufferedReaderDemo Instance Variables,  Next: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
-
-15.8.8.1 BufferedReaderDemo Instance Variables
-..............................................
-
-The String is copied directly from the prior implementation.
-
-=========================================================================
-
-<BufferedReaderDemo Instance Variables> ==
-     <BufferedInputStreamDemo String>
-     <BufferedReaderDemo Buffer>
-
-
-This chunk is called by {'BufferedReaderDemo.java'}; see its first
-definition at *note BufferedReaderDemo-java::.
-
-The following table lists called chunk definition points.
-Chunk name                First definition point
--------------------------------------------------------------------------
-<BufferedInputStreamDemo  See *note BufferedInputStreamDemo-String::.
-String>
-<BufferedReaderDemo       See *note BufferedReaderDemo-Buffer::.
-Buffer>
-
-
-File: JavaSE9.info,  Node: BufferedReaderDemo Buffer,  Next: BufferedReaderDemo TryWithResources BufferedReader,  Prev: BufferedReaderDemo Instance Variables,  Up: Buffered Reader Demo
-
-15.8.8.2 BufferedReaderDemo Buffer
-..................................
-
-Notice that this implementation uses a 'char' buffer, with a
-'getChars()' method to transfer the string characters, while the
-'BufferedInputStream' implementation uses a 'byte' buffer, and a
-'getBytes()' method to transfer the string bytes.  *Note
-BufferedInputStreamDemo Buffer::.
-
-=========================================================================
-
-<BufferedReaderDemo Buffer> ==
-     char buf[] = new char[s.length()];
-     s.getChars(0, s.length(), buf, 0);
-
-
-This chunk is called by <BufferedReaderDemo Instance Variables>; see
-its first definition at *note BufferedReaderDemo-Instance-Variables::.
-
-
-File: JavaSE9.info,  Node: BufferedReaderDemo TryWithResources BufferedReader,  Prev: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
-
-15.8.8.3 BufferedReaderDemo TryWithResources BufferedReader
-...........................................................
-
-Notice that the Switch code is identical to the byte stream example.
-
-==========================================================================
-
-<BufferedReaderDemo TryWithResources BufferedReader> ==
-     try ( BufferedReader f = new BufferedReader(in) ) {
-       while ( (c = f.read()) != -1 ) {
-         <BufferedInputStreamDemo Switch on Character>
-       }
-     }
-
-
-This chunk is called by {'BufferedReaderDemo.java'}; see its first
-definition at *note BufferedReaderDemo-java::.
-
-The called chunk <BufferedInputStreamDemo Switch on Character> is
-first defined at *note BufferedInputStreamDemo-Switch-on-Character::.
-
-
-File: JavaSE9.info,  Node: BufferedWriter,  Next: PushbackReader,  Prev: Buffered Reader Demo,  Up: Character Streams
-
-15.8.9 'BufferedWriter'
------------------------
-
-A 'BufferedWriter' is a 'Writer' that buffers output.  Using a
-'BufferedWriter' can improve performance by reducing the number of
-times data is actually phyiscally written to the output device.  A
-'BufferedWriter' has these constructors:
-
-     BufferedWriter (Writer outputStream)
-     BufferedWriter (Writer outputStream, int bufSize)
-
-
-File: JavaSE9.info,  Node: PushbackReader,  Next: PrintWriter,  Prev: BufferedWriter,  Up: Character Streams
-
-15.8.10 'PushbackReader'
-------------------------
-
-
-File: JavaSE9.info,  Node: PrintWriter,  Prev: PushbackReader,  Up: Character Streams
-
-15.8.11 'PrintWriter'
----------------------
-
-
-File: JavaSE9.info,  Node: Console Class,  Next: Serialization,  Prev: Character Streams,  Up: java.io --- Input/Output
-
-15.9 The Console Class
-======================
-
-
-File: JavaSE9.info,  Node: Serialization,  Next: Stream Benefits,  Prev: Console Class,  Up: java.io --- Input/Output
-
-15.10 Serialization
-===================
-
-"Serialization" is the process of writing the state of an object to a
-byte stream.  This is useful when you want to save the state of your
-program to a persistent storage area, such as a file.  At a later
-time, you may restore these objects by using the process of
-deserialization.
-
-   Assume that an object to be serialized has references to other
-objects, which, in turn, have references to still more objects.  This
-set of objects and the relationships among them form a directed graph.
-There may also be circular references within this object graph.
-Objects may also contain references to themselves.  The object
-serialization and deserialization facilities have been designed to
-work correctly in these scenarios.  If you attempt to serialize an
-object at the top of an object graph, all of the other referenced
-objects are recurseively located and serialized.  Similarly, during
-the process of deserialization, all of these objects and their
-references are correctly restored.
-
-* Menu:
-
-* Serializable::
-* Externalizable::
-* ObjectOutput::
-* ObjectOutputStream::
-* ObjectInput::
-* ObjectInputStream::
-* Serializable Example::
-
-
-File: JavaSE9.info,  Node: Serializable,  Next: Externalizable,  Up: Serialization
-
-15.10.1 'Serializable'
-----------------------
-
-Only an object that implements the 'Serializable' interface can be
-saved and restored by the serialization facilities.  The
-'Serializable' interface defines no members.  It is simply used to
-indicate that a class may be serialized.  If a class is serializable,
-all of its subclasses are also serializable.
-
-   Variables that are declared as 'transient' are not saved by the
-serialization facilities.  Also 'static' variables are not saved.
-
-
-File: JavaSE9.info,  Node: Externalizable,  Next: ObjectOutput,  Prev: Serializable,  Up: Serialization
-
-15.10.2 'Externalizable'
-------------------------
-
-The Java facilities for serialization and deserialization have been
-designed so that much of the work to save and restore the state of an
-object occurs automatically.  However, there are cases in which the
-programmer may need to have control over these processes.  The
-'Externalizable' interface is designed for these sitautions.
-
-   The 'Externalizable' interface defines these two methods:
-
-     void readExternal (ObjectInput inStream) throws IOException, ClassNotFoundException
-     void writeExternal (ObjectOutput outStream throws IOException
-
-
-File: JavaSE9.info,  Node: ObjectOutput,  Next: ObjectOutputStream,  Prev: Externalizable,  Up: Serialization
-
-15.10.3 'ObjectOutput'
-----------------------
-
-
-File: JavaSE9.info,  Node: ObjectOutputStream,  Next: ObjectInput,  Prev: ObjectOutput,  Up: Serialization
-
-15.10.4 'ObjectOutputStream'
-----------------------------
-
-
-File: JavaSE9.info,  Node: ObjectInput,  Next: ObjectInputStream,  Prev: ObjectOutputStream,  Up: Serialization
-
-15.10.5 'ObjectInput'
----------------------
-
-
-File: JavaSE9.info,  Node: ObjectInputStream,  Next: Serializable Example,  Prev: ObjectInput,  Up: Serialization
-
-15.10.6 'ObjectInputStream'
----------------------------
-
-
-File: JavaSE9.info,  Node: Serializable Example,  Prev: ObjectInputStream,  Up: Serialization
-
-15.10.7 A Serializable Example
-------------------------------
-
-
-File: JavaSE9.info,  Node: Stream Benefits,  Prev: Serialization,  Up: java.io --- Input/Output
-
-15.11 Stream Benefits
-=====================
-
-
-File: JavaSE9.info,  Node: java.nio --- NIO,  Next: Networking,  Prev: java.io --- Input/Output,  Up: Top
-
-16 Exploring NIO
-****************
-
-
-File: JavaSE9.info,  Node: Networking,  Next: Event Handling,  Prev: java.nio --- NIO,  Up: Top
-
-17 Networking
-*************
-
-
-File: JavaSE9.info,  Node: Event Handling,  Next: AWT,  Prev: Networking,  Up: Top
-
-18 Event Handling
-*****************
-
-
-File: JavaSE9.info,  Node: AWT,  Next: AWT Controls,  Prev: Event Handling,  Up: Top
-
-19 AWT: Working with Windows, Graphics, and Text
-************************************************
-
-
-File: JavaSE9.info,  Node: AWT Controls,  Next: Images,  Prev: AWT,  Up: Top
-
-20 Using AWT Controls, Layout Managers, and Menus
-*************************************************
-
-
-File: JavaSE9.info,  Node: Images,  Next: Concurrency,  Prev: AWT Controls,  Up: Top
-
-21 Images
-*********
-
-
-File: JavaSE9.info,  Node: Concurrency,  Next: Streams API,  Prev: Images,  Up: Top
-
-22 The Concurrency Utilities
-****************************
-
-
-File: JavaSE9.info,  Node: Streams API,  Next: Regular Expressions,  Prev: Concurrency,  Up: Top
-
-23 The Stream API
-*****************
-
-
-File: JavaSE9.info,  Node: Regular Expressions,  Next: Reflection,  Prev: Streams API,  Up: Top
-
-24 Regular Expressions
-**********************
-
-
-File: JavaSE9.info,  Node: Reflection,  Next: Introducing Swing,  Prev: Regular Expressions,  Up: Top
-
-25 Reflection
-*************
-
-"Reflection" is the ability of software to analyze or modify itself at
-runtime rather than at compile time.  This is provided by the
-'java.lang.reflect' package and elements in 'Class'.  Beginning with
-JDK 9, 'java.lang.reflect' is part of the 'java.base' module.
-Reflection allows you to analyze a software component and describe its
-capabilities dynamcically at run-time rather than at compile time.
-For example, by using reflection, you can determine what methods,
-constructors, and fields a class supports.
-
-Drawbacks of Reflection
-=======================
-
-Because reflection is dynamic, the java virtual machine is unable to
-make certain optimizations and could therefor run slower.  Also, since
-reflection allows code to perform operations that would be illegal in
-non-reflective code, such as accessing private fields and methods, the
-use of reflection can result in unexpected behavior.  Reflection
-breaks abstractions.
-
-* Menu:
-
-* java.lang.reflect Package::
-* Classes and Reflection::
-* Members and Reflection::
-* Arays and Enumerated Types and Reflection::
-
-
-File: JavaSE9.info,  Node: java.lang.reflect Package,  Next: Classes and Reflection,  Up: Reflection
-
-25.1 'java.lang.reflect' Package
-================================
-
-This package provides classes and interfaces for obtaining reflective
-information about classes and objects.  Reflection allows programmatic
-access to information about the fields, methods and constructors of
-loaded classes, and the use of reflected fields, methods, and
-constructors to operate on their underlying counterparts, within
-encapsulation and security restrictions.
-
-   The package 'java.lang.reflect' includes several interfaces.  Of
-special interest is 'Member', which defines methods that allow you to
-get information abouta field, constructor, or method of a class.
-There are also ten classes in this package.
-
-   Classes in this package, along with java.lang.Class accommodate
-applications such as debuggers, interpreters, object inspectors, class
-browsers, and services such as Object Serialization and JavaBeans that
-need access to either the public members of a target object (based on
-its runtime class) or the members declared by a given class.
-
-   Note that none of the classes in 'java.lang.reflect' offer any
-public constructors.  All reflection interactions must go through
-'java.lang.Class'.  Note also that 'java.lang.Class' does not offer
-any public constructors.  Instances of this class are created by the
-Java Virtual Machine.
-
-* Menu:
-
-* Classes Defined in java.lang.reflect::
-* Interfaces Defined in java.lang.reflect::
-* Reflection Demonstration::
 
 
 File: JavaSE9.info,  Node: Classes Defined in java.lang.reflect,  Next: Interfaces Defined in java.lang.reflect,  Up: java.lang.reflect Package
@@ -1385,13 +1010,13 @@ File: JavaSE9.info,  Node: Java Beans,  Next: Servlets,  Prev: Introducing JavaF
 *************
 
 
-File: JavaSE9.info,  Node: Servlets,  Next: Documentation Comments,  Prev: Java Beans,  Up: Top
+File: JavaSE9.info,  Node: Servlets,  Next: javadoc,  Prev: Java Beans,  Up: Top
 
 33 Introducing Servlets
 ***********************
 
 
-File: JavaSE9.info,  Node: Documentation Comments,  Next: Java Web Start,  Prev: Servlets,  Up: Top
+File: JavaSE9.info,  Node: javadoc,  Next: Java Web Start,  Prev: Servlets,  Up: Top
 
 Appendix A Using Java's Documentation Comments
 **********************************************
@@ -1415,9 +1040,10 @@ JDK 9,m 'javadoc' includes support for modules.
 * Documentation Comment General Form::
 * What javadoc Outputs::
 * Documentation Comments Example::
+* javadoc Command::
 
 
-File: JavaSE9.info,  Node: javadoc Documentation Tags,  Next: Documentation Comment General Form,  Up: Documentation Comments
+File: JavaSE9.info,  Node: javadoc Documentation Tags,  Next: Documentation Comment General Form,  Up: javadoc
 
 A.1 'javadoc' Documentation Tags
 ================================
@@ -1820,7 +1446,7 @@ option when executing 'javadoc' in order for the '@version' field to
 be included in the HTML documentation.
 
 
-File: JavaSE9.info,  Node: Documentation Comment General Form,  Next: What javadoc Outputs,  Prev: javadoc Documentation Tags,  Up: Documentation Comments
+File: JavaSE9.info,  Node: Documentation Comment General Form,  Next: What javadoc Outputs,  Prev: javadoc Documentation Tags,  Up: javadoc
 
 A.2 The General Form of a Documentation Comment
 ===============================================
@@ -1834,7 +1460,7 @@ of the same type should be grouped together.  In-line tags (thse that
 being with a brace ('{') can be used within any description.
 
 
-File: JavaSE9.info,  Node: What javadoc Outputs,  Next: Documentation Comments Example,  Prev: Documentation Comment General Form,  Up: Documentation Comments
+File: JavaSE9.info,  Node: What javadoc Outputs,  Next: Documentation Comments Example,  Prev: Documentation Comment General Form,  Up: javadoc
 
 A.3 What 'javadoc' Outputs
 ==========================
@@ -1847,7 +1473,7 @@ Other HTML files can be generated.  Beginning with JDK 9, a search box
 feature is also included.
 
 
-File: JavaSE9.info,  Node: Documentation Comments Example,  Prev: What javadoc Outputs,  Up: Documentation Comments
+File: JavaSE9.info,  Node: Documentation Comments Example,  Next: javadoc Command,  Prev: What javadoc Outputs,  Up: javadoc
 
 A.4 An Example that Uses Documentatation Comments
 =================================================
@@ -1965,12 +1591,8 @@ Method-Body>              *note SquareNum---square---Method--Body::.
 <SquareNum--square()      See
 Method-Documentation>     *note SquareNum---square---Method--Documentation::.
 
-* Menu:
-
-* SquareNum---square() Method Doc and Body::
-
 
-File: JavaSE9.info,  Node: SquareNum---square() Method Doc and Body,  Up: SquareNum---square() Method
+File: JavaSE9.info,  Node: SquareNum---square() Method Doc and Body
 
 SquareNum--square() Method Doc and Body
 .......................................
@@ -2119,7 +1741,417 @@ This chunk is called by <SquareNum--main() Method>; see its first
 definition at *note SquareNum---main---Method::.
 
 
-File: JavaSE9.info,  Node: Java Web Start,  Next: JShell,  Prev: Documentation Comments,  Up: Top
+File: JavaSE9.info,  Node: javadoc Command,  Prev: Documentation Comments Example,  Up: javadoc
+
+A.5 'javadoc' Command
+=====================
+
+The 'javadoc' command-line synopsis is
+
+javadoc [options] [packagenames] [sourcefiles] [@files]
+
+   The options can either be 'Doclet' options or 'Standard Doclet'
+options.  The 'javadoc' command can also be run programmatically.
+
+* Menu:
+
+* Javadoc Doclets::
+* Standard Doclet::
+* Examples Javadoc Command::
+
+
+File: JavaSE9.info,  Node: Javadoc Doclets,  Next: Standard Doclet,  Up: javadoc Command
+
+A.5.1 Javadoc Doclets
+---------------------
+
+You use the 'javadoc' tool and its options to generate HTML pages of
+API documentation from Java source files.
+
+   The 'javadoc' command uses doclets to determine its output and the
+default Standard Doclet unless a custom doclet is specified with the
+'-doclet' option.  While option names are not case-sensitive, their
+arguments are.
+
+Synopsis
+--------
+
+     javadoc  [packages|source-files] [options][@files]
+
+packages
+........
+
+Names of packages that you want to document, separated by spaces, for
+example 'java.lang java.lang.reflect java.awt'.  If you want to also
+document the subpackages, then use the '-subpackages' option to
+specify them.
+
+   By default, the 'javadoc' command looks for the specified packages
+in the current directory and subdirectories.  Use the '-sourcepath'
+option to specify the list of directories where to look for packages.
+
+source-files
+............
+
+Names of Java source files that you want to document, separated by
+spaces, for example, 'Class.java Object.java Button.java'.  By
+default, the 'javadoc' command looks for the specified classes in the
+current directory.  However, you can specify the full path to the
+class file and use wildcard characters, for example
+'/home/src/java/awt/Graphics*.java'.  You can also specify the path
+relative to the current directory.
+
+options
+.......
+
+Command-line options, separated by spaces.
+
+@files
+......
+
+Names of files that contain a list of 'javadoc' command options,
+package names, and source file names in any order.
+
+* Menu:
+
+* Description::
+* Conformance::
+* Process Source Files::
+* Processing Links::
+* Processing Details::
+* Customizing javadoc Output with Doclets::
+* Doclet Core Options::
+
+
+File: JavaSE9.info,  Node: Description,  Next: Conformance,  Up: Javadoc Doclets
+
+A.5.1.1 Description
+...................
+
+The 'javadoc' command parses the declarations and documentation
+comments in a set of Java source files and produces a corresponding
+set of HTML pages that describe (by default)
+
+   * the public and protected classes,
+   * nested classes (but not anonymous inner classes),
+   * interfaces,
+   * constructors,
+   * methods, and
+   * fields.
+
+   You can use the 'javadoc' command to generate the
+   * API documentation or
+   * the implementation documentation
+
+   for a set of source files.
+
+   You can run the 'javadoc' command on entire packages, individual
+source files, or both.  When documenting entire packages, you can use
+either the '-subpackages' option to recursively traverse a directory
+and its subdirectories, or to pass in an explicit list of package
+names.  When you document individual source files, pass in a list of
+Java source file names.
+
+
+File: JavaSE9.info,  Node: Conformance,  Next: Process Source Files,  Prev: Description,  Up: Javadoc Doclets
+
+A.5.1.2 Conformance
+...................
+
+The Standard Doclet does not validate the content of documentation
+comments for conformance, nor does it attempt to correct any errors in
+documentation comments.
+
+   The Standard Doclet does provide the 'doclint' feature to help
+developers detect common problems in documentation comments.
+
+
+File: JavaSE9.info,  Node: Process Source Files,  Next: Processing Links,  Prev: Conformance,  Up: Javadoc Doclets
+
+A.5.1.3 Process Source Files
+............................
+
+The 'javadoc' command processes files that end in the source file
+extension and other files described in Source Files.  If you run the
+javadoc command by passing in individual source file names, then you
+can determine exactly which source files are processed.  However, that
+isn't how most developers want to work because it's simpler to pass in
+package names.
+
+   The 'javadoc' command can be run three ways, without explicitly
+specifying the source file names.
+
+  1. You can pass in package names,
+  2. use the '-subpackages' option, or
+  3. use wild cards with source file names.
+
+   In these cases, the 'javadoc' command processes a source file only
+when the file fulfills all of the following requirements:
+
+   * The file name prefix (with '.java' removed) is a valid class
+     name.
+   * The path name relative to the root of the source tree is a valid
+     package name after the separators are converted to dots.
+   * The package statement contains the valid package name.
+
+
+File: JavaSE9.info,  Node: Processing Links,  Next: Processing Details,  Prev: Process Source Files,  Up: Javadoc Doclets
+
+A.5.1.4 Processing Links
+........................
+
+During a run, the 'javadoc' command adds cross-reference links to
+package, class, and member names that are being documented as part of
+that run.  Links appear in the following places:
+
+   * Declarations (return types, argument types, and field types)
+   * See Also sections that are generated from @see tags
+   * Inline text generated from {@link} tags
+   * Exception names generated from @throws tags
+   * 'Specified by' links to interface members and 'Overrides' links
+     to class members
+   * Summary tables listing packages, classes, and members
+   * Package and class inheritance trees
+   * The index
+
+
+File: JavaSE9.info,  Node: Processing Details,  Next: Customizing javadoc Output with Doclets,  Prev: Processing Links,  Up: Javadoc Doclets
+
+A.5.1.5 Processing Details
+..........................
+
+The 'javadoc' command produces one complete document every time it
+runs.  It doesn't perform incremental builds that modify or directly
+incorporate the results from earlier runs.  However, the 'javadoc'
+command can link to results from other runs.
+
+Reliance Upon 'javac' Compiler
+..............................
+
+   * The 'javadoc' command implementation requires and relies on the
+     Java compiler.
+   * The 'javadoc' command calls part of the 'javac' command to
+     compile the declarations and ignore the member implementations.
+   * The 'javadoc' command builds a rich internal representation of
+     the classes that includes the class hierarchy and use
+     relationships to generate the HTML documentation.
+   * The 'javadoc' command also picks up user-supplied documentation
+     from documentation comments in the source code.
+   * The 'javadoc' command can run on source files that are pure stub
+     files with no method bodies.  This means that you can write
+     documentation comments and run the javadoc command in the early
+     stages of design before API implementation.
+
+   Relying on the compiler ensures that the HTML output corresponds
+exactly with the actual implementation, which may rely on implicit,
+rather than explicit, source code.  For example, the javadoc command
+documents default constructors that are present in the compiled class
+files but not in the source code.
+
+   In many cases, the 'javadoc' command lets you generate
+documentation for source files with incomplete or erroneous code.  You
+can generate documentation before any debugging and troubleshooting is
+done.  The 'javadoc' command does primitive checking of documentation
+comments.
+
+   When the 'javadoc' command builds its internal structure for the
+documentation, it loads all referenced classes.  Because of this, the
+'javadoc' command must be able to find all referenced classes, and
+whether they're bootstrap classes, extensions, or user classes.
+
+
+File: JavaSE9.info,  Node: Customizing javadoc Output with Doclets,  Next: Doclet Core Options,  Prev: Processing Details,  Up: Javadoc Doclets
+
+A.5.1.6 Customizing 'javadoc' Output with Doclets
+.................................................
+
+You can customize the content and format of the 'javadoc' command
+output with 'doclets'.  The 'javadoc' command has a default built-in
+'doclet', called the 'Standard Doclet', that generates HTML-formatted
+API documentation.  You can write your own 'doclet' to generate HTML,
+XML, MIF, RTF or whatever output format you want.
+
+   When a custom 'doclet' isn't specified with the '-doclet' option,
+the 'javadoc' command uses the default 'Standard Doclet'.  The
+'javadoc' command has several options that are available regardless of
+which 'doclet' is being used.  The 'Standard Doclet' adds a
+supplementary set of command-line options.
+
+   The 'javadoc' tool supports documentation comments in module
+declarations.  It has command-line options, such as
+
+   * '--module-path',
+   * '--upgrade-module-path', or
+   * '--module-source-path'
+
+to configure the set of modules to be documented, and generates a new
+summary page for any modules being documented.  The module-related
+options are available for generating documentation.
+
+
+File: JavaSE9.info,  Node: Doclet Core Options,  Prev: Customizing javadoc Output with Doclets,  Up: Javadoc Doclets
+
+A.5.1.7 Doclet Core Options
+...........................
+
+The following options are the "core options" that are available to all
+doclets:
+
+'--add-modules module(,module)*'
+     Specifies the root modules to resolve in addition to the initial
+     modules, or all modules on the module path if '<module>' is
+     'ALL-MODULE-PATH'.
+'--add-exports module/package=other-module(,other-module)*'
+     Specifies a package that's to be considered as exported from its
+     defining module to additional modules, or to all unnamed modules
+     if 'other-module' is 'ALL-UNNAMED'.
+'--add-reads module/package=other-module(,other-module)'
+     Specifies additional modules to be considered as required by a
+     given module.  'other-module' is 'ALL-UNNAMED' to require the
+     unnamed module.
+'-bootclasspath classpathlist'
+     Specifies the paths where the boot classes reside.  These are
+     typically the Java platform classes.  The 'bootclasspath' is part
+     of the search path that the 'javadoc' command uses to look up
+     source and class files.(1)
+
+     To separate directories in the classpathlist parameters, use one
+     of the following delimiters:
+
+     'Oracle Solaris, Linux, and macOS:'
+          colon (':')
+     'Windows'
+          semicolon (';')
+
+'-breakiterator'
+     Uses the internationalized sentence boundary of
+     'java.text.BreakIterator' to determine the end of the first
+     sentence in the main description of a package, class, or member
+     for English.  All other locales already use the 'BreakIterator'
+     class, rather than an English language, locale-specific
+     algorithm.  The first sentence is copied to the package, class,
+     or member summary and to the alphabetic index.  The
+     'BreakIterator' class is used to determine the end of a sentence
+     for all languages except for English as follows:
+        * English default sentence-break algorithm: Stops at a period
+          followed by a space or an HTML block tag, such as '<P>'.
+        * Break iterator sentence-break algorithm: Stops at a period,
+          question mark, or exclamation point followed by a space when
+          the next word starts with a capital letter.  This is meant
+          to handle most abbreviations (such as "The serial no.  is
+          valid", but won't handle "Mr.  Smith").  The
+          '-breakiterator' option doesn't stop at HTML tags or
+          sentences that begin with numbers or symbols.  The algorithm
+          stops at the last period in '../filename', even when it's
+          embedded in an HTML tag.
+        * A question mark always ends the first sentence: If a double
+          quotation mark follows the question mark, then the double
+          quotation mark also gets included in the first sentence, but
+          that character then ends the sentence.
+'-classpath path or --class-path path or -cp path'
+     Specifies the paths where the 'javadoc' command searches for
+     referenced classes.  These are the documented classes plus any
+     classes referenced by those classes.
+
+     'CLASSPATH' is the environment variable that provides the path
+     that the 'javadoc' command uses to find user class files.  This
+     environment variable is overridden by the '-classpath' option.
+     To separate directories, use one of the following delimiters: a
+     semicolon for Windows or a colon for Oracle Solaris.
+
+     The 'javadoc' command searches all subdirectories of the
+     specified paths.
+
+     If you omit '-sourcepath', then the 'javadoc' command uses
+     '-classpath' to find the source files and class files (for
+     backward compatibility).  If you want to search for source and
+     class files in separate paths, then use both '-sourcepath' and
+     '-classpath'.
+
+     For example, if you want to document 'com.mypackage', whose
+     source files reside in the directory
+     '/home/user/src/com/mypackage', and if this package relies on a
+     library in '/home/user/lib', then you use the following command:
+
+          javadoc -sourcepath /home/user/src -classpath /home/user/lib com.mypackage
+
+     Similar to other tools, if you don't specify '-classpath', then
+     the 'javadoc' command uses the 'CLASSPATH' environment variable
+     when it's set.  If both aren't set, then the 'javadoc' command
+     searches for classes from the current directory.
+
+     A class path element that contains a base name of '*' is
+     considered equivalent to specifying a list of all the files in
+     the directory with the extension '.jar' or '.JAR'.
+
+     For example, if the directory 'mydir' contains 'a.jar' and
+     'b.jar', then the class path element 'foo/*' is expanded to a
+     'a.jar:b.JAR', except that the order of JAR files is unspecified.
+     All JAR files in the specified directory including hidden files
+     are included in the list.  A class path entry that consists of
+     '*' expands to a list of all the JAR files in the current
+     directory.  The 'CLASSPATH' environment variable is similarly
+     expanded.  Any class path wildcard expansion occurs before the
+     Java Virtual Machine (JVM) starts.  No Java program ever sees
+     unexpanded wild cards except by querying the environment, for
+     example, by calling 'System.getenv ("CLASSPATH")'.
+
+'-doclet class'
+'-docletpath path'
+'-encoding name'
+'-exclude pkglist'
+'--expand-requires value'
+'-extdirs dirlist'
+'-help OR --help'
+'-J flag'
+'--limit-modules module(,module)*'
+'-locale name'
+'--module module(,module)*'
+'--module-path path OR -p path'
+'--module-source-path path'
+'-package'
+'--patch-module module=file(file*)'
+'-private'
+'-protected'
+'-public'
+'-quiet'
+'--release release'
+'--show-members value'
+'--show-module-contents value'
+'--show-packages value'
+'--show-types value'
+'-source release'
+'--source-path path OR -sourcepath path'
+'-subpackages subpkglist'
+'--system jdk'
+'--upgrade-module-path path'
+'-verbose'
+'—X'
+'-Xmaxerrs number'
+'-Xmaxwarns number'
+'-Xold'
+'-javafx'
+
+   ---------- Footnotes ----------
+
+   (1) The '-bootclasspath' option is only allowed if you are working
+to generate documentation for older versions of the Java platform,
+such as using JDK 6, 7, or 8 for '-source', '-target', or '--release'.
+
+
+File: JavaSE9.info,  Node: Standard Doclet,  Next: Examples Javadoc Command,  Prev: Javadoc Doclets,  Up: javadoc Command
+
+A.5.2 Standard Doclet
+---------------------
+
+
+File: JavaSE9.info,  Node: Examples Javadoc Command,  Prev: Standard Doclet,  Up: javadoc Command
+
+A.5.3 Examples of Running the Javadoc Command
+---------------------------------------------
+
+
+File: JavaSE9.info,  Node: Java Web Start,  Next: JShell,  Prev: javadoc,  Up: Top
 
 Appendix B An Overview of Java Web Start
 ****************************************
@@ -2342,7 +2374,7 @@ Chunk name                First definition point
 
 * Menu:
 
-* Makefile Clean ::
+* Makefile Clean::
 * Makefile DistClean::
 * Makefile WorldClean::
 
@@ -2411,9 +2443,9 @@ references.
 
 * Menu:
 
-* File Definitions::            Source files by definition.
-* Code Chunk Definitions::      Code chunks by definition.
-* Code Chunk References::       Code chunks by reference.
+* File Definitions::          Source files by definition.
+* Code Chunk Definitions::    Code chunks by definition.
+* Code Chunk References::     Code chunks by reference.
 
 
 File: JavaSE9.info,  Node: File Definitions,  Next: Code Chunk Definitions,  Up: Code Chunk Summaries
@@ -4554,6 +4586,10 @@ Index
 * Creating Directories:                  Creating Directories.
                                                             (line   6)
 * creating generic method:               Generic Methods.   (line   6)
+* custom doclets:                        Customizing javadoc Output with Doclets.
+                                                            (line   6)
+* customizing javadoc output, Doclets:   Customizing javadoc Output with Doclets.
+                                                            (line   6)
 * data type, enumeration:                Enumerations.      (line   6)
 * DataInputStream:                       DataOutputStream DataInputStream.
                                                             (line   5)
@@ -4581,10 +4617,13 @@ Index
                                                             (line   6)
 * dispatch through an interface:         Interface References.
                                                             (line   6)
+* doclet core options:                   Doclet Core Options.
+                                                            (line   6)
+* Doclets:                               Javadoc Doclets.   (line   6)
+* doclint:                               Conformance.       (line   6)
 * Documentation Comment general form:    Documentation Comment General Form.
                                                             (line   6)
-* Documentation comments:                Documentation Comments.
-                                                            (line   6)
+* Documentation comments:                javadoc.           (line   6)
 * documentation comments example:        Documentation Comments Example.
                                                             (line   6)
 * documentation tags:                    javadoc Documentation Tags.
@@ -4649,6 +4688,8 @@ Index
 * example generic method:                Example of Generic Method.
                                                             (line   6)
 * example, generics:                     Simple Generics Example.
+                                                            (line   6)
+* examples javadoc command:              Examples Javadoc Command.
                                                             (line   6)
 * exceptions for I/O errors:             Demonstration Writing to a File.
                                                             (line   6)
@@ -4813,11 +4854,12 @@ Index
                                                             (line   6)
 * hierarchy, multilevel, creating:       Multilevel Hierarchy.
                                                             (line   6)
+* HTML pages, generate with javadoc:     Javadoc Doclets.   (line   6)
 * I/O:                                   I/O.               (line   6)
 * I/O abstract classes:                  Stream Classes.    (line   6)
 * I/O Basics:                            I/O Basics.        (line   6)
 * I/O Classes and Interfaces:            I/O Classes and Interfaces.
-                                                            (line   6)
+                                                            (line   5)
 * I/O Classes, java.io:                  I/O Classes.       (line   6)
 * I/O Exceptions:                        I/O Exceptions.    (line   6)
 * I/O Interfaces, java.io:               I/O Interfaces.    (line   6)
@@ -4999,8 +5041,11 @@ Index
                                                             (line   5)
 * java.util.function:                    Iterable Interface.
                                                             (line  32)
-* javadoc:                               Documentation Comments.
-                                                            (line   6)
+* javadoc:                               javadoc.           (line   6)
+* javadoc Command:                       javadoc Command.   (line   6)
+* javadoc command examples:              Examples Javadoc Command.
+                                                            (line   5)
+* Javadoc Doclets:                       Javadoc Doclets.   (line   6)
 * javadoc output:                        What javadoc Outputs.
                                                             (line   6)
 * javadoc tags:                          javadoc Documentation Tags.
@@ -5025,8 +5070,7 @@ Index
 * JDK 9:                                 java.util Part 1 --- Collections Framework.
                                                             (line  20)
 * JDK 9 <1>:                             Reflection.        (line   6)
-* JDK 9 modules and javadoc:             Documentation Comments.
-                                                            (line   6)
+* JDK 9 modules and javadoc:             javadoc.           (line   6)
 * JDK 9, package part of module:         Classpath.         (line   6)
 * JDK 9, private interface method:       Private Interface Methods.
                                                             (line   6)
@@ -5332,6 +5376,9 @@ Index
 * stack overun, recursion:               Recursion.         (line   6)
 * stand-alone tags:                      javadoc Documentation Tags.
                                                             (line  45)
+* Standard Doclet:                       Customizing javadoc Output with Doclets.
+                                                            (line   6)
+* Standard Doclet <1>:                   Standard Doclet.   (line   5)
 * standard Java classes, imported implicitly: Importing.    (line  29)
 * static and non-static nested classes:  Nested and Inner Classes.
                                                             (line   6)
@@ -5467,7 +5514,7 @@ Index
 * volative:                              Miscellaneous Java Keywords.
                                                             (line   6)
 * wildcard arguments, generics:          Wildcard Arguments.
-                                                            (line   6)
+                                                            (line   5)
 * wildcard syntax:                       Wildcard Syntax.   (line   6)
 * wildcards, bounded:                    Bounded Wildcards. (line   6)
 * wildcards, motivation:                 Wildcard Motivation.

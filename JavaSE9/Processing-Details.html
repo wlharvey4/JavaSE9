@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Processing Details (About Java SE 9)</title>
+
+<meta name="description" content="Processing Details (About Java SE 9)">
+<meta name="keywords" content="Processing Details (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Javadoc-Doclets.html#Javadoc-Doclets" rel="up" title="Javadoc Doclets">
+<link href="Customizing-javadoc-Output-with-Doclets.html#Customizing-javadoc-Output-with-Doclets" rel="next" title="Customizing javadoc Output with Doclets">
+<link href="Processing-Links.html#Processing-Links" rel="prev" title="Processing Links">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Processing-Details"></a>
+<div class="header">
+<p>
+Next: <a href="Customizing-javadoc-Output-with-Doclets.html#Customizing-javadoc-Output-with-Doclets" accesskey="n" rel="next">Customizing <code>javadoc</code> Output with Doclets</a>, Previous: <a href="Processing-Links.html#Processing-Links" accesskey="p" rel="prev">Processing Links</a>, Up: <a href="Javadoc-Doclets.html#Javadoc-Doclets" accesskey="u" rel="up">Javadoc Doclets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Processing-Details-1"></a>
+<h4 class="subsubsection">A.5.1.5 Processing Details</h4>
+
+<p>The <code>javadoc</code> command produces one complete document every time it
+runs. It doesn&rsquo;t perform incremental builds that modify or directly incorporate
+the results from earlier runs.  However, the <code>javadoc</code> command can link
+to results from other runs.
+</p>
+<a name="Reliance-Upon-javac-Compiler"></a>
+<h4 class="subsubheading">Reliance Upon <code>javac</code> Compiler</h4>
+
+<ul>
+<li> The <code>javadoc</code> command implementation requires and relies on the Java
+compiler.
+</li><li> The <code>javadoc</code> command calls part of the <code>javac</code> command to
+compile the declarations and ignore the member implementations.
+</li><li> The <code>javadoc</code> command builds a rich internal representation of the
+classes that includes the class hierarchy and use relationships to generate the
+HTML documentation.
+</li><li> The <code>javadoc</code> command also picks up user-supplied documentation from
+documentation comments in the source code.
+</li><li> The <code>javadoc</code> command can run on source files that are pure stub files
+with no method bodies. This means that you can write documentation comments and
+run the javadoc command in the early stages of design before API implementation.
+</li></ul>
+
+<p>Relying on the compiler ensures that the HTML output corresponds exactly with
+the actual implementation, which may rely on implicit, rather than explicit,
+source code. For example, the javadoc command documents default constructors
+that are present in the compiled class files but not in the source code.
+</p>
+<p>In many cases, the <code>javadoc</code> command lets you generate documentation for
+source files with incomplete or erroneous code.  You can generate documentation
+before any debugging and troubleshooting is done.  The <code>javadoc</code> command
+does primitive checking of documentation comments.
+</p>
+<p>When the <code>javadoc</code> command builds its internal structure for the
+documentation, it loads all referenced classes.  Because of this, the
+<code>javadoc</code> command must be able to find all referenced classes, and
+whether they&rsquo;re bootstrap classes, extensions, or user classes.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Customizing-javadoc-Output-with-Doclets.html#Customizing-javadoc-Output-with-Doclets" accesskey="n" rel="next">Customizing <code>javadoc</code> Output with Doclets</a>, Previous: <a href="Processing-Links.html#Processing-Links" accesskey="p" rel="prev">Processing Links</a>, Up: <a href="Javadoc-Doclets.html#Javadoc-Doclets" accesskey="u" rel="up">Javadoc Doclets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Javadoc Doclets (About Java SE 9)</title>
+
+<meta name="description" content="Javadoc Doclets (About Java SE 9)">
+<meta name="keywords" content="Javadoc Doclets (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="javadoc-Command.html#javadoc-Command" rel="up" title="javadoc Command">
+<link href="Description.html#Description" rel="next" title="Description">
+<link href="javadoc-Command.html#javadoc-Command" rel="prev" title="javadoc Command">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Javadoc-Doclets"></a>
+<div class="header">
+<p>
+Next: <a href="Standard-Doclet.html#Standard-Doclet" accesskey="n" rel="next">Standard Doclet</a>, Up: <a href="javadoc-Command.html#javadoc-Command" accesskey="u" rel="up">javadoc Command</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Javadoc-Doclets-1"></a>
+<h4 class="subsection">A.5.1 Javadoc Doclets</h4>
+<a name="index-Javadoc-Doclets"></a>
+<a name="index-Doclets"></a>
+<a name="index-HTML-pages_002c-generate-with-javadoc"></a>
+
+<p>You use the <code>javadoc</code> tool and its options to generate HTML pages of API
+documentation from Java source files.
+</p>
+<p>The <code>javadoc</code> command uses doclets to determine its output and the
+default Standard Doclet unless a custom doclet is specified with the
+<samp>-doclet</samp> option.  While option names are not case-sensitive, their
+arguments are.
+</p>
+<a name="Synopsis"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">javadoc  [packages|source-files] [options][@files]
+</pre></div>
+
+<a name="packages"></a>
+<h4 class="subsubheading">packages</h4>
+
+<p>Names of packages that you want to document, separated by spaces, for example
+&lsquo;<samp>java.lang java.lang.reflect java.awt</samp>&rsquo;. If you want to also document the
+subpackages, then use the <samp>-subpackages</samp> option to specify them.
+</p>
+<p>By default, the <code>javadoc</code> command looks for the specified packages in
+the current directory and subdirectories.  Use the <samp>-sourcepath</samp> option
+to specify the list of directories where to look for packages.
+</p>
+<a name="source_002dfiles"></a>
+<h4 class="subsubheading">source-files</h4>
+
+<p>Names of Java source files that you want to document, separated by spaces, for
+example, &lsquo;<samp>Class.java Object.java Button.java</samp>&rsquo;.  By default, the
+<code>javadoc</code> command looks for the specified classes in the current
+directory.  However, you can specify the full path to the class file and use
+wildcard characters, for example &lsquo;<samp>/home/src/java/awt/Graphics*.java</samp>&rsquo;. You
+can also specify the path relative to the current directory.
+</p>
+<a name="options"></a>
+<h4 class="subsubheading">options</h4>
+
+<p>Command-line options, separated by spaces.
+</p>
+<a name="g_t_0040files"></a>
+<h4 class="subsubheading">@files</h4>
+
+<p>Names of files that contain a list of <code>javadoc</code> command options, package
+names, and source file names in any order.
+</p>
+
+
+
+
+</body>
+</html>
