@@ -2,6 +2,54 @@ This is JavaSE9.info, produced by makeinfo version 6.5 from
 JavaSE9.texi.
 
 
+File: JavaSE9.info,  Node: Buffered Reader Demo,  Next: BufferedWriter,  Prev: BufferedReader,  Up: Character Streams
+
+15.8.8 Buffered Reader Demo
+---------------------------
+
+This example reworks the 'BufferedInputStream' example (*note Buffered
+Input Example::) so that it uses a 'BufferedReader' character stream
+rather than a buffered byte stream.  It uses the 'mark()' and
+'reset()' methods to parse a stream for the HTML-entity reference for
+the copyright symbol.  Such a reference begins with an ampersand ('&')
+and ends with a semicolon (';') without any intervening whitespace.
+The sample has two ampersands to show the case where the 'reset()'
+happens and where it does not.
+
+=============================================================================
+
+{'BufferedReaderDemo.java'} ==
+     <Import java.io>
+     class BufferedReaderDemo {
+       public static void main (String[] args) throws IOException {
+
+         <BufferedReaderDemo Instance Variables>
+
+         <BufferedReaderDemo TryWithResources BufferedReader>
+         <Catch IOException>
+
+       }
+     }
+
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<BufferedReaderDemo       See
+Instance Variables>       *note BufferedReaderDemo-Instance-Variables::.
+<BufferedReaderDemo       See
+TryWithResources          *note BufferedReaderDemo-TryWithResources-BufferedReader::.
+BufferedReader>
+<Catch IOException>       See *note Catch-IOException::.
+<Import java.io>          See *note Import-java-io::.
+
+* Menu:
+
+* BufferedReaderDemo Instance Variables::
+* BufferedReaderDemo Buffer::
+* BufferedReaderDemo TryWithResources BufferedReader::
+
+
 File: JavaSE9.info,  Node: BufferedReaderDemo Instance Variables,  Next: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
 
 15.8.8.1 BufferedReaderDemo Instance Variables
@@ -262,7 +310,7 @@ File: JavaSE9.info,  Node: Regular Expressions,  Next: Reflection,  Prev: Stream
 **********************
 
 
-File: JavaSE9.info,  Node: Reflection,  Next: Swing,  Prev: Regular Expressions,  Up: Top
+File: JavaSE9.info,  Node: Reflection,  Next: Introducing Swing,  Prev: Regular Expressions,  Up: Top
 
 25 Reflection
 *************
@@ -1295,15 +1343,803 @@ information on accessing fields, see the Fields section.  *Note
 reflect Fields::
 
 
-File: JavaSE9.info,  Node: Swing,  Next: The Makefile,  Prev: Reflection,  Up: Top
+File: JavaSE9.info,  Node: Introducing Swing,  Next: Exploring Swing,  Prev: Reflection,  Up: Top
 
-26 Introducinvg Swing
-*********************
+26 Introducing Swing
+********************
 
 
-File: JavaSE9.info,  Node: The Makefile,  Next: Code Chunk Summaries,  Prev: Swing,  Up: Top
+File: JavaSE9.info,  Node: Exploring Swing,  Next: Swing Menus,  Prev: Introducing Swing,  Up: Top
 
-Appendix A The Makefile
+27 Exploring Swing
+******************
+
+
+File: JavaSE9.info,  Node: Swing Menus,  Next: Introducing JavaFX,  Prev: Exploring Swing,  Up: Top
+
+28 Introducing Swing Menus
+**************************
+
+
+File: JavaSE9.info,  Node: Introducing JavaFX,  Next: Exploring JavaFX Controls,  Prev: Swing Menus,  Up: Top
+
+29 Introducing JavaFX GUI Programming
+*************************************
+
+
+File: JavaSE9.info,  Node: Exploring JavaFX Controls,  Next: Introducing JavaFX Menus,  Prev: Introducing JavaFX,  Up: Top
+
+30 Exploring JavaFX Controls
+****************************
+
+
+File: JavaSE9.info,  Node: Introducing JavaFX Menus,  Next: Java Beans,  Prev: Exploring JavaFX Controls,  Up: Top
+
+31 Introducing JavaFX Menus
+***************************
+
+
+File: JavaSE9.info,  Node: Java Beans,  Next: Servlets,  Prev: Introducing JavaFX Menus,  Up: Top
+
+32 Java Beans
+*************
+
+
+File: JavaSE9.info,  Node: Servlets,  Next: Documentation Comments,  Prev: Java Beans,  Up: Top
+
+33 Introducing Servlets
+***********************
+
+
+File: JavaSE9.info,  Node: Documentation Comments,  Next: Java Web Start,  Prev: Servlets,  Up: Top
+
+Appendix A Using Java's Documentation Comments
+**********************************************
+
+Java supports three types of comments.
+
+   * '//'
+   * '/* */'
+   * '/** */'
+
+   The third is called a "documwentation comment".  Documentation
+comments allow you to embed information about your program into the
+program itself.  You can then use the 'javadoc' utility progrm to
+extract the information and put it into an HTML file.  Documentation
+comments make it convenient to document your programs.  Beginning with
+JDK 9,m 'javadoc' includes support for modules.
+
+* Menu:
+
+* javadoc Documentation Tags::
+* Documentation Comment General Form::
+* What javadoc Outputs::
+* Documentation Comments Example::
+
+
+File: JavaSE9.info,  Node: javadoc Documentation Tags,  Next: Documentation Comment General Form,  Up: Documentation Comments
+
+A.1 'javadoc' Documentation Tags
+================================
+
+The 'javadoc' utility recognizes several tags, including:
+
+@author            Identifies the author.
+{@code}            Displays information as-is, without processing HTML
+                   styles, in code font.
+@deprecated        Specifies that a program element is deprecated.
+{@docRoot}         Specifies the path to the root directory of the
+                   current documentation.
+@exception         Identifies an exception thrown by a method or
+                   constructor.
+@hidden            Prevents an element from appearing in the
+                   documentation.  (Added by JDK 9.)
+{@index}           Specifies a term for indexing.  (Added by JDK 9.)
+{@inheritDoc}      Inherits a comment from the immediate superclass.
+{@link}            Inserts an in-line link to another topic.
+{@linkplain}       Inserts an in-line link to another topic, but the
+                   link is displayed in a plain-text font.
+{@literal}         Displays information as-is without processing HTML
+                   styles.
+@param             Documents a parameter.
+@provides          Documents a service provided by a module.  (Added
+                   by JDK 9.)
+@return            Doicuments a method's return value.
+@see               Specifies a link to another topic.
+@serial            Documents a default serializable field.
+@serialData        Documents the data written by the 'writeObject()'
+                   or 'writeExternal()' methods.
+@serialField       Dcouments an 'ObjectStreamField' component.
+@since             States the release when a specific change was
+                   introduced.
+@throws            Same as '@exception'.
+@uses              Documents a service needed by a module.  (Added by
+                   JDK 9.)
+{@value}           Displays the value of a constant, which must be a
+                   'static' field.
+@version           Specifies the version of a program element.
+
+Table A.1: The 'javadoc' Tags
+
+   Document tags that begin with an "at" sign '@' are called
+"stand-alone" tags (also called "block" tags), and they must be used
+on their own line.  Tags that begin with a brace, such as '{@code}',
+are called "in-line" tags, and they can be used within a larger
+description.  You may also use other, standard HTML tags in a
+documentation comment.  However, some tags, such as headings, should
+not be used because they disrupt the look of the HTML file produced by
+'javadoc'.
+
+   You can use documentation comments to document classes, interfaces,
+fields, constructors, methods, and modules.  In all cases, the
+documentation comment must immediately prcede the item being
+documented.  Some tags, such as '@see', '@since', and '@deprecated',
+can be used to document any element.  Other tags apply only to the
+relevant elements.
+
+* Menu:
+
+* @author::
+* @code::
+* @deprecated::
+* @docRoot::
+* @exception::
+* @hidden::
+* @index::
+* @inheritDoc::
+* @link::
+* @linkplain::
+* @literal::
+* @provides::
+* @return::
+* @see::
+* @serial::
+* @serialData::
+* @serialField::
+* @since::
+* @throws::
+* @uses::
+* @value::
+* @version::
+
+
+File: JavaSE9.info,  Node: @author,  Next: @code,  Up: javadoc Documentation Tags
+
+A.1.1 '@author'
+---------------
+
+The '@author' tag documents the author of a program element.  It has
+the following syntax:
+
+     @author 'description'
+
+   The description will usually be the name of the author.  You will
+need to specify the '-author' option when executing 'javadoc' in order
+for the '@author' field to be included in the HTML documentation.
+
+
+File: JavaSE9.info,  Node: @code,  Next: @deprecated,  Prev: @author,  Up: javadoc Documentation Tags
+
+A.1.2 '{@code}'
+---------------
+
+The '{@code}' tag enables you to embed text, such as a snippet of
+code, into comment.  That text is then displayed as-is in code font,
+without any furhter processsing, such as HTML rendering.  It has the
+following syntax:
+
+     '{@code 'code-snippet'}'
+
+
+File: JavaSE9.info,  Node: @deprecated,  Next: @docRoot,  Prev: @code,  Up: javadoc Documentation Tags
+
+A.1.3 '@deprecated'
+-------------------
+
+The '@deprecated' tag specifies that a program element is deprecated.
+It is recommended that you include '@see' or '{@link}' tags to inform
+the programmer about available alternatives.  The syntax is:
+
+     @deprecated 'description'
+
+
+File: JavaSE9.info,  Node: @docRoot,  Next: @exception,  Prev: @deprecated,  Up: javadoc Documentation Tags
+
+A.1.4 '{@docRoot}'
+------------------
+
+'{@docRoot}' specifies the path to to the root directory of the
+current documentation.
+
+
+File: JavaSE9.info,  Node: @exception,  Next: @hidden,  Prev: @docRoot,  Up: javadoc Documentation Tags
+
+A.1.5 '@exception'
+------------------
+
+The '@exception' tag describes an exception to a method.  It has the
+following syntax:
+
+     @exception 'exception-name explanation'
+
+   Here, the fully qualified name of the exception is specified by an
+'exception-name' and 'explanation' is a string that describes how the
+exception can occur.  It can be used only in documentation for a
+method or constructor.
+
+
+File: JavaSE9.info,  Node: @hidden,  Next: @index,  Prev: @exception,  Up: javadoc Documentation Tags
+
+A.1.6 '@hidden'
+---------------
+
+The '@hidden' tag prevents an element from appearing in the
+documentation.
+
+
+File: JavaSE9.info,  Node: @index,  Next: @inheritDoc,  Prev: @hidden,  Up: javadoc Documentation Tags
+
+A.1.7 '{@index}'
+----------------
+
+The '{@index}' tag specifies an item that will be indexed and
+returned, and thus found when using the search feature added by JDK 9.
+It has the following syntax:
+
+     { @index 'term usage-str' }
+
+   Here, 'term' is the item (which can be a quoted string) to be
+indexed; 'usage-str' is optional.  Thus, in the following '@exception'
+tag, '{@index}' causes the "error" to be added to the index:
+
+     @exception IOException On input {@index error}
+
+   Note that the word "error" is still displayed as part of the
+description.  Now it is also indexed.  If you include the optional
+'usage-str', then that description will be shown in the index and in
+the search box to indicate how the term is used.
+
+
+File: JavaSE9.info,  Node: @inheritDoc,  Next: @link,  Prev: @index,  Up: javadoc Documentation Tags
+
+A.1.8 '{@inheritDoc}'
+---------------------
+
+This tag inherits a comment from the immediate superclass.
+
+
+File: JavaSE9.info,  Node: @link,  Next: @linkplain,  Prev: @inheritDoc,  Up: javadoc Documentation Tags
+
+A.1.9 '{@link}'
+---------------
+
+The '{@link}' tag prvoides an in-line link to additional information.
+It has the following syntax:
+
+     {@link 'pkg.class#member text'}
+
+   Here, 'pkg.class#member' specifies the name of a class or method to
+which a link is added, and 'text' is the string that is displayed.
+
+
+File: JavaSE9.info,  Node: @linkplain,  Next: @literal,  Prev: @link,  Up: javadoc Documentation Tags
+
+A.1.10 '{@linkplain}'
+---------------------
+
+Inserts an in-line link to another topic.  The link is displayed in
+plain-text font.  Otherwise it is similar to '{@link}'.
+
+
+File: JavaSE9.info,  Node: @literal,  Next: @provides,  Prev: @linkplain,  Up: javadoc Documentation Tags
+
+A.1.11 '{@literal}'
+-------------------
+
+The '{@literal}' tag enables you to embed text into a comment.  That
+text is then displayed as-is, without any further processing, such as
+HTML rendering.  It has the following syntax:
+
+     {@literal 'description'}
+
+   Here, 'description' is the text that is embedded.
+
+
+File: JavaSE9.info,  Node: @param
+
+'@param'
+
+   The '@param' tag documents a parameter.  It has the following
+syntax:
+
+     @param 'parameter-name explanation'
+
+   Here, 'paramter-name' specifies the name of a parameter.  That
+meaning of that parameter is described by 'explanation'.  The '@param'
+tag can be used only in documentation for a method or constructor, or
+a generic class or interface.
+
+
+File: JavaSE9.info,  Node: @provides,  Next: @return,  Prev: @literal,  Up: javadoc Documentation Tags
+
+A.1.12 '@provides'
+------------------
+
+The '@provides' tag documents a service provided by a module.  It has
+the following syntax:
+
+     @provides 'type explanation'
+
+   Here, 'type' specifies a service provider type and 'explanation'
+describes the service provider.
+
+
+File: JavaSE9.info,  Node: @return,  Next: @see,  Prev: @provides,  Up: javadoc Documentation Tags
+
+A.1.13 '@return'
+----------------
+
+The '@return' tag describes the return value of a method.  It has the
+following syntax:
+
+     @return 'explanation'
+
+   Here, 'explanation' describes the type and meaning of the value
+returned by a method.  The '@return' tag can be used only in
+documentation for a method.
+
+
+File: JavaSE9.info,  Node: @see,  Next: @serial,  Prev: @return,  Up: javadoc Documentation Tags
+
+A.1.14 '@see'
+-------------
+
+The '@see' tag provides a reference to additional information.  Two
+commonly used forms are shown here:
+
+     @see 'anchor'
+     @see 'pkg.class#member text'
+
+   In the first form, 'anchor' is a link to an absolute or relative
+URL. In the second form, 'pkg.class#member' specifies the name of the
+item, and 'text' is the text displayed for that item.  The text
+parameter is optional and if not used, then the item specified by
+'pkg.class#member' is displayed.  The member name, too, is optional.
+Thus, you can specify a reference to a package, class, or interface in
+addition to a refernce to a specific method or field.  The name can be
+fully qualified or partially qualified.  However, the dot that
+precedes the member name (if it exists) must be replaced by a hash
+character.
+
+
+File: JavaSE9.info,  Node: @serial,  Next: @serialData,  Prev: @see,  Up: javadoc Documentation Tags
+
+A.1.15 '@serial'
+----------------
+
+The '@serial' tag defines the comment for a default serializable
+field.  It has the following syntax:
+
+     @serial 'description'
+
+   'description' is the comment for that field.
+
+
+File: JavaSE9.info,  Node: @serialData,  Next: @serialField,  Prev: @serial,  Up: javadoc Documentation Tags
+
+A.1.16 '@serialData'
+--------------------
+
+The '@serialData' tag documents the data written by the
+'writeObject()' and 'writeExternal()' methods.  It has the following
+syntax:
+
+     @serialData 'description'
+
+   'description' is the comment for that data.
+
+
+File: JavaSE9.info,  Node: @serialField,  Next: @since,  Prev: @serialData,  Up: javadoc Documentation Tags
+
+A.1.17 '@serialField'
+---------------------
+
+For a class that implements 'Serializable', the '@serialField' tag
+provides comments for an 'ObjectStreamField' component.  It has the
+following syntax:
+
+     @serialField 'name type description'
+
+   'name' is the name of the field, 'type' is its type, and
+'description' is the comment for that field.
+
+
+File: JavaSE9.info,  Node: @since,  Next: @throws,  Prev: @serialField,  Up: javadoc Documentation Tags
+
+A.1.18 '@since'
+---------------
+
+The '@since' tag states that an element was introduced in a specific
+release.  It has the following syntax:
+
+     @since 'release'
+
+   'release' is a string that designates the release or version in
+which this feature became available.
+
+
+File: JavaSE9.info,  Node: @throws,  Next: @uses,  Prev: @since,  Up: javadoc Documentation Tags
+
+A.1.19 '@throws'
+----------------
+
+The '@throws' tag has the same meaning as the '@exception' tag.
+
+
+File: JavaSE9.info,  Node: @uses,  Next: @value,  Prev: @throws,  Up: javadoc Documentation Tags
+
+A.1.20 '@uses'
+--------------
+
+The '@uses' tag documents a service provider neede by a module.  It
+has the following syntax:
+
+     @uses 'type explanation'
+
+   'type' specifies a service provider type and 'explanation'
+describes the service.
+
+
+File: JavaSE9.info,  Node: @value,  Next: @version,  Prev: @uses,  Up: javadoc Documentation Tags
+
+A.1.21 '{@value}'
+-----------------
+
+'{@value}' has two forms.  The first displays the value of the
+constant that it precedes, which must be a 'static' field.  It has
+this form:
+
+     {@value}
+
+   The second form displays the value of a specified 'static' field.
+It has the form:
+
+     {@value 'pkg.class#field'}
+
+   'pkg.class#field' specifies the name of the 'static' field.
+
+
+File: JavaSE9.info,  Node: @version,  Prev: @value,  Up: javadoc Documentation Tags
+
+A.1.22 '@version'
+-----------------
+
+The '@version' tag specifies the version information, typically a
+version number, such as 2.2.  You will need to specify the '-version'
+option when executing 'javadoc' in order for the '@version' field to
+be included in the HTML documentation.
+
+
+File: JavaSE9.info,  Node: Documentation Comment General Form,  Next: What javadoc Outputs,  Prev: javadoc Documentation Tags,  Up: Documentation Comments
+
+A.2 The General Form of a Documentation Comment
+===============================================
+
+After the beginning '/**', the first line or lines become the main
+description of your class, interface, field, constructor, method, or
+module.  After that, you can include one or more the various @ tags.
+Each @ tag must start at the beginning of a new line or follow one or
+more asterisks ('**') that are at the start of a line.  Multiple tags
+of the same type should be grouped together.  In-line tags (thse that
+being with a brace ('{') can be used within any description.
+
+
+File: JavaSE9.info,  Node: What javadoc Outputs,  Next: Documentation Comments Example,  Prev: Documentation Comment General Form,  Up: Documentation Comments
+
+A.3 What 'javadoc' Outputs
+==========================
+
+The 'javadoc' program takes as input your Java program's source file
+and outputs several HTML files that contain the program's
+documentation.  Information about each class will be in its own HTML
+file.  'javadoc' will also output an index and a hierarchy tree.
+Other HTML files can be generated.  Beginning with JDK 9, a search box
+feature is also included.
+
+
+File: JavaSE9.info,  Node: Documentation Comments Example,  Prev: What javadoc Outputs,  Up: Documentation Comments
+
+A.4 An Example that Uses Documentatation Comments
+=================================================
+
+Following is a sample program that uses documentation comments.
+Notice the way each comment immediately precedes the item that it
+describes.  After begin processed by 'javadoc', the documentation
+about the 'SquareNum' class will be found in 'SquareNum.html'.
+
+'SquareNum.java'
+----------------
+
+{'SquareNum.java'} ==
+     <Import java.io>
+
+     <SquareNum--SquareNum Class>
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<Import java.io>          See *note Import-java-io::.
+<SquareNum--SquareNum     See *note SquareNum---SquareNum-Class::.
+Class>
+
+* Menu:
+
+* SquareNum---SquareNum Class::
+* SquareNum---square() Method::
+* SquareNum---getNumber() Method::
+* SquareNum---main() Method::
+
+
+File: JavaSE9.info,  Node: SquareNum---SquareNum Class,  Next: SquareNum---square() Method,  Up: Documentation Comments Example
+
+A.4.1 SquareNum--SquareNum Class
+--------------------------------
+
+<SquareNum--SquareNum Class> ==
+     <SquareNum--SquareNum Class-Documentation>
+     <SquareNum--SquareNum Class-Body>
+
+
+This chunk is called by {'SquareNum.java'}; see its first definition
+at *note SquareNum-java::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<SquareNum--SquareNum     See
+Class-Body>               *note SquareNum---SquareNum-Class--Body::.
+<SquareNum--SquareNum     See
+Class-Documentation>      *note SquareNum---SquareNum-Class--Documentation::.
+
+* Menu:
+
+* SquareNum---SquareNum Class--Documentation::
+
+
+File: JavaSE9.info,  Node: SquareNum---SquareNum Class--Documentation,  Up: SquareNum---SquareNum Class
+
+A.4.1.1 SquareNum--SquareNum Class-Documentation
+................................................
+
+<SquareNum--SquareNum Class-Documentation> ==
+     /**
+        This class demonstrates documentation comments.
+        @author Herbert Schildt
+        @version 1.2
+      */
+
+This chunk is called by <SquareNum--SquareNum Class>; see its first
+definition at *note SquareNum---SquareNum-Class::.
+
+SquareNum--SquareNum Class-Body
+...............................
+
+<SquareNum--SquareNum Class-Body> ==
+     public class SquareNum {
+       <SquareNum--square() Method>
+       <SquareNum--getNumber() Method>
+       <SquareNum--main() Method>
+     }
+
+This chunk is called by <SquareNum--SquareNum Class>; see its first
+definition at *note SquareNum---SquareNum-Class::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<SquareNum--getNumber()   See *note SquareNum---getNumber---Method::.
+Method>
+<SquareNum--main()        See *note SquareNum---main---Method::.
+Method>
+<SquareNum--square()      See *note SquareNum---square---Method::.
+Method>
+
+
+File: JavaSE9.info,  Node: SquareNum---square() Method,  Next: SquareNum---getNumber() Method,  Prev: SquareNum---SquareNum Class,  Up: Documentation Comments Example
+
+A.4.2 SquareNum--square() Method
+--------------------------------
+
+<SquareNum--square() Method> ==
+       <SquareNum--square() Method-Documentation>
+       <SquareNum--square() Method-Body>
+
+This chunk is called by <SquareNum--SquareNum Class-Body>; see its
+first definition at *note SquareNum---SquareNum-Class--Body::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<SquareNum--square()      See
+Method-Body>              *note SquareNum---square---Method--Body::.
+<SquareNum--square()      See
+Method-Documentation>     *note SquareNum---square---Method--Documentation::.
+
+* Menu:
+
+* SquareNum---square() Method Doc and Body::
+
+
+File: JavaSE9.info,  Node: SquareNum---square() Method Doc and Body,  Up: SquareNum---square() Method
+
+SquareNum--square() Method Doc and Body
+.......................................
+
+SquareNum--square() Method-Documentation 
+.........................................
+
+<SquareNum--square() Method-Documentation> ==
+     /**
+        This method returns the square of num.
+        This is a multiline description.  You can use
+        as many lines as you like.
+        @param num The value to be squared.
+        @return num squared.
+      */
+
+This chunk is called by <SquareNum--square() Method>; see its first
+definition at *note SquareNum---square---Method::.
+
+SquareNum--square() Method-Body
+...............................
+
+<SquareNum--square() Method-Body> ==
+       public double square(double num) {
+         return num * num;
+       }
+
+
+This chunk is called by <SquareNum--square() Method>; see its first
+definition at *note SquareNum---square---Method::.
+
+
+File: JavaSE9.info,  Node: SquareNum---getNumber() Method,  Next: SquareNum---main() Method,  Prev: SquareNum---square() Method,  Up: Documentation Comments Example
+
+A.4.3 SquareNum--getNumber() Method
+-----------------------------------
+
+<SquareNum--getNumber() Method> ==
+       <SquareNum--getNumber() Method-Documentation>
+       <SquareNum--getNumber() Method-Body>
+
+This chunk is called by <SquareNum--SquareNum Class-Body>; see its
+first definition at *note SquareNum---SquareNum-Class--Body::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<SquareNum--getNumber()   See
+Method-Body>              *note SquareNum---getNumber---Method--Body::.
+<SquareNum--getNumber()   See
+Method-Documentation>     *note SquareNum---getNumber---Method--Documentation::.
+
+* Menu:
+
+* SquareNum---getNumber() Method Doc and Body::
+
+
+File: JavaSE9.info,  Node: SquareNum---getNumber() Method Doc and Body,  Up: SquareNum---getNumber() Method
+
+A.4.3.1 SquareNum--getNumber() Method Doc and Body
+..................................................
+
+SquareNum--getNumber() Method-Documentation
+...........................................
+
+<SquareNum--getNumber() Method-Documentation> ==
+     /**
+        This method inputs a number from the user.
+        @return The value input as a double.
+        @exception IOException On input error.
+        @see IOException
+      */
+
+This chunk is called by <SquareNum--getNumber() Method>; see its first
+definition at *note SquareNum---getNumber---Method::.
+
+SquareNum--getNumber() Method-Body
+..................................
+
+<SquareNum--getNumber() Method-Body> ==
+     public double getNumber() throws IOException {
+       // create a BufferedReader using System.in
+       InputStreamReader isr = new InputStreamReader (System.in);
+       BufferedReader inData = new BufferedReader(isr);
+       String str;
+
+       str = inData.readline();
+       return (new Double(str)).doubleValue();
+     }
+
+
+This chunk is called by <SquareNum--getNumber() Method>; see its first
+definition at *note SquareNum---getNumber---Method::.
+
+
+File: JavaSE9.info,  Node: SquareNum---main() Method,  Prev: SquareNum---getNumber() Method,  Up: Documentation Comments Example
+
+A.4.4 SquareNum--main() Method
+------------------------------
+
+<SquareNum--main() Method> ==
+       <SquareNum--main() Method-Documentation>
+       <SquareNum--main() Method-Body>
+
+This chunk is called by <SquareNum--SquareNum Class-Body>; see its
+first definition at *note SquareNum---SquareNum-Class--Body::.
+
+The following table lists called chunk definition points.
+Chunk name                First definition point
+-------------------------------------------------------------------------
+<SquareNum--main()        See *note SquareNum---main---Method--Body::.
+Method-Body>
+<SquareNum--main()        See
+Method-Documentation>     *note SquareNum---main---Method--Documentation::.
+
+SquareNum--main() Method-Documentation
+......................................
+
+<SquareNum--main() Method-Documentation> ==
+     /**
+        This method demonstrates square().
+        @param args Unused.
+        @exception IOException On input error.
+        @see IOException
+      */
+
+This chunk is called by <SquareNum--main() Method>; see its first
+definition at *note SquareNum---main---Method::.
+
+SquareNum--main() Method-Body
+.............................
+
+<SquareNum--main() Method-Body> ==
+     public static void main(String[] args) {
+       SquareNum ob = new SquareNum();
+       double val;
+
+       System.out.println("Enter value to be squared: ");
+       val = ob.getNumber();
+       val = ob.square(val);
+
+       System.out.println("Square value is " + val);
+     }
+
+This chunk is called by <SquareNum--main() Method>; see its first
+definition at *note SquareNum---main---Method::.
+
+
+File: JavaSE9.info,  Node: Java Web Start,  Next: JShell,  Prev: Documentation Comments,  Up: Top
+
+Appendix B An Overview of Java Web Start
+****************************************
+
+
+File: JavaSE9.info,  Node: JShell,  Next: Applet Basics,  Prev: Java Web Start,  Up: Top
+
+Appendix C Introducing JShell
+*****************************
+
+
+File: JavaSE9.info,  Node: Applet Basics,  Next: The Makefile,  Prev: JShell,  Up: Top
+
+Appendix D Applet Basics
+************************
+
+
+File: JavaSE9.info,  Node: The Makefile,  Next: Code Chunk Summaries,  Prev: Applet Basics,  Up: Top
+
+Appendix E The Makefile
 ***********************
 
 {'Makefile'} ==
@@ -1341,7 +2177,7 @@ Target>
 
 File: JavaSE9.info,  Node: Makefile Constants,  Next: Makefile Defaults,  Up: The Makefile
 
-A.1 Makefile Constants
+E.1 Makefile Constants
 ======================
 
 *FIXME*: Relativize ROOT
@@ -1357,7 +2193,7 @@ This chunk is called by {'Makefile'}; see its first definition at
 
 File: JavaSE9.info,  Node: Makefile Defaults,  Next: Make the Makefile,  Prev: Makefile Constants,  Up: The Makefile
 
-A.2 Makefile Default Targets
+E.2 Makefile Default Targets
 ============================
 
 <Makefile DEFAULTS> ==
@@ -1371,7 +2207,7 @@ This chunk is called by {'Makefile'}; see its first definition at
 
 File: JavaSE9.info,  Node: Make the Makefile,  Next: Makefile Tangle Weave,  Prev: Makefile Defaults,  Up: The Makefile
 
-A.3 Make the Makefile
+E.3 Make the Makefile
 =====================
 
 <Makefile MAKEFILE Target> ==
@@ -1385,7 +2221,7 @@ This chunk is called by {'Makefile'}; see its first definition at
 
 File: JavaSE9.info,  Node: Makefile Tangle Weave,  Next: Makefile PDF,  Prev: Make the Makefile,  Up: The Makefile
 
-A.4 Makefile Tangle Weave Targets
+E.4 Makefile Tangle Weave Targets
 =================================
 
 <Makefile TANGLE WEAVE> ==
@@ -1410,7 +2246,7 @@ This chunk is called by {'Makefile'}; see its first definition at
 
 File: JavaSE9.info,  Node: Makefile PDF,  Next: Makefile HTML,  Prev: Makefile Tangle Weave,  Up: The Makefile
 
-A.5 Makefile PDF
+E.5 Makefile PDF
 ================
 
 <Makefile PDF> ==
@@ -1434,7 +2270,7 @@ Chunk name                First definition point
 
 File: JavaSE9.info,  Node: Makefile MAKEPDF,  Up: Makefile PDF
 
-A.5.1 Makefile MAKEPDF
+E.5.1 Makefile MAKEPDF
 ----------------------
 
 <Makefile MAKEPDF> ==
@@ -1455,7 +2291,7 @@ This chunk is called by <Makefile PDF>; see its first definition at
 
 File: JavaSE9.info,  Node: Makefile OPENPDF,  Up: Makefile MAKEPDF
 
-A.5.1.1 Makefile OPENPDF
+E.5.1.1 Makefile OPENPDF
 ........................
 
 <Makefile OPENPDF> ==
@@ -1470,7 +2306,7 @@ This chunk is called by <Makefile PDF>; see its first definition at
 
 File: JavaSE9.info,  Node: Makefile HTML,  Next: Makefile Clean Targets,  Prev: Makefile PDF,  Up: The Makefile
 
-A.6 Makefile HTML
+E.6 Makefile HTML
 =================
 
 <Makefile HTML> ==
@@ -1485,7 +2321,7 @@ This chunk is called by {'Makefile'}; see its first definition at
 
 File: JavaSE9.info,  Node: Makefile Clean Targets,  Prev: Makefile HTML,  Up: The Makefile
 
-A.7 Makefile Clean Targets
+E.7 Makefile Clean Targets
 ==========================
 
 <Makefile CLEAN Targets> ==
@@ -1513,7 +2349,7 @@ Chunk name                First definition point
 
 File: JavaSE9.info,  Node: Makefile Clean,  Next: Makefile DistClean,  Up: Makefile Clean Targets
 
-A.7.1 Makefile Clean
+E.7.1 Makefile Clean
 --------------------
 
 <Makefile CLEAN> ==
@@ -1529,7 +2365,7 @@ definition at *note Makefile-CLEAN-Targets::.
 
 File: JavaSE9.info,  Node: Makefile DistClean,  Next: Makefile WorldClean,  Prev: Makefile Clean,  Up: Makefile Clean Targets
 
-A.7.2 Makefile DistClean
+E.7.2 Makefile DistClean
 ------------------------
 
 <Makefile DISTCLEAN> ==
@@ -1544,7 +2380,7 @@ definition at *note Makefile-CLEAN-Targets::.
 
 File: JavaSE9.info,  Node: Makefile WorldClean,  Prev: Makefile DistClean,  Up: Makefile Clean Targets
 
-A.7.3 Makefile WorldClean
+E.7.3 Makefile WorldClean
 -------------------------
 
 <Makefile WORLDCLEAN> ==
@@ -1566,7 +2402,7 @@ definition at *note Makefile-CLEAN-Targets::.
 
 File: JavaSE9.info,  Node: Code Chunk Summaries,  Next: List of Tables,  Prev: The Makefile,  Up: Top
 
-Appendix B Code Chunk Summaries
+Appendix F Code Chunk Summaries
 *******************************
 
 This major node presents alphabetical lists of all the file
@@ -1582,7 +2418,7 @@ references.
 
 File: JavaSE9.info,  Node: File Definitions,  Next: Code Chunk Definitions,  Up: Code Chunk Summaries
 
-B.1 Source File Definitions
+F.1 Source File Definitions
 ===========================
 
 {'AbstractAreas.java '}
@@ -1633,6 +2469,8 @@ B.1 Source File Definitions
      This chunk is defined in *note SimpleGenerics-java::.
 {'SpliteratorDemo.java'}
      This chunk is defined in *note SpliteratorDemo-java::.
+{'SquareNum.java'}
+     This chunk is defined in *note SquareNum-java::.
 {'Stack.java'}
      This chunk is defined in *note Stack-java::.
 {'StackImproved.java'}
@@ -1645,7 +2483,7 @@ B.1 Source File Definitions
 
 File: JavaSE9.info,  Node: Code Chunk Definitions,  Next: Code Chunk References,  Prev: File Definitions,  Up: Code Chunk Summaries
 
-B.2 Code Chunk Definitions
+F.2 Code Chunk Definitions
 ==========================
 
 <AbstractAreas Abstract Area Method Declaration >
@@ -1944,6 +2782,37 @@ B.2 Code Chunk Definitions
 <SpliteratorDemo--Use tryAdvance() to Display Contents>
      This chunk is defined in *note
      SpliteratorDemo---Use-tryAdvance---to-Display-Contents::.
+<SquareNum--SquareNum Class>
+     This chunk is defined in *note SquareNum---SquareNum-Class::.
+<SquareNum--SquareNum Class-Body>
+     This chunk is defined in *note
+     SquareNum---SquareNum-Class--Body::.
+<SquareNum--SquareNum Class-Documentation>
+     This chunk is defined in *note
+     SquareNum---SquareNum-Class--Documentation::.
+<SquareNum--getNumber() Method>
+     This chunk is defined in *note SquareNum---getNumber---Method::.
+<SquareNum--getNumber() Method-Body>
+     This chunk is defined in *note
+     SquareNum---getNumber---Method--Body::.
+<SquareNum--getNumber() Method-Documentation>
+     This chunk is defined in *note
+     SquareNum---getNumber---Method--Documentation::.
+<SquareNum--main() Method>
+     This chunk is defined in *note SquareNum---main---Method::.
+<SquareNum--main() Method-Body>
+     This chunk is defined in *note SquareNum---main---Method--Body::.
+<SquareNum--main() Method-Documentation>
+     This chunk is defined in *note
+     SquareNum---main---Method--Documentation::.
+<SquareNum--square() Method>
+     This chunk is defined in *note SquareNum---square---Method::.
+<SquareNum--square() Method-Body>
+     This chunk is defined in *note
+     SquareNum---square---Method--Body::.
+<SquareNum--square() Method-Documentation>
+     This chunk is defined in *note
+     SquareNum---square---Method--Documentation::.
 <Stack Constructor>
      This chunk is defined in *note Stack-Constructor::.
 <Stack Instance Methods>
@@ -1973,7 +2842,7 @@ B.2 Code Chunk Definitions
 
 File: JavaSE9.info,  Node: Code Chunk References,  Prev: Code Chunk Definitions,  Up: Code Chunk Summaries
 
-B.3 Code Chunk References
+F.3 Code Chunk References
 =========================
 
 <AbstractAreas Abstract Area Method Declaration >
@@ -2304,6 +3173,7 @@ B.3 Code Chunk References
      {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
      {'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
      {'ShowFileTryWR.java'}    See *note ShowFileTryWR-java::.
+     {'SquareNum.java'}        See *note SquareNum-java::.
 <Import java.io.File>
 
      This chunk is called by {'DirList.java'}; see its first
@@ -2568,6 +3438,57 @@ B.3 Code Chunk References
 
      This chunk is called by {'SpliteratorDemo.java'}; see its first
      definition at *note SpliteratorDemo-java::.
+<SquareNum--SquareNum Class>
+
+     This chunk is called by {'SquareNum.java'}; see its first
+     definition at *note SquareNum-java::.
+<SquareNum--SquareNum Class-Body>
+
+     This chunk is called by <SquareNum--SquareNum Class>; see its
+     first definition at *note SquareNum---SquareNum-Class::.
+<SquareNum--SquareNum Class-Documentation>
+
+     This chunk is called by <SquareNum--SquareNum Class>; see its
+     first definition at *note SquareNum---SquareNum-Class::.
+<SquareNum--getNumber() Method>
+
+     This chunk is called by <SquareNum--SquareNum Class-Body>; see
+     its first definition at *note
+     SquareNum---SquareNum-Class--Body::.
+<SquareNum--getNumber() Method-Body>
+
+     This chunk is called by <SquareNum--getNumber() Method>; see its
+     first definition at *note SquareNum---getNumber---Method::.
+<SquareNum--getNumber() Method-Documentation>
+
+     This chunk is called by <SquareNum--getNumber() Method>; see its
+     first definition at *note SquareNum---getNumber---Method::.
+<SquareNum--main() Method>
+
+     This chunk is called by <SquareNum--SquareNum Class-Body>; see
+     its first definition at *note
+     SquareNum---SquareNum-Class--Body::.
+<SquareNum--main() Method-Body>
+
+     This chunk is called by <SquareNum--main() Method>; see its first
+     definition at *note SquareNum---main---Method::.
+<SquareNum--main() Method-Documentation>
+
+     This chunk is called by <SquareNum--main() Method>; see its first
+     definition at *note SquareNum---main---Method::.
+<SquareNum--square() Method>
+
+     This chunk is called by <SquareNum--SquareNum Class-Body>; see
+     its first definition at *note
+     SquareNum---SquareNum-Class--Body::.
+<SquareNum--square() Method-Body>
+
+     This chunk is called by <SquareNum--square() Method>; see its
+     first definition at *note SquareNum---square---Method::.
+<SquareNum--square() Method-Documentation>
+
+     This chunk is called by <SquareNum--square() Method>; see its
+     first definition at *note SquareNum---square---Method::.
 <Stack Constructor>
 
      This chunk is called by the following chunks:
@@ -2648,6 +3569,7 @@ List of Tables
 * Table 25.2: java.lang.reflect_Interfaces.
                                          Interfaces Defined in ...
 * Table 25.3: ClassMethodsLocating.      Class Methods Locating
+* Table A.1: JavaDocTags.                The 'javadoc' Tags
 
 
 File: JavaSE9.info,  Node: List of General Forms,  Next: Bibliography,  Prev: List of Tables,  Up: Top
@@ -2991,6 +3913,8 @@ Index
 * <Import java.io>, use <12>:            FileReader.        (line  23)
 * <Import java.io>, use <13>:            Buffered Reader Demo.
                                                             (line  17)
+* <Import java.io>, use <14>:            Documentation Comments Example.
+                                                            (line  14)
 * <Import java.lang.reflect>, definition: Import java.lang.reflect.
                                                             (line   6)
 * <Import java.lang.reflect>, use:       Reflection Demonstration.
@@ -3217,6 +4141,54 @@ Index
                                                             (line   6)
 * <SpliteratorDemo--Use tryAdvance() to Display Contents>, use: Using Spliterator for Iteration.
                                                             (line  30)
+* <SquareNum--getNumber() Method-Body>, definition: SquareNum---getNumber() Method Doc and Body.
+                                                            (line  23)
+* <SquareNum--getNumber() Method-Body>, use: SquareNum---getNumber() Method.
+                                                            (line   6)
+* <SquareNum--getNumber() Method-Documentation>, definition: SquareNum---getNumber() Method Doc and Body.
+                                                            (line   9)
+* <SquareNum--getNumber() Method-Documentation>, use: SquareNum---getNumber() Method.
+                                                            (line   6)
+* <SquareNum--getNumber() Method>, definition: SquareNum---getNumber() Method.
+                                                            (line   6)
+* <SquareNum--getNumber() Method>, use:  SquareNum---SquareNum Class--Documentation.
+                                                            (line  19)
+* <SquareNum--main() Method-Body>, definition: SquareNum---main() Method.
+                                                            (line  38)
+* <SquareNum--main() Method-Body>, use:  SquareNum---main() Method.
+                                                            (line   6)
+* <SquareNum--main() Method-Documentation>, definition: SquareNum---main() Method.
+                                                            (line  24)
+* <SquareNum--main() Method-Documentation>, use: SquareNum---main() Method.
+                                                            (line   6)
+* <SquareNum--main() Method>, definition: SquareNum---main() Method.
+                                                            (line   6)
+* <SquareNum--main() Method>, use:       SquareNum---SquareNum Class--Documentation.
+                                                            (line  19)
+* <SquareNum--square() Method-Body>, definition: SquareNum---square() Method Doc and Body.
+                                                            (line  24)
+* <SquareNum--square() Method-Body>, use: SquareNum---square() Method.
+                                                            (line   6)
+* <SquareNum--square() Method-Documentation>, definition: SquareNum---square() Method Doc and Body.
+                                                            (line   9)
+* <SquareNum--square() Method-Documentation>, use: SquareNum---square() Method.
+                                                            (line   6)
+* <SquareNum--square() Method>, definition: SquareNum---square() Method.
+                                                            (line   6)
+* <SquareNum--square() Method>, use:     SquareNum---SquareNum Class--Documentation.
+                                                            (line  19)
+* <SquareNum--SquareNum Class-Body>, definition: SquareNum---SquareNum Class--Documentation.
+                                                            (line  19)
+* <SquareNum--SquareNum Class-Body>, use: SquareNum---SquareNum Class.
+                                                            (line   6)
+* <SquareNum--SquareNum Class-Documentation>, definition: SquareNum---SquareNum Class--Documentation.
+                                                            (line   6)
+* <SquareNum--SquareNum Class-Documentation>, use: SquareNum---SquareNum Class.
+                                                            (line   6)
+* <SquareNum--SquareNum Class>, definition: SquareNum---SquareNum Class.
+                                                            (line   6)
+* <SquareNum--SquareNum Class>, use:     Documentation Comments Example.
+                                                            (line  14)
 * <Stack Constructor>, definition:       Stack Constructor Node.
                                                             (line   6)
 * <Stack Constructor>, use:              Stack Class.       (line  22)
@@ -3261,6 +4233,29 @@ Index
 * <Two Instance Variables Declarations>, use: Class TwoGen. (line   6)
 * ==:                                    Enumeration Basics.
                                                             (line  38)
+* @author:                               @author.           (line   6)
+* @deprecated:                           @deprecated.       (line   6)
+* @exception:                            @exception.        (line   6)
+* @hidden:                               @hidden.           (line   6)
+* @param:                                @param.            (line   3)
+* @provides:                             @provides.         (line   6)
+* @return:                               @return.           (line   6)
+* @see:                                  @see.              (line   6)
+* @serial:                               @serial.           (line   6)
+* @serialData:                           @serialData.       (line   6)
+* @serialField:                          @serialField.      (line   6)
+* @since:                                @since.            (line   6)
+* @throws:                               @throws.           (line   6)
+* @uses:                                 @uses.             (line   6)
+* @version:                              @version.          (line   6)
+* {@code}:                               @code.             (line   6)
+* {@docRoot}:                            @docRoot.          (line   6)
+* {@index}:                              @index.            (line   6)
+* {@inheritDoc}:                         @inheritDoc.       (line   6)
+* {@linkplain}:                          @linkplain.        (line   6)
+* {@link}:                               @link.             (line   6)
+* {@literal}:                            @literal.          (line   6)
+* {@value}:                              @value.            (line   6)
 * {AbstractAreas.java }, definition:     Improved Figure Class.
                                                             (line  12)
 * {BRRead.java}, definition:             Reading Characters.
@@ -3305,6 +4300,8 @@ Index
                                                             (line   9)
 * {SpliteratorDemo.java}, definition:    Using Spliterator for Iteration.
                                                             (line  30)
+* {SquareNum.java}, definition:          Documentation Comments Example.
+                                                            (line  14)
 * {Stack.java}, definition:              Stack Class.       (line  22)
 * {StackImproved.java}, definition:      Improved Stack Class.
                                                             (line  11)
@@ -3339,6 +4336,7 @@ Index
 * anonymous inner classes:               Nested and Inner Classes.
                                                             (line   6)
 * API, Stream:                           Streams API.       (line   5)
+* Applet:                                Applet Basics.     (line   5)
 * argument passing:                      Argument Passing.  (line   6)
 * arguments, command-line:               Command-Line Arguments.
                                                             (line   6)
@@ -3377,6 +4375,8 @@ Index
                                                             (line   6)
 * binding, late, early:                  final to Prevent Overriding.
                                                             (line   6)
+* block tags:                            javadoc Documentation Tags.
+                                                            (line  45)
 * bounded types:                         Bounded Types.     (line   6)
 * bounded wildcards:                     Bounded Wildcards. (line   6)
 * bounded wildcards, lower bound:        Bounded Wildcards. (line  32)
@@ -3580,6 +4580,14 @@ Index
 * directory contents, examine using list(): Examine Directory Contents.
                                                             (line   6)
 * dispatch through an interface:         Interface References.
+                                                            (line   6)
+* Documentation Comment general form:    Documentation Comment General Form.
+                                                            (line   6)
+* Documentation comments:                Documentation Comments.
+                                                            (line   6)
+* documentation comments example:        Documentation Comments Example.
+                                                            (line   6)
+* documentation tags:                    javadoc Documentation Tags.
                                                             (line   6)
 * dot operator:                          General Form.      (line  48)
 * dynamic allocation, run time:          Declaring Objects. (line   6)
@@ -3790,6 +4798,9 @@ Index
                                                             (line  13)
 * global members:                        static Keyword.    (line  55)
 * Graphics:                              AWT.               (line   6)
+* GUI Programming with JavaFX:           Introducing JavaFX.
+                                                            (line   5)
+* GUI Programming with Swing:            Introducing Swing. (line   5)
 * hasNext():                             Using an Iterator. (line  15)
 * hiding, instance variables:            Instance Variable Hiding.
                                                             (line   6)
@@ -3824,6 +4835,8 @@ Index
 * importing packages:                    Importing.         (line   6)
 * in:                                    Predefined Streams.
                                                             (line   6)
+* in-line tags:                          javadoc Documentation Tags.
+                                                            (line  45)
 * index interface, default methods:      Default Interface Methods.
                                                             (line   6)
 * Inheritance:                           Inheritance.       (line   6)
@@ -3935,9 +4948,11 @@ Index
 * J2SE 1.2:                              Collections Overview.
                                                             (line   6)
 * J2SE 5.0:                              Generics.          (line   6)
+* Java Beans:                            Java Beans.        (line   5)
 * Java I/O system:                       Streams.           (line   6)
 * Java SE 9 introduction:                Java SE 9 Introduction.
                                                             (line   6)
+* Java Web Start:                        Java Web Start.    (line   5)
 * java.base module:                      Reflection.        (line   6)
 * java.io:                               I/O.               (line   6)
 * java.io <1>:                           Character Stream Class.
@@ -3984,6 +4999,18 @@ Index
                                                             (line   5)
 * java.util.function:                    Iterable Interface.
                                                             (line  32)
+* javadoc:                               Documentation Comments.
+                                                            (line   6)
+* javadoc output:                        What javadoc Outputs.
+                                                            (line   6)
+* javadoc tags:                          javadoc Documentation Tags.
+                                                            (line   6)
+* JavaFX:                                Introducing JavaFX.
+                                                            (line   6)
+* JavaFX Controls:                       Exploring JavaFX Controls.
+                                                            (line   5)
+* JavaFX Menus:                          Introducing JavaFX Menus.
+                                                            (line   5)
 * JDK 5:                                 Enumerations.      (line   6)
 * JDK 7, try-with-resource:              Closing a Stream.  (line  32)
 * JDK 8:                                 Iterable Interface.
@@ -3998,10 +5025,13 @@ Index
 * JDK 9:                                 java.util Part 1 --- Collections Framework.
                                                             (line  20)
 * JDK 9 <1>:                             Reflection.        (line   6)
+* JDK 9 modules and javadoc:             Documentation Comments.
+                                                            (line   6)
 * JDK 9, package part of module:         Classpath.         (line   6)
 * JDK 9, private interface method:       Private Interface Methods.
                                                             (line   6)
 * JDK 9, try-with-resources:             Closing a Stream.  (line  54)
+* JShell:                                JShell.            (line   5)
 * keyword extends:                       Inheritance Basics.
                                                             (line   6)
 * keyword final:                         final Keyword.     (line   6)
@@ -4266,6 +5296,7 @@ Index
                                                             (line   5)
 * Serializable interface:                Serializable.      (line   6)
 * Serialization:                         Serialization.     (line   6)
+* Servlets:                              Servlets.          (line   5)
 * Set Interface:                         Set Interface.     (line   5)
 * size():                                Collection Interface.
                                                             (line  69)
@@ -4299,6 +5330,8 @@ Index
                                                             (line   6)
 * stack exhaustion, recursion:           Recursion.         (line   6)
 * stack overun, recursion:               Recursion.         (line   6)
+* stand-alone tags:                      javadoc Documentation Tags.
+                                                            (line  45)
 * standard Java classes, imported implicitly: Importing.    (line  29)
 * static and non-static nested classes:  Nested and Inner Classes.
                                                             (line   6)
@@ -4360,7 +5393,9 @@ Index
 * superclass:                            Inheritance.       (line   6)
 * superclass referencing subclass:       Superclass Referencing Subclass.
                                                             (line   6)
-* Swing:                                 Swing.             (line   5)
+* Swing:                                 Introducing Swing. (line   6)
+* Swing Exploring:                       Exploring Swing.   (line   5)
+* Swing Menus:                           Swing Menus.       (line   5)
 * switch statement, enum types:          Enumeration Basics.
                                                             (line  38)
 * System class:                          Predefined Streams.
@@ -4369,6 +5404,8 @@ Index
                                                             (line  13)
 * System.out as byte stream:             Writing Console Output.
                                                             (line   6)
+* tags, stand-alone, block, in-line:     javadoc Documentation Tags.
+                                                            (line  45)
 * template, class:                       Class Fundamentals.
                                                             (line   6)
 * Text:                                  AWT.               (line   5)

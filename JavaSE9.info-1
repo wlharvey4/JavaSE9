@@ -36,7 +36,18 @@ This file documents Outline Covering Java SE 9.
 * Streams API::
 * Regular Expressions::
 * Reflection::
-* Swing::
+* Introducing Swing::
+* Exploring Swing::
+* Swing Menus::
+* Introducing JavaFX::
+* Exploring JavaFX Controls::
+* Introducing JavaFX Menus::
+* Java Beans::
+* Servlets::
+* Documentation Comments::
+* Java Web Start::
+* JShell::
+* Applet Basics::
 * The Makefile::
 * Code Chunk Summaries::
 * List of Tables::
@@ -594,6 +605,57 @@ Enumerated Types and Reflection
 
 * Enumerated Types Reflection::
 
+Using Java's Documentation Comments
+
+* javadoc Documentation Tags::
+* Documentation Comment General Form::
+* What javadoc Outputs::
+* Documentation Comments Example::
+
+'javadoc' Documentation Tags
+
+* @author::
+* @code::
+* @deprecated::
+* @docRoot::
+* @exception::
+* @hidden::
+* @index::
+* @inheritDoc::
+* @link::
+* @linkplain::
+* @literal::
+* @provides::
+* @return::
+* @see::
+* @serial::
+* @serialData::
+* @serialField::
+* @since::
+* @throws::
+* @uses::
+* @value::
+* @version::
+
+'SquareNum.java'
+
+* SquareNum---SquareNum Class::
+* SquareNum---square() Method::
+* SquareNum---getNumber() Method::
+* SquareNum---main() Method::
+
+SquareNum--SquareNum Class
+
+* SquareNum---SquareNum Class--Documentation::
+
+SquareNum--square() Method
+
+* SquareNum---square() Method Doc and Body::
+
+SquareNum--getNumber() Method
+
+* SquareNum---getNumber() Method Doc and Body::
+
 The Makefile
 
 * Makefile Constants::
@@ -1075,7 +1137,7 @@ different.  When this is the case, the methods are said to be
 Method overloading is one of the ways that Java supports polymorphism.
 
    When an overloaded method is invoked, Java uses the type and number
-of arguments as its guid to determine which version of the overloaded
+of arguments as its guide to determine which version of the overloaded
 method to actually call.  Thus, overloaded methods must differ in the
 type or number of their parameters.  While overloaded methods may have
 different return types, thei return type alone is inusfficient to
@@ -1764,10 +1826,10 @@ File: JavaSE9.info,  Node: Multilevel Hierarchy,  Next: Constructors Executed,  
 4.3 Creating a Multilevel Hierarchy
 ===================================
 
-You can buidl hierarchies that contain as many layers of inheritance
+You can build hierarchies that contain as many layers of inheritance
 as you like.  It is acceptable to use a subclass as a superclass of
-antoher.  Each subclass inherits all of tghe traits found in all of
-its superclasses.
+another.  Each subclass inherits all of the traits found in all of its
+superclasses.
 
    'super' always refers to the constructor in the closest superclass.
 
@@ -1799,7 +1861,7 @@ refer to the version of that method defined by the subclass.  The
 version of the method defined by the superclass will be hidden.
 
    If you wish to access the superclass version of an overridden
-method, you can so by using 'super'.
+method, you can do so by using 'super'.
 
    Method overriding occurs _only_ when the names and the type
 signatures of the two methods are identical.  If they are not, then
@@ -1813,23 +1875,24 @@ File: JavaSE9.info,  Node: Dynamic Method Dispatch,  Next: Using Abstract Classe
 
 Method overriding forms the basis for one of Java's most powerful
 concepts: "dynamic method dispatch".  This is a meachanism by which a
-call to an overrident method is resolved at run time, rather than
+call to an overridden method is resolved at run time, rather than
 compile time.  This is important because this is how Java implements
 run-time polymorphism.
 
    A superclass reference variable can refer to a subclass object.
-Java uses this fact to resolve calls to overriden methods at run time.
-When an overriden method is called through a superclass reference,
-Java determines which version of that method to execute based upon the
-type of the object being referred to at the time the call occurs.
-Thus, this determination is made at run time.  When different types of
-objects are referred to, different versions of an overridden method
-will be called.  In other words, _it is the type of the object being
-referred to_ (not the type of the reference variable) that determines
-which version of an overridden method will be executed.  Therefore, if
-a superclass contains a method that is overridden by a subclass, then
-when different types of objects are referred to through a superclass
-reference variable, different versions of the method are executed.
+Java uses this fact to resolve calls to overridden methods at run
+time.  When an overridden method is called through a superclass
+reference, Java determines which version of that method to execute
+based upon the type of the object being referred to at the time the
+call occurs.  Thus, this determination is made at run time.  When
+different types of objects are referred to, different versions of an
+overridden method will be called.  In other words, _it is the type of
+the object being referred to_ (not the type of the reference variable)
+that determines which version of an overridden method will be
+executed.  Therefore, if a superclass contains a method that is
+overridden by a subclass, then when different types of objects are
+referred to through a superclass reference variable, different
+versions of the method are executed.
 
 * Menu:
 
@@ -2839,7 +2902,7 @@ GeneralForm 6.1: Interface Definition -- Simplified General Form
 and the interface is only available to other members of the package in
 which it is declared.  When it is declared as 'public', the interface
 can be used by code outside its package.  In this case, the interface
-mst be the only public interface declared in the file, and the file
+must be the only public interface declared in the file, and the file
 must have the same name as the interface.  The methods that are
 declared have no bodies.  They end with a semicolon after the
 parameter list.  They are, essentially, abstract methods.  Each class
@@ -3415,6 +3478,7 @@ Chunk name                First definition point
 {'ShowFileAlt.java'}      See *note ShowFileAlt-java::.
 {'ShowFileSingleTry'}     See *note ShowFileSingleTry::.
 {'ShowFileTryWR.java'}    See *note ShowFileTryWR-java::.
+{'SquareNum.java'}        See *note SquareNum-java::.
 
 
 File: JavaSE9.info,  Node: BRRead BufferedReader Constructor Node,  Next: BRRead Enter Characters Node,  Prev: Import java.io,  Up: Reading Characters
@@ -6218,7 +6282,7 @@ collections.
 'Iterator' Interface
 --------------------
 
-Antoher item closely associated with the Collections Framework is the
+Another item closely associated with the Collections Framework is the
 'Iterator' interface.  An "iterator" offers a general-purpose
 standardized way of accessing the elements within a collection, one at
 a time.  Thus, an iterator provides a means of _enumerating the
@@ -8740,52 +8804,4 @@ buffer.  To support this, 'BufferedReader' implements the 'mark()' and
 returns a 'Stream' reference to the sequence of lines read by the
 reader.  ('Stream' is part of the stream API discussed in *note
 Streams API::.
-
-
-File: JavaSE9.info,  Node: Buffered Reader Demo,  Next: BufferedWriter,  Prev: BufferedReader,  Up: Character Streams
-
-15.8.8 Buffered Reader Demo
----------------------------
-
-This example reworks the 'BufferedInputStream' example (*note Buffered
-Input Example::) so that it uses a 'BufferedReader' character stream
-rather than a buffered byte stream.  It uses the 'mark()' and
-'reset()' methods to parse a stream for the HTML-entity reference for
-the copyright symbol.  Such a reference begins with an ampersand ('&')
-and ends with a semicolon (';') without any intervening whitespace.
-The sample has two ampersands to show the case where the 'reset()'
-happens and where it does not.
-
-=============================================================================
-
-{'BufferedReaderDemo.java'} ==
-     <Import java.io>
-     class BufferedReaderDemo {
-       public static void main (String[] args) throws IOException {
-
-         <BufferedReaderDemo Instance Variables>
-
-         <BufferedReaderDemo TryWithResources BufferedReader>
-         <Catch IOException>
-
-       }
-     }
-
-
-The following table lists called chunk definition points.
-Chunk name                First definition point
--------------------------------------------------------------------------
-<BufferedReaderDemo       See
-Instance Variables>       *note BufferedReaderDemo-Instance-Variables::.
-<BufferedReaderDemo       See
-TryWithResources          *note BufferedReaderDemo-TryWithResources-BufferedReader::.
-BufferedReader>
-<Catch IOException>       See *note Catch-IOException::.
-<Import java.io>          See *note Import-java-io::.
-
-* Menu:
-
-* BufferedReaderDemo Instance Variables::
-* BufferedReaderDemo Buffer::
-* BufferedReaderDemo TryWithResources BufferedReader::
 

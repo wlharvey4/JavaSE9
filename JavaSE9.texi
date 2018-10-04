@@ -39,11 +39,11 @@
 @c This sets the edition of the document.
 
 @c These apply across the board.
-@set UPDATE-MONTH SEPTEMBER, 2018
+@set UPDATE-MONTH OCTOBER, 2018
 @set TITLE Outline Covering Java SE 9
 @set SHORTTITLE Java SE 9 Outline
 @set EDITION 0.1
-@set VERSION 0.3.0
+@set VERSION 0.3.1
 
 @iftex
 @set DOCUMENT book
@@ -252,7 +252,18 @@ This file documents @value{TITLE}.
 * Streams API::
 * Regular Expressions::
 * Reflection::
-* Swing::
+* Introducing Swing::
+* Exploring Swing::
+* Swing Menus::
+* Introducing JavaFX::
+* Exploring JavaFX Controls::
+* Introducing JavaFX Menus::
+* Java Beans::
+* Servlets::
+* Documentation Comments::
+* Java Web Start::
+* JShell::
+* Applet Basics::
 * The Makefile::
 * Code Chunk Summaries::
 * List of Tables::
@@ -810,6 +821,57 @@ Arrays and Reflection
 Enumerated Types and Reflection
 
 * Enumerated Types Reflection::
+
+Using Java's Documentation Comments
+
+* javadoc Documentation Tags::
+* Documentation Comment General Form::
+* What @file{javadoc} Outputs::
+* Documentation Comments Example::
+
+@file{javadoc} Documentation Tags
+
+* @@author::
+* @@code::
+* @@deprecated::
+* @@docRoot::
+* @@exception::
+* @@hidden::
+* @@index::
+* @@inheritDoc::
+* @@link::
+* @@linkplain::
+* @@literal::
+* @@provides::
+* @@return::
+* @@see::
+* @@serial::
+* @@serialData::
+* @@serialField::
+* @@since::
+* @@throws::
+* @@uses::
+* @@value::
+* @@version::
+
+@file{SquareNum.java}
+
+* SquareNum---SquareNum Class::
+* SquareNum---square() Method::
+* SquareNum---getNumber() Method::
+* SquareNum---main() Method::
+
+SquareNum---SquareNum Class
+
+* SquareNum---SquareNum Class--Documentation::
+
+SquareNum---square() Method
+
+* SquareNum---square() Method Doc and Body::
+
+SquareNum---getNumber() Method
+
+* SquareNum---getNumber() Method Doc and Body::
 
 The Makefile
 
@@ -1505,7 +1567,7 @@ process is referred to as @dfn{method overloading}.  Method overloading is
 one of the ways that Java supports polymorphism.
 
 When an overloaded method is invoked, Java uses the type and number of
-arguments as its guid to determine which version of the overloaded method to
+arguments as its guide to determine which version of the overloaded method to
 actually call.  Thus, overloaded methods must differ in the type or number of
 their parameters.  While overloaded methods may have different return types,
 thei return type alone is inusfficient to distinguish two versions of a
@@ -2297,9 +2359,9 @@ i = super.i;
 @cindex hierarchy, multilevel, creating
 @cindex hierarchy, files
 
-You can buidl hierarchies that contain as many layers of inheritance as you
-like.  It is acceptable to use a subclass as a superclass of antoher.  Each
-subclass inherits all of tghe traits found in all of its superclasses.
+You can build hierarchies that contain as many layers of inheritance as you
+like.  It is acceptable to use a subclass as a superclass of another.  Each
+subclass inherits all of the traits found in all of its superclasses.
 
 @code{super} always refers to the constructor in the closest superclass.
 
@@ -2335,7 +2397,7 @@ version of that method defined by the subclass.  The version of the method
 defined by the superclass will be hidden.
 
 If you wish to access the superclass version of an overridden method, you can
-so by using @code{super}.
+do so by using @code{super}.
 
 Method overriding occurs @emph{only} when the names and the type signatures
 of the two methods are identical.  If they are not, then the two methods are
@@ -2351,21 +2413,23 @@ simply overloaded (no name hiding takes place).
 
 Method overriding forms the basis for one of Java's most powerful concepts:
 @dfn{dynamic method dispatch}.  This is a meachanism by which a call to an
-overrident method is resolved at run time, rather than compile time.  This is
+overridden method is resolved at run time, rather than compile time.  This is
 important because this is how Java implements run-time polymorphism.
 
-A superclass reference variable can refer to a subclass object.  Java uses
-this fact to resolve calls to overriden methods at run time.  When an
-overriden method is called through a superclass reference, Java determines
-which version of that method to execute based upon the type of the object
-being referred to at the time the call occurs.  Thus, this determination is
-made at run time.  When different types of objects are referred to, different
-versions of an overridden method will be called.  In other words, @emph{it is
-the type of the object being referred to} (not the type of the reference
-variable) that determines which version of an overridden method will be
-executed.  Therefore, if a superclass contains a method that is overridden by
-a subclass, then when different types of objects are referred to through a
-superclass reference variable, different versions of the method are executed.
+A superclass reference variable can refer to a subclass object.  Java
+uses this fact to resolve calls to overridden methods at run time.
+When an overridden method is called through a superclass reference,
+Java determines which version of that method to execute based upon the
+type of the object being referred to at the time the call occurs.
+Thus, this determination is made at run time.  When different types of
+objects are referred to, different versions of an overridden method
+will be called.  In other words, @emph{it is the type of the object
+being referred to} (not the type of the reference variable) that
+determines which version of an overridden method will be executed.
+Therefore, if a superclass contains a method that is overridden by a
+subclass, then when different types of objects are referred to through
+a superclass reference variable, different versions of the method are
+executed.
 
 @c .....................................
 
@@ -3784,7 +3848,7 @@ of an interface definition:
 When no access modifier is included, then default access results, and the
 interface is only available to other members of the package in which it is
 declared.  When it is declared as @command{public}, the interface can be used
-by code outside its package.  In this case, the interface mst be the only
+by code outside its package.  In this case, the interface must be the only
 public interface declared in the file, and the file must have the same name
 as the interface.  The methods that are declared have no bodies.  They end
 with a semicolon after the parameter list.  They are, essentially, abstract
@@ -4502,6 +4566,7 @@ This chunk is called by the following chunks:
 @item @r{@{@file{ShowFileAlt.java}@}} @tab See @ref{ShowFileAlt-java}.
 @item @r{@{@file{ShowFileSingleTry}@}} @tab See @ref{ShowFileSingleTry}.
 @item @r{@{@file{ShowFileTryWR.java}@}} @tab See @ref{ShowFileTryWR-java}.
+@item @r{@{@file{SquareNum.java}@}} @tab See @ref{SquareNum-java}.
 @end multitable
 @iftex
 @textfonts @rm
@@ -8328,7 +8393,7 @@ provide a standard means of manipulating collections.
 @cindex @file{Iterator} interface
 @cindex iterator
 
-Antoher item closely associated with the Collections Framework is the
+Another item closely associated with the Collections Framework is the
 @file{Iterator} interface.  An @dfn{iterator} offers a general-purpose
 standardized way of accessing the elements within a collection, one at a
 time.  Thus, an iterator provides a means of @emph{enumerating the contents
@@ -13332,11 +13397,1216 @@ on accessing fields, see the Fields section.  @xref{reflect Fields}
 
 
 
+
+
+
+
+
+
+
+
+@c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@part GUI Programming with Swing
+
+
+
+
+
+
+
+
 @c *****************************************************************************
 
-@node Swing
-@chapter Introducinvg Swing
+@node Introducing Swing
+@chapter Introducing Swing
 @cindex Swing
+@cindex GUI Programming with Swing
+
+
+
+
+
+
+
+
+@c *****************************************************************************
+
+@node Exploring Swing
+@chapter Exploring Swing
+@cindex Swing Exploring
+
+
+
+
+
+
+
+
+@c *****************************************************************************
+
+@node Swing Menus
+@chapter Introducing Swing Menus
+@cindex Swing Menus
+
+
+
+
+
+
+
+
+@c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@part GUI Programming with JavaFX
+
+@c *****************************************************************************
+
+@node Introducing JavaFX
+@chapter Introducing JavaFX GUI Programming
+@cindex JavaFX
+@cindex GUI Programming with JavaFX
+
+
+
+
+
+
+
+
+@c *****************************************************************************
+
+@node Exploring JavaFX Controls
+@chapter Exploring JavaFX Controls
+@cindex JavaFX Controls
+
+
+
+
+
+
+
+
+@c *****************************************************************************
+
+@node Introducing JavaFX Menus
+@chapter Introducing JavaFX Menus
+@cindex JavaFX Menus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@part Applying Java
+
+
+
+
+
+
+
+
+@c *****************************************************************************
+
+@node Java Beans
+@chapter Java Beans
+@cindex Java Beans
+
+
+
+
+
+
+
+
+@c *****************************************************************************
+
+@node Servlets
+@chapter Introducing Servlets
+@cindex Servlets
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@part APPENDICES
+
+
+
+
+
+
+
+
+@c *****************************************************************************
+
+@node Documentation Comments
+@appendix Using Java's Documentation Comments
+@cindex Documentation comments
+@cindex @file{javadoc}
+@cindex JDK 9 modules and @file{javadoc}
+
+Java supports three types of comments.
+
+@itemize
+@item
+@kbd{//}
+@item
+@kbd{/* */}
+@item
+@kbd{/** */}
+@end itemize
+
+The third is called a @dfn{documwentation comment}.  Documentation comments
+allow you to embed information about your program into the program itself.  You
+can then use the @file{javadoc} utility progrm to extract the information and
+put it into an HTML file.  Documentation comments make it convenient to
+document your programs.  Beginning with JDK 9,m @file{javadoc} includes support
+for modules.
+
+
+
+
+@c -----------------------------------------------------------------------------
+
+@menu
+* javadoc Documentation Tags::
+* Documentation Comment General Form::
+* What @file{javadoc} Outputs::
+* Documentation Comments Example::
+@end menu
+
+@node javadoc Documentation Tags
+@section @file{javadoc} Documentation Tags
+@cindex @file{javadoc} tags
+@cindex documentation tags
+
+The @file{javadoc} utility recognizes several tags, including:
+
+@float Table,JavaDocTags
+@multitable @columnfractions .25 .75
+@item
+@@author @tab Identifies the author.
+@item
+@{@@code@} @tab Displays information as-is, without processing HTML styles, in
+code font.
+@item
+@@deprecated @tab Specifies that a program element is deprecated.
+@item
+@{@@docRoot@} @tab Specifies the path to the root directory of the current
+documentation.
+@item
+@@exception @tab Identifies an exception thrown by a method or constructor.
+@item
+@@hidden @tab Prevents an element from appearing in the documentation.  (Added by
+JDK 9.)
+@item
+@{@@index@} @tab Specifies a term for indexing.  (Added by JDK 9.)
+@item
+@{@@inheritDoc@} @tab Inherits a comment from the immediate superclass.
+@item
+@{@@link@} @tab Inserts an in-line link to another topic.
+@item
+@{@@linkplain@} @tab Inserts an in-line link to another topic, but the link is
+displayed in a plain-text font.
+@item
+@{@@literal@} @tab Displays information as-is without processing HTML styles.
+@item
+@@param @tab Documents a parameter.
+@item
+@@provides @tab Documents a service provided by a module.  (Added by JDK 9.)
+@item
+@@return @tab Doicuments a method's return value.
+@item
+@@see @tab Specifies a link to another topic.
+@item
+@@serial @tab Documents a default serializable field.
+@item
+@@serialData @tab Documents the data written by the @code{writeObject()} or
+@code{writeExternal()} methods.
+@item
+@@serialField @tab Dcouments an @code{ObjectStreamField} component.
+@item
+@@since @tab States the release when a specific change was introduced.
+@item
+@@throws @tab Same as @code{@@exception}.
+@item
+@@uses @tab Documents a service needed by a module.  (Added by JDK 9.)
+@item
+@{@@value@} @tab Displays the value of a constant, which must be a @code{static}
+field.
+@item
+@@version @tab Specifies the version of a program element.
+@end multitable
+@caption{The @file{javadoc} Tags}
+@end float
+
+@cindex stand-alone tags
+@cindex block tags
+@cindex in-line tags
+@cindex tags, stand-alone, block, in-line
+
+Document tags that begin with an ``at'' sign @kbd{@@} are called
+@dfn{stand-alone} tags (also called @dfn{block} tags), and they must be used on
+their own line.  Tags that begin with a brace, such as @code{@{@@code@}}, are
+called @dfn{in-line} tags, and they can be used within a larger description.
+You may also use other, standard HTML tags in a documentation comment.
+However, some tags, such as headings, should not be used because they disrupt
+the look of the HTML file produced by @file{javadoc}.
+
+You can use documentation comments to document classes, interfaces, fields,
+constructors, methods, and modules.  In all cases, the documentation comment
+must immediately prcede the item being documented.  Some tags, such as
+@code{@@see}, @code{@@since}, and @code{@@deprecated}, can be used to document
+any element.  Other tags apply only to the relevant elements.
+
+
+@c .....................................
+
+@menu
+* @@author::
+* @@code::
+* @@deprecated::
+* @@docRoot::
+* @@exception::
+* @@hidden::
+* @@index::
+* @@inheritDoc::
+* @@link::
+* @@linkplain::
+* @@literal::
+* @@provides::
+* @@return::
+* @@see::
+* @@serial::
+* @@serialData::
+* @@serialField::
+* @@since::
+* @@throws::
+* @@uses::
+* @@value::
+* @@version::
+@end menu
+
+@node @@author
+@subsection @code{@@author}
+@cindex @code{@@author}
+
+The @code{@@author} tag documents the author of a program element.  It has the
+following syntax:
+
+@display
+@@author @samp{description}
+@end display
+
+The @i{description} will usually be the name of the author.  You will need to
+specify the @code{-author} option when executing @file{javadoc} in order for
+the @code{@@author} field to be included in the HTML documentation.
+
+
+@c .....................................
+
+@node @@code
+@subsection @code{@{@@code@}}
+@cindex @code{@{@@code@}}
+
+The @code{@{@@code@}} tag enables you to embed text, such as a snippet of code,
+into comment.  That text is then displayed as-is in code font, without any
+furhter processsing, such as HTML rendering.  It has the following syntax:
+
+@display
+@code{@{@@code @samp{code-snippet}@}}
+@end display
+
+@c .....................................
+
+@node @@deprecated
+@subsection @code{@@deprecated}
+@cindex @code{@@deprecated}
+
+The @code{@@deprecated} tag specifies that a program element is deprecated.  It
+is recommended that you include @code{@@see} or @code{@{@@link@}} tags to
+inform the programmer about available alternatives.  The syntax is:
+
+@display
+@@deprecated @samp{description}
+@end display
+
+
+@c .....................................
+
+@node @@docRoot
+@subsection @code{@{@@docRoot@}}
+@cindex @code{@{@@docRoot@}}
+
+@code{@{@@docRoot@}} specifies the path to to the root directory of the current
+documentation.
+
+@c .....................................
+
+@node @@exception
+@subsection @code{@@exception}
+@cindex @code{@@exception}
+
+The @code{@@exception} tag describes an exception to a method.  It has the
+following syntax:
+
+@display
+@@exception @samp{exception-name explanation}
+@end display
+
+Here, the fully qualified name of the exception is specified by an
+@samp{exception-name} and @samp{explanation} is a string that describes how the
+exception can occur.  It can be used only in documentation for a method or
+constructor.
+
+@c .....................................
+
+@node @@hidden
+@subsection @code{@@hidden}
+@cindex @code{@@hidden}
+
+The @code{@@hidden} tag prevents an element from appearing in the
+documentation.
+
+@node @@index
+@subsection @code{@{@@index@}}
+@cindex @code{@{@@index@}}
+
+The @code{@{@@index@}} tag specifies an item that will be indexed and returned,
+and thus found when using the search feature added by JDK 9.  It has the
+following syntax:
+
+@display
+@{ @@index @samp{term usage-str} @}
+@end display
+
+Here, @samp{term} is the item (which can be a quoted string) to be indexed;
+@samp{usage-str} is optional.  Thus, in the following @code{@@exception} tag,
+@code{@{@@index@}} causes the ``error'' to be added to the index:
+
+@example
+@@exception IOException On input @{@@index error@}
+@end example
+
+Note that the word ``error'' is still displayed as part of the description.
+Now it is also indexed.  If you include the optional @samp{usage-str}, then
+that description will be shown in the index and in the search box to indicate
+how the term is used.
+
+
+@c .....................................
+
+@node @@inheritDoc
+@subsection @code{@{@@inheritDoc@}}
+@cindex @code{@{@@inheritDoc@}}
+
+This tag inherits a comment from the immediate superclass.
+
+
+@c .....................................
+
+@node @@link
+@subsection @code{@{@@link@}}
+@cindex @code{@{@@link@}}
+
+The @code{@{@@link@}} tag prvoides an in-line link to additional information.
+It has the following syntax:
+
+@display
+@{@@link @samp{pkg.class#member text}@}
+@end display
+
+Here, @samp{pkg.class#member} specifies the name of a class or method to which
+a link is added, and @samp{text} is the string that is displayed.
+
+
+@c .....................................
+
+@node @@linkplain
+@subsection @code{@{@@linkplain@}}
+@cindex @code{@{@@linkplain@}}
+
+Inserts an in-line link to another topic.  The link is displayed in plain-text
+font.  Otherwise it is similar to @code{@{@@link@}}.
+
+
+@c .....................................
+
+@node @@literal
+@subsection @code{@{@@literal@}}
+@cindex @code{@{@@literal@}}
+
+The @code{@{@@literal@}} tag enables you to embed text into a comment.  That
+text is then displayed as-is, without any further processing, such as HTML
+rendering.  It has the following syntax:
+
+@display
+@{@@literal @samp{description}@}
+@end display
+
+
+Here, @samp{description} is the text that is embedded.
+
+
+@c .....................................
+
+@node @@param
+@code{@@param}
+@cindex @code{@@param}
+
+The @code{@@param} tag documents a parameter.  It has the following syntax:
+
+@display
+@@param @samp{parameter-name explanation}
+@end display
+
+Here, @samp{paramter-name} specifies the name of a parameter.  That meaning of
+that parameter is described by @samp{explanation}.  The @code{@@param} tag can
+be used only in documentation for a method or constructor, or a generic class
+or interface.
+
+
+@c .....................................
+
+@node @@provides
+@subsection @code{@@provides}
+@cindex @code{@@provides}
+
+The @code{@@provides} tag documents a service provided by a module.  It has the
+following syntax:
+
+@display
+@@provides @samp{type explanation}
+@end display
+
+Here, @samp{type} specifies a service provider type and @samp{explanation}
+describes the service provider.
+
+
+@c .....................................
+
+@node @@return
+@subsection @code{@@return}
+@cindex @code{@@return}
+
+The @code{@@return} tag describes the return value of a method.  It has the
+following syntax:
+
+@display
+@@return @samp{explanation}
+@end display
+
+
+Here, @samp{explanation} describes the type and meaning of the value returned
+by a method.  The @code{@@return} tag can be used only in documentation for a
+method.
+
+
+@c .....................................
+
+@node @@see
+@subsection @code{@@see}
+@cindex @code{@@see}
+
+The @code{@@see} tag provides a reference to additional information.  Two
+commonly used forms are shown here:
+
+@display
+@@see @samp{anchor}
+@@see @samp{pkg.class#member text}
+@end display
+
+In the first form, @samp{anchor} is a link to an absolute or relative URL.  In
+the second form, @samp{pkg.class#member} specifies the name of the item, and
+@samp{text} is the text displayed for that item.  The text parameter is
+optional and if not used, then the item specified by @samp{pkg.class#member} is
+displayed.  The member name, too, is optional.  Thus, you can specify a
+reference to a package, class, or interface in addition to a refernce to a
+specific method or field.  The name can be fully qualified or partially
+qualified.  However, the dot that precedes the member name (if it exists) must
+be replaced by a hash character.
+
+
+@c .....................................
+
+@node @@serial
+@subsection @code{@@serial}
+@cindex @code{@@serial}
+
+The @code{@@serial} tag defines the comment for a default serializable field.
+It has the following syntax:
+
+@display
+@@serial @samp{description}
+@end display
+
+
+@samp{description} is the comment for that field.
+
+
+@c .....................................
+
+@node @@serialData
+@subsection @code{@@serialData}
+@cindex @code{@@serialData}
+
+The @code{@@serialData} tag documents the data written by the
+@code{writeObject()} and @code{writeExternal()} methods.  It has the following
+syntax:
+
+@display
+@@serialData @samp{description}
+@end display
+
+
+@samp{description} is the comment for that data.
+
+
+@c .....................................
+
+@node @@serialField
+@subsection @code{@@serialField}
+@cindex @code{@@serialField}
+
+For a class that implements @file{Serializable}, the @code{@@serialField} tag
+provides comments for an @file{ObjectStreamField} component.  It has the
+following syntax:
+
+@display
+@@serialField @samp{name type description}
+@end display
+
+
+@samp{name} is the name of the field, @samp{type} is its type, and
+@samp{description} is the comment for that field.
+
+
+@c .....................................
+
+@node @@since
+@subsection @code{@@since}
+@cindex @code{@@since}
+
+The @code{@@since} tag states that an element was introduced in a specific
+release.  It has the following syntax:
+
+@display
+@@since @samp{release}
+@end display
+
+
+@samp{release} is a string that designates the release or version in which this
+feature became available.
+
+
+@c .....................................
+
+@node @@throws
+@subsection @code{@@throws}
+@cindex @code{@@throws}
+
+The @code{@@throws} tag has the same meaning as the @code{@@exception} tag.
+
+
+@c .....................................
+
+@node @@uses
+@subsection @code{@@uses}
+@cindex @code{@@uses}
+
+The @code{@@uses} tag documents a service provider neede by a module.  It has
+the following syntax:
+
+@display
+@@uses @samp{type explanation}
+@end display
+
+
+@samp{type} specifies a service provider type and @samp{explanation} describes
+the service.
+
+
+@c .....................................
+
+@node @@value
+@subsection @code{@{@@value@}}
+@cindex @code{@{@@value@}}
+
+@code{@{@@value@}} has two forms.  The first displays the value of the constant
+that it precedes, which must be a @code{static} field.  It has this form:
+
+@display
+@{@@value@}
+@end display
+
+The second form displays the value of a specified @code{static} field.  It has
+the form:
+
+@display
+@{@@value @samp{pkg.class#field}@}
+@end display
+
+@samp{pkg.class#field} specifies the name of the @code{static} field.
+
+
+@c .....................................
+
+@node @@version
+@subsection @code{@@version}
+@cindex @code{@@version}
+
+The @code{@@version} tag specifies the version information, typically a version
+number, such as 2.2.  You will need to specify the @code{-version} option when
+executing @file{javadoc} in order for the @code{@@version} field to be included
+in the HTML documentation.
+
+
+
+
+@c -----------------------------------------------------------------------------
+
+@node Documentation Comment General Form
+@section The General Form of a Documentation Comment
+@cindex Documentation Comment general form
+
+After the beginning @kbd{/**}, the first line or lines become the main
+description of your class, interface, field, constructor, method, or module.
+After that, you can include one or more the various @@ tags.  Each @@ tag must
+start at the beginning of a new line or follow one or more asterisks (@kbd{**})
+that are at the start of a line.  Multiple tags of the same type should be
+grouped together.  In-line tags (thse that being with a brace (@kbd{@{}) can be
+used within any description.
+
+
+
+
+@c -----------------------------------------------------------------------------
+
+@node What @file{javadoc} Outputs
+@section What @file{javadoc} Outputs
+@cindex @file{javadoc} output
+
+The @file{javadoc} program takes as input your Java program's source file and
+outputs several HTML files that contain the program's documentation.
+Information about each class will be in its own HTML file.  @file{javadoc} will
+also output an index and a hierarchy tree.  Other HTML files can be generated.
+Beginning with JDK 9, a search box feature is also included.
+
+
+
+
+@c -----------------------------------------------------------------------------
+
+@node Documentation Comments Example
+@section An Example that Uses Documentatation Comments
+@cindex documentation comments example
+
+Following is a sample program that uses documentation comments.  Notice the way
+each comment immediately precedes the item that it describes.  After begin
+processed by @file{javadoc}, the documentation about the @file{SquareNum} class
+will be found in @file{SquareNum.html}.
+
+
+@subheading @file{SquareNum.java}
+
+@need 400
+@anchor{SquareNum-java}
+@crindex @r{<@i{Import java.io}>}, use
+@crindex @r{<@i{SquareNum---SquareNum Class}>}, use
+@cdindex @r{@{@file{SquareNum.java}@}}, definition
+@noindent
+@r{@{@file{SquareNum.java}@}} @equiv{}
+@example
+@r{<@i{Import java.io}>}
+
+@r{<@i{SquareNum---SquareNum Class}>}
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{Import java.io}>} @tab See @ref{Import-java-io}.
+@item @r{<@i{SquareNum---SquareNum Class}>} @tab See @ref{SquareNum---SquareNum-Class}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c .....................................
+
+@menu
+* SquareNum---SquareNum Class::
+* SquareNum---square() Method::
+* SquareNum---getNumber() Method::
+* SquareNum---main() Method::
+@end menu
+
+@node SquareNum---SquareNum Class
+@subsection SquareNum---SquareNum Class
+
+@need 400
+@anchor{SquareNum---SquareNum-Class}
+@crindex @r{<@i{SquareNum---SquareNum Class--Documentation}>}, use
+@crindex @r{<@i{SquareNum---SquareNum Class--Body}>}, use
+@cdindex @r{<@i{SquareNum---SquareNum Class}>}, definition
+@noindent
+@r{<@i{SquareNum---SquareNum Class}>} @equiv{}
+@example
+@r{<@i{SquareNum---SquareNum Class--Documentation}>}
+@r{<@i{SquareNum---SquareNum Class--Body}>}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{@{@file{SquareNum.java}@}}; see its first definition at @ref{SquareNum-java}.
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{SquareNum---SquareNum Class--Body}>} @tab See @ref{SquareNum---SquareNum-Class--Body}.
+@item @r{<@i{SquareNum---SquareNum Class--Documentation}>} @tab See @ref{SquareNum---SquareNum-Class--Documentation}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@menu
+* SquareNum---SquareNum Class--Documentation::
+@end menu
+
+@node SquareNum---SquareNum Class--Documentation
+@subsubsection SquareNum---SquareNum Class--Documentation
+
+@need 400
+@anchor{SquareNum---SquareNum-Class--Documentation}
+@cdindex @r{<@i{SquareNum---SquareNum Class--Documentation}>}, definition
+@noindent
+@r{<@i{SquareNum---SquareNum Class--Documentation}>} @equiv{}
+@example
+/**
+   This class demonstrates documentation comments.
+   @@author Herbert Schildt
+   @@version 1.2
+ */
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---SquareNum Class}>}; see its first definition at @ref{SquareNum---SquareNum-Class}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@subsubheading SquareNum---SquareNum Class--Body
+
+@need 400
+@anchor{SquareNum---SquareNum-Class--Body}
+@crindex @r{<@i{SquareNum---square() Method}>}, use
+@crindex @r{<@i{SquareNum---getNumber() Method}>}, use
+@crindex @r{<@i{SquareNum---main() Method}>}, use
+@cdindex @r{<@i{SquareNum---SquareNum Class--Body}>}, definition
+@noindent
+@r{<@i{SquareNum---SquareNum Class--Body}>} @equiv{}
+@example
+public class SquareNum @{
+  @r{<@i{SquareNum---square() Method}>}
+  @r{<@i{SquareNum---getNumber() Method}>}
+  @r{<@i{SquareNum---main() Method}>}
+@}
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---SquareNum Class}>}; see its first definition at @ref{SquareNum---SquareNum-Class}.
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{SquareNum---getNumber() Method}>} @tab See @ref{SquareNum---getNumber---Method}.
+@item @r{<@i{SquareNum---main() Method}>} @tab See @ref{SquareNum---main---Method}.
+@item @r{<@i{SquareNum---square() Method}>} @tab See @ref{SquareNum---square---Method}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+
+@c .....................................
+
+@node SquareNum---square() Method
+@subsection SquareNum---square() Method
+
+@need 400
+@anchor{SquareNum---square---Method}
+@crindex @r{<@i{SquareNum---square() Method--Documentation}>}, use
+@crindex @r{<@i{SquareNum---square() Method--Body}>}, use
+@cdindex @r{<@i{SquareNum---square() Method}>}, definition
+@noindent
+@r{<@i{SquareNum---square() Method}>} @equiv{}
+@example
+  @r{<@i{SquareNum---square() Method--Documentation}>}
+  @r{<@i{SquareNum---square() Method--Body}>}
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---SquareNum Class--Body}>}; see its first definition at @ref{SquareNum---SquareNum-Class--Body}.
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{SquareNum---square() Method--Body}>} @tab See @ref{SquareNum---square---Method--Body}.
+@item @r{<@i{SquareNum---square() Method--Documentation}>} @tab See @ref{SquareNum---square---Method--Documentation}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@menu
+* SquareNum---square() Method Doc and Body::
+@end menu
+
+@node SquareNum---square() Method Doc and Body
+@subsubheading SquareNum---square() Method Doc and Body
+
+@subsubheading SquareNum---square() Method--Documentation@
+
+@need 400
+@anchor{SquareNum---square---Method--Documentation}
+@cdindex @r{<@i{SquareNum---square() Method--Documentation}>}, definition
+@noindent
+@r{<@i{SquareNum---square() Method--Documentation}>} @equiv{}
+@example
+/**
+   This method returns the square of num.
+   This is a multiline description.  You can use
+   as many lines as you like.
+   @@param num The value to be squared.
+   @@return num squared.
+ */
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---square() Method}>}; see its first definition at @ref{SquareNum---square---Method}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@subsubheading SquareNum---square() Method--Body
+
+@need 400
+@anchor{SquareNum---square---Method--Body}
+@cdindex @r{<@i{SquareNum---square() Method--Body}>}, definition
+@noindent
+@r{<@i{SquareNum---square() Method--Body}>} @equiv{}
+@example
+  public double square(double num) @{
+    return num * num;
+  @}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---square() Method}>}; see its first definition at @ref{SquareNum---square---Method}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@c .....................................
+
+@node SquareNum---getNumber() Method
+@subsection SquareNum---getNumber() Method
+
+@need 400
+@anchor{SquareNum---getNumber---Method}
+@crindex @r{<@i{SquareNum---getNumber() Method--Documentation}>}, use
+@crindex @r{<@i{SquareNum---getNumber() Method--Body}>}, use
+@cdindex @r{<@i{SquareNum---getNumber() Method}>}, definition
+@noindent
+@r{<@i{SquareNum---getNumber() Method}>} @equiv{}
+@example
+  @r{<@i{SquareNum---getNumber() Method--Documentation}>}
+  @r{<@i{SquareNum---getNumber() Method--Body}>}
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---SquareNum Class--Body}>}; see its first definition at @ref{SquareNum---SquareNum-Class--Body}.
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{SquareNum---getNumber() Method--Body}>} @tab See @ref{SquareNum---getNumber---Method--Body}.
+@item @r{<@i{SquareNum---getNumber() Method--Documentation}>} @tab See @ref{SquareNum---getNumber---Method--Documentation}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@c _____________________________________
+
+@menu
+* SquareNum---getNumber() Method Doc and Body::
+@end menu
+
+@node SquareNum---getNumber() Method Doc and Body
+@subsubsection SquareNum---getNumber() Method Doc and Body
+
+@subsubheading SquareNum---getNumber() Method--Documentation
+
+@need 400
+@anchor{SquareNum---getNumber---Method--Documentation}
+@cdindex @r{<@i{SquareNum---getNumber() Method--Documentation}>}, definition
+@noindent
+@r{<@i{SquareNum---getNumber() Method--Documentation}>} @equiv{}
+@example
+/**
+   This method inputs a number from the user.
+   @@return The value input as a double.
+   @@exception IOException On input error.
+   @@see IOException
+ */
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---getNumber() Method}>}; see its first definition at @ref{SquareNum---getNumber---Method}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@subsubheading SquareNum---getNumber() Method--Body
+
+@need 400
+@anchor{SquareNum---getNumber---Method--Body}
+@cdindex @r{<@i{SquareNum---getNumber() Method--Body}>}, definition
+@noindent
+@r{<@i{SquareNum---getNumber() Method--Body}>} @equiv{}
+@example
+public double getNumber() throws IOException @{
+  // create a BufferedReader using System.in
+  InputStreamReader isr = new InputStreamReader (System.in);
+  BufferedReader inData = new BufferedReader(isr);
+  String str;
+
+  str = inData.readline();
+  return (new Double(str)).doubleValue();
+@}
+
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---getNumber() Method}>}; see its first definition at @ref{SquareNum---getNumber---Method}.
+@iftex
+@textfonts @rm
+@end iftex
+
+
+@c .....................................
+
+@node SquareNum---main() Method
+@subsection SquareNum---main() Method
+
+@need 400
+@anchor{SquareNum---main---Method}
+@crindex @r{<@i{SquareNum---main() Method--Documentation}>}, use
+@crindex @r{<@i{SquareNum---main() Method--Body}>}, use
+@cdindex @r{<@i{SquareNum---main() Method}>}, definition
+@noindent
+@r{<@i{SquareNum---main() Method}>} @equiv{}
+@example
+  @r{<@i{SquareNum---main() Method--Documentation}>}
+  @r{<@i{SquareNum---main() Method--Body}>}
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---SquareNum Class--Body}>}; see its first definition at @ref{SquareNum---SquareNum-Class--Body}.
+
+@noindent
+The following table lists called chunk definition points.
+@multitable @columnfractions .35 .65
+@headitem Chunk name @tab First definition point
+@item @r{<@i{SquareNum---main() Method--Body}>} @tab See @ref{SquareNum---main---Method--Body}.
+@item @r{<@i{SquareNum---main() Method--Documentation}>} @tab See @ref{SquareNum---main---Method--Documentation}.
+@end multitable
+@iftex
+@textfonts @rm
+@end iftex
+
+@subsubheading SquareNum---main() Method--Documentation
+
+@need 400
+@anchor{SquareNum---main---Method--Documentation}
+@cdindex @r{<@i{SquareNum---main() Method--Documentation}>}, definition
+@noindent
+@r{<@i{SquareNum---main() Method--Documentation}>} @equiv{}
+@example
+/**
+   This method demonstrates square().
+   @@param args Unused.
+   @@exception IOException On input error.
+   @@see IOException
+ */
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---main() Method}>}; see its first definition at @ref{SquareNum---main---Method}.
+@iftex
+@textfonts @rm
+@end iftex
+
+@subsubheading SquareNum---main() Method--Body
+
+@need 400
+@anchor{SquareNum---main---Method--Body}
+@cdindex @r{<@i{SquareNum---main() Method--Body}>}, definition
+@noindent
+@r{<@i{SquareNum---main() Method--Body}>} @equiv{}
+@example
+public static void main(String[] args) @{
+  SquareNum ob = new SquareNum();
+  double val;
+
+  System.out.println("Enter value to be squared: ");
+  val = ob.getNumber();
+  val = ob.square(val);
+
+  System.out.println("Square value is " + val);
+@}
+@end example
+@iftex
+@smallfonts @rm
+@end iftex
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---main() Method}>}; see its first definition at @ref{SquareNum---main---Method}.
+@iftex
+@textfonts @rm
+@end iftex
+
+
+
+
+
+
+
+
+@c *****************************************************************************
+
+@node Java Web Start
+@appendix An Overview of Java Web Start
+@cindex Java Web Start
+
+
+
+
+
+
+
+@c *****************************************************************************
+
+@node JShell
+@appendix Introducing JShell
+@cindex JShell
+
+
+
+
+
+
+
+
+@c *****************************************************************************
+
+@node Applet Basics
+@appendix Applet Basics
+@cindex Applet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@part MAKEFILE
 
 
 
@@ -13846,6 +15116,9 @@ This chunk is defined in
 @item @r{@{@file{SpliteratorDemo.java}@}}
 This chunk is defined in
 @ref{SpliteratorDemo-java}.
+@item @r{@{@file{SquareNum.java}@}}
+This chunk is defined in
+@ref{SquareNum-java}.
 @item @r{@{@file{Stack.java}@}}
 This chunk is defined in
 @ref{Stack-java}.
@@ -14224,6 +15497,42 @@ This chunk is defined in
 @item @r{<@i{SpliteratorDemo---Use tryAdvance() to Display Contents}>}
 This chunk is defined in
 @ref{SpliteratorDemo---Use-tryAdvance---to-Display-Contents}.
+@item @r{<@i{SquareNum---SquareNum Class}>}
+This chunk is defined in
+@ref{SquareNum---SquareNum-Class}.
+@item @r{<@i{SquareNum---SquareNum Class--Body}>}
+This chunk is defined in
+@ref{SquareNum---SquareNum-Class--Body}.
+@item @r{<@i{SquareNum---SquareNum Class--Documentation}>}
+This chunk is defined in
+@ref{SquareNum---SquareNum-Class--Documentation}.
+@item @r{<@i{SquareNum---getNumber() Method}>}
+This chunk is defined in
+@ref{SquareNum---getNumber---Method}.
+@item @r{<@i{SquareNum---getNumber() Method--Body}>}
+This chunk is defined in
+@ref{SquareNum---getNumber---Method--Body}.
+@item @r{<@i{SquareNum---getNumber() Method--Documentation}>}
+This chunk is defined in
+@ref{SquareNum---getNumber---Method--Documentation}.
+@item @r{<@i{SquareNum---main() Method}>}
+This chunk is defined in
+@ref{SquareNum---main---Method}.
+@item @r{<@i{SquareNum---main() Method--Body}>}
+This chunk is defined in
+@ref{SquareNum---main---Method--Body}.
+@item @r{<@i{SquareNum---main() Method--Documentation}>}
+This chunk is defined in
+@ref{SquareNum---main---Method--Documentation}.
+@item @r{<@i{SquareNum---square() Method}>}
+This chunk is defined in
+@ref{SquareNum---square---Method}.
+@item @r{<@i{SquareNum---square() Method--Body}>}
+This chunk is defined in
+@ref{SquareNum---square---Method--Body}.
+@item @r{<@i{SquareNum---square() Method--Documentation}>}
+This chunk is defined in
+@ref{SquareNum---square---Method--Documentation}.
 @item @r{<@i{Stack Constructor}>}
 This chunk is defined in
 @ref{Stack-Constructor}.
@@ -14587,6 +15896,7 @@ This chunk is called by the following chunks:
 @item @r{@{@file{ShowFileAlt.java}@}} @tab See @ref{ShowFileAlt-java}.
 @item @r{@{@file{ShowFileSingleTry}@}} @tab See @ref{ShowFileSingleTry}.
 @item @r{@{@file{ShowFileTryWR.java}@}} @tab See @ref{ShowFileTryWR-java}.
+@item @r{@{@file{SquareNum.java}@}} @tab See @ref{SquareNum-java}.
 @end multitable
 @item @r{<@i{Import java.io.File}>}
 
@@ -14868,6 +16178,54 @@ This chunk is called by @r{@{@file{SpliteratorDemo.java}@}}; see its first defin
 
 @noindent
 This chunk is called by @r{@{@file{SpliteratorDemo.java}@}}; see its first definition at @ref{SpliteratorDemo-java}.
+@item @r{<@i{SquareNum---SquareNum Class}>}
+
+@noindent
+This chunk is called by @r{@{@file{SquareNum.java}@}}; see its first definition at @ref{SquareNum-java}.
+@item @r{<@i{SquareNum---SquareNum Class--Body}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---SquareNum Class}>}; see its first definition at @ref{SquareNum---SquareNum-Class}.
+@item @r{<@i{SquareNum---SquareNum Class--Documentation}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---SquareNum Class}>}; see its first definition at @ref{SquareNum---SquareNum-Class}.
+@item @r{<@i{SquareNum---getNumber() Method}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---SquareNum Class--Body}>}; see its first definition at @ref{SquareNum---SquareNum-Class--Body}.
+@item @r{<@i{SquareNum---getNumber() Method--Body}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---getNumber() Method}>}; see its first definition at @ref{SquareNum---getNumber---Method}.
+@item @r{<@i{SquareNum---getNumber() Method--Documentation}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---getNumber() Method}>}; see its first definition at @ref{SquareNum---getNumber---Method}.
+@item @r{<@i{SquareNum---main() Method}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---SquareNum Class--Body}>}; see its first definition at @ref{SquareNum---SquareNum-Class--Body}.
+@item @r{<@i{SquareNum---main() Method--Body}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---main() Method}>}; see its first definition at @ref{SquareNum---main---Method}.
+@item @r{<@i{SquareNum---main() Method--Documentation}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---main() Method}>}; see its first definition at @ref{SquareNum---main---Method}.
+@item @r{<@i{SquareNum---square() Method}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---SquareNum Class--Body}>}; see its first definition at @ref{SquareNum---SquareNum-Class--Body}.
+@item @r{<@i{SquareNum---square() Method--Body}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---square() Method}>}; see its first definition at @ref{SquareNum---square---Method}.
+@item @r{<@i{SquareNum---square() Method--Documentation}>}
+
+@noindent
+This chunk is called by @r{<@i{SquareNum---square() Method}>}; see its first definition at @ref{SquareNum---square---Method}.
 @item @r{<@i{Stack Constructor}>}
 
 @noindent
