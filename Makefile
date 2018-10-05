@@ -1,6 +1,6 @@
 ROOT := /usr/local/dev/programming/Java/JavaSE9
 FILENAME := JavaSE9
-AUX := {aux,cps,fns,log,toc}
+AUX := {aux,cps,fns,log,toc,pgs}
 .PHONY: all
 all: tangle weave
 
