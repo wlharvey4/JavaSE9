@@ -57,6 +57,660 @@ This file documents Outline Covering Java SE 9.
 * Function Index::
 * Program Index::
 
+ -- The Detailed Node Listing --
+
+Classes
+
+* Class Fundamentals::
+* Declaring Objects::
+* Methods::
+* Constructors::
+* this Keyword::
+* Stack Class::
+
+Class Fundamentals
+
+* General Form::
+
+The 'this' Keyword
+
+* Instance Variable Hiding::
+
+TestStack.java
+
+* Stack Instance Variables::
+* Stack Constructor Node::
+* Stack Instance Methods Node::
+* Stack TestStack Node::
+
+Stack Instance Methods Subsection
+
+* Stack Push and Pop Node::
+
+Methods and Classes
+
+* Overloading Methods::
+* Objects as Parameters::
+* Argument Passing::
+* Returning Objects::
+* Recursion::
+* Access Control::
+* static Keyword::
+* final Keyword::
+* Arrays 2::
+* Nested and Inner Classes::
+* String Class::
+* Command-Line Arguments::
+* Varargs::
+
+Overloading Methods
+
+* Overloading Constructors::
+
+Access Control and Inheritance
+
+* Improved Stack Class::
+
+Inheritance
+
+* Inheritance Basics::
+* Using super::
+* Multilevel Hierarchy::
+* Constructors Executed::
+* Method Overriding::
+* Dynamic Method Dispatch::
+* Using Abstract Classes::
+* final with Inheritance::
+* Object Class::
+
+General Form of a Subclass Inheriting a Superclass
+
+* Member Access and Inheritance::
+* Superclass Referencing Subclass::
+
+Using 'super'
+
+* super Calling Superclass Constructor::
+* super Referencing Superclass::
+
+Dynamic Method Dispatch
+
+* Why Overridden Methods::
+* Applying Method Overriding::
+
+Output
+
+* FindAreas SuperClass Figure Node::
+* FindAreas SubClass Rectangle Node::
+* FindAreas SubClass Triangle Node::
+* FindAreas Main Class Node::
+
+Abstract Classes Can Be Reference Variables
+
+* Improved Figure Class::
+
+Improved Figure Class
+
+* AbstractAreas Abstract Class Figure Node::
+* AbstractAreas Main Class::
+
+Using 'final' with Inheritance
+
+* final to Prevent Overriding::
+* final to Prevent Inheritance::
+
+Packages
+
+* Packages Intro::
+* Defining Packages::
+* Classpath::
+* Member Access::
+* Importing::
+
+Interfaces
+
+* Defining Interfaces::
+* Implementing Interfaces::
+* Interface References::
+* Partial Implementations::
+* Nested Interfaces::
+* Applying Interfaces::
+* Variables in Interfaces::
+* Extending Interfaces::
+* Default Interface Methods::
+* Interface Static Methods::
+* Private Interface Methods::
+
+I/O
+
+* I/O Basics::
+* Reading Console Input::
+* Writing Console Output::
+* PrintWriter Class::
+* Reading and Writing Files::
+* Automatically Closing Files::
+
+I/O Basics
+
+* Streams::
+* Byte Streams Character Streams::
+
+Byte Streams and Character Streams
+
+* Byte Stream Class::
+* Character Stream Class::
+* Predefined Streams::
+
+'System.in' Wrapped in 'BufferedReader'
+
+* Reading Characters::
+* Reading Strings::
+
+Program Demonstrating Reading Characters from Console
+
+* Import java.io::
+* BRRead BufferedReader Constructor Node::
+* BRRead Enter Characters Node::
+
+Program Demonstrating Reading a String from Console
+
+* BRReadLines BufferedReader Constructor::
+* BRReadLines Enter Lines::
+
+The PrintWriter Class
+
+* PrinterWriter Constructors::
+* Demonstration Using PrintWriter::
+* PrintWriter Concluding Comments::
+
+Demonstration Using a 'PrintWriter' for Console Output
+
+* PrintWriterDemo PrintWriter Constructor::
+* PrintWriterDemo Printing To Console::
+
+Reading and Writing Files
+
+* FileInputStream and FileOutputStream::
+* Demonstration Reading From a File::
+* Demonstration Reading From File with Single try::
+* Demonstration Writing to a File::
+
+Demonstration Reading From a File
+
+* ShowFile Initial Comments::
+* ShowFile Instance Variable Declarations::
+* ShowFile Open a File::
+* ShowFile Read a File::
+* ShowFile Close a File::
+* close() Within finally::
+
+Demonstration Reading From a File with a Single 'try' Block
+
+* ShowFileSingleTry Additional Initial Comment::
+* ShowFileSingleTry Read a File::
+
+Demonstration Writing to a File
+
+* CopyFile Initial Comments::
+* CopyFile Instance Variable Declarations::
+* CopyFile Check for 2 Files::
+* CopyFile Copy a File::
+
+Multiple Resources
+
+* Demonstration of Automatically Closing a File::
+* Demonstration of Multiple Resources::
+
+Demonstration of Automatically Closing a File
+
+* ShowFileTryWR Initial Comments::
+* ShowFileTryWR Instance Variable Declarations::
+* ShowFileTryWR Check CL Args::
+* ShowFileTryWR Open a File TryWR::
+
+Demonstration of Multiple Resources
+
+* CopyFileMultTryWR Initial Comments::
+* CopyFileMultTryWR Manage Two Files::
+
+Miscellaneous Java Keywords
+
+* transient and volatile Modifiers::
+* Using instanceof::
+* strictfp::
+* Native Methods::
+* Using assert::
+* Static Import::
+* Overloaded Constructors with this::
+* Compact API Profiles::
+
+Generics
+
+* Motivation::
+* What are Generics::
+* Simple Generics Example::
+* Notes about Generics::
+* Two Type Parameters::
+* Generic Class General Form::
+* Bounded Types::
+* Wildcard Arguments::
+* Generic Methods::
+* Generic Constructors::
+
+A Simple Generics Example
+
+* Class Gen<T>::
+* Class GenDemo::
+
+Class GenDemo
+
+* GenDemo as Integer::
+* GenDemo as String::
+
+Notes About Generics
+
+* Reference Types::
+* Type Arguments::
+* Subtyping::
+* Type Safety::
+
+A Generic Class with Two Type Parameters
+
+* Two Types Example Code::
+
+Example of Code with Two Type Parameters
+
+* Class TwoGen::
+* Class SimpGen::
+
+Using Wildcard Arguments
+
+* Wildcard Motivation::
+* Wildcard Syntax::
+* Bounded Wildcards::
+
+Generalized Form
+
+* Example of Generic Method::
+
+Example of Generic Method
+
+* Method isIn::
+* GenMethDemo Main::
+
+Enumerations
+
+* Enumeration Basics::
+* Enum Methods::
+* Enumerations as Class Types::
+* Inherit Enum::
+
+'java.lang' includes the following interfaces
+
+* Primitive Wrappers::
+* Iterable Interface::
+
+Primitive Type Wrappers
+
+* Number::
+* Double and Float::
+* isInfinite() and isNaN()::
+* Byte Short Integer Long::
+* Numbers to from String::
+
+Collections Framework
+
+* Collections Overview::
+* Collection Interfaces::
+* Collection Classes::
+* Accessing a Collection via Iterator::
+* Spliterators::
+* Storing User-Defined Classes::
+* RandomAccess Interface::
+* Working with Maps::
+* Comparators::
+* Collection Algorithms::
+* Arrays Class::
+* Legacy Classes and Interfaces::
+
+Optional Interface Methods -- Modifiable Collections
+
+* Collection Interface::
+* List Interface::
+* Set Interface::
+* SortedSed Interface::
+* NavigableSet Interface::
+* Queue Interface::
+* Dequeue Interface::
+
+Accessing a Collection via an Interator
+
+* Using an Iterator::
+* ForEach Alternative to Iterators::
+
+Iterator Example
+
+* Import java.util::
+* IteratorDemo---Create an Array List::
+* IteratorDemo---Use Iterator To Display Contents of Array List::
+* IteratorDemo---Modify Objects Being Iterated::
+* IteratorDemo---Use ListIterator to Display Modified Contents::
+* IteratorDemo---Display the List Backwards::
+
+Example Using a 'for' Loop
+
+* ForEachDemo---Create an Array List For Integers::
+* ForEachDemo---Use for Loop to Display the Values::
+* ForEachDemo---Sum the Values by Using a for Loop::
+
+Spliterators
+
+* Spliterator Methods::
+* Using Spliterator for Iteration::
+* Spliterator Characteristics::
+* Spliterator Subinterfaces::
+
+Example Using 'Spliterator' for Iteration
+
+* SpliteratorDemo---Create an Array List for Doubles::
+* SpliteratorDemo---Use tryAdvance() to Display Contents::
+* SpliteratorDemo---Create New List::
+* SpliteratorDemo---Use forEachRemaining() to Display Contents::
+
+Input/Output -- Exploring 'java.io'
+
+* I/O Classes and Interfaces::
+* File::
+* AutoCloseable Closeable Flushable Interfaces::
+* I/O Exceptions::
+* Closing a Stream::
+* Stream Classes::
+* Byte Streams::
+* Character Streams::
+* Console Class::
+* Serialization::
+* Stream Benefits::
+
+I/O Classes and Interfaces
+
+* I/O Classes::
+* I/O Interfaces::
+
+Examples Creating Files and Directories
+
+* File Methods::
+* File Utility Methods::
+* Directories::
+* Examine Directory Contents::
+* FilenameFilter::
+* Example Using FilenameFilter Interface::
+* listFiles() Alternative::
+* Creating Directories::
+
+Using 'list()' to Examine Directory Contents
+
+* Import java.io.File::
+* DirList Instance Variable Declarations::
+* DirList Examine Directory Contents::
+* Examine Directory Contents For-Loop::
+* DirList Obtain Directory From Command-Line Args::
+
+DirListOnly Class
+
+* DirListOnly FilenameFilter Object::
+* DirListOnly FilenameFilter Object List::
+* DirListOnly Print List::
+* OnlyExt Instance Variable Declarations::
+* OnlyExt Constructor::
+* OnlyExt Accept Method Implementation::
+
+The Byte Streams
+
+* InputStream::
+* OutputStream::
+* FileInputStream::
+* FileOutputStream::
+* ByteArrayInputStream::
+* ByteArrayOutputStream::
+* Filtered Byte Streams::
+* Buffered Byte Streams::
+* SequenceInputStream::
+* PrintStream::
+* DataOutputStream DataInputStream::
+* RandomAccessFile::
+
+'InputStream'
+
+* InputStream Methods::
+
+'OutputStream'
+
+* OutputStream Methods::
+
+Buffered Byte Streams
+
+* BufferedInputStream::
+* Buffered Input Example::
+* BufferedInputStreamDemo Instance Variables::
+* BufferedInputStreamDemo TryWithResources BufferedInputStream::
+* BufferedInputStreamDemo While Loop::
+* BufferedInputStreamDemo Switch on Character::
+* BufferedInputStreamDemo String Into Buffer::
+* BufferedInputStreamDemo Buffer::
+* BufferedInputStreamDemo ByteArrayInputStream::
+* BufferedInputStreamDemo Utility Variables::
+* BufferedOutputStream::
+* PushbackInputStream::
+
+The Character Streams
+
+* Reader::
+* Writer::
+* FileReader::
+* FileWriter::
+* CharArrayReader::
+* CharArrayWriter::
+* BufferedReader::
+* Buffered Reader Demo::
+* BufferedWriter::
+* PushbackReader::
+* PrintWriter::
+
+Example Reading Lines From a File
+
+* FileReaderDemo TryWithResources FileReader::
+* Catch IOException::
+
+Buffered Reader Demo
+
+* BufferedReaderDemo Instance Variables::
+* BufferedReaderDemo Buffer::
+* BufferedReaderDemo TryWithResources BufferedReader::
+
+Serialization
+
+* Serializable::
+* Externalizable::
+* ObjectOutput::
+* ObjectOutputStream::
+* ObjectInput::
+* ObjectInputStream::
+* Serializable Example::
+
+Drawbacks of Reflection
+
+* java.lang.reflect Package::
+* Classes and Reflection::
+* Members and Reflection::
+* Arays and Enumerated Types and Reflection::
+
+'java.lang.reflect' Package
+
+* Classes Defined in java.lang.reflect::
+* Interfaces Defined in java.lang.reflect::
+* Reflection Demonstration::
+
+ReflectionDemo1.java
+
+* Import java.lang.reflect::
+* ReflectionDemo1---Class forName() Call::
+* ReflectionDemo1---getConstructors() Call::
+* ReflectionDemo1---getFields() Call::
+* ReflectionDemo1---getMethods() Call::
+* Catch Exception::
+
+Classes and Reflection
+
+* java.lang.Class::
+* Retrieving Class Objects::
+* Examining Class Modifiers::
+* Discovering Class Members::
+
+'java.lang.Class'
+
+* Class Constructor::
+
+Retrieving Class Objects
+
+* Object.getClass::
+* .class Syntax::
+* Class.forName() and Class.getName() Methods::
+* TYPE Field for Primitive Wrappers::
+* Methods that Return Classes::
+
+Note about Members and the Specification
+
+* reflect Fields::
+* reflect Methods::
+* reflect Constructors::
+
+'reflect.Constructors'
+
+* Finding Constructors::
+* Constructor Modifiers::
+* Creating New Class Instances::
+
+Arrays and Enumerate Types and Reflection
+
+* Arrays and Reflection::
+* Enumerate Types and Reflection::
+
+Arrays and Reflection
+
+* Identifying Array Types::
+* Creating New Arrays::
+* Getting and Setting Arrays::
+
+Enumerated Types and Reflection
+
+* Enumerated Types Reflection::
+
+Using Java's Documentation Comments
+
+* javadoc Documentation Tags::
+* Documentation Comment General Form::
+* What javadoc Outputs::
+* Documentation Comments Example::
+* javadoc Tool::
+* javadoc Command::
+
+'javadoc' Documentation Tags
+
+* @author::
+* @code::
+* @deprecated::
+* @docRoot::
+* @exception::
+* @hidden::
+* @index::
+* @inheritDoc::
+* @link::
+* @linkplain::
+* @literal::
+* @provides::
+* @return::
+* @see::
+* @serial::
+* @serialData::
+* @serialField::
+* @since::
+* @throws::
+* @uses::
+* @value::
+* @version::
+
+'SquareNum.java'
+
+* SquareNum---SquareNum Class::
+* SquareNum---square() Method::
+* SquareNum---getNumber() Method::
+* SquareNum---main() Method::
+
+SquareNum--SquareNum Class
+
+* SquareNum---SquareNum Class--Documentation::
+
+SquareNum--square() Method
+
+* SquareNum---square() Method Doc and Body::
+
+SquareNum--getNumber() Method
+
+* SquareNum---getNumber() Method Doc and Body::
+
+Javadoc Features
+
+* Javadoc Search::
+* Javadoc Module System::
+* Simplified Doclet API::
+
+'javadoc' Command
+
+* Javadoc Doclets::
+* Standard Doclet::
+* Examples Javadoc Command::
+
+@files
+
+* Description::
+* Conformance::
+* Process Source Files::
+* Processing Links::
+* Processing Details::
+* Customizing javadoc Output with Doclets::
+* Doclet Core Options::
+
+The Makefile
+
+* Makefile Constants::
+* Makefile Defaults::
+* Make the Makefile::
+* Makefile Tangle Weave::
+* Makefile PDF::
+* Makefile HTML::
+* Makefile Clean Targets::
+
+Makefile PDF
+
+* Makefile MAKEPDF::
+
+Makefile MAKEPDF
+
+* Makefile OPENPDF::
+
+Makefile Clean Targets
+
+* Makefile Clean ::
+* Makefile DistClean::
+* Makefile WorldClean::
+
+Code Chunk Summaries
+
+* File Definitions::            Source files by definition.
+* Code Chunk Definitions::      Code chunks by definition.
+* Code Chunk References::       Code chunks by reference.
+
+
 
 File: JavaSE9.info,  Node: Java SE 9 Introduction,  Next: Classes,  Prev: Top,  Up: Top
 
@@ -8175,378 +8829,3 @@ returns a 'Stream' reference to the sequence of lines read by the
 reader.  ('Stream' is part of the stream API discussed in *note
 Streams API::.
 
-
-File: JavaSE9.info,  Node: Buffered Reader Demo,  Next: BufferedWriter,  Prev: BufferedReader,  Up: Character Streams
-
-15.8.8 Buffered Reader Demo
----------------------------
-
-This example reworks the 'BufferedInputStream' example (*note Buffered
-Input Example::) so that it uses a 'BufferedReader' character stream
-rather than a buffered byte stream.  It uses the 'mark()' and
-'reset()' methods to parse a stream for the HTML-entity reference for
-the copyright symbol.  Such a reference begins with an ampersand ('&')
-and ends with a semicolon (';') without any intervening whitespace.
-The sample has two ampersands to show the case where the 'reset()'
-happens and where it does not.
-
-=============================================================================
-
-{'BufferedReaderDemo.java'} ==
-     <Import java.io>
-     class BufferedReaderDemo {
-       public static void main (String[] args) throws IOException {
-
-         <BufferedReaderDemo Instance Variables>
-
-         <BufferedReaderDemo TryWithResources BufferedReader>
-         <Catch IOException>
-
-       }
-     }
-
-
-The following table lists called chunk definition points.
-Chunk name                First definition point
--------------------------------------------------------------------------
-<BufferedReaderDemo       See
-Instance Variables>       *note BufferedReaderDemo-Instance-Variables::.
-<BufferedReaderDemo       See
-TryWithResources          *note BufferedReaderDemo-TryWithResources-BufferedReader::.
-BufferedReader>
-<Catch IOException>       See *note Catch-IOException::.
-<Import java.io>          See *note Import-java-io::.
-
-* Menu:
-
-* BufferedReaderDemo Instance Variables::
-* BufferedReaderDemo Buffer::
-* BufferedReaderDemo TryWithResources BufferedReader::
-
-
-File: JavaSE9.info,  Node: BufferedReaderDemo Instance Variables,  Next: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
-
-15.8.8.1 BufferedReaderDemo Instance Variables
-..............................................
-
-The String is copied directly from the prior implementation.
-
-=========================================================================
-
-<BufferedReaderDemo Instance Variables> ==
-     <BufferedInputStreamDemo String>
-     <BufferedReaderDemo Buffer>
-
-
-This chunk is called by {'BufferedReaderDemo.java'}; see its first
-definition at *note BufferedReaderDemo-java::.
-
-The following table lists called chunk definition points.
-Chunk name                First definition point
--------------------------------------------------------------------------
-<BufferedInputStreamDemo  See *note BufferedInputStreamDemo-String::.
-String>
-<BufferedReaderDemo       See *note BufferedReaderDemo-Buffer::.
-Buffer>
-
-
-File: JavaSE9.info,  Node: BufferedReaderDemo Buffer,  Next: BufferedReaderDemo TryWithResources BufferedReader,  Prev: BufferedReaderDemo Instance Variables,  Up: Buffered Reader Demo
-
-15.8.8.2 BufferedReaderDemo Buffer
-..................................
-
-Notice that this implementation uses a 'char' buffer, with a
-'getChars()' method to transfer the string characters, while the
-'BufferedInputStream' implementation uses a 'byte' buffer, and a
-'getBytes()' method to transfer the string bytes.  *Note
-BufferedInputStreamDemo Buffer::.
-
-=========================================================================
-
-<BufferedReaderDemo Buffer> ==
-     char buf[] = new char[s.length()];
-     s.getChars(0, s.length(), buf, 0);
-
-
-This chunk is called by <BufferedReaderDemo Instance Variables>; see
-its first definition at *note BufferedReaderDemo-Instance-Variables::.
-
-
-File: JavaSE9.info,  Node: BufferedReaderDemo TryWithResources BufferedReader,  Prev: BufferedReaderDemo Buffer,  Up: Buffered Reader Demo
-
-15.8.8.3 BufferedReaderDemo TryWithResources BufferedReader
-...........................................................
-
-Notice that the Switch code is identical to the byte stream example.
-
-==========================================================================
-
-<BufferedReaderDemo TryWithResources BufferedReader> ==
-     try ( BufferedReader f = new BufferedReader(in) ) {
-       while ( (c = f.read()) != -1 ) {
-         <BufferedInputStreamDemo Switch on Character>
-       }
-     }
-
-
-This chunk is called by {'BufferedReaderDemo.java'}; see its first
-definition at *note BufferedReaderDemo-java::.
-
-The called chunk <BufferedInputStreamDemo Switch on Character> is
-first defined at *note BufferedInputStreamDemo-Switch-on-Character::.
-
-
-File: JavaSE9.info,  Node: BufferedWriter,  Next: PushbackReader,  Prev: Buffered Reader Demo,  Up: Character Streams
-
-15.8.9 'BufferedWriter'
------------------------
-
-A 'BufferedWriter' is a 'Writer' that buffers output.  Using a
-'BufferedWriter' can improve performance by reducing the number of
-times data is actually phyiscally written to the output device.  A
-'BufferedWriter' has these constructors:
-
-     BufferedWriter (Writer outputStream)
-     BufferedWriter (Writer outputStream, int bufSize)
-
-
-File: JavaSE9.info,  Node: PushbackReader,  Next: PrintWriter,  Prev: BufferedWriter,  Up: Character Streams
-
-15.8.10 'PushbackReader'
-------------------------
-
-
-File: JavaSE9.info,  Node: PrintWriter,  Prev: PushbackReader,  Up: Character Streams
-
-15.8.11 'PrintWriter'
----------------------
-
-
-File: JavaSE9.info,  Node: Console Class,  Next: Serialization,  Prev: Character Streams,  Up: java.io --- Input/Output
-
-15.9 The Console Class
-======================
-
-
-File: JavaSE9.info,  Node: Serialization,  Next: Stream Benefits,  Prev: Console Class,  Up: java.io --- Input/Output
-
-15.10 Serialization
-===================
-
-"Serialization" is the process of writing the state of an object to a
-byte stream.  This is useful when you want to save the state of your
-program to a persistent storage area, such as a file.  At a later
-time, you may restore these objects by using the process of
-deserialization.
-
-   Assume that an object to be serialized has references to other
-objects, which, in turn, have references to still more objects.  This
-set of objects and the relationships among them form a directed graph.
-There may also be circular references within this object graph.
-Objects may also contain references to themselves.  The object
-serialization and deserialization facilities have been designed to
-work correctly in these scenarios.  If you attempt to serialize an
-object at the top of an object graph, all of the other referenced
-objects are recurseively located and serialized.  Similarly, during
-the process of deserialization, all of these objects and their
-references are correctly restored.
-
-* Menu:
-
-* Serializable::
-* Externalizable::
-* ObjectOutput::
-* ObjectOutputStream::
-* ObjectInput::
-* ObjectInputStream::
-* Serializable Example::
-
-
-File: JavaSE9.info,  Node: Serializable,  Next: Externalizable,  Up: Serialization
-
-15.10.1 'Serializable'
-----------------------
-
-Only an object that implements the 'Serializable' interface can be
-saved and restored by the serialization facilities.  The
-'Serializable' interface defines no members.  It is simply used to
-indicate that a class may be serialized.  If a class is serializable,
-all of its subclasses are also serializable.
-
-   Variables that are declared as 'transient' are not saved by the
-serialization facilities.  Also 'static' variables are not saved.
-
-
-File: JavaSE9.info,  Node: Externalizable,  Next: ObjectOutput,  Prev: Serializable,  Up: Serialization
-
-15.10.2 'Externalizable'
-------------------------
-
-The Java facilities for serialization and deserialization have been
-designed so that much of the work to save and restore the state of an
-object occurs automatically.  However, there are cases in which the
-programmer may need to have control over these processes.  The
-'Externalizable' interface is designed for these sitautions.
-
-   The 'Externalizable' interface defines these two methods:
-
-     void readExternal (ObjectInput inStream) throws IOException, ClassNotFoundException
-     void writeExternal (ObjectOutput outStream throws IOException
-
-
-File: JavaSE9.info,  Node: ObjectOutput,  Next: ObjectOutputStream,  Prev: Externalizable,  Up: Serialization
-
-15.10.3 'ObjectOutput'
-----------------------
-
-
-File: JavaSE9.info,  Node: ObjectOutputStream,  Next: ObjectInput,  Prev: ObjectOutput,  Up: Serialization
-
-15.10.4 'ObjectOutputStream'
-----------------------------
-
-
-File: JavaSE9.info,  Node: ObjectInput,  Next: ObjectInputStream,  Prev: ObjectOutputStream,  Up: Serialization
-
-15.10.5 'ObjectInput'
----------------------
-
-
-File: JavaSE9.info,  Node: ObjectInputStream,  Next: Serializable Example,  Prev: ObjectInput,  Up: Serialization
-
-15.10.6 'ObjectInputStream'
----------------------------
-
-
-File: JavaSE9.info,  Node: Serializable Example,  Prev: ObjectInputStream,  Up: Serialization
-
-15.10.7 A Serializable Example
-------------------------------
-
-
-File: JavaSE9.info,  Node: Stream Benefits,  Prev: Serialization,  Up: java.io --- Input/Output
-
-15.11 Stream Benefits
-=====================
-
-
-File: JavaSE9.info,  Node: java.nio --- NIO,  Next: Networking,  Prev: java.io --- Input/Output,  Up: Top
-
-16 Exploring NIO
-****************
-
-
-File: JavaSE9.info,  Node: Networking,  Next: Event Handling,  Prev: java.nio --- NIO,  Up: Top
-
-17 Networking
-*************
-
-
-File: JavaSE9.info,  Node: Event Handling,  Next: AWT,  Prev: Networking,  Up: Top
-
-18 Event Handling
-*****************
-
-
-File: JavaSE9.info,  Node: AWT,  Next: AWT Controls,  Prev: Event Handling,  Up: Top
-
-19 AWT: Working with Windows, Graphics, and Text
-************************************************
-
-
-File: JavaSE9.info,  Node: AWT Controls,  Next: Images,  Prev: AWT,  Up: Top
-
-20 Using AWT Controls, Layout Managers, and Menus
-*************************************************
-
-
-File: JavaSE9.info,  Node: Images,  Next: Concurrency,  Prev: AWT Controls,  Up: Top
-
-21 Images
-*********
-
-
-File: JavaSE9.info,  Node: Concurrency,  Next: Streams API,  Prev: Images,  Up: Top
-
-22 The Concurrency Utilities
-****************************
-
-
-File: JavaSE9.info,  Node: Streams API,  Next: Regular Expressions,  Prev: Concurrency,  Up: Top
-
-23 The Stream API
-*****************
-
-
-File: JavaSE9.info,  Node: Regular Expressions,  Next: Reflection,  Prev: Streams API,  Up: Top
-
-24 Regular Expressions
-**********************
-
-
-File: JavaSE9.info,  Node: Reflection,  Next: Introducing Swing,  Prev: Regular Expressions,  Up: Top
-
-25 Reflection
-*************
-
-"Reflection" is the ability of software to analyze or modify itself at
-runtime rather than at compile time.  This is provided by the
-'java.lang.reflect' package and elements in 'Class'.  Beginning with
-JDK 9, 'java.lang.reflect' is part of the 'java.base' module.
-Reflection allows you to analyze a software component and describe its
-capabilities dynamcically at run-time rather than at compile time.
-For example, by using reflection, you can determine what methods,
-constructors, and fields a class supports.
-
-Drawbacks of Reflection
-=======================
-
-Because reflection is dynamic, the java virtual machine is unable to
-make certain optimizations and could therefor run slower.  Also, since
-reflection allows code to perform operations that would be illegal in
-non-reflective code, such as accessing private fields and methods, the
-use of reflection can result in unexpected behavior.  Reflection
-breaks abstractions.
-
-* Menu:
-
-* java.lang.reflect Package::
-* Classes and Reflection::
-* Members and Reflection::
-* Arays and Enumerated Types and Reflection::
-
-
-File: JavaSE9.info,  Node: java.lang.reflect Package,  Next: Classes and Reflection,  Up: Reflection
-
-25.1 'java.lang.reflect' Package
-================================
-
-This package provides classes and interfaces for obtaining reflective
-information about classes and objects.  Reflection allows programmatic
-access to information about the fields, methods and constructors of
-loaded classes, and the use of reflected fields, methods, and
-constructors to operate on their underlying counterparts, within
-encapsulation and security restrictions.
-
-   The package 'java.lang.reflect' includes several interfaces.  Of
-special interest is 'Member', which defines methods that allow you to
-get information abouta field, constructor, or method of a class.
-There are also ten classes in this package.
-
-   Classes in this package, along with java.lang.Class accommodate
-applications such as debuggers, interpreters, object inspectors, class
-browsers, and services such as Object Serialization and JavaBeans that
-need access to either the public members of a target object (based on
-its runtime class) or the members declared by a given class.
-
-   Note that none of the classes in 'java.lang.reflect' offer any
-public constructors.  All reflection interactions must go through
-'java.lang.Class'.  Note also that 'java.lang.Class' does not offer
-any public constructors.  Instances of this class are created by the
-Java Virtual Machine.
-
-* Menu:
-
-* Classes Defined in java.lang.reflect::
-* Interfaces Defined in java.lang.reflect::
-* Reflection Demonstration::

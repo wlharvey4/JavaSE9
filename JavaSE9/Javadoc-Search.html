@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Javadoc Search (About Java SE 9)</title>
+
+<meta name="description" content="Javadoc Search (About Java SE 9)">
+<meta name="keywords" content="Javadoc Search (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="javadoc-Tool.html#javadoc-Tool" rel="up" title="javadoc Tool">
+<link href="Javadoc-Module-System.html#Javadoc-Module-System" rel="next" title="Javadoc Module System">
+<link href="javadoc-Tool.html#javadoc-Tool" rel="prev" title="javadoc Tool">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Javadoc-Search"></a>
+<div class="header">
+<p>
+Next: <a href="Javadoc-Module-System.html#Javadoc-Module-System" accesskey="n" rel="next">Javadoc Module System</a>, Up: <a href="javadoc-Tool.html#javadoc-Tool" accesskey="u" rel="up">javadoc Tool</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Javadoc-Search-1"></a>
+<h4 class="subsection">A.5.1 Javadoc Search</h4>
+<a name="index-Javadoc-search"></a>
+
+<p>The <code>javadoc</code> tool runs the doclet that may generate output. The
+standard doclet generates output that lets you search the generated
+documentation. A search box is available on the generated APIs and provides the
+following:
+</p>
+<ul>
+<li> You can search for elements and additional key phrases defined in the API
+</li><li> Results, including results that exactly match the entered characters followed by
+results that contains the entered characters anywhere in the string.  Multiple
+results with different program element names are displayed if the search term or
+a phrase is inherited using the @inheritDoc tag.  Results are categorized as
+follows, for easier classification and appropriate user selection:
+<ul>
+<li> Modules
+</li><li> Packages
+</li><li> Types
+</li><li> Members
+</li><li> Search Tags
+</li></ul>
+</li><li> Page redirection based on user selection.
+</li></ul>
+
+<p>You can search for the following:
+</p>
+<ul>
+<li> <b>Declared names of modules, packages, types, and members.</b>  Because methods
+can be overloaded, the simple names of method parameter types are also indexed
+and can be searched for.  The method parameter names canât be indexed.
+</li><li> <b>A search term or a phrase indexed using a new inline tag, @index.</b>  You can
+only search a phrase or search term marked with @index within a declaration&rsquo;s
+<code>javadoc</code> comment.   Tagging is achieved using {@index ulps}.
+</li></ul>
+
+
+
+
+
+
+</body>
+</html>
