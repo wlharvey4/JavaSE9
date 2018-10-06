@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Overview Comment Files (About Java SE 9)</title>
+
+<meta name="description" content="Overview Comment Files (About Java SE 9)">
+<meta name="keywords" content="Overview Comment Files (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Javadoc-Source-Files.html#Javadoc-Source-Files" rel="up" title="Javadoc Source Files">
+<link href="Unprocessed-Files.html#Unprocessed-Files" rel="next" title="Unprocessed Files">
+<link href="Class-Source-Files.html#Class-Source-Files" rel="prev" title="Class Source Files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Overview-Comment-Files"></a>
+<div class="header">
+<p>
+Next: <a href="Unprocessed-Files.html#Unprocessed-Files" accesskey="n" rel="next">Unprocessed Files</a>, Previous: <a href="Class-Source-Files.html#Class-Source-Files" accesskey="p" rel="prev">Class Source Files</a>, Up: <a href="Javadoc-Source-Files.html#Javadoc-Source-Files" accesskey="u" rel="up">Javadoc Source Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Overview-Comment-Files-1"></a>
+<h4 class="appendixsubsec">B.2.2 Overview Comment Files</h4>
+<a name="index-Overview-Comment-Files"></a>
+
+<p>Each application or set of packages that youâre documenting can have its own
+overview documentation comment that&rsquo;s kept in its own source file, which the
+<code>javadoc</code> tool then merges into the generated overview page.  You
+typically include in this comment any documentation that applies to the entire
+application or set of packages.
+</p>
+<p>You can name the file anything that you want, such as <samp>overview.html</samp> and
+place it anywhere.  A typical location is at the top of the source tree.
+</p>
+<p>For example, if the source files for the java.math package are contained in the
+/home/user/src/java/math directory, then you could create an overview comment
+file in <samp>/home/user/src/overview.html</samp>.
+</p>
+<p>You can have multiple overview comment files for the same set of source files in
+case you want to run the <code>javadoc</code> tool multiple times on different sets
+of packages.  For example, you could run the <code>javadoc</code> tool once with
+<samp>-private</samp> option for internal documentation and again without that
+option for public documentation.  In this case, you could describe the
+documentation as public or internal in the first sentence of each overview
+comment file.
+</p>
+<a name="Overview-Comment-File-Content"></a>
+<h4 class="subsubheading">Overview Comment File Content</h4>
+<a name="index-overview-comment-content"></a>
+
+<p>The content of the overview comment file is one big documentation comment that&rsquo;s
+written in HTML.  Make the first sentence a summary about the application or set
+of packages.  Don&rsquo;t put a title or any other text between the <code>&lt;body&gt;</code> tag
+and the first sentence.  All tags, except inline tags, such as an
+<code>{@link}</code> tag, must appear after the main description.  If you add
+an <code>@see</code> tag, then it must have a fully qualified name.
+</p>
+<a name="Processing-Overview-Comment-File"></a>
+<h4 class="subsubheading">Processing Overview Comment File</h4>
+<a name="index-overview-comment-file_002c-processing"></a>
+
+<p>When you run the <code>javadoc</code> tool, specify the overview comment file name
+with the <samp>-overview</samp> option.  The file is then processed similarly to
+that of a package comment file.  The <code>javadoc</code> tool does the following:
+</p>
+<ul>
+<li> Copies all content between the <code>&lt;body&gt;</code> and <code>&lt;/body&gt;</code> tags for
+processing.
+</li><li> Processes the overview tags that are present.
+</li><li> Inserts the processed text at the bottom of the generated overview page.
+</li><li> Copies the first sentence of the overview comment to the top of the overview
+summary page.
+</li></ul>
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Unprocessed-Files.html#Unprocessed-Files" accesskey="n" rel="next">Unprocessed Files</a>, Previous: <a href="Class-Source-Files.html#Class-Source-Files" accesskey="p" rel="prev">Class Source Files</a>, Up: <a href="Javadoc-Source-Files.html#Javadoc-Source-Files" accesskey="u" rel="up">Javadoc Source Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

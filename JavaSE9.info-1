@@ -9,6 +9,7 @@ General Introduction
 
 This file documents Outline Covering Java SE 9.
 
+   javadocmn
 * Menu:
 
 * Java SE 9 Introduction::
@@ -44,7 +45,8 @@ This file documents Outline Covering Java SE 9.
 * Introducing JavaFX Menus::
 * Java Beans::
 * Servlets::
-* javadoc::
+* Documentation Comments::
+* Javadoc Guide::
 * Java Web Start::
 * JShell::
 * Applet Basics::
@@ -611,8 +613,6 @@ Using Java's Documentation Comments
 * Documentation Comment General Form::
 * What javadoc Outputs::
 * Documentation Comments Example::
-* javadoc Tool::
-* javadoc Command::
 
 'javadoc' Documentation Tags
 
@@ -658,11 +658,34 @@ SquareNum--getNumber() Method
 
 * SquareNum---getNumber() Method Doc and Body::
 
+Javadoc Guide
+
+* javadoc Tool::
+* Javadoc Source Files::
+* javadoc Command::
+
+Using the 'javadoc' Tool
+
+* Javadoc Features::
+
 Javadoc Features
 
 * Javadoc Search::
 * Javadoc Module System::
 * Simplified Doclet API::
+
+Javadoc Source Files
+
+* Class Source Files::
+* Overview Comment Files::
+* Unprocessed Files::
+* Test and Template Files::
+* Processing the Package Comment File::
+
+Test and Template Files
+
+* Test Files::
+* Template Files::
 
 'javadoc' Command
 
@@ -677,8 +700,12 @@ Javadoc Features
 * Process Source Files::
 * Processing Links::
 * Processing Details::
-* Customizing javadoc Output with Doclets::
+* Customizing javadoc Output with Javadoc Doclets::
+* Javadoc Doclet Options::
 * Doclet Core Options::
+* Using the Link Option::
+* Using the Tag Option::
+* javadoc Command-Line Argument Files::
 
 The Makefile
 
@@ -8788,44 +8815,4 @@ dependent on the file already existing.  'FileWriter' will create the
 file before opening it for output when you create the object.  In the
 case where you attept to open a read-only file, an 'IOException' will
 be thrown.
-
-
-File: JavaSE9.info,  Node: CharArrayReader,  Next: CharArrayWriter,  Prev: FileWriter,  Up: Character Streams
-
-15.8.5 'CharArrayReader'
-------------------------
-
-
-File: JavaSE9.info,  Node: CharArrayWriter,  Next: BufferedReader,  Prev: CharArrayReader,  Up: Character Streams
-
-15.8.6 'CharArrayWriter'
-------------------------
-
-
-File: JavaSE9.info,  Node: BufferedReader,  Next: Buffered Reader Demo,  Prev: CharArrayWriter,  Up: Character Streams
-
-15.8.7 'BufferedReader'
------------------------
-
-'BufferedReader' improves performance by buffering input.  It has two
-constructors:
-
-     BufferedReader (Reader inputStream)
-     BufferedReader (Reader inputStream, int bufSize)
-
-   The first form creates a buffered character stream using a default
-buffer size.  In the second, the size of the buffer is passed in
-bufSize.  Closing a 'BufferedReader' also causes the underlying stream
-specified by inputStream to be closed.
-
-   Buffering an input character stream provides the foundation
-required to support moving backward in the stream within the available
-buffer.  To support this, 'BufferedReader' implements the 'mark()' and
-'reset()' methods, and 'BufferedReader.markSupported()' returns
-'true'.
-
-   JDK 8 added a new method to 'BufferedReader' called 'lines()'.  It
-returns a 'Stream' reference to the sequence of lines read by the
-reader.  ('Stream' is part of the stream API discussed in *note
-Streams API::.
 

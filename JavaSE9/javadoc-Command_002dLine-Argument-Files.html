@@ -3,10 +3,10 @@
 <!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Processing Links (About Java SE 9)</title>
+<title>javadoc Command-Line Argument Files (About Java SE 9)</title>
 
-<meta name="description" content="Processing Links (About Java SE 9)">
-<meta name="keywords" content="Processing Links (About Java SE 9)">
+<meta name="description" content="javadoc Command-Line Argument Files (About Java SE 9)">
+<meta name="keywords" content="javadoc Command-Line Argument Files (About Java SE 9)">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -14,8 +14,8 @@
 <link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
 <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="Javadoc-Doclets.html#Javadoc-Doclets" rel="up" title="Javadoc Doclets">
-<link href="Processing-Details.html#Processing-Details" rel="next" title="Processing Details">
-<link href="Process-Source-Files.html#Process-Source-Files" rel="prev" title="Process Source Files">
+<link href="Standard-Doclet.html#Standard-Doclet" rel="next" title="Standard Doclet">
+<link href="Using-the-Tag-Option.html#Using-the-Tag-Option" rel="prev" title="Using the Tag Option">
 <style type="text/css">
 <!--
 a.summary-letter {text-decoration: none}
@@ -48,30 +48,27 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<a name="Processing-Links"></a>
+<a name="javadoc-Command_002dLine-Argument-Files"></a>
 <div class="header">
 <p>
-Next: <a href="Processing-Details.html#Processing-Details" accesskey="n" rel="next">Processing Details</a>, Previous: <a href="Process-Source-Files.html#Process-Source-Files" accesskey="p" rel="prev">Process Source Files</a>, Up: <a href="Javadoc-Doclets.html#Javadoc-Doclets" accesskey="u" rel="up">Javadoc Doclets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="Using-the-Tag-Option.html#Using-the-Tag-Option" accesskey="p" rel="prev">Using the Tag Option</a>, Up: <a href="Javadoc-Doclets.html#Javadoc-Doclets" accesskey="u" rel="up">Javadoc Doclets</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
 </div>
 <hr>
-<a name="Processing-Links-1"></a>
-<h4 class="subsubsection">B.3.1.4 Processing Links</h4>
+<a name="javadoc-Command_002dLine-Argument-Files-1"></a>
+<h4 class="appendixsubsubsec">B.3.1.11 <code>javadoc</code> Command-Line Argument Files</h4>
+<a name="index-javadoc-Command_002dLine-Argument-Files"></a>
 
-<p>During a run, the <code>javadoc</code> command adds cross-reference links to
-package, class, and member names that are being documented as part of that
-run.  Links appear in the following places:
+<p>To shorten or simplify the <code>javadoc</code> command, you specify one or more
+files that contain arguments to the <code>javadoc</code> command (except <samp>-J</samp>
+options).  This lets you to create <code>javadoc</code> commands of any length on
+any operating system.
 </p>
-<ul>
-<li> Declarations (return types, argument types, and field types)
-</li><li> See Also sections that are generated from @see tags
-</li><li> Inline text generated from {@link} tags
-</li><li> Exception names generated from @throws tags
-</li><li> &lsquo;<samp>Specified by</samp>&rsquo; links to interface members and &lsquo;<samp>Overrides</samp>&rsquo; links to
-class members
-</li><li> Summary tables listing packages, classes, and members
-</li><li> Package and class inheritance trees
-</li><li> The index
-</li></ul>
+<p>When you run the <code>javadoc</code> command, pass the path and name of each
+argument file with the <code>@</code> leading character. When the <code>javadoc</code>
+command encounters an argument beginning with the <code>@</code> character, it
+expands the contents of that file into the argument list.
+</p>
+
 
 
 

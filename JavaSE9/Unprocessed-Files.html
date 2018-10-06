@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Unprocessed Files (About Java SE 9)</title>
+
+<meta name="description" content="Unprocessed Files (About Java SE 9)">
+<meta name="keywords" content="Unprocessed Files (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Javadoc-Source-Files.html#Javadoc-Source-Files" rel="up" title="Javadoc Source Files">
+<link href="Test-and-Template-Files.html#Test-and-Template-Files" rel="next" title="Test and Template Files">
+<link href="Overview-Comment-Files.html#Overview-Comment-Files" rel="prev" title="Overview Comment Files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Unprocessed-Files"></a>
+<div class="header">
+<p>
+Next: <a href="Test-and-Template-Files.html#Test-and-Template-Files" accesskey="n" rel="next">Test and Template Files</a>, Previous: <a href="Overview-Comment-Files.html#Overview-Comment-Files" accesskey="p" rel="prev">Overview Comment Files</a>, Up: <a href="Javadoc-Source-Files.html#Javadoc-Source-Files" accesskey="u" rel="up">Javadoc Source Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Unprocessed-Files-1"></a>
+<h4 class="appendixsubsec">B.2.3 Unprocessed Files</h4>
+<a name="index-Comment-Files_002c-unprocessed-files"></a>
+<a name="index-unprocessed-files_002c-Comment-Files"></a>
+
+<p>Your source files can include any files that you want the <code>javadoc</code> tool
+to copy to the destination directory.  These files usually include graphic
+files, example Java source and class files, and self standing HTML files with a
+lot of content that would overwhelm the documentation comment of a typical Java
+source file.
+</p>
+<a name="Including-Unprocessed-Files"></a>
+<h4 class="subsubheading">Including Unprocessed Files</h4>
+<a name="index-unprocessed-files_002c-including"></a>
+<a name="index-doc_002dfiles-directory"></a>
+
+<p>To include unprocessed files, put them in a directory called <samp>doc-files</samp>.
+The <samp>doc-files</samp> directory can be a subdirectory of any package directory
+that contains source files.  You can have one <samp>doc-files</samp> subdirectory for
+each package.
+</p>
+<a name="Example-Unprocessed-Files"></a>
+<h4 class="subsubheading">Example Unprocessed Files</h4>
+<a name="index-unprocessed-files_002c-example"></a>
+
+<p>For example, if you want to include the image of a button in the
+<samp>java.awt.Button</samp> class documentation, then place the image file in the
+<samp>/home/user/src/java/awt/doc-files/</samp> directory. Don&rsquo;t place the
+<samp>doc-files</samp> directory at <samp>/home/user/src/java/doc-files</samp>, because
+<samp>java</samp> isn&rsquo;t a package.  It doesn&rsquo;t contain any source files.
+</p>
+<p>All links to the unprocessed files must be included in the code because the
+<code>javadoc</code> tool doesn&rsquo;t look at the files.  The <code>javadoc</code> tool
+copies the directory and all of its contents to the destination.  The following
+example shows how the link in the <samp>Button.java</samp> documentation comment might
+look:
+</p>
+<div class="example">
+<pre class="example">/**
+ * &lt;p&gt; This button looks like this:&lt;/p&gt;
+ *  &lt;img src=&quot;doc-files/Button.gif&quot;/&gt;
+ */
+</pre></div>
+
+
+
+
+
+
+</body>
+</html>

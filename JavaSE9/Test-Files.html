@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Test Files (About Java SE 9)</title>
+
+<meta name="description" content="Test Files (About Java SE 9)">
+<meta name="keywords" content="Test Files (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Test-and-Template-Files.html#Test-and-Template-Files" rel="up" title="Test and Template Files">
+<link href="Template-Files.html#Template-Files" rel="next" title="Template Files">
+<link href="Test-and-Template-Files.html#Test-and-Template-Files" rel="prev" title="Test and Template Files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Test-Files"></a>
+<div class="header">
+<p>
+Next: <a href="Template-Files.html#Template-Files" accesskey="n" rel="next">Template Files</a>, Up: <a href="Test-and-Template-Files.html#Test-and-Template-Files" accesskey="u" rel="up">Test and Template Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Test-Files-1"></a>
+<h4 class="appendixsubsubsec">B.2.4.1 Test Files</h4>
+<a name="index-Test-Files_002c-Source-Files"></a>
+
+<p>If you want your test files to belong to either an unnamed package or to a
+package other than the package that the source files are in, then put the test
+files in a subdirectory underneath the source files and give the directory an
+invalid name.
+</p>
+<p>If you put the test files in the same directory with the source files and call
+the <code>javadoc</code> tool with a command-line argument that indicates its
+package name, then the test files cause warnings or errors.  If the files are in
+a subdirectory with an invalid name, then the test file directory is skipped and
+no errors or warnings are issued.
+</p>
+<p>For example, to add test files for source files in <samp>com.package1</samp>, put them
+in a subdirectory in an invalid package name.  The following directory name is
+invalid because it contains a hyphen: <samp>com/package1/test-files/</samp>.
+</p>
+<p>If your test files contain documentation comments, then you can set up a
+separate run of the <code>javadoc</code> tool to produce test file documentation by
+passing in their test source file names with wild cards, such as
+<samp>com/package1/test-files/*.java</samp>.
+</p>
+
+
+
+
+</body>
+</html>

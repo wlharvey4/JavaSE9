@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Processing the Package Comment File (About Java SE 9)</title>
+
+<meta name="description" content="Processing the Package Comment File (About Java SE 9)">
+<meta name="keywords" content="Processing the Package Comment File (About Java SE 9)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Javadoc-Source-Files.html#Javadoc-Source-Files" rel="up" title="Javadoc Source Files">
+<link href="javadoc-Command.html#javadoc-Command" rel="next" title="javadoc Command">
+<link href="Template-Files.html#Template-Files" rel="prev" title="Template Files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Processing-the-Package-Comment-File"></a>
+<div class="header">
+<p>
+Previous: <a href="Test-and-Template-Files.html#Test-and-Template-Files" accesskey="p" rel="prev">Test and Template Files</a>, Up: <a href="Javadoc-Source-Files.html#Javadoc-Source-Files" accesskey="u" rel="up">Javadoc Source Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Processing-the-Package-Comment-File-1"></a>
+<h4 class="appendixsubsec">B.2.5 Processing the Package Comment File</h4>
+<a name="index-Processing-the-Package-Comment-File"></a>
+<a name="index-Package-Comment-File_002c-processing"></a>
+
+<p>When the <code>javadoc</code> tool runs, it searches for the package comment file.
+If the package comment file is found, then the <code>javadoc</code> tool does the
+following:
+</p>
+<ul>
+<li> Copies the comment for processing.  For <samp>package.html</samp>, the
+<code>javadoc</code> tool copies all content between the <code>&lt;body&gt;</code> and
+<code>&lt;/body&gt;</code> HTML tags.  You can include a <code>&lt;head&gt;</code> section to put a
+<code>&lt;title&gt;</code> tag, source file copyright statement, or other information, but
+none of these appears in the generated documentation.
+</li><li> Processes the package tags.
+</li><li> Inserts the processed text at the bottom of the generated package summary page.
+</li><li> Copies the first sentence of the package comment to the top of the package
+summary page.  The <code>javadoc</code> tool also adds the package name and this
+first sentence to the list of packages on the overview page.
+</li><li> The end of the sentence is determined by the rules used for the end of the first
+sentence of class and member main descriptions.
+</li></ul>
+
+
+
+
+
+
+
+
+</body>
+</html>
