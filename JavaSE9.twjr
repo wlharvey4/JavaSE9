@@ -6568,7 +6568,7 @@ are called
 
 @c *****************************************************************************
 
-@node  java.io --- Input/Output
+@node java.io --- Input/Output
 @chapter Input/Output --- Exploring @file{java.io}
 @cindex @file{java.io}
 @cindex @file{java.nio}
@@ -11200,18 +11200,130 @@ command encounters an argument beginning with the @code{@@} character, it
 expands the contents of that file into the argument list.
 
 
-
 @c .....................................
 
 @node Standard Doclet
-@subsection Standard Doclet
+@appendixsubsec Standard Doclet
 @cindex Standard Doclet
+
+The Standard Doclet is the doclet provided by Oracle that produces Javadoc's
+default HTML-formatted API output.
+
+@c _____________________________________
+
+@node Javadoc Standard Doclet
+@appendixsubsubsec Javadoc Standard Doclet
+@cindex Standard Doclet
+
+Javadoc uses the Standard Doclet if no other doclet is specified using the
+Javadoc's @option{-doclet} option on the command line.  In JDK 9, the Doclet API
+has been updated to use newer, more powerful APIs, that can better represent all
+the recent new language features.  The Standard Doclet is updated to use this
+Doclet API.
+
+The Standard Doclet is the doclet provided by Oracle that produces Javadoc's
+default HTML-formatted API output.  The API Specification for the Java platform
+in this JDK documentation is an example of the Standard Doclet's output.
+
+@subsubheading Standard Doclet Options
+
+@table @option
+@item -author
+@item -bottom
+text
+@item -charset
+name
+@item -d
+directory
+@item -docencoding
+name
+@item -docfilessubdirs
+@item -doctitle
+title
+@item --excludedocfilessubdir
+name
+@item -footer
+html-code
+@item --frames
+@item -group
+name p1:p2
+@item -header
+header
+@item -helpfile
+path\filename
+@item -html4
+@item -html5
+@item -keywords
+@item -link
+URL
+@item -linkoffline
+url1 url2
+@item -linksource
+-nocomment
+@item -nodeprecated
+@item -nodeprecatedlist
+@item --no-frames
+@item -nohelp
+@item -noindex
+@item -nonavbar
+@item -noqualifier
+all |packagename1:packagename2...
+@item -nosince
+@item -notimestamp
+@item -notree
+@item -overview filename
+@item -serialwarn
+@item -sourcetab tablength
+@item -splitindex
+@item -stylesheet
+filename
+@item -tag
+tagname :Xaoptcmf:"taghead"
+@item -taglet
+class
+@item -tagletpath
+tagletpathlist
+@item -top
+@item -use
+@item -version
+@item -windowtitle
+title
+@item -Xdoclint
+@item -Xdoclint:(all|none|[-] group) )
+@item -Xdoclint
+option 
+@item --Xdoclint/package:([-])packages
+@item -Xdocrootparent
+url
+@end table
+
+
+@c _____________________________________
+
+@node Generated Files
+@subsubsection Generated Files
+@cindex generated files, standard doclet
+
+You use the @command{javadoc} command as a Standard Doclet that generates
+HTML-formatted documentation.
+
+The Standard Doclet generates the basic content, cross-reference, and support
+pages.  Each HTML page corresponds to a separate file.  The @command{javadoc}
+command generates two types of files.  The first type is named after classes and
+interfaces.  The second type contains hyphens (such as package-summary.html) to
+prevent conflicts with the first type of file.
+
+@subsubheading HTML Frames
+
+@subsubheading Generated File Structure
+
+@subsubheading Generated API Declarations
 
 
 @c .....................................
 
 @node Examples Javadoc Command
-@subsection Examples of Running the Javadoc Command
+@appendixsubsec Examples of Running the Javadoc Command
 @cindex examples javadoc command
 @cindex javadoc command examples
 

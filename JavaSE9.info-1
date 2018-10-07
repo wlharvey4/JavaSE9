@@ -9,7 +9,6 @@ General Introduction
 
 This file documents Outline Covering Java SE 9.
 
-   javadocmn
 * Menu:
 
 * Java SE 9 Introduction::
@@ -706,6 +705,11 @@ Test and Template Files
 * Using the Link Option::
 * Using the Tag Option::
 * javadoc Command-Line Argument Files::
+
+Standard Doclet
+
+* Javadoc Standard Doclet::
+* Generated Files::
 
 The Makefile
 
